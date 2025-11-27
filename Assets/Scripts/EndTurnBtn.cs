@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class EndTurnBtn : MonoBehaviour
 {
     [SerializeField] Sprite active;
     [SerializeField] Sprite inactive;
-    [SerializeField] Text btnText;
+    [SerializeField] TMP_Text btnText;
 
 
     void Start()

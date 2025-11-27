@@ -66,7 +66,7 @@ public class EntityManager : MonoBehaviour
 
     void EntityAlignment(bool isMine)
     {
-        float targetY = isMine ? -5.5f : 4.5f;
+        float targetY = isMine ? -3.33f : 2.88f;
         var targetEntities = isMine ? myEntities : otherEntities;
 
         for (int i = 0; i < targetEntities.Count; i++)
@@ -184,9 +184,7 @@ public class EntityManager : MonoBehaviour
         Sequence sequence = DOTween.Sequence()
             .Append(attacker.transform.DOMove(defender.originPos, 0.4f)).SetEase(Ease.InSine)
             .AppendCallback(() =>
-            {
-                attacker.Damaged(defender.attack);
-                defender.Damaged(attacker.attack);
+            {               
                 SpawnDamage(defender.attack, attacker.transform);
                 SpawnDamage(attacker.attack, defender.transform);
             })
@@ -196,7 +194,26 @@ public class EntityManager : MonoBehaviour
 
     void AttackCallback(params Entity[] entities)
     {
-        entities[0].GetComponent<Order>().SetMostFrontOrder(false);
+        Entity attacker = entities[0];
+        Entity defender = entities[1];
+
+        attacker.GetComponent<Order>().SetMostFrontOrder(false);
+
+        if (defender.isBossOrEmpty)
+        {
+            int damage = attacker.attack;
+            CardManager.Inst.DamageDeck(damage, defender.isMine);
+            return;
+        }
+
+        int attackerDamage = defender.attack;
+        int defenderDamage = attacker.attack;
+
+        attacker.Damaged(attackerDamage);
+        defender.Damaged(defenderDamage);
+
+        SpawnDamage(defenderDamage, defender.transform);
+        SpawnDamage(attackerDamage, attacker.transform);
 
         foreach (var entity in entities)
         {
@@ -219,26 +236,14 @@ public class EntityManager : MonoBehaviour
                     Destroy(entity.gameObject);
                 });
         }
-        StartCoroutine(CheckBossDie());
     }
 
     IEnumerator CheckBossDie()
     {
         yield return delay2;
 
-        if (myBossEntity.isDie)
-            StartCoroutine(GameManager.Inst.GameOver(false));
-
-        if (otherBossEntity.isDie)
-            StartCoroutine(GameManager.Inst.GameOver(true));
     }
 
-    public void DamageBoss(bool isMine, int damage)
-    {
-        var targetBossEntity = isMine ? myBossEntity : otherBossEntity;
-        targetBossEntity.Damaged(damage);
-        StartCoroutine(CheckBossDie());
-    }
 
     void ShowTargetPicker(bool isShow)
     {

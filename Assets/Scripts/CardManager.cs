@@ -4,13 +4,22 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using DG.Tweening;
+using TMPro;
 
 public class CardManager : MonoBehaviour
 {
     public static CardManager Inst { get; private set; }
     void Awake() => Inst = this;
 
-    [SerializeField] ItemSO itemSO;
+    [Header("Deck Data")]
+    [SerializeField] DeckSO myDeckSO;
+    [SerializeField] DeckSO enemyDeckSO;
+    [SerializeField] TMP_Text myDeckCountTMP;
+    [SerializeField] TMP_Text enemyDeckCountTMP;
+    List<Item> myDeck;
+    List<Item> enemyDeck;
+
+    [Header("Card Prefab & Positions")]
     [SerializeField] GameObject cardPrefab;
     [SerializeField] List<Card> myCards;
     [SerializeField] List<Card> otherCards;
@@ -20,51 +29,31 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform myCardRight;
     [SerializeField] Transform otherCardLeft;
     [SerializeField] Transform otherCardRight;
-    [SerializeField] ECardState eCardState;
+    [SerializeField] GameObject handZoomPanel;
+    [SerializeField] RectTransform zoomContent;
+    [SerializeField] Transform zoomRoot;
+
+    [Header("Graveyard")]
     [SerializeField] Transform myGraveyardParent;
     [SerializeField] Transform otherGraveyardParent;
     [SerializeField] Vector3 graveyardCardScale = new Vector3(1f, 1f, 1f);
 
+    enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
+    [SerializeField] ECardState eCardState;
 
-    List<Item> itemBuffer;
     Card selectCard;
     bool isMyCardDrag;
     bool onMyCardArea;
-    enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
+    bool cardClickedThisFrame = false;
+    public bool isZoomMode = false;
     int myPutCount;
 
-    public Item PopItem()
-    {
-        if (itemBuffer.Count == 0)
-            SetupItemBuffer();
-
-        Item item = itemBuffer[0];
-        itemBuffer.RemoveAt(0);
-        return item;
-    }
-
-    void SetupItemBuffer()
-    {
-        itemBuffer = new List<Item>(100);
-        for (int i = 0; i < itemSO.items.Length; i++)
-        {
-            Item item = itemSO.items[i];
-            for (int j = 0; j < item.percent; j++)
-                itemBuffer.Add(item);
-        }
-
-        for (int i = 0; i < itemBuffer.Count; i++)
-        {
-            int rand = Random.Range(i, itemBuffer.Count);
-            Item temp = itemBuffer[i];
-            itemBuffer[i] = itemBuffer[rand];
-            itemBuffer[rand] = temp;
-        }
-    }
+    // ---------------------------- 덱 셔플 세팅 ----------------------------
 
     void Start()
     {
-        SetupItemBuffer();
+        SetupDecks();
+
         TurnManager.OnAddCard += AddCard;
         TurnManager.OnTurnStarted += OnTurnStarted;
     }
@@ -75,6 +64,52 @@ public class CardManager : MonoBehaviour
         TurnManager.OnTurnStarted -= OnTurnStarted;
     }
 
+    void SetupDecks()
+    {
+        // 덱 생성
+        myDeck = new List<Item>(myDeckSO.deckItems);
+        enemyDeck = new List<Item>(enemyDeckSO.deckItems);
+
+        Shuffle(myDeck);
+        Shuffle(enemyDeck);
+
+        UpdateDeckCountUI();
+    }
+
+    void Shuffle(List<Item> deck)
+    {
+        for (int i = 0; i < deck.Count; i++)
+        {
+            int rand = Random.Range(i, deck.Count);
+            (deck[i], deck[rand]) = (deck[rand], deck[i]);
+        }
+    }
+
+    public void UpdateDeckCountUI()
+    {
+        if (myDeckCountTMP != null)
+            myDeckCountTMP.text = myDeck.Count.ToString();
+
+        if (enemyDeckCountTMP != null)
+            enemyDeckCountTMP.text = enemyDeck.Count.ToString();
+    }
+
+    // ---------------------------- 덱에서 카드 1장 뽑기 ----------------------------
+
+    public Item PopItem(bool isMine)
+    {
+        var deck = isMine ? myDeck : enemyDeck;
+
+        if (deck.Count == 0)
+            return null;
+
+        Item item = deck[0];
+        deck.RemoveAt(0);
+        return item;
+    }
+
+    // ---------------------------- 턴 관리 ----------------------------
+
     void OnTurnStarted(bool myTurn)
     {
         if (myTurn)
@@ -83,6 +118,29 @@ public class CardManager : MonoBehaviour
 
     void Update()
     {
+        if (isZoomMode)
+        {
+            // 이번 프레임에 마우스 왼쪽 버튼 눌림
+            if (Input.GetMouseButtonDown(0))
+            {
+                // 카드가 클릭된 프레임이 아니면 → 배경 클릭으로 보고 줌 종료
+                if (!cardClickedThisFrame)
+                {
+                    ExitZoomMode();
+                }
+
+                // 다음 프레임을 위해 플래그 리셋
+                cardClickedThisFrame = false;
+            }
+
+            // 줌 모드에선 아래 로직 막기
+            return;
+        }
+
+        // 줌 모드가 아닐 때는 항상 플래그 초기화
+        cardClickedThisFrame = false;
+
+        // 원래 드래그 / 카드 영역 감지 / 상태 설정
         if (isMyCardDrag)
             CardDrag();
 
@@ -91,19 +149,28 @@ public class CardManager : MonoBehaviour
     }
 
 
+    // ---------------------------- 카드 드로우 ----------------------------
+
     void AddCard(bool isMine)
     {
+        // 덱이 비었으면 드로우 스킵
+        var item = PopItem(isMine);
+        if (item == null)
+            return;
+
         Vector3 startPos = isMine || otherCardSpawnPoint == null
-        ? cardSpawnPoint.position
-        : otherCardSpawnPoint.position;
+            ? cardSpawnPoint.position
+            : otherCardSpawnPoint.position;
 
         var cardObject = Instantiate(cardPrefab, startPos, Utils.QI);
         var card = cardObject.GetComponent<Card>();
-        card.Setup(PopItem(), isMine);
+        card.Setup(item, isMine);
         (isMine ? myCards : otherCards).Add(card);
 
         SetOriginOrder(isMine);
         CardAlignment(isMine);
+
+        UpdateDeckCountUI();
     }
 
     void SetOriginOrder(bool isMine)
@@ -116,57 +183,150 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    // ---------------------------- 손패 정렬 ----------------------------
+
     void CardAlignment(bool isMine)
     {
-        List<PRS> originCardPRSs = new List<PRS>();
-        if (isMine)
-            originCardPRSs = RoundAlignment(myCardLeft, myCardRight, myCards.Count, 0.5f, Vector3.one * 0.3f);
-        else
-            originCardPRSs = RoundAlignment(otherCardLeft, otherCardRight, otherCards.Count, -0.5f, Vector3.one * 0.3f);
+        if (isZoomMode)
+            return;
 
+        List<PRS> originPRSList = new List<PRS>();
+
+        if (isMine)
+            originPRSList = RoundAlignment(myCardLeft, myCardRight, myCards.Count, 0.5f, Vector3.one * 0.3f);
+        else
+            originPRSList = RoundAlignment(otherCardLeft, otherCardRight, otherCards.Count, -0.5f, Vector3.one * 0.3f);
 
         var targetCards = isMine ? myCards : otherCards;
+
         for (int i = 0; i < targetCards.Count; i++)
         {
-            var targetCard = targetCards[i];
-
-            targetCard.originPRS = originCardPRSs[i];
-            targetCard.MoveTransform(targetCard.originPRS, true, 0.7f);
+            targetCards[i].originPRS = originPRSList[i];
+            targetCards[i].MoveTransform(targetCards[i].originPRS, true, 0.7f);
         }
     }
 
-    List<PRS> RoundAlignment(Transform leftTr, Transform rightTr, int objCount, float height, Vector3 scale)
+    List<PRS> RoundAlignment(Transform leftTr, Transform rightTr, int count, float height, Vector3 scale)
     {
-        float[] objLerps = new float[objCount];
-        List<PRS> results = new List<PRS>(objCount);
+        float[] lerps = new float[count];
+        List<PRS> result = new List<PRS>(count);
 
-        switch (objCount)
+        switch (count)
         {
-            case 1: objLerps = new float[] { 0.5f }; break;
-            case 2: objLerps = new float[] { 0.27f, 0.73f }; break;
-            case 3: objLerps = new float[] { 0.1f, 0.5f, 0.9f }; break;
+            case 1: lerps = new float[] { 0.5f }; break;
+            case 2: lerps = new float[] { 0.27f, 0.73f }; break;
+            case 3: lerps = new float[] { 0.1f, 0.5f, 0.9f }; break;
             default:
-                float interval = 1f / (objCount - 1);
-                for (int i = 0; i < objCount; i++)
-                    objLerps[i] = interval * i;
+                float interval = 1f / (count - 1);
+                for (int i = 0; i < count; i++)
+                    lerps[i] = interval * i;
                 break;
         }
 
-        for (int i = 0; i < objCount; i++)
+        for (int i = 0; i < count; i++)
         {
-            var targetPos = Vector3.Lerp(leftTr.position, rightTr.position, objLerps[i]);
-            var targetRot = Quaternion.identity;
-            if (objCount >= 4)
+            var pos = Vector3.Lerp(leftTr.position, rightTr.position, lerps[i]);
+            var rot = Quaternion.identity;
+
+            if (count >= 4)
             {
-                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));
+                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(lerps[i] - 0.5f, 2));
                 curve = height >= 0 ? curve : -curve;
-                targetPos.y += curve;
-                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]);
+                pos.y += curve;
+                rot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, lerps[i]);
             }
-            results.Add(new PRS(targetPos, targetRot, scale));
+
+            result.Add(new PRS(pos, rot, scale));
         }
-        return results;
+
+        return result;
     }
+
+    public void OnCardClicked(Card card)
+    {
+        cardClickedThisFrame = true;
+
+        // 줌 모드가 아니면 → 손패 확대 모드 진입
+        if (!isZoomMode)
+        {
+            EnterZoomMode();
+            return;
+        }
+
+        // 줌 모드일 때 카드 클릭 → 해당 카드로 드래그 시작
+        StartDragFromZoom(card);
+    }
+    // ---------------------------- 손패 확대 ---------------------------------
+
+    public void StartDragFromZoom(Card card)
+    {
+        isZoomMode = false;
+
+       // if (handZoomPanel != null)
+       //     handZoomPanel.SetActive(false);
+
+        selectCard = card;
+        isMyCardDrag = true;
+
+        CardDrag();
+    }
+
+    public void EnterZoomMode()
+    {
+        if (isZoomMode || myCards.Count == 0)
+            return;
+
+        isZoomMode = true;
+     //   if (handZoomPanel != null)
+     //       handZoomPanel.SetActive(true);
+
+        float zoomScaleValue = 0.4f;
+        Vector3 zoomScale = Vector3.one * zoomScaleValue;
+
+
+        float cardWidth = myCards[0].GetComponent<SpriteRenderer>().bounds.size.x * zoomScaleValue;
+        float spacing = cardWidth * 2f;
+
+        int count = myCards.Count;
+        float startX = -(count - 1) * spacing * 0.5f;
+
+        for (int i = 0; i < count; i++)
+        {
+            var card = myCards[i];
+            float posX = startX + spacing * i;
+
+            Vector3 worldPos = zoomRoot.position + new Vector3(posX, 0f, 0f);
+
+            card.MoveTransform(new PRS(worldPos, Quaternion.identity, zoomScale), true, 0.25f);
+            card.GetComponent<Order>().SetMostFrontOrder(true);
+        }
+    }
+
+    public void OnZoomBackgroundClick()
+    {
+        ExitZoomMode();
+    }
+
+    public void ExitZoomMode()
+    {
+        if (!isZoomMode)
+           return;
+
+        isZoomMode = false;
+
+        for (int i = 0; i < myCards.Count; i++)
+        {
+            var card = myCards[i];
+            card.GetComponent<Order>().SetMostFrontOrder(false);
+            card.MoveTransform(card.originPRS, true, 0.25f);
+        }
+
+        if (handZoomPanel != null)
+            handZoomPanel.SetActive(false);
+    }
+
+
+    // ---------------------------- 무덤으로 보내기 ----------------------------
 
     public void SendToGrave(Item item, bool isMine)
     {
@@ -177,15 +337,14 @@ public class CardManager : MonoBehaviour
             parent = this.transform;
         }
 
-        var go = Instantiate(cardPrefab, parent, false); 
-        go.transform.localPosition = Vector3.zero;       
+        var go = Instantiate(cardPrefab, parent, false);
+        go.transform.localPosition = Vector3.zero;
         go.transform.localRotation = Quaternion.identity;
         go.transform.localScale = graveyardCardScale;
 
         var card = go.GetComponent<Card>();
-        
         card.Setup(item, true);
-       
+
         var col = go.GetComponent<Collider2D>();
         if (col) col.enabled = false;
 
@@ -196,6 +355,26 @@ public class CardManager : MonoBehaviour
         go.transform.localScale = graveyardCardScale;
     }
 
+    // ---------------------------- 카드 내려놓기 ----------------------------
+
+    public void DamageDeck(int amount, bool isMine)
+    {
+        var deck = isMine ? myDeck : enemyDeck;
+
+        // 덱이 비어있다면 아무 것도 안 함
+        amount = Mathf.Min(amount, deck.Count);
+
+        for (int i = 0; i < amount; i++)
+        {
+            var cardItem = deck[0];
+            deck.RemoveAt(0);
+
+            // 묘지로 이동
+            SendToGrave(cardItem, isMine);
+        }
+
+        UpdateDeckCountUI();
+    }
 
 
     public bool TryPutCard(bool isMine)
@@ -214,13 +393,14 @@ public class CardManager : MonoBehaviour
         {
             targetCards.Remove(card);
             card.transform.DOKill();
-            //DestroyImmediate(card.gameObject);
             Destroy(card.gameObject);
+
             if (isMine)
             {
                 selectCard = null;
                 myPutCount++;
             }
+
             CardAlignment(isMine);
             return true;
         }
@@ -232,21 +412,16 @@ public class CardManager : MonoBehaviour
         }
     }
 
-
-    #region MyCard
+    // ---------------------------- 마우스 & 드래그 ----------------------------
 
     public void CardMouseOver(Card card)
     {
-        if (eCardState == ECardState.Nothing)
-            return;
-
-        selectCard = card;
-        EnlargeCard(true, card);
+        return;
     }
 
     public void CardMouseExit(Card card)
     {
-        EnlargeCard(false, card);
+        return;
     }
 
     public void CardMouseDown()
@@ -289,19 +464,9 @@ public class CardManager : MonoBehaviour
         onMyCardArea = Array.Exists(hits, x => x.collider.gameObject.layer == layer);
     }
 
-
     void EnlargeCard(bool isEnlarge, Card card)
     {
-        if (isEnlarge)
-        {
-            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -5.75f, -10f);
-            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 0.7f), false);
-        }
-        else
-        {
-            card.MoveTransform(card.originPRS, false);
-        }
-        card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
+        return;
     }
 
     void SetECardState()
@@ -315,6 +480,4 @@ public class CardManager : MonoBehaviour
         else if (TurnManager.Inst.myTurn)
             eCardState = ECardState.CanMouseDrag;
     }
-
-    #endregion
 }

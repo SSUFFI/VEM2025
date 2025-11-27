@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
-//Å×½ºÆ®
+
+
 public class Card : MonoBehaviour
 {
     [SerializeField] SpriteRenderer card;
@@ -15,52 +16,49 @@ public class Card : MonoBehaviour
     [SerializeField] Sprite cardBack;
 
     public Item item;
+    public bool isMine;
     bool isFront;
     public PRS originPRS;
 
-    public void Setup(Item item, bool isFront)
+
+    public void Setup(Item item, bool isMine)
     {
         this.item = item;
-        this.isFront = isFront;
+        this.isMine = isMine;
+        this.isFront = isMine;
 
         if (this.isFront)
         {
+            card.sprite = cardFront;
             Character.sprite = this.item.sprite;
             nameTMP.text = this.item.name;
             attackTMP.text = this.item.attack.ToString();
             healthTMP.text = this.item.health.ToString();
         }
         else
-        {            
+        {
             card.sprite = cardBack;
             Character.sprite = null;
-            nameTMP.text = "";
-            attackTMP.text = "";
-            healthTMP.text = "";           
+            nameTMP.text = string.Empty;
+            attackTMP.text = string.Empty;
+            healthTMP.text = string.Empty;
         }
     }
 
-    void OnMouseOver()
-    {
-        if (isFront)
-            CardManager.Inst.CardMouseOver(this);
-    }
-
-    void OnMouseExit()
-    {
-        if (isFront)
-            CardManager.Inst.CardMouseExit(this);
-    }
+    void OnMouseOver() { }
+    void OnMouseExit() { }
 
     void OnMouseDown()
     {
-        if (isFront)
-            CardManager.Inst.CardMouseDown();
+        if (!isMine) return;
+
+        CardManager.Inst.OnCardClicked(this);
     }
 
     void OnMouseUp()
     {
-        if (isFront)
+
+        if (isMine)
             CardManager.Inst.CardMouseUp();
     }
 
