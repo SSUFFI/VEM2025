@@ -33,11 +33,6 @@ public class CardManager : MonoBehaviour
     [SerializeField] RectTransform zoomContent;
     [SerializeField] Transform zoomRoot;
 
-    [Header("Graveyard")]
-    [SerializeField] Transform myGraveyardParent;
-    [SerializeField] Transform otherGraveyardParent;
-    [SerializeField] Vector3 graveyardCardScale = new Vector3(1f, 1f, 1f);
-
     enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
     [SerializeField] ECardState eCardState;
 
@@ -325,36 +320,6 @@ public class CardManager : MonoBehaviour
             handZoomPanel.SetActive(false);
     }
 
-
-    // ---------------------------- 무덤으로 보내기 ----------------------------
-
-    public void SendToGrave(Item item, bool isMine)
-    {
-        var parent = isMine ? myGraveyardParent : otherGraveyardParent;
-        if (parent == null)
-        {
-            Debug.LogWarning("Graveyard parent not assigned.");
-            parent = this.transform;
-        }
-
-        var go = Instantiate(cardPrefab, parent, false);
-        go.transform.localPosition = Vector3.zero;
-        go.transform.localRotation = Quaternion.identity;
-        go.transform.localScale = graveyardCardScale;
-
-        var card = go.GetComponent<Card>();
-        card.Setup(item, true);
-
-        var col = go.GetComponent<Collider2D>();
-        if (col) col.enabled = false;
-
-        var cg = go.GetComponent<CanvasGroup>();
-        if (cg) cg.blocksRaycasts = false;
-
-        go.transform.localRotation = Quaternion.identity;
-        go.transform.localScale = graveyardCardScale;
-    }
-
     // ---------------------------- 카드 내려놓기 ----------------------------
 
     public void DamageDeck(int amount, bool isMine)
@@ -369,8 +334,8 @@ public class CardManager : MonoBehaviour
             var cardItem = deck[0];
             deck.RemoveAt(0);
 
-            // 묘지로 이동
-            SendToGrave(cardItem, isMine);
+            GraveManager.Inst.AddToGrave(cardItem, isMine);
+
         }
 
         UpdateDeckCountUI();

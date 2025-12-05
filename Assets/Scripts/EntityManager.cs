@@ -220,7 +220,7 @@ public class EntityManager : MonoBehaviour
             if (!entity.isDie || entity.isBossOrEmpty)
                 continue;
 
-            CardManager.Inst.SendToGrave(entity.ItemData, entity.isMine);
+            GraveManager.Inst.AddToGrave(entity.ItemData, entity.isMine);
 
             if (entity.isMine)
                 myEntities.Remove(entity);
