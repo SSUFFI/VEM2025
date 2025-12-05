@@ -515,6 +515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 164403466}
   - component: {fileID: 164403465}
+  - component: {fileID: 164403467}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -550,6 +551,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &164403467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164403464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffc7675d696a864792c11986bb2f827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &172076853
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +950,7 @@ MonoBehaviour:
   eTurnMode: 1
   fastMode: 1
   startCardCount: 5
-  isLoading: 0
+  isLoading: 1
   myTurn: 1
 --- !u!4 &308049494
 Transform:
@@ -3927,7 +3940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfb7db506f78b54c9803c54e2c569fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myDeckSO: {fileID: 11400000, guid: 040508591d22c8d45b00d2daca9bfd79, type: 2}
+  myDeckSO: {fileID: 11400000, guid: 4531bb1be2745ec449095eefd3a48ae6, type: 2}
   enemyDeckSO: {fileID: 11400000, guid: 4676ba3021aba8743aab8c479fee479f, type: 2}
   myDeckCountTMP: {fileID: 634546252}
   enemyDeckCountTMP: {fileID: 1065318605}

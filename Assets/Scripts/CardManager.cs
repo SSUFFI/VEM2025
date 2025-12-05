@@ -9,7 +9,25 @@ using TMPro;
 public class CardManager : MonoBehaviour
 {
     public static CardManager Inst { get; private set; }
-    void Awake() => Inst = this;
+
+    void Awake()
+    {
+        Inst = this;
+
+        // 내 손패/상대 손패 리스트 초기화
+        if (myCards == null) myCards = new List<Card>();
+        if (otherCards == null) otherCards = new List<Card>();
+
+        // Resources에서 DeckSO 강제 로드 (빌드에서 참조 깨짐 방지)
+        if (myDeckSO == null)
+            myDeckSO = Resources.Load<DeckSO>("DeckSO/MyDeckSO");
+
+        if (enemyDeckSO == null)
+            enemyDeckSO = Resources.Load<DeckSO>("DeckSO/EnemyDeckSO");
+
+        Debug.Log("MyDeckSO Loaded: " + (myDeckSO != null));
+        Debug.Log("EnemyDeckSO Loaded: " + (enemyDeckSO != null));
+    }
 
     [Header("Deck Data")]
     [SerializeField] DeckSO myDeckSO;
