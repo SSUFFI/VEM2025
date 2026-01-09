@@ -59,7 +59,6 @@ public class CardManager : MonoBehaviour
     bool onMyCardArea;
     bool cardClickedThisFrame = false;
     public bool isZoomMode = false;
-    int myPutCount;
 
     // ---------------------------- 덱 셔플 세팅 ----------------------------
 
@@ -68,13 +67,11 @@ public class CardManager : MonoBehaviour
         SetupDecks();
 
         TurnManager.OnAddCard += AddCard;
-        TurnManager.OnTurnStarted += OnTurnStarted;
     }
 
     void OnDestroy()
     {
         TurnManager.OnAddCard -= AddCard;
-        TurnManager.OnTurnStarted -= OnTurnStarted;
     }
 
     void SetupDecks()
@@ -122,12 +119,6 @@ public class CardManager : MonoBehaviour
     }
 
     // ---------------------------- 턴 관리 ----------------------------
-
-    void OnTurnStarted(bool myTurn)
-    {
-        if (myTurn)
-            myPutCount = 0;
-    }
 
     void Update()
     {
@@ -359,12 +350,21 @@ public class CardManager : MonoBehaviour
         UpdateDeckCountUI();
     }
 
+    void ReturnSelectedCardToHand()
+    {
+        if (selectCard == null) return;
+
+        EntityManager.Inst.RemoveMyEmptyEntity();
+
+        selectCard.transform.DOKill();
+        selectCard.MoveTransform(selectCard.originPRS, true, 0.25f);
+
+        selectCard.GetComponent<Order>().SetMostFrontOrder(false);
+        CardAlignment(true);
+    }
 
     public bool TryPutCard(bool isMine)
     {
-        if (isMine && myPutCount >= 1)
-            return false;
-
         if (!isMine && otherCards.Count <= 0)
             return false;
 
@@ -372,8 +372,18 @@ public class CardManager : MonoBehaviour
         var spawnPos = isMine ? Utils.MousePos : otherCardSpawnPoint.position;
         var targetCards = isMine ? myCards : otherCards;
 
+        int cost = card.item.manaCost;
+
+        if (!TurnManager.Inst.CanPayMana(isMine, cost))
+        {
+            if (isMine) GameManager.Inst.Notification("마나가 부족합니다");
+            return false;
+        }
+
         if (EntityManager.Inst.SpawnEntity(isMine, card.item, spawnPos))
         {
+            TurnManager.Inst.PayMana(isMine, cost);
+
             targetCards.Remove(card);
             card.transform.DOKill();
             Destroy(card.gameObject);
@@ -381,7 +391,6 @@ public class CardManager : MonoBehaviour
             if (isMine)
             {
                 selectCard = null;
-                myPutCount++;
             }
 
             CardAlignment(isMine);
@@ -423,9 +432,17 @@ public class CardManager : MonoBehaviour
             return;
 
         if (onMyCardArea)
+        {
             EntityManager.Inst.RemoveMyEmptyEntity();
-        else
-            TryPutCard(true);
+            return;
+        }
+
+        bool success = TryPutCard(true);
+
+        if (!success)
+        {
+            ReturnSelectedCardToHand();
+        }
     }
 
     void CardDrag()
@@ -457,7 +474,7 @@ public class CardManager : MonoBehaviour
         if (TurnManager.Inst.isLoading)
             eCardState = ECardState.Nothing;
 
-        else if (!TurnManager.Inst.myTurn || myPutCount == 1 || EntityManager.Inst.IsFullMyEntities)
+        else if (!TurnManager.Inst.myTurn || EntityManager.Inst.IsFullMyEntities)
             eCardState = ECardState.CanMouseOver;
 
         else if (TurnManager.Inst.myTurn)
