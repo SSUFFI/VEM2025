@@ -250,14 +250,12 @@ public class CardManager : MonoBehaviour
     {
         cardClickedThisFrame = true;
 
-        // 줌 모드가 아니면 → 손패 확대 모드 진입
         if (!isZoomMode)
         {
             EnterZoomMode();
             return;
         }
 
-        // 줌 모드일 때 카드 클릭 → 해당 카드로 드래그 시작
         StartDragFromZoom(card);
     }
     // ---------------------------- 손패 확대 ---------------------------------
@@ -265,9 +263,6 @@ public class CardManager : MonoBehaviour
     public void StartDragFromZoom(Card card)
     {
         isZoomMode = false;
-
-       // if (handZoomPanel != null)
-       //     handZoomPanel.SetActive(false);
 
         selectCard = card;
         isMyCardDrag = true;
@@ -281,8 +276,7 @@ public class CardManager : MonoBehaviour
             return;
 
         isZoomMode = true;
-     //   if (handZoomPanel != null)
-     //       handZoomPanel.SetActive(true);
+
 
         float zoomScaleValue = 0.4f;
         Vector3 zoomScale = Vector3.one * zoomScaleValue;
@@ -329,13 +323,11 @@ public class CardManager : MonoBehaviour
             handZoomPanel.SetActive(false);
     }
 
-    // ---------------------------- 카드 내려놓기 ----------------------------
 
-    public void DamageDeck(int amount, bool isMine)
+    public void DamageDeck(int amount, bool isMine, Entity deckAttacker = null)
     {
         var deck = isMine ? myDeck : enemyDeck;
 
-        // 덱이 비어있다면 아무 것도 안 함
         amount = Mathf.Min(amount, deck.Count);
 
         for (int i = 0; i < amount; i++)
@@ -343,7 +335,7 @@ public class CardManager : MonoBehaviour
             var cardItem = deck[0];
             deck.RemoveAt(0);
 
-            GraveManager.Inst.AddToGrave(cardItem, isMine);
+            GraveManager.Inst.AddToGraveFromDeck(cardItem, isMine, deckAttacker);
 
         }
 

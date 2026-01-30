@@ -13,203 +13,283 @@ MonoBehaviour:
   m_Name: MyDeckSO
   m_EditorClassIdentifier: 
   deckItems:
-  - name: "\uD6C8\uB828\uBCD1"
+  - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
     sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
-  - name: "\uD6C8\uB828\uBCD1"
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
     sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
-  - name: "\uD6C8\uB828\uBCD1"
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
     sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
-  - name: "\uD6C8\uB828\uBCD1"
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
     sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
-  - name: "\uD6C8\uB828\uBCD1"
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
     sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
-  - name: "\uD6C8\uB828\uBCD1"
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
     sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
-  - name: "\uD6C8\uB828\uBCD1"
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
     sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
-  - name: "\uD6C8\uB828\uBCD1"
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
     sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
-  - name: "\uD6C8\uB828\uBCD1"
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
     sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
-  - name: "\uD6C8\uB828\uBCD1"
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
     sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
-  - name: "\uBB38\uC9C0\uAE30"
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
+    attack: 1
+    health: 1
+    manaCost: 1
+    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
+    attack: 1
+    health: 1
+    manaCost: 1
+    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
+    attack: 1
+    health: 1
+    manaCost: 1
+    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
+    attack: 1
+    health: 1
+    manaCost: 1
+    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uD6C8\uB828\uBCD1(1)"
+    attack: 1
+    health: 1
+    manaCost: 1
+    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    graveTriggers: 00000000
+    deathTriggers: 
+  - name: "\uBB38\uC9C0\uAE30(2)"
     attack: 1
     health: 2
     manaCost: 2
     sprite: {fileID: 21300000, guid: 5583dcc23a49b9942bc79f1ab4312169, type: 3}
-  - name: "\uBB38\uC9C0\uAE30"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uBB38\uC9C0\uAE30(2)"
     attack: 1
     health: 2
     manaCost: 2
     sprite: {fileID: 21300000, guid: 5583dcc23a49b9942bc79f1ab4312169, type: 3}
-  - name: "\uBB38\uC9C0\uAE30"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uBB38\uC9C0\uAE30(2)"
     attack: 1
     health: 2
     manaCost: 2
     sprite: {fileID: 21300000, guid: 5583dcc23a49b9942bc79f1ab4312169, type: 3}
-  - name: "\uBB38\uC9C0\uAE30"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uBB38\uC9C0\uAE30(2)"
     attack: 1
     health: 2
     manaCost: 2
     sprite: {fileID: 21300000, guid: 5583dcc23a49b9942bc79f1ab4312169, type: 3}
-  - name: "\uBB38\uC9C0\uAE30"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uBB38\uC9C0\uAE30(2)"
     attack: 1
     health: 2
     manaCost: 2
     sprite: {fileID: 21300000, guid: 5583dcc23a49b9942bc79f1ab4312169, type: 3}
-  - name: "\uBB38\uC9C0\uAE30"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uBB38\uC9C0\uAE30(2)"
     attack: 1
     health: 2
     manaCost: 2
     sprite: {fileID: 21300000, guid: 5583dcc23a49b9942bc79f1ab4312169, type: 3}
-  - name: "\uBB38\uC9C0\uAE30"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uBB38\uC9C0\uAE30(2)"
     attack: 1
     health: 2
     manaCost: 2
     sprite: {fileID: 21300000, guid: 5583dcc23a49b9942bc79f1ab4312169, type: 3}
-  - name: "\uBB38\uC9C0\uAE30"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uBB38\uC9C0\uAE30(2)"
     attack: 1
     health: 2
     manaCost: 2
     sprite: {fileID: 21300000, guid: 5583dcc23a49b9942bc79f1ab4312169, type: 3}
-  - name: "\uBB38\uC9C0\uAE30"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uBB38\uC9C0\uAE30(2)"
     attack: 1
     health: 2
     manaCost: 2
     sprite: {fileID: 21300000, guid: 5583dcc23a49b9942bc79f1ab4312169, type: 3}
-  - name: "\uBB38\uC9C0\uAE30"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uBB38\uC9C0\uAE30(2)"
     attack: 1
     health: 2
     manaCost: 2
     sprite: {fileID: 21300000, guid: 5583dcc23a49b9942bc79f1ab4312169, type: 3}
-  - name: "\uAD81\uC218"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uAD81\uC218(2)"
     attack: 2
     health: 1
     manaCost: 2
     sprite: {fileID: 21300000, guid: 44dafa2e913eb2f4fb707a39bdc7f29b, type: 3}
-  - name: "\uAD81\uC218"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uAD81\uC218(2)"
     attack: 2
     health: 1
     manaCost: 2
     sprite: {fileID: 21300000, guid: 44dafa2e913eb2f4fb707a39bdc7f29b, type: 3}
-  - name: "\uAD81\uC218"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uAD81\uC218(2)"
     attack: 2
     health: 1
     manaCost: 2
     sprite: {fileID: 21300000, guid: 44dafa2e913eb2f4fb707a39bdc7f29b, type: 3}
-  - name: "\uAD81\uC218"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uAD81\uC218(2)"
     attack: 2
     health: 1
     manaCost: 2
     sprite: {fileID: 21300000, guid: 44dafa2e913eb2f4fb707a39bdc7f29b, type: 3}
-  - name: "\uAD81\uC218"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uAD81\uC218(2)"
     attack: 2
     health: 1
     manaCost: 2
     sprite: {fileID: 21300000, guid: 44dafa2e913eb2f4fb707a39bdc7f29b, type: 3}
-  - name: "\uCC3D\uAE30\uC0AC"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uCC3D\uAE30\uC0AC(3)"
     attack: 2
     health: 2
     manaCost: 3
     sprite: {fileID: 21300000, guid: eb469fc3a788abe44a49ab8fc52fc619, type: 3}
-  - name: "\uCC3D\uAE30\uC0AC"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uCC3D\uAE30\uC0AC(3)"
     attack: 2
     health: 2
     manaCost: 3
     sprite: {fileID: 21300000, guid: eb469fc3a788abe44a49ab8fc52fc619, type: 3}
-  - name: "\uCC3D\uAE30\uC0AC"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uCC3D\uAE30\uC0AC(3)"
     attack: 2
     health: 2
     manaCost: 3
     sprite: {fileID: 21300000, guid: eb469fc3a788abe44a49ab8fc52fc619, type: 3}
-  - name: "\uCC3D\uAE30\uC0AC"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uCC3D\uAE30\uC0AC(3)"
     attack: 2
     health: 2
     manaCost: 3
     sprite: {fileID: 21300000, guid: eb469fc3a788abe44a49ab8fc52fc619, type: 3}
-  - name: "\uCC3D\uAE30\uC0AC"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uCC3D\uAE30\uC0AC(3)"
     attack: 2
     health: 2
     manaCost: 3
     sprite: {fileID: 21300000, guid: eb469fc3a788abe44a49ab8fc52fc619, type: 3}
-  - name: "\uBC29\uD328\uBCD1"
+    graveTriggers: 
+    deathTriggers: 
+  - name: "\uBC29\uD328\uBCD1(3)"
     attack: 1
     health: 3
     manaCost: 3
     sprite: {fileID: 21300000, guid: 691212ed758232246ac5336169501f18, type: 3}
-  - name: "\uBC29\uD328\uBCD1"
+    graveTriggers: 
+    deathTriggers: 00000000
+  - name: "\uBC29\uD328\uBCD1(3)"
     attack: 1
     health: 3
     manaCost: 3
     sprite: {fileID: 21300000, guid: 691212ed758232246ac5336169501f18, type: 3}
-  - name: "\uBC29\uD328\uBCD1"
+    graveTriggers: 
+    deathTriggers: 00000000
+  - name: "\uBC29\uD328\uBCD1(3)"
     attack: 1
     health: 3
     manaCost: 3
     sprite: {fileID: 21300000, guid: 691212ed758232246ac5336169501f18, type: 3}
-  - name: "\uBC29\uD328\uBCD1"
+    graveTriggers: 
+    deathTriggers: 00000000
+  - name: "\uBC29\uD328\uBCD1(3)"
     attack: 1
     health: 3
     manaCost: 3
     sprite: {fileID: 21300000, guid: 691212ed758232246ac5336169501f18, type: 3}
-  - name: "\uBC29\uD328\uBCD1"
+    graveTriggers: 
+    deathTriggers: 00000000
+  - name: "\uBC29\uD328\uBCD1(3)"
     attack: 1
     health: 3
     manaCost: 3
     sprite: {fileID: 21300000, guid: 691212ed758232246ac5336169501f18, type: 3}
-  - name: "\uBC29\uD328\uBCD1"
-    attack: 1
-    health: 3
-    manaCost: 3
-    sprite: {fileID: 21300000, guid: 691212ed758232246ac5336169501f18, type: 3}
-  - name: "\uBC29\uD328\uBCD1"
-    attack: 1
-    health: 3
-    manaCost: 3
-    sprite: {fileID: 21300000, guid: 691212ed758232246ac5336169501f18, type: 3}
-  - name: "\uBC29\uD328\uBCD1"
-    attack: 1
-    health: 3
-    manaCost: 3
-    sprite: {fileID: 21300000, guid: 691212ed758232246ac5336169501f18, type: 3}
-  - name: "\uBC29\uD328\uBCD1"
-    attack: 1
-    health: 3
-    manaCost: 3
-    sprite: {fileID: 21300000, guid: 691212ed758232246ac5336169501f18, type: 3}
-  - name: "\uBC29\uD328\uBCD1"
-    attack: 1
-    health: 3
-    manaCost: 3
-    sprite: {fileID: 21300000, guid: 691212ed758232246ac5336169501f18, type: 3}
+    graveTriggers: 
+    deathTriggers: 00000000
