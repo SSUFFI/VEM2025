@@ -18,6 +18,15 @@ public class TurnManager : MonoBehaviour
     public bool isLoading;
     public bool myTurn;
 
+    [Header("Mana")]
+    public int myMaxMana = 0;
+    public int myCurMana = 0;
+    public int otherMaxMana = 0;
+    public int otherCurMana = 0;
+    public int maxManaCap = 10;
+
+    public static event Action OnManaChanged;
+
     enum ETurnMode { Random, My, Other }
     WaitForSeconds delay05 = new WaitForSeconds(0.5f);
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);
@@ -65,11 +74,45 @@ public class TurnManager : MonoBehaviour
         if (myTurn)
             GameManager.Inst.Notification("³ªÀÇ ÅÏ");
 
+        ApplyTurnStartMana(myTurn);
+
         yield return delay07;
         OnAddCard?.Invoke(myTurn);
         yield return delay07;
         isLoading = false;
         OnTurnStarted?.Invoke(myTurn);
+    }
+
+    void ApplyTurnStartMana(bool isMyTurnNow)
+    {
+        if (isMyTurnNow)
+        {
+            myMaxMana = Mathf.Min(maxManaCap, myMaxMana + 1);
+            myCurMana = myMaxMana;
+        }
+        else
+        {
+            otherMaxMana = Mathf.Min(maxManaCap, otherMaxMana + 1);
+            otherCurMana = otherMaxMana;
+        }
+
+        OnManaChanged?.Invoke();
+    }
+
+    public bool CanPayMana(bool isMine, int cost)
+    {
+        if (cost <= 0) return true;
+        return isMine ? myCurMana >= cost : otherCurMana >= cost;
+    }
+
+    public void PayMana(bool isMine, int cost)
+    {
+        if (cost <= 0) return;
+
+        if (isMine) myCurMana -= cost;
+        else otherCurMana -= cost;
+
+        OnManaChanged?.Invoke();
     }
 
     public void EndTurn()

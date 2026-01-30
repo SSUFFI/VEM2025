@@ -54,11 +54,21 @@ public class EntityManager : MonoBehaviour
         ShowTargetPicker(ExistTargetPickEntity);
     }
 
- 
+
     IEnumerator AICo()
     {
-        CardManager.Inst.TryPutCard(false);
-        yield return delay1;
+        int safety = 20;
+
+        while (safety-- > 0)
+        {
+            bool success = CardManager.Inst.TryPutCard(false);
+
+            if (!success)
+                break;
+
+            yield return delay1;
+        }
+        yield return StartCoroutine(AIAttackCo());
 
         TurnManager.Inst.EndTurn();
     }
@@ -185,8 +195,8 @@ public class EntityManager : MonoBehaviour
             .Append(attacker.transform.DOMove(defender.originPos, 0.4f)).SetEase(Ease.InSine)
             .AppendCallback(() =>
             {               
-                SpawnDamage(defender.attack, attacker.transform);
-                SpawnDamage(attacker.attack, defender.transform);
+                //SpawnDamage(defender.attack, attacker.transform);
+                //SpawnDamage(attacker.attack, defender.transform);
             })
             .Append(attacker.transform.DOMove(attacker.originPos, 0.4f)).SetEase(Ease.OutSine)
             .OnComplete(() => AttackCallback(attacker, defender));
@@ -202,7 +212,11 @@ public class EntityManager : MonoBehaviour
         if (defender.isBossOrEmpty)
         {
             int damage = attacker.attack;
-            CardManager.Inst.DamageDeck(damage, defender.isMine);
+
+            SpawnDamage(damage, defender.transform);
+            CardManager.Inst.DamageDeck(damage, defender.isMine, attacker);
+            RemoveEntityIfDead(attacker);
+
             return;
         }
 
@@ -219,6 +233,10 @@ public class EntityManager : MonoBehaviour
         {
             if (!entity.isDie || entity.isBossOrEmpty)
                 continue;
+
+            Entity killer = (entity == attacker) ? defender : attacker;
+
+            GraveManager.Inst.RaiseEntityDiedInCombat(entity.ItemData, entity.isMine, killer, entity);
 
             GraveManager.Inst.AddToGrave(entity.ItemData, entity.isMine);
 
@@ -266,5 +284,127 @@ public class EntityManager : MonoBehaviour
     {
         var targetEntites = isMine ? myEntities : otherEntities;
         targetEntites.ForEach(x => x.attackable = true);
+    }
+
+    IEnumerator AIAttackCo()
+    {
+        List<Entity> attackers = new List<Entity>();
+        for (int i = 0; i < otherEntities.Count; i++)
+        {
+            var e = otherEntities[i];
+            if (e == null) continue;
+            if (e.isDie) continue;
+            if (e.isBossOrEmpty) continue;
+            if (!e.attackable) continue;
+            attackers.Add(e);
+        }
+
+        for (int i = 0; i < attackers.Count; i++)
+        {
+            int r = UnityEngine.Random.Range(i, attackers.Count);
+            (attackers[i], attackers[r]) = (attackers[r], attackers[i]);
+        }
+
+        WaitForSeconds aiAtkDelay = new WaitForSeconds(0.9f);
+
+        foreach (var attacker in attackers)
+        {
+            if (attacker == null || attacker.isDie) continue;
+            if (!attacker.attackable) continue;
+
+            Entity target = PickRandomMyTarget();
+
+            if (target == null)
+                break;
+
+            if (target == myBossEntity)
+            {
+                yield return StartCoroutine(AttackBossCo(attacker));
+            }
+            else
+            {
+                Attack(attacker, target);
+                yield return aiAtkDelay;
+            }
+        }
+    }
+
+    Entity PickRandomMyTarget()
+    {
+        List<Entity> candidates = new List<Entity>();
+
+        for (int i = 0; i < myEntities.Count; i++)
+        {
+            var e = myEntities[i];
+            if (e == null) continue;
+            if (e.isDie) continue;
+            if (e.isBossOrEmpty) continue;
+            candidates.Add(e);
+        }
+
+        if (myBossEntity != null && !myBossEntity.isDie)
+            candidates.Add(myBossEntity);
+
+        if (candidates.Count == 0) return null;
+        return candidates[UnityEngine.Random.Range(0, candidates.Count)];
+    }
+
+    IEnumerator AttackBossCo(Entity attacker)
+    {
+        attacker.attackable = false;
+        attacker.GetComponent<Order>()?.SetMostFrontOrder(true);
+
+        Vector3 bossPos = myBossEntity.originPos;
+
+        Sequence seq = DOTween.Sequence()
+            .Append(attacker.transform.DOMove(bossPos, 0.35f).SetEase(Ease.InSine))
+            .AppendCallback(() =>
+            {
+                SpawnDamage(attacker.attack, myBossEntity.transform);
+            })
+            .Append(attacker.transform.DOMove(attacker.originPos, 0.35f).SetEase(Ease.OutSine))
+            .OnComplete(() =>
+            {
+                attacker.GetComponent<Order>()?.SetMostFrontOrder(false);
+
+                CardManager.Inst.DamageDeck(attacker.attack, true, attacker);
+
+                if (EntityManager.Inst != null)
+                    EntityManager.Inst.RemoveEntityIfDead(attacker);
+            });
+
+        yield return seq.WaitForCompletion();
+    }
+
+    public void ShowDamage(int damage, Transform tr)
+    {
+        SpawnDamage(damage, tr);
+    }
+
+    public void RemoveEntityIfDead(Entity entity)
+    {
+        if (entity == null) return;
+        if (!entity.isDie) return;
+        if (entity.isBossOrEmpty) return;
+
+        if (entity.isMine)
+        {
+            if (!myEntities.Contains(entity)) return;
+            myEntities.Remove(entity);
+        }
+        else
+        {
+            if (!otherEntities.Contains(entity)) return;
+            otherEntities.Remove(entity);
+        }
+
+        Sequence sequence = DOTween.Sequence()
+            .Append(entity.transform.DOShakePosition(1.3f))
+            .Append(entity.transform.DOScale(Vector3.zero, 0.3f)).SetEase(Ease.OutCirc)
+            .OnComplete(() =>
+            {
+                EntityAlignment(entity.isMine);
+                Destroy(entity.gameObject);
+            });
     }
 }
