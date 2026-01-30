@@ -361,7 +361,8 @@ public class CardManager : MonoBehaviour
             return false;
 
         Card card = isMine ? selectCard : otherCards[Random.Range(0, otherCards.Count)];
-        var spawnPos = isMine ? Utils.MousePos : otherCardSpawnPoint.position;
+        var spawnPos = isMine ? Utils.MousePos : card.transform.position;
+
         var targetCards = isMine ? myCards : otherCards;
 
         int cost = card.item.manaCost;
