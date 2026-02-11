@@ -5,8 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 using System.Text;
 
+
 public class DialogueManager : MonoBehaviour
 {
+    bool isChoosing = false;
+
     [Header("Root")]
     public GameObject dialoguePanel;
     public Button dialogueBoxButton;
@@ -30,6 +33,10 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue Data")]
     public Line[] lines;
 
+    [Header("Choice UI")]
+    public GameObject choicePanel;
+    public Button[] choiceButtons;
+
     [System.Serializable]
     public class Line
     {
@@ -37,6 +44,21 @@ public class DialogueManager : MonoBehaviour
         public string speakerName;
         [TextArea] public string text;
         public Sprite portrait;
+
+        public Sprite leftIllustration;
+        public Sprite rightIllustration;
+
+        public bool hasChoice;
+        public Choice[] choices;
+
+        public int nextIndex = -1;
+    }
+
+    [System.Serializable]
+    public class Choice
+    {
+        public string choiceText;
+        public int nextIndex;
     }
 
     public enum Side { Left, Right }
@@ -67,47 +89,64 @@ public class DialogueManager : MonoBehaviour
         index = 0;
         canClose = false;
 
-        ShowLine();          // 첫 줄 세팅 + 타이핑 시작
-        UpdateNextText();    // "다음"
+        ShowLine();
+        UpdateNextText();
     }
 
     void OnClickDialogueBox()
     {
-        // 1) 타이핑 중이면 -> 즉시 완성(스킵)
+        if (isChoosing)
+            return;
+
         if (isTyping)
         {
             SkipTyping();
             return;
         }
 
-        // 2) 타이핑 끝난 상태면 기존 로직(다음/종료)
         if (canClose)
         {
             EndDialogue();
             return;
         }
 
-        index++;
+        var currentLine = lines[index];
 
-        // 마지막 줄이면 canClose 상태로 전환 (3번째 줄에서 종료 안내)
-        if (index >= lines.Length - 1)
+        if (currentLine.nextIndex == -999)
         {
-            index = lines.Length - 1;
             canClose = true;
+            UpdateNextText();
+            return;
         }
 
-        ShowLine();       // 다음 줄 보여주기 + 타이핑 시작
-        UpdateNextText(); // 마지막이면 "대화 종료"
+        else if (currentLine.nextIndex == -1)
+        {
+            index++;
+        }
+
+        else
+        {
+            index = currentLine.nextIndex;
+        }
+
+        ShowLine();
+        UpdateNextText();
     }
+
+
 
     void ShowLine()
     {
         var line = lines[index];
 
-        // 이름
         nameText.text = line.speakerName;
 
-        // 말하는 쪽 밝게
+        if (line.leftIllustration != null)
+            leftCharacterImage.sprite = line.leftIllustration;
+
+        if (line.rightIllustration != null)
+            rightCharacterImage.sprite = line.rightIllustration;
+
         if (line.speaker == Side.Left)
         {
             SetAlpha(leftCharacterImage, 1f);
@@ -119,7 +158,6 @@ public class DialogueManager : MonoBehaviour
             SetAlpha(rightCharacterImage, 1f);
         }
 
-        // 초상화
         if (portraitImage != null)
         {
             if (line.portrait != null)
@@ -134,8 +172,16 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        // 타이핑 시작
         StartTyping(line.text);
+
+        if (line.hasChoice)
+        {
+            ShowChoices(line);
+        }
+        else
+        {
+            choicePanel.SetActive(false);
+        }
     }
 
     void StartTyping(string fullText)
@@ -169,7 +215,6 @@ public class DialogueManager : MonoBehaviour
 
     void SkipTyping()
     {
-        // 타이핑 중이면 즉시 완성
         if (typingCo != null)
         {
             StopCoroutine(typingCo);
@@ -183,12 +228,15 @@ public class DialogueManager : MonoBehaviour
     void UpdateNextText()
     {
         if (nextText == null) return;
-        nextText.text = canClose ? "대화 종료" : "다음";
+
+        if (canClose)
+            nextText.text = "대화 종료";
+        else
+            nextText.text = "다음";
     }
 
     void EndDialogue()
     {
-        // 혹시 타이핑 중 종료되면 정리
         if (typingCo != null)
         {
             StopCoroutine(typingCo);
@@ -205,6 +253,47 @@ public class DialogueManager : MonoBehaviour
         var c = img.color;
         c.a = a;
         img.color = c;
+    }
+
+    void ShowChoices(Line line)
+    {
+        isChoosing = true;
+        choicePanel.SetActive(true);
+
+        for (int i = 0; i < choiceButtons.Length; i++)
+        {
+            if (i < line.choices.Length)
+            {
+                choiceButtons[i].gameObject.SetActive(true);
+
+                int choiceIndex = i; // 클로저 방지
+
+                choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>().text =
+                    line.choices[i].choiceText;
+
+                choiceButtons[i].onClick.RemoveAllListeners();
+                choiceButtons[i].onClick.AddListener(() =>
+                {
+                    SelectChoice(line.choices[choiceIndex].nextIndex);
+                });
+            }
+            else
+            {
+                choiceButtons[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    void SelectChoice(int nextIndex)
+    {
+        isChoosing = false;
+        choicePanel.SetActive(false);
+
+        index = nextIndex;
+        canClose = false;
+
+        ShowLine();
+        UpdateNextText();
     }
 
     List<string> TokenizeByWhitespace(string text)
