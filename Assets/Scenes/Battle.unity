@@ -3393,7 +3393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f589e9bb87c12034ab58448e9a2a28fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
+  data:
     name: 
     attack: 0
     health: 0
@@ -3502,7 +3502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f589e9bb87c12034ab58448e9a2a28fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
+  data:
     name: 
     attack: 0
     health: 0
@@ -3534,7 +3534,7 @@ GameObject:
   - component: {fileID: 1630532893}
   - component: {fileID: 1630532894}
   m_Layer: 0
-  m_Name: MyBoss
+  m_Name: MyCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3619,7 +3619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f589e9bb87c12034ab58448e9a2a28fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
+  data:
     name: 
     attack: 0
     health: 0
@@ -3649,7 +3649,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1674001912}
   m_Layer: 0
-  m_Name: ---------------------------Manager
+  m_Name: --------------------------Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

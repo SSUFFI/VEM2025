@@ -706,12 +706,15 @@ MonoBehaviour:
   attackTMP: {fileID: 8663945882641576032}
   healthTMP: {fileID: 7102374008628739686}
   cardFront: {fileID: 21300000, guid: 21a2d6e278dd51b4e951f43bc4c7b74d, type: 3}
-  cardBack: {fileID: -137754160, guid: 356021ad31a6d0c4783657a3d4f7bd05, type: 3}
-  item:
+  cardBack: {fileID: -1520387674, guid: d53cbae78c2b91645a78ec4dd5f36996, type: 3}
+  data:
     name: 
     attack: 0
     health: 0
+    manaCost: 0
     sprite: {fileID: 0}
+    graveTriggers: 
+    deathTriggers: 
   isMine: 0
   originPRS:
     pos: {x: 0, y: 0, z: 0}
