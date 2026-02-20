@@ -58,6 +58,7 @@ public class CardManager : MonoBehaviour
     bool onMyCardArea;
     bool cardClickedThisFrame = false;
     public bool isZoomMode = false;
+    const int MAX_HAND = 10;
 
     // ---------------------------- 덱 셔플 세팅 ----------------------------
 
@@ -156,7 +157,14 @@ public class CardManager : MonoBehaviour
 
     void AddCard(bool isMine)
     {
-        // 덱이 비었으면 드로우 스킵
+        var hand = isMine ? myCards : otherCards;
+        if (hand.Count >= MAX_HAND)
+        {
+            if (isMine)
+                BattleGameManager.Inst.Notification("드로우 불가 (최대 10장)");
+            return;
+        }
+
         var data = PopItem(isMine);
         if (data == null)
             return;

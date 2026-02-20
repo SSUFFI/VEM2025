@@ -10,7 +10,8 @@ TrueTypeFontImporter:
   includeFontData: 1
   fontNames:
   - Warhaven
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: ba90e9617bd52b94cb1a5872a5d1c1af, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
