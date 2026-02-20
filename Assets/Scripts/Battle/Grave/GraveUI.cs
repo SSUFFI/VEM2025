@@ -12,27 +12,9 @@ public class GraveUI : MonoBehaviour
     [SerializeField] GameObject cardPrefab;
 
     bool isOpen = false;
+    public bool IsOpen => isOpen;
 
     void Awake() => Inst = this;
-
-    void Update()
-    {
-
-        if (isOpen)
-        {
-
-            if (Input.GetMouseButtonDown(0))
-            {
-
-                if (!RectTransformUtility.RectangleContainsScreenPoint(
-                    scrollViewRectTransform,
-                    Input.mousePosition))
-                {
-                    Close();
-                }
-            }
-        }
-    }
 
     public void OpenGrave(bool isMine)
     {
@@ -57,5 +39,4 @@ public class GraveUI : MonoBehaviour
         isOpen = false;
     }
 
-    public RectTransform scrollViewRectTransform;
 }

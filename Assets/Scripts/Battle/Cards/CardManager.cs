@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 using DG.Tweening;
 using TMPro;
@@ -57,6 +58,8 @@ public class CardManager : MonoBehaviour
     bool isMyCardDrag;
     bool onMyCardArea;
     bool cardClickedThisFrame = false;
+    bool dragStartedFromZoom;
+    bool isHandTransition = false;
     public bool isZoomMode = false;
     const int MAX_HAND = 10;
 
@@ -122,37 +125,38 @@ public class CardManager : MonoBehaviour
 
     void Update()
     {
-        if (isZoomMode)
+        if (Input.GetMouseButtonDown(0))
         {
-            // 이번 프레임에 마우스 왼쪽 버튼 눌림
-            if (Input.GetMouseButtonDown(0))
+            bool overUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+
+            if (!overUI)
             {
-                // 카드가 클릭된 프레임이 아니면 → 배경 클릭으로 보고 줌 종료
-                if (!cardClickedThisFrame)
+                if (GraveUI.Inst != null && GraveUI.Inst.IsOpen)
+                {
+                    GraveUI.Inst.Close();
+                }
+
+                else if (isZoomMode && !isMyCardDrag && !cardClickedThisFrame)
                 {
                     ExitZoomMode();
                 }
-
-                // 다음 프레임을 위해 플래그 리셋
-                cardClickedThisFrame = false;
             }
-
-            // 줌 모드에선 아래 로직 막기
-            return;
         }
 
-        // 줌 모드가 아닐 때는 항상 플래그 초기화
-        cardClickedThisFrame = false;
-
-        // 원래 드래그 / 카드 영역 감지 / 상태 설정
         if (isMyCardDrag)
             CardDrag();
 
         DetectCardArea();
         SetECardState();
+
+        if (isMyCardDrag && Input.GetMouseButtonUp(0))
+            CardMouseUp();
     }
 
-
+    void LateUpdate()
+    {
+        cardClickedThisFrame = false;
+    }
     // ---------------------------- 카드 드로우 ----------------------------
 
     void AddCard(bool isMine)
@@ -180,7 +184,23 @@ public class CardManager : MonoBehaviour
         (isMine ? myCards : otherCards).Add(card);
 
         SetOriginOrder(isMine);
-        CardAlignment(isMine);
+
+        if (isMine)
+        {
+            if (isZoomMode)
+            {
+                LayoutZoomHandFixed(0.75f, skipSelected: false);
+            }
+            else
+            {
+                CardAlignment(true);
+            }
+        }
+
+        else
+        {
+            CardAlignment(false);
+        }
 
         UpdateDeckCountUI();
     }
@@ -195,14 +215,28 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    public void DamageDeck(int amount, bool isMine, Entity deckAttacker = null)
+    {
+        var deck = isMine ? myDeck : enemyDeck;
+
+        amount = Mathf.Min(amount, deck.Count);
+
+        for (int i = 0; i < amount; i++)
+        {
+            var cardItem = deck[0];
+            deck.RemoveAt(0);
+
+            GraveManager.Inst.AddToGraveFromDeck(cardItem, isMine, deckAttacker);
+
+        }
+
+        UpdateDeckCountUI();
+    }
     // ---------------------------- 손패 정렬 ----------------------------
 
     void CardAlignment(bool isMine)
     {
-        if (isZoomMode)
-            return;
-
-        List<PRS> originPRSList = new List<PRS>();
+        List<PRS> originPRSList;
 
         if (isMine)
             originPRSList = RoundAlignment(myCardLeft, myCardRight, myCards.Count, 0.5f, Vector3.one * 0.3f);
@@ -214,7 +248,9 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i < targetCards.Count; i++)
         {
             targetCards[i].originPRS = originPRSList[i];
-            targetCards[i].MoveTransform(targetCards[i].originPRS, true, 0.7f);
+
+            if (!isZoomMode || !isMine)
+                targetCards[i].MoveTransform(targetCards[i].originPRS, true, 0.7f);
         }
     }
 
@@ -256,6 +292,8 @@ public class CardManager : MonoBehaviour
 
     public void OnCardClicked(Card card)
     {
+        if (isHandTransition) return;
+
         cardClickedThisFrame = true;
 
         if (!isZoomMode)
@@ -270,42 +308,29 @@ public class CardManager : MonoBehaviour
 
     public void StartDragFromZoom(Card card)
     {
-        isZoomMode = false;
+        if (eCardState != ECardState.CanMouseDrag)
+            return;
 
         selectCard = card;
         isMyCardDrag = true;
-
-        CardDrag();
     }
 
     public void EnterZoomMode()
     {
-        if (isZoomMode || myCards.Count == 0)
-            return;
+        if (isZoomMode || myCards.Count == 0) return;
+        if (isHandTransition) return;
 
+        isHandTransition = true;
         isZoomMode = true;
 
+        myCards.ForEach(c => c.transform.DOKill());
 
-        float zoomScaleValue = 0.4f;
-        Vector3 zoomScale = Vector3.one * zoomScaleValue;
+        LayoutZoomHandFixed(0.25f);
 
+        if (handZoomPanel != null)
+            handZoomPanel.SetActive(true);
 
-        float cardWidth = myCards[0].GetComponent<SpriteRenderer>().bounds.size.x * zoomScaleValue;
-        float spacing = cardWidth * 2f;
-
-        int count = myCards.Count;
-        float startX = -(count - 1) * spacing * 0.5f;
-
-        for (int i = 0; i < count; i++)
-        {
-            var card = myCards[i];
-            float posX = startX + spacing * i;
-
-            Vector3 worldPos = zoomRoot.position + new Vector3(posX, 0f, 0f);
-
-            card.MoveTransform(new PRS(worldPos, Quaternion.identity, zoomScale), true, 0.25f);
-            card.GetComponent<CardOrder>().SetMostFrontOrder(true);
-        }
+        DOVirtual.DelayedCall(0.25f, () => isHandTransition = false);
     }
 
     public void OnZoomBackgroundClick()
@@ -315,39 +340,26 @@ public class CardManager : MonoBehaviour
 
     public void ExitZoomMode()
     {
-        if (!isZoomMode)
-           return;
+        if (!isZoomMode) return;
+        if (isHandTransition) return;
+
+        isHandTransition = true;
 
         isZoomMode = false;
+        isMyCardDrag = false;
+        selectCard = null;
+
+        myCards.ForEach(c => c.transform.DOKill());
 
         for (int i = 0; i < myCards.Count; i++)
-        {
-            var card = myCards[i];
-            card.GetComponent<CardOrder>().SetMostFrontOrder(false);
-            card.MoveTransform(card.originPRS, true, 0.25f);
-        }
+            myCards[i].GetComponent<CardOrder>().SetMostFrontOrder(false);
+
+        CardAlignment(true);
 
         if (handZoomPanel != null)
             handZoomPanel.SetActive(false);
-    }
 
-
-    public void DamageDeck(int amount, bool isMine, Entity deckAttacker = null)
-    {
-        var deck = isMine ? myDeck : enemyDeck;
-
-        amount = Mathf.Min(amount, deck.Count);
-
-        for (int i = 0; i < amount; i++)
-        {
-            var cardItem = deck[0];
-            deck.RemoveAt(0);
-
-            GraveManager.Inst.AddToGraveFromDeck(cardItem, isMine, deckAttacker);
-
-        }
-
-        UpdateDeckCountUI();
+        DOVirtual.DelayedCall(0.7f, () => isHandTransition = false);
     }
 
     void ReturnSelectedCardToHand()
@@ -357,10 +369,62 @@ public class CardManager : MonoBehaviour
         EntityManager.Inst.RemoveMyEmptyEntity();
 
         selectCard.transform.DOKill();
-        selectCard.MoveTransform(selectCard.originPRS, true, 0.25f);
 
-        selectCard.GetComponent<CardOrder>().SetMostFrontOrder(false);
-        CardAlignment(true);
+        if (selectCard.hasZoomPRS)
+            selectCard.MoveTransform(selectCard.zoomPRS, true, 0.2f);
+        else
+            selectCard.MoveTransform(selectCard.originPRS, true, 0.2f);
+
+        selectCard.GetComponent<CardOrder>().SetMostFrontOrder(true);
+
+        RefreshZoomLayout();
+    }
+
+    void RefreshZoomLayout()
+    {
+        if (!isZoomMode) return;
+
+        ForceZoomLayout();
+    }
+
+    void ForceZoomLayout()
+    {
+        if (myCards.Count == 0) return;
+
+        bool shouldSkip = isMyCardDrag && selectCard != null;
+        LayoutZoomHandFixed(0.75f, skipSelected: shouldSkip);
+    }
+
+    void LayoutZoomHandFixed(float moveTime, bool skipSelected = false)
+    {
+        if (myCards == null || myCards.Count == 0) return;
+
+        const float ZOOM_SCALE = 0.4f;
+        const float FIXED_SPACING = 4.8f;
+
+        Vector3 zoomScale = Vector3.one * ZOOM_SCALE;
+
+        int count = myCards.Count;
+
+        float totalWidth = FIXED_SPACING * (count - 1);
+        float startX = -totalWidth * 0.5f;
+
+        for (int i = 0; i < count; i++)
+        {
+            var c = myCards[i];
+
+            float posX = startX + FIXED_SPACING * i;
+            Vector3 worldPos = zoomRoot.position + new Vector3(posX, 0f, 0f);
+
+            var prs = new PRS(worldPos, Quaternion.identity, zoomScale);
+            c.zoomPRS = prs;
+            c.hasZoomPRS = true;
+
+            if (skipSelected && c == selectCard) continue;
+
+            c.MoveTransform(prs, true, moveTime);
+            c.GetComponent<CardOrder>().SetMostFrontOrder(true);
+        }
     }
 
     public bool TryPutCard(bool isMine)
@@ -373,11 +437,15 @@ public class CardManager : MonoBehaviour
 
         var targetCards = isMine ? myCards : otherCards;
 
+        if (card == null)
+            return false;
+
         int cost = card.data.manaCost;
 
         if (!TurnManager.Inst.CanPayMana(isMine, cost))
         {
-            if (isMine) BattleGameManager.Inst.Notification("마나가 부족합니다");
+            if (isMine)
+                BattleGameManager.Inst.Notification("마나가 부족합니다");
             return false;
         }
 
@@ -386,21 +454,42 @@ public class CardManager : MonoBehaviour
             TurnManager.Inst.PayMana(isMine, cost);
 
             targetCards.Remove(card);
+
             card.transform.DOKill();
             Destroy(card.gameObject);
 
             if (isMine)
             {
                 selectCard = null;
+
+                if (isZoomMode)
+                    ForceZoomLayout();
+                else
+                    CardAlignment(true);
+            }
+            else
+            {
+                CardAlignment(false);
             }
 
-            CardAlignment(isMine);
             return true;
         }
         else
         {
             targetCards.ForEach(x => x.GetComponent<CardOrder>().SetMostFrontOrder(false));
-            CardAlignment(isMine);
+
+            if (isMine)
+            {
+                if (isZoomMode)
+                    ForceZoomLayout();
+                else
+                    CardAlignment(true);
+            }
+            else
+            {
+                CardAlignment(false);
+            }
+
             return false;
         }
     }
@@ -419,6 +508,8 @@ public class CardManager : MonoBehaviour
 
     public void CardMouseDown()
     {
+        if (!isZoomMode) return;
+
         if (eCardState != ECardState.CanMouseDrag)
             return;
 
@@ -435,34 +526,44 @@ public class CardManager : MonoBehaviour
         if (onMyCardArea)
         {
             EntityManager.Inst.RemoveMyEmptyEntity();
+            ReturnSelectedCardToHand();
             return;
         }
 
         bool success = TryPutCard(true);
 
         if (!success)
-        {
             ReturnSelectedCardToHand();
-        }
     }
 
     void CardDrag()
     {
-        if (eCardState != ECardState.CanMouseDrag)
-            return;
+        if (eCardState != ECardState.CanMouseDrag) return;
+        if (selectCard == null) return;
+
+        var scale = (isZoomMode && selectCard.hasZoomPRS) ? selectCard.zoomPRS.scale : selectCard.originPRS.scale;
 
         if (!onMyCardArea)
         {
-            selectCard.MoveTransform(new PRS(Utils.MousePos, Utils.QI, selectCard.originPRS.scale), false);
+            selectCard.MoveTransform(new PRS(Utils.MousePos, Utils.QI, scale), false);
             EntityManager.Inst.InsertMyEmptyEntity(Utils.MousePos.x);
+        }
+        else
+        {
+            EntityManager.Inst.RemoveMyEmptyEntity();
+
+            var target = (isZoomMode && selectCard.hasZoomPRS) ? selectCard.zoomPRS : selectCard.originPRS;
+            selectCard.MoveTransform(target, true, 0.15f);
         }
     }
 
     void DetectCardArea()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(Utils.MousePos, Vector3.forward);
         int layer = LayerMask.NameToLayer("MyCardArea");
-        onMyCardArea = Array.Exists(hits, x => x.collider.gameObject.layer == layer);
+        int mask = 1 << layer;
+
+        Collider2D col = Physics2D.OverlapPoint(Utils.MousePos, mask);
+        onMyCardArea = (col != null);
     }
 
     void EnlargeCard(bool isEnlarge, Card card)

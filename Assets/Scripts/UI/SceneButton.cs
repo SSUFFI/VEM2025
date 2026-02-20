@@ -7,15 +7,14 @@ public class SceneButton : MonoBehaviour
 
     [Header("Target")]
     public TargetMode target = TargetMode.ByName;
-    public string sceneName = "Battle";  // ByName일 때 사용
-    public int buildIndex = 0;           // ByBuildIndex일 때 사용
+    public string sceneName = "Battle";
+    public int buildIndex = 0;
 
     [Header("Load Options")]
     public LoadSceneMode loadMode = LoadSceneMode.Single;
-    public bool useAsync = false;        // 비동기 로딩
-    public float delaySeconds = 0f;      // 클릭 후 지연(페이드용)
+    public bool useAsync = false;
+    public float delaySeconds = 0f;
 
-    // 버튼 OnClick에 이 메서드를 연결하세요.
     public void Load() => StartCoroutine(CoLoad());
 
     public void LoadByName(string name) { target = TargetMode.ByName; sceneName = name; Load(); }
@@ -46,7 +45,7 @@ public class SceneButton : MonoBehaviour
                 else SceneManager.LoadScene(cur, loadMode);
                 break;
 
-            default: // ByName
+            default:
                 if (useAsync) SceneManager.LoadSceneAsync(sceneName, loadMode);
                 else SceneManager.LoadScene(sceneName, loadMode);
                 break;

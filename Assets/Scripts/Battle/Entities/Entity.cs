@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class Entity : MonoBehaviour
 {
-    [SerializeField] CardData data;          // ✅ Item -> CardData
+    [SerializeField] CardData data;
     [SerializeField] SpriteRenderer entity;
     [SerializeField] SpriteRenderer character;
     [SerializeField] TMP_Text nameTMP;
@@ -17,12 +17,13 @@ public class Entity : MonoBehaviour
     public int health;
     public bool isMine;
     public bool isDie;
-    public bool isBossOrEmpty;  // 보스 or 빈 슬롯
+    public bool isBossOrEmpty;
     public bool attackable;
+    public bool addedToGrave = false;
     public Vector3 originPos;
     int liveCount;
 
-    public CardData Data => data;            // ✅ ItemData -> Data
+    public CardData Data => data;
 
     void Start()
     {
@@ -46,7 +47,7 @@ public class Entity : MonoBehaviour
             liveCount++;
     }
 
-    public void Setup(CardData data)         // ✅ Item -> CardData
+    public void Setup(CardData data)
     {
         attack = data.attack;
         health = data.health;

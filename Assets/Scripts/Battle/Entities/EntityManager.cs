@@ -387,6 +387,12 @@ public class EntityManager : MonoBehaviour
         if (!entity.isDie) return;
         if (entity.isBossOrEmpty) return;
 
+        if (!entity.addedToGrave && GraveManager.Inst != null)
+        {
+            GraveManager.Inst.AddToGrave(entity.Data, entity.isMine);
+            entity.addedToGrave = true;
+        }
+
         if (entity.isMine)
         {
             if (!myEntities.Contains(entity)) return;

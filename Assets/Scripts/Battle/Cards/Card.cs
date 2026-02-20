@@ -15,10 +15,13 @@ public class Card : MonoBehaviour
     [SerializeField] Sprite cardFront;
     [SerializeField] Sprite cardBack;
 
+    public SpriteRenderer CardFrameRenderer => card;
     public CardData data;
     public bool isMine;
     bool isFront;
     public PRS originPRS;
+    public PRS zoomPRS;
+    public bool hasZoomPRS;
 
 
     public void Setup(CardData data, bool isMine)
@@ -47,19 +50,13 @@ public class Card : MonoBehaviour
 
     void OnMouseOver() { }
     void OnMouseExit() { }
+    void OnMouseUp() { }
 
     void OnMouseDown()
     {
         if (!isMine) return;
 
         CardManager.Inst.OnCardClicked(this);
-    }
-
-    void OnMouseUp()
-    {
-
-        if (isMine)
-            CardManager.Inst.CardMouseUp();
     }
 
     public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0)
