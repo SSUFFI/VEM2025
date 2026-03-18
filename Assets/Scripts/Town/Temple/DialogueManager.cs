@@ -93,6 +93,7 @@ public class DialogueManager : MonoBehaviour
         UpdateNextText();
     }
 
+
     void OnClickDialogueBox()
     {
         if (isChoosing)
@@ -245,6 +246,8 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
 
         dialoguePanel.SetActive(false);
+
+        TempleUIManager.Inst.OpenMainPanel();
     }
 
     void SetAlpha(Image img, float a)
