@@ -3696,9 +3696,7 @@ MonoBehaviour:
     leftIllustration: {fileID: 0}
     rightIllustration: {fileID: 0}
     hasChoice: 0
-    choices:
-    - choiceText: 
-      nextIndex: 0
+    choices: []
     nextIndex: -1
   - speaker: 0
     speakerName: "\uBB38\uC9C0\uAE30"
