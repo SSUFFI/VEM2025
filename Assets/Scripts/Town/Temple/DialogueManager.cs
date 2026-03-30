@@ -24,7 +24,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Texts")]
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
-    public TextMeshProUGUI nextText; // "다음" / "대화 종료"
+    public TextMeshProUGUI nextText;
 
     [Header("Typing")]
     [Range(0.02f, 0.3f)]
@@ -151,11 +151,11 @@ public class DialogueManager : MonoBehaviour
         if (line.speaker == Side.Left)
         {
             SetAlpha(leftCharacterImage, 1f);
-            SetAlpha(rightCharacterImage, 0.3f);
+            SetAlpha(rightCharacterImage, 0.6f);
         }
         else
         {
-            SetAlpha(leftCharacterImage, 0.3f);
+            SetAlpha(leftCharacterImage, 0.6f);
             SetAlpha(rightCharacterImage, 1f);
         }
 
@@ -269,7 +269,7 @@ public class DialogueManager : MonoBehaviour
             {
                 choiceButtons[i].gameObject.SetActive(true);
 
-                int choiceIndex = i; // 클로저 방지
+                int choiceIndex = i;
 
                 choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>().text =
                     line.choices[i].choiceText;
@@ -311,7 +311,6 @@ public class DialogueManager : MonoBehaviour
         {
             bool isWhite = char.IsWhiteSpace(text[i]);
 
-            // 상태가 바뀌면 지금까지 누적한 토큰 저장
             if (isWhite != inWhite && sb.Length > 0)
             {
                 result.Add(sb.ToString());

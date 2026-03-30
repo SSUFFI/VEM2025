@@ -32,18 +32,25 @@ public class NodeUI : MonoBehaviour
     [HideInInspector] public NodeState state;
 
     float pulseTimer;
+    Vector3 baseScale;
+
+    void Awake()
+    {
+        baseScale = transform.localScale;
+    }
 
     void Update()
     {
         if (state == NodeState.Available)
         {
             pulseTimer += Time.deltaTime * 2f;
+
             float scale = 1f + Mathf.Sin(pulseTimer) * 0.05f;
-            transform.localScale = new Vector3(scale, scale, 1f);
+            transform.localScale = baseScale * scale;
         }
         else
         {
-            transform.localScale = Vector3.one;
+            transform.localScale = baseScale;
         }
     }
 
