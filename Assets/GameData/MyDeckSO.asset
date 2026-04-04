@@ -17,105 +17,105 @@ MonoBehaviour:
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uD6C8\uB828\uBCD1(1)"
     attack: 1
     health: 1
     manaCost: 1
-    sprite: {fileID: 21300000, guid: 4b612582876028d4ebaccbb85f79b510, type: 3}
+    sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
     graveTriggers: 00000000
     deathTriggers: 
   - name: "\uBB38\uC9C0\uAE30(2)"

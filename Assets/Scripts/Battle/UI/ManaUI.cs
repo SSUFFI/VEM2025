@@ -26,7 +26,7 @@ public class ManaUI : MonoBehaviour
     {
         var tm = TurnManager.Inst;
 
-        myManaTMP.text = $"{tm.myCurMana} / {tm.myMaxMana}";
-        otherManaTMP.text = $"{tm.otherCurMana} / {tm.otherMaxMana}";
+        myManaTMP.text = $"{tm.myCurMana}/{tm.myMaxMana}";
+        otherManaTMP.text = $"{tm.otherCurMana}/{tm.otherMaxMana}";
     }
 }

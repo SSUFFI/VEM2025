@@ -145,6 +145,20 @@ public class EntityManager : MonoBehaviour
         return true;
     }
 
+    public bool SpawnEntity(bool isMine, CardDataSO dataSO, Vector3 spawnPos)
+    {
+        CardData temp = new CardData();
+        temp.name = dataSO.cardName;
+        temp.attack = dataSO.attack;
+        temp.health = dataSO.health;
+        temp.manaCost = dataSO.manaCost;
+        temp.sprite = dataSO.sprite;
+        temp.graveTriggers = new List<EGraveTrigger>(dataSO.graveTriggers);
+        temp.deathTriggers = new List<EDeathTrigger>(dataSO.deathTriggers);
+
+        return SpawnEntity(isMine, temp, spawnPos);
+    }
+
     public void EntityMouseDown(Entity entity)
     {
         if (!CanMouseInput)

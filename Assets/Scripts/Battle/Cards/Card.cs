@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-
 public class Card : MonoBehaviour
 {
     [SerializeField] SpriteRenderer card;
@@ -12,21 +11,25 @@ public class Card : MonoBehaviour
     [SerializeField] TMP_Text nameTMP;
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
+    [SerializeField] TMP_Text manaTMP;
     [SerializeField] Sprite cardFront;
     [SerializeField] Sprite cardBack;
 
     public SpriteRenderer CardFrameRenderer => card;
+
     public CardData data;
+    public CardDataSO dataSO;
+
     public bool isMine;
     bool isFront;
     public PRS originPRS;
     public PRS zoomPRS;
     public bool hasZoomPRS;
 
-
     public void Setup(CardData data, bool isMine)
     {
         this.data = data;
+        this.dataSO = null;
         this.isMine = isMine;
         this.isFront = isMine;
 
@@ -45,6 +48,33 @@ public class Card : MonoBehaviour
             nameTMP.text = string.Empty;
             attackTMP.text = string.Empty;
             healthTMP.text = string.Empty;
+        }
+    }
+
+    public void Setup(CardDataSO data, bool isMine)
+    {
+        this.dataSO = data;
+        this.data = null;
+        this.isMine = isMine;
+        this.isFront = isMine;
+
+        if (this.isFront)
+        {
+            card.sprite = cardFront;
+            Character.sprite = this.dataSO.sprite;
+            nameTMP.text = this.dataSO.cardName;
+            attackTMP.text = this.dataSO.attack.ToString();
+            healthTMP.text = this.dataSO.health.ToString();
+            manaTMP.text = this.dataSO.manaCost.ToString();
+        }
+        else
+        {
+            card.sprite = cardBack;
+            Character.sprite = null;
+            nameTMP.text = string.Empty;
+            attackTMP.text = string.Empty;
+            healthTMP.text = string.Empty;
+            manaTMP.text = string.Empty;
         }
     }
 

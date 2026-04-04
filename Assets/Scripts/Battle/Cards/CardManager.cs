@@ -34,7 +34,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] DeckSO enemyDeckSO;
     [SerializeField] TMP_Text myDeckCountTMP;
     [SerializeField] TMP_Text enemyDeckCountTMP;
-    List<CardData> myDeck;
+    List<CardDataSO> myDeck;
     List<CardData> enemyDeck;
 
     [Header("Card Prefab & Positions")]
@@ -79,8 +79,17 @@ public class CardManager : MonoBehaviour
 
     void SetupDecks()
     {
-        // 덱 생성
-        myDeck = new List<CardData>(myDeckSO.deckItems);
+
+        if (DeckEditManager.Inst != null && DeckEditManager.Inst.savedDeck.Count > 0)
+        {
+            myDeck = new List<CardDataSO>(DeckEditManager.Inst.savedDeck);
+        }
+        else
+        {
+            myDeck = new List<CardDataSO>();
+            Debug.LogWarning("저장된 플레이어 덱이 없음!");
+        }
+
         enemyDeck = new List<CardData>(enemyDeckSO.deckItems);
 
         Shuffle(myDeck);
@@ -90,6 +99,15 @@ public class CardManager : MonoBehaviour
     }
 
     void Shuffle(List<CardData> deck)
+    {
+        for (int i = 0; i < deck.Count; i++)
+        {
+            int rand = Random.Range(i, deck.Count);
+            (deck[i], deck[rand]) = (deck[rand], deck[i]);
+        }
+    }
+
+    void Shuffle(List<CardDataSO> deck)
     {
         for (int i = 0; i < deck.Count; i++)
         {
@@ -109,16 +127,26 @@ public class CardManager : MonoBehaviour
 
     // ---------------------------- 덱에서 카드 1장 뽑기 ----------------------------
 
-    public CardData PopItem(bool isMine)
+    public object PopItem(bool isMine)
     {
-        var deck = isMine ? myDeck : enemyDeck;
+        if (isMine)
+        {
+            if (myDeck.Count == 0)
+                return null;
 
-        if (deck.Count == 0)
-            return null;
+            var data = myDeck[0];
+            myDeck.RemoveAt(0);
+            return data;
+        }
+        else
+        {
+            if (enemyDeck.Count == 0)
+                return null;
 
-        CardData data = deck[0];
-        deck.RemoveAt(0);
-        return data;
+            var data = enemyDeck[0];
+            enemyDeck.RemoveAt(0);
+            return data;
+        }
     }
 
     // ---------------------------- 턴 관리 ----------------------------
@@ -180,7 +208,11 @@ public class CardManager : MonoBehaviour
         var cardObject = Instantiate(cardPrefab, startPos, Utils.QI);
         var card = cardObject.GetComponent<Card>();
 
-        card.Setup(data, isMine);
+        if (isMine)
+            card.Setup((CardDataSO)data, true);
+        else
+            card.Setup((CardData)data, false);
+
         (isMine ? myCards : otherCards).Add(card);
 
         SetOriginOrder(isMine);
@@ -196,7 +228,6 @@ public class CardManager : MonoBehaviour
                 CardAlignment(true);
             }
         }
-
         else
         {
             CardAlignment(false);
@@ -217,17 +248,39 @@ public class CardManager : MonoBehaviour
 
     public void DamageDeck(int amount, bool isMine, Entity deckAttacker = null)
     {
-        var deck = isMine ? myDeck : enemyDeck;
-
-        amount = Mathf.Min(amount, deck.Count);
-
-        for (int i = 0; i < amount; i++)
+        if (isMine)
         {
-            var cardItem = deck[0];
-            deck.RemoveAt(0);
+            amount = Mathf.Min(amount, myDeck.Count);
 
-            GraveManager.Inst.AddToGraveFromDeck(cardItem, isMine, deckAttacker);
+            for (int i = 0; i < amount; i++)
+            {
+                var cardSO = myDeck[0];
+                myDeck.RemoveAt(0);
 
+
+                CardData temp = new CardData();
+                temp.name = cardSO.cardName;
+                temp.attack = cardSO.attack;
+                temp.health = cardSO.health;
+                temp.manaCost = cardSO.manaCost;
+                temp.sprite = cardSO.sprite;
+                temp.graveTriggers = new System.Collections.Generic.List<EGraveTrigger>(cardSO.graveTriggers);
+                temp.deathTriggers = new System.Collections.Generic.List<EDeathTrigger>(cardSO.deathTriggers);
+
+                GraveManager.Inst.AddToGraveFromDeck(temp, true, deckAttacker);
+            }
+        }
+        else
+        {
+            amount = Mathf.Min(amount, enemyDeck.Count);
+
+            for (int i = 0; i < amount; i++)
+            {
+                var card = enemyDeck[0];
+                enemyDeck.RemoveAt(0);
+
+                GraveManager.Inst.AddToGraveFromDeck(card, false, deckAttacker);
+            }
         }
 
         UpdateDeckCountUI();
@@ -440,7 +493,9 @@ public class CardManager : MonoBehaviour
         if (card == null)
             return false;
 
-        int cost = card.data.manaCost;
+        int cost = isMine
+            ? card.dataSO.manaCost
+            : card.data.manaCost;
 
         if (!TurnManager.Inst.CanPayMana(isMine, cost))
         {
@@ -449,7 +504,18 @@ public class CardManager : MonoBehaviour
             return false;
         }
 
-        if (EntityManager.Inst.SpawnEntity(isMine, card.data, spawnPos))
+        bool spawnSuccess;
+
+        if (isMine)
+        {
+            spawnSuccess = EntityManager.Inst.SpawnEntity(isMine, card.dataSO, spawnPos);
+        }
+        else
+        {
+            spawnSuccess = EntityManager.Inst.SpawnEntity(isMine, card.data, spawnPos);
+        }
+
+        if (spawnSuccess)
         {
             TurnManager.Inst.PayMana(isMine, cost);
 
