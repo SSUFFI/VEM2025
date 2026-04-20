@@ -113,6 +113,12 @@ public class DialogueManager : MonoBehaviour
 
         var currentLine = lines[index];
 
+        if (currentLine.nextIndex == -1 && index >= lines.Length - 1)
+        {
+            EndDialogue();
+            return;
+        }
+
         if (currentLine.nextIndex == -999)
         {
             canClose = true;
@@ -143,10 +149,24 @@ public class DialogueManager : MonoBehaviour
         nameText.text = line.speakerName;
 
         if (line.leftIllustration != null)
+        {
             leftCharacterImage.sprite = line.leftIllustration;
+            leftCharacterImage.enabled = true;
+        }
+        else
+        {
+            leftCharacterImage.enabled = false;
+        }
 
         if (line.rightIllustration != null)
+        {
             rightCharacterImage.sprite = line.rightIllustration;
+            rightCharacterImage.enabled = true;
+        }
+        else
+        {
+            rightCharacterImage.enabled = false;
+        }
 
         if (line.speaker == Side.Left)
         {
@@ -328,6 +348,12 @@ public class DialogueManager : MonoBehaviour
         return result;
     }
 
+    public void SetIndex(int newIndex)
+    {
+        index = newIndex;
+        ShowLine();
+    }
+
     public void StartDialogue(Line[] newLines)
     {
         lines = newLines;
@@ -336,7 +362,14 @@ public class DialogueManager : MonoBehaviour
 
     public void OnClickTemple()
     {
-        TutorialManager.Inst.OnTempleEntered();
+        Debug.Log("Temple Click");
+        TempleUIManager.Inst.OpenMainPanel();
+
+        if (TutorialManager.Inst != null &&
+            TutorialManager.Inst.step == TutorialStep.AfterIntro)
+        {
+            TutorialManager.Inst.OnTempleEntered();
+        }
     }
 
     public void OnClickRoyal()

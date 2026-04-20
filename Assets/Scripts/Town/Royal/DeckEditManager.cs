@@ -42,6 +42,12 @@ public class DeckEditManager : MonoBehaviour
     {
         savedDeck = new List<CardDataSO>(currentDeck);
         Debug.Log("µ¦ ÀúÀåµÊ");
+
+        if (currentDeck.Count == maxDeckSize)
+        {
+            if (TutorialManager.Inst != null)
+                TutorialManager.Inst.OnDeckCompleted();
+        }
     }
 
     public bool AddCard(CardDataSO data)
@@ -57,8 +63,6 @@ public class DeckEditManager : MonoBehaviour
         if (!fixedOrder.Contains(data))
             fixedOrder.Add(data);
 
-        CheckDeckComplete();
-
         return true;
     }
 
@@ -70,12 +74,4 @@ public class DeckEditManager : MonoBehaviour
             fixedOrder.Remove(data);
     }
 
-    public void CheckDeckComplete()
-    {
-        if (currentDeck.Count >= maxDeckSize)
-        {
-            if (TutorialManager.Inst != null)
-                TutorialManager.Inst.OnDeckCompleted();
-        }
-    }
 }

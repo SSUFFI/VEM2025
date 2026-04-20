@@ -415,7 +415,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: b4934d5773197764fbc640da53256f89, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 022162435cfd9fc4aafe17cd8b54b7a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -581,6 +581,7 @@ MonoBehaviour:
     health: 0
     manaCost: 0
     sprite: {fileID: 0}
+    fieldSprite: {fileID: 0}
     graveTriggers: 
     deathTriggers: 
   entity: {fileID: 887560038357117395}

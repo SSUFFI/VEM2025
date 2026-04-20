@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public enum TutorialStep
 {
     Start,
     AfterIntro,
     AfterTemple,
+    BeforeRoyal,
     AfterRelic,
     AfterRoyal,
     AfterDeck,
@@ -23,6 +25,7 @@ public class TutorialManager : MonoBehaviour
 
     public DialogueManager.Line[] introLines;
     public DialogueManager.Line[] templeLines;
+    public DialogueManager.Line[] beforeRoyalLines;
     public DialogueManager.Line[] royalLines;
 
     [Header("Buttons")]
@@ -32,6 +35,9 @@ public class TutorialManager : MonoBehaviour
     public GameObject shopButton;
 
     bool templeDialogueDone = false;
+
+    DialogueManager.Line[] resumeLines;
+    int resumeIndex = -1;
 
     void Awake()
     {
@@ -73,6 +79,7 @@ public class TutorialManager : MonoBehaviour
         dialogue.StartDialogue(introLines);
     }
 
+
     public void OnDialogueEnd()
     {
         switch (step)
@@ -86,51 +93,87 @@ public class TutorialManager : MonoBehaviour
                 step = TutorialStep.AfterTemple;
                 break;
 
-            case TutorialStep.AfterTemple:
+            case TutorialStep.BeforeRoyal:
                 royalButton.SetActive(true);
-                step = TutorialStep.AfterRelic;
                 break;
 
             case TutorialStep.AfterRoyal:
-                step = TutorialStep.AfterDeck;
                 break;
         }
     }
 
+
     public void OnTempleEntered()
     {
-        if (step == TutorialStep.AfterIntro && !templeDialogueDone)
+
+        if (!templeDialogueDone)
         {
             templeDialogueDone = true;
-            dialogue.StartDialogue(templeLines);
-            return;
-        }
 
-        TempleUIManager.Inst.OpenMainPanel();
+            StartCoroutine(CoPlayTempleDialogue());
+        }
+    }
+
+    public void OnTempleExit()
+    {
+        if (step == TutorialStep.AfterTemple)
+        {
+            dialogue.StartDialogue(beforeRoyalLines);
+            step = TutorialStep.BeforeRoyal;
+        }
+    }
+
+    IEnumerator CoPlayTempleDialogue()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        dialogue.StartDialogue(templeLines);
     }
 
     public void OnRoyalEntered()
     {
-        if (step == TutorialStep.AfterRelic)
+        if (RoyalUIManager.Inst != null)
+            RoyalUIManager.Inst.OpenRoyal();
+
+        if (step == TutorialStep.BeforeRoyal)
         {
             dialogue.StartDialogue(royalLines);
+
+            resumeLines = royalLines;
+            resumeIndex = 8;
+
             step = TutorialStep.AfterRoyal;
         }
     }
+
 
     public void OnDeckCompleted()
     {
         if (step == TutorialStep.AfterRoyal)
         {
+            ResumeDialogue();
+
             dungeonButton.SetActive(true);
             step = TutorialStep.AfterDeck;
         }
+    }
+
+    void ResumeDialogue()
+    {
+        if (resumeLines == null) return;
+
+        dialogue.StartDialogue(resumeLines);
+        dialogue.SetIndex(resumeIndex);
+
+        resumeLines = null;
+        resumeIndex = -1;
     }
 
     public void EndTutorial()
     {
         PlayerPrefs.SetInt("TutorialDone", 1);
         PlayerPrefs.Save();
+
         templeDialogueDone = true;
         step = TutorialStep.Done;
     }

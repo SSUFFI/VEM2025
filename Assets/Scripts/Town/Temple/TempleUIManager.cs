@@ -38,47 +38,39 @@ public class TempleUIManager : MonoBehaviour
         CloseAllPanels();
     }
 
-    // --------------------------
-    // 버튼 연결용 함수들
-    // --------------------------
-
-    // 대화 끝나고 호출
     public void OpenMainPanel()
     {
         OpenPanel(mainPanel);
     }
 
-    // 1. 성유물
     public void OnClickRelic()
     {
         OpenPanel(relicPanel);
     }
 
-    // 성유물 → 강화 패널
     public void OnClickRelicEnhance()
     {
         OpenPanel(relicEnhancePanel);
     }
 
-    // 강화 패널 → 성유물 패널
     public void OnClickBackToRelic()
     {
         OpenPanel(relicPanel);
     }
 
-    // 2. 쪽지
     public void OnClickNote()
     {
         OpenPanel(notePanel);
     }
 
-    // 3. 마을로 돌아가기
     public void OnClickExit()
     {
         CloseTemple();
+
+        if (TutorialManager.Inst != null)
+            TutorialManager.Inst.OnTempleExit();
     }
 
-    // 돌아가기 버튼 (공통)
     public void OnClickBackToMain()
     {
         OpenPanel(mainPanel);
