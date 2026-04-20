@@ -12,6 +12,7 @@ public class CardListUI : MonoBehaviour, IPointerClickHandler
     public TMP_Text attackTMP;
     public TMP_Text healthTMP;
     public TMP_Text manaTMP;
+    public TMP_Text descriptionTMP;
 
     public void Init(CardDataSO data)
     {
@@ -23,6 +24,7 @@ public class CardListUI : MonoBehaviour, IPointerClickHandler
         attackTMP.text = data.attack.ToString();
         healthTMP.text = data.health.ToString();
         manaTMP.text = data.manaCost.ToString();
+        descriptionTMP.text = data.description;
     }
 
     public void OnPointerClick(PointerEventData eventData)

@@ -153,6 +153,7 @@ public class EntityManager : MonoBehaviour
         temp.health = dataSO.health;
         temp.manaCost = dataSO.manaCost;
         temp.sprite = dataSO.sprite;
+        temp.fieldSprite = dataSO.fieldSprite;
         temp.graveTriggers = new List<EGraveTrigger>(dataSO.graveTriggers);
         temp.deathTriggers = new List<EDeathTrigger>(dataSO.deathTriggers);
 
@@ -202,7 +203,6 @@ public class EntityManager : MonoBehaviour
 
     void Attack(Entity attacker, Entity defender)
     {
-        attacker.attackable = false;
         attacker.GetComponent<CardOrder>().SetMostFrontOrder(true);
 
         Sequence sequence = DOTween.Sequence()
@@ -213,7 +213,11 @@ public class EntityManager : MonoBehaviour
                 //SpawnDamage(attacker.attack, defender.transform);
             })
             .Append(attacker.transform.DOMove(attacker.originPos, 0.4f)).SetEase(Ease.OutSine)
-            .OnComplete(() => AttackCallback(attacker, defender));
+            .OnComplete(() =>
+            {
+                attacker.SetAttackable(false);
+                AttackCallback(attacker, defender);
+            });
     }
 
     void AttackCallback(params Entity[] entities)
@@ -297,7 +301,7 @@ public class EntityManager : MonoBehaviour
     public void AttackableReset(bool isMine)
     {
         var targetEntites = isMine ? myEntities : otherEntities;
-        targetEntites.ForEach(x => x.attackable = true);
+        targetEntites.ForEach(x => x.SetAttackable(true));
     }
 
     IEnumerator AIAttackCo()
@@ -365,7 +369,6 @@ public class EntityManager : MonoBehaviour
 
     IEnumerator AttackBossCo(Entity attacker)
     {
-        attacker.attackable = false;
         attacker.GetComponent<CardOrder>()?.SetMostFrontOrder(true);
 
         Vector3 bossPos = myBossEntity.originPos;
@@ -380,6 +383,8 @@ public class EntityManager : MonoBehaviour
             .OnComplete(() =>
             {
                 attacker.GetComponent<CardOrder>()?.SetMostFrontOrder(false);
+
+                attacker.SetAttackable(false);
 
                 CardManager.Inst.DamageDeck(attacker.attack, true, attacker);
 

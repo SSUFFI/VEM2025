@@ -9,9 +9,11 @@ public class Entity : MonoBehaviour
     [SerializeField] CardData data;
     [SerializeField] SpriteRenderer entity;
     [SerializeField] SpriteRenderer character;
+    [SerializeField] SpriteRenderer frameRenderer;
     [SerializeField] TMP_Text nameTMP;
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
+
 
     public int attack;
     public int health;
@@ -53,15 +55,28 @@ public class Entity : MonoBehaviour
         health = data.health;
 
         this.data = data;
-        character.sprite = this.data.sprite;
 
-        nameTMP.text = this.data.name;
+        character.sprite = data.fieldSprite != null
+            ? data.fieldSprite
+            : data.sprite;
+
+        nameTMP.text = data.name;
         attackTMP.text = attack.ToString();
 
         if (!isBossOrEmpty)
             healthTMP.text = health.ToString();
         else
             healthTMP.gameObject.SetActive(false);
+
+        SetAttackable(false);
+    }
+
+    public void SetAttackable(bool value)
+    {
+        attackable = value;
+
+        if (frameRenderer != null)
+            frameRenderer.color = value ? Color.white : new Color(120f / 255f, 120f / 255f, 120f / 255f);
     }
 
     void OnMouseDown()

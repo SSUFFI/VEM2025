@@ -57,6 +57,8 @@ public class DeckEditManager : MonoBehaviour
         if (!fixedOrder.Contains(data))
             fixedOrder.Add(data);
 
+        CheckDeckComplete();
+
         return true;
     }
 
@@ -66,5 +68,14 @@ public class DeckEditManager : MonoBehaviour
 
         if (!currentDeck.Contains(data))
             fixedOrder.Remove(data);
+    }
+
+    public void CheckDeckComplete()
+    {
+        if (currentDeck.Count >= maxDeckSize)
+        {
+            if (TutorialManager.Inst != null)
+                TutorialManager.Inst.OnDeckCompleted();
+        }
     }
 }

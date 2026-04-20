@@ -12,6 +12,7 @@ public class Card : MonoBehaviour
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text manaTMP;
+    [SerializeField] TMP_Text descriptionTMP;
     [SerializeField] Sprite cardFront;
     [SerializeField] Sprite cardBack;
 
@@ -25,21 +26,28 @@ public class Card : MonoBehaviour
     public PRS originPRS;
     public PRS zoomPRS;
     public bool hasZoomPRS;
+    public bool isField;
 
-    public void Setup(CardData data, bool isMine)
+    public void Setup(CardData data, bool isMine, bool isField = false)
     {
         this.data = data;
         this.dataSO = null;
         this.isMine = isMine;
+        this.isField = isField;
         this.isFront = isMine;
 
         if (this.isFront)
         {
             card.sprite = cardFront;
-            Character.sprite = this.data.sprite;
-            nameTMP.text = this.data.name;
-            attackTMP.text = this.data.attack.ToString();
-            healthTMP.text = this.data.health.ToString();
+
+            Character.sprite = isField && data.fieldSprite != null
+                ? data.fieldSprite
+                : data.sprite;
+
+            nameTMP.text = data.name;
+            attackTMP.text = data.attack.ToString();
+            healthTMP.text = data.health.ToString();
+            descriptionTMP.text = data.description;
         }
         else
         {
@@ -48,24 +56,31 @@ public class Card : MonoBehaviour
             nameTMP.text = string.Empty;
             attackTMP.text = string.Empty;
             healthTMP.text = string.Empty;
+            descriptionTMP.text = string.Empty;
         }
     }
 
-    public void Setup(CardDataSO data, bool isMine)
+    public void Setup(CardDataSO data, bool isMine, bool isField = false)
     {
         this.dataSO = data;
         this.data = null;
         this.isMine = isMine;
+        this.isField = isField;
         this.isFront = isMine;
 
         if (this.isFront)
         {
             card.sprite = cardFront;
-            Character.sprite = this.dataSO.sprite;
-            nameTMP.text = this.dataSO.cardName;
-            attackTMP.text = this.dataSO.attack.ToString();
-            healthTMP.text = this.dataSO.health.ToString();
-            manaTMP.text = this.dataSO.manaCost.ToString();
+
+            Character.sprite = isField && data.fieldSprite != null
+                ? data.fieldSprite
+                : data.sprite;
+
+            nameTMP.text = data.cardName;
+            attackTMP.text = data.attack.ToString();
+            healthTMP.text = data.health.ToString();
+            manaTMP.text = data.manaCost.ToString();
+            descriptionTMP.text = data.description;
         }
         else
         {
@@ -75,6 +90,7 @@ public class Card : MonoBehaviour
             attackTMP.text = string.Empty;
             healthTMP.text = string.Empty;
             manaTMP.text = string.Empty;
+            descriptionTMP.text = string.Empty;
         }
     }
 

@@ -9,6 +9,10 @@ public class CardDataSO : ScriptableObject
     public int health;
     public int manaCost;
     public Sprite sprite;
+    public Sprite fieldSprite;
+
+    [TextArea]
+    public string description;
 
     public List<EGraveTrigger> graveTriggers = new List<EGraveTrigger>();
     public List<EDeathTrigger> deathTriggers = new List<EDeathTrigger>();
