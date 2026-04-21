@@ -2,7 +2,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DeckCardUI : MonoBehaviour, IPointerClickHandler
+public class DeckCardUI : MonoBehaviour,
+    IPointerClickHandler,
+    IPointerDownHandler,
+    IPointerUpHandler
 {
     public TMP_Text nameTMP;
 
@@ -18,9 +21,23 @@ public class DeckCardUI : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            DeckEditManager.Inst.RemoveCard(data);
-
-            DeckListUI.Inst.Refresh();
+            DeckListUI.Inst.StartRemove(data);
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Right)
+            return;
+
+        DeckListUI.Inst.StartHoldRemove(data);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Right)
+            return;
+
+        DeckListUI.Inst.StopHold();
     }
 }

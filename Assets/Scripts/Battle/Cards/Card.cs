@@ -18,7 +18,6 @@ public class Card : MonoBehaviour
 
     public SpriteRenderer CardFrameRenderer => card;
 
-    public CardData data;
     public CardDataSO dataSO;
 
     public bool isMine;
@@ -28,42 +27,9 @@ public class Card : MonoBehaviour
     public bool hasZoomPRS;
     public bool isField;
 
-    public void Setup(CardData data, bool isMine, bool isField = false)
-    {
-        this.data = data;
-        this.dataSO = null;
-        this.isMine = isMine;
-        this.isField = isField;
-        this.isFront = isMine;
-
-        if (this.isFront)
-        {
-            card.sprite = cardFront;
-
-            Character.sprite = isField && data.fieldSprite != null
-                ? data.fieldSprite
-                : data.sprite;
-
-            nameTMP.text = data.name;
-            attackTMP.text = data.attack.ToString();
-            healthTMP.text = data.health.ToString();
-            descriptionTMP.text = data.description;
-        }
-        else
-        {
-            card.sprite = cardBack;
-            Character.sprite = null;
-            nameTMP.text = string.Empty;
-            attackTMP.text = string.Empty;
-            healthTMP.text = string.Empty;
-            descriptionTMP.text = string.Empty;
-        }
-    }
-
     public void Setup(CardDataSO data, bool isMine, bool isField = false)
     {
         this.dataSO = data;
-        this.data = null;
         this.isMine = isMine;
         this.isField = isField;
         this.isFront = isMine;
@@ -86,11 +52,11 @@ public class Card : MonoBehaviour
         {
             card.sprite = cardBack;
             Character.sprite = null;
-            nameTMP.text = string.Empty;
-            attackTMP.text = string.Empty;
-            healthTMP.text = string.Empty;
-            manaTMP.text = string.Empty;
-            descriptionTMP.text = string.Empty;
+            nameTMP.text = "";
+            attackTMP.text = "";
+            healthTMP.text = "";
+            manaTMP.text = "";
+            descriptionTMP.text = "";
         }
     }
 

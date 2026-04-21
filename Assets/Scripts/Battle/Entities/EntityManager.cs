@@ -7,6 +7,7 @@ using DG.Tweening;
 public class EntityManager : MonoBehaviour
 {
     public static EntityManager Inst { get; private set; }
+    public static event System.Action<bool> OnEntitySpawned;
     void Awake() => Inst = this;
 
     [SerializeField] GameObject entityPrefab;
@@ -117,7 +118,7 @@ public class EntityManager : MonoBehaviour
         EntityAlignment(true);
     }
 
-    public bool SpawnEntity(bool isMine, CardData data, Vector3 spawnPos)
+    public bool SpawnEntity(bool isMine, CardDataSO dataSO, Vector3 spawnPos)
     {
         if (isMine)
         {
@@ -139,25 +140,12 @@ public class EntityManager : MonoBehaviour
             otherEntities.Insert(Random.Range(0, otherEntities.Count), entity);
 
         entity.isMine = isMine;
-        entity.Setup(data);
+        entity.Setup(dataSO);
+        OnEntitySpawned?.Invoke(isMine);
+
         EntityAlignment(isMine);
 
         return true;
-    }
-
-    public bool SpawnEntity(bool isMine, CardDataSO dataSO, Vector3 spawnPos)
-    {
-        CardData temp = new CardData();
-        temp.name = dataSO.cardName;
-        temp.attack = dataSO.attack;
-        temp.health = dataSO.health;
-        temp.manaCost = dataSO.manaCost;
-        temp.sprite = dataSO.sprite;
-        temp.fieldSprite = dataSO.fieldSprite;
-        temp.graveTriggers = new List<EGraveTrigger>(dataSO.graveTriggers);
-        temp.deathTriggers = new List<EDeathTrigger>(dataSO.deathTriggers);
-
-        return SpawnEntity(isMine, temp, spawnPos);
     }
 
     public void EntityMouseDown(Entity entity)
@@ -185,7 +173,6 @@ public class EntityManager : MonoBehaviour
         if (!CanMouseInput || selectEntity == null)
             return;
 
-        // other 타겟엔티티 찾기
         bool existTarget = false;
         foreach (var hit in Physics2D.RaycastAll(Utils.MousePos, Vector3.forward))
         {

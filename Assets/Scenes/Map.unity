@@ -345,6 +345,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 58851266}
   iconImage: {fileID: 58851267}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -502,6 +503,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 242460264}
   iconImage: {fileID: 242460265}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -830,6 +832,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 446944294}
   iconImage: {fileID: 446944295}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -1661,7 +1664,7 @@ GameObject:
   - component: {fileID: 703529063}
   - component: {fileID: 703529062}
   m_Layer: 5
-  m_Name: btn_Node0
+  m_Name: btn_Node_Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1705,6 +1708,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 703529063}
   iconImage: {fileID: 703529064}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -2062,6 +2066,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 797423726}
   iconImage: {fileID: 797423727}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -2219,6 +2224,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 873802721}
   iconImage: {fileID: 873802722}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -2911,6 +2917,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 1238225267}
   iconImage: {fileID: 1238225268}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -3366,6 +3373,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 1380843117}
   iconImage: {fileID: 1380843118}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -3791,6 +3799,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 1509521243}
   iconImage: {fileID: 1509521244}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -4081,6 +4090,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 1588608464}
   iconImage: {fileID: 1588608465}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -4238,6 +4248,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 1606824556}
   iconImage: {fileID: 1606824557}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -4619,7 +4630,7 @@ GameObject:
   - component: {fileID: 1651875500}
   - component: {fileID: 1651875499}
   m_Layer: 5
-  m_Name: btn_Node14
+  m_Name: btn_Node14_Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4663,6 +4674,7 @@ MonoBehaviour:
   isGoalNode: 1
   button: {fileID: 1651875500}
   iconImage: {fileID: 1651875501}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -5156,6 +5168,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 1851268313}
   iconImage: {fileID: 1851268314}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -5313,6 +5326,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 1883786678}
   iconImage: {fileID: 1883786679}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}
@@ -5738,6 +5752,7 @@ MonoBehaviour:
   isGoalNode: 0
   button: {fileID: 2070198819}
   iconImage: {fileID: 2070198820}
+  nodeData: {fileID: 0}
   currentMark: {fileID: 0}
   clearMark: {fileID: 0}
   lockMark: {fileID: 0}

@@ -6,18 +6,18 @@ public class GraveManager : MonoBehaviour
 {
     public static GraveManager Inst;
 
-    public List<CardData> myGrave = new List<CardData>();
-    public List<CardData> enemyGrave = new List<CardData>();
+    public List<CardDataSO> myGrave = new List<CardDataSO>();
+    public List<CardDataSO> enemyGrave = new List<CardDataSO>();
 
-    public static event Action<CardData, bool, Entity> OnCardSentToGraveFromDeck;
-    public static event Action<CardData, bool, Entity, Entity> OnEntityDiedInCombat;
+    public static event Action<CardDataSO, bool, Entity> OnCardSentToGraveFromDeck;
+    public static event Action<CardDataSO, bool, Entity, Entity> OnEntityDiedInCombat;
 
     void Awake()
     {
         Inst = this;
     }
 
-    public void AddToGrave(CardData data, bool isMine)
+    public void AddToGrave(CardDataSO data, bool isMine)
     {
         if (data == null) return;
 
@@ -27,13 +27,13 @@ public class GraveManager : MonoBehaviour
             enemyGrave.Add(data);
     }
 
-    public void AddToGraveFromDeck(CardData data, bool isMineDeck, Entity deckAttacker)
+    public void AddToGraveFromDeck(CardDataSO data, bool isMineDeck, Entity deckAttacker)
     {
         AddToGrave(data, isMineDeck);
         OnCardSentToGraveFromDeck?.Invoke(data, isMineDeck, deckAttacker);
     }
 
-    public void RaiseEntityDiedInCombat(CardData data, bool isMine, Entity killer, Entity deadEntity)
+    public void RaiseEntityDiedInCombat(CardDataSO data, bool isMine, Entity killer, Entity deadEntity)
     {
         OnEntityDiedInCombat?.Invoke(data, isMine, killer, deadEntity);
     }

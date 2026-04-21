@@ -3,7 +3,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class CardListUI : MonoBehaviour, IPointerClickHandler
+public class CardListUI : MonoBehaviour,
+    IPointerClickHandler,
+    IPointerDownHandler,
+    IPointerUpHandler
 {
     public CardDataSO data;
 
@@ -33,17 +36,28 @@ public class CardListUI : MonoBehaviour, IPointerClickHandler
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (DeckEditManager.Inst.AddCard(data))
-            {
-                if (DeckListUI.Inst != null)
-                    DeckListUI.Inst.Refresh();
-            }
+            DeckListUI.Inst.StartAdd(data);
         }
 
-        // 좌클릭 → (나중에 확대)
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Debug.Log($"카드 확대: {data.cardName}");
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Right)
+            return;
+
+        DeckListUI.Inst.StartHoldAdd(data);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Right)
+            return;
+
+        DeckListUI.Inst.StopHold();
     }
 }

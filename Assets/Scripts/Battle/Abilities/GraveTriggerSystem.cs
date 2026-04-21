@@ -14,7 +14,7 @@ public class GraveTriggerSystem : MonoBehaviour
         GraveManager.OnCardSentToGraveFromDeck -= HandleSentToGraveFromDeck;
     }
 
-    void HandleSentToGraveFromDeck(CardData data, bool isMineDeck, Entity deckAttacker)
+    void HandleSentToGraveFromDeck(CardDataSO data, bool isMineDeck, Entity deckAttacker)
     {
         if (data == null || deckAttacker == null) return;
         if (deckAttacker.isDie) return;

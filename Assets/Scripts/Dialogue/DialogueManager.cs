@@ -62,6 +62,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     public enum Side { Left, Right }
+    public bool IsDialoguePlaying => dialoguePanel.activeSelf;
 
     int index;
     bool canClose;
@@ -72,6 +73,8 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
 
         if (dialogueBoxButton != null)

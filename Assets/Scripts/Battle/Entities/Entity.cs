@@ -6,14 +6,13 @@ using DG.Tweening;
 
 public class Entity : MonoBehaviour
 {
-    [SerializeField] CardData data;
+    [SerializeField] CardDataSO dataSO;
     [SerializeField] SpriteRenderer entity;
     [SerializeField] SpriteRenderer character;
     [SerializeField] SpriteRenderer frameRenderer;
     [SerializeField] TMP_Text nameTMP;
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
-
 
     public int attack;
     public int health;
@@ -25,7 +24,7 @@ public class Entity : MonoBehaviour
     public Vector3 originPos;
     int liveCount;
 
-    public CardData Data => data;
+    public CardDataSO Data => dataSO;
 
     void Start()
     {
@@ -49,18 +48,18 @@ public class Entity : MonoBehaviour
             liveCount++;
     }
 
-    public void Setup(CardData data)
+    public void Setup(CardDataSO data)
     {
+        this.dataSO = data;
+
         attack = data.attack;
         health = data.health;
-
-        this.data = data;
 
         character.sprite = data.fieldSprite != null
             ? data.fieldSprite
             : data.sprite;
 
-        nameTMP.text = data.name;
+        nameTMP.text = data.cardName;
         attackTMP.text = attack.ToString();
 
         if (!isBossOrEmpty)

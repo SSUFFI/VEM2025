@@ -17,6 +17,9 @@ public class RoyalUIManager : MonoBehaviour
     {
         royalPanel.SetActive(true);
 
+        if (TutorialManager.Inst != null)
+            TutorialManager.Inst.OnRoyalEntered();
+
         DeckEditManager.Inst.LoadDeck();
         DeckListUI.Inst.Refresh();
     }

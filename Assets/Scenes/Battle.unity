@@ -534,7 +534,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -0.00004196167, y: -0.00010474582}
-  m_SizeDelta: {x: 332.988, y: 0}
+  m_SizeDelta: {x: 332.988, y: 20}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &148956153
 MonoBehaviour:
@@ -566,7 +566,7 @@ MonoBehaviour:
     m_Left: 45
     m_Right: 0
     m_Top: 50
-    m_Bottom: 0
+    m_Bottom: 50
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
@@ -4197,7 +4197,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 15
+  m_ScrollSensitivity: 25
   m_Viewport: {fileID: 1124595269}
   m_HorizontalScrollbar: {fileID: 1192432318}
   m_VerticalScrollbar: {fileID: 0}
@@ -4625,16 +4625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f589e9bb87c12034ab58448e9a2a28fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    name: 
-    description: 
-    attack: 0
-    health: 0
-    manaCost: 0
-    sprite: {fileID: 0}
-    fieldSprite: {fileID: 0}
-    graveTriggers: 
-    deathTriggers: 
+  dataSO: {fileID: 0}
   entity: {fileID: 0}
   character: {fileID: 0}
   frameRenderer: {fileID: 0}
@@ -4812,16 +4803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f589e9bb87c12034ab58448e9a2a28fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    name: 
-    description: 
-    attack: 0
-    health: 0
-    manaCost: 0
-    sprite: {fileID: 0}
-    fieldSprite: {fileID: 0}
-    graveTriggers: 
-    deathTriggers: 
+  dataSO: {fileID: 0}
   entity: {fileID: 0}
   character: {fileID: 0}
   frameRenderer: {fileID: 0}
@@ -4933,16 +4915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f589e9bb87c12034ab58448e9a2a28fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    name: 
-    description: 
-    attack: 0
-    health: 0
-    manaCost: 0
-    sprite: {fileID: 0}
-    fieldSprite: {fileID: 0}
-    graveTriggers: 
-    deathTriggers: 
+  dataSO: {fileID: 0}
   entity: {fileID: 0}
   character: {fileID: 0}
   frameRenderer: {fileID: 0}
@@ -6366,7 +6339,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myDeckSO: {fileID: 11400000, guid: 4531bb1be2745ec449095eefd3a48ae6, type: 2}
-  enemyDeckSO: {fileID: 11400000, guid: 4676ba3021aba8743aab8c479fee479f, type: 2}
   myDeckCountTMP: {fileID: 634546252}
   enemyDeckCountTMP: {fileID: 1065318605}
   cardPrefab: {fileID: 8974669888148503557, guid: 87a80f17fc6fcb249a8dc3c5cc690af1, type: 3}

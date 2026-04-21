@@ -9,11 +9,21 @@ public class BattleGameManager : MonoBehaviour
 
     [SerializeField] NotificationPanel notificationPanel;
     WaitForSeconds delay2 = new WaitForSeconds(2);
-    
+
 
     void Start()
     {
-        StartGame();
+        if (BattleData.isTutorialBattle && TutorialManager.Inst != null)
+        {
+            TutorialManager.Inst.StartBattleStartTutorial(() =>
+            {
+                StartGame();
+            });
+        }
+        else
+        {
+            StartGame();
+        }
     }
 
 

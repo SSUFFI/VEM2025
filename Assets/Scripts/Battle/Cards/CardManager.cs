@@ -87,7 +87,11 @@ public class CardManager : MonoBehaviour
             Debug.LogWarning("PlayerDeck 없음!");
         }
 
-        if (BattleData.selectedEnemyDeck != null)
+        if (BattleData.isTutorialBattle && BattleData.tutorialEnemyDeck != null)
+        {
+            enemyDeck = new List<CardDataSO>(BattleData.tutorialEnemyDeck.deckItems);
+        }
+        else if (BattleData.selectedEnemyDeck != null)
         {
             enemyDeck = new List<CardDataSO>(BattleData.selectedEnemyDeck.deckItems);
         }
@@ -101,15 +105,6 @@ public class CardManager : MonoBehaviour
         Shuffle(enemyDeck);
 
         UpdateDeckCountUI();
-    }
-
-    void Shuffle(List<CardData> deck)
-    {
-        for (int i = 0; i < deck.Count; i++)
-        {
-            int rand = Random.Range(i, deck.Count);
-            (deck[i], deck[rand]) = (deck[rand], deck[i]);
-        }
     }
 
     void Shuffle(List<CardDataSO> deck)
@@ -132,26 +127,16 @@ public class CardManager : MonoBehaviour
 
     // ---------------------------- 덱에서 카드 1장 뽑기 ----------------------------
 
-    public object PopItem(bool isMine)
+    public CardDataSO PopItem(bool isMine)
     {
-        if (isMine)
-        {
-            if (myDeck.Count == 0)
-                return null;
+        var deck = isMine ? myDeck : enemyDeck;
 
-            var data = myDeck[0];
-            myDeck.RemoveAt(0);
-            return data;
-        }
-        else
-        {
-            if (enemyDeck.Count == 0)
-                return null;
+        if (deck.Count == 0)
+            return null;
 
-            var data = enemyDeck[0];
-            enemyDeck.RemoveAt(0);
-            return data;
-        }
+        var data = deck[0];
+        deck.RemoveAt(0);
+        return data;
     }
 
     // ---------------------------- 턴 관리 ----------------------------
@@ -213,7 +198,7 @@ public class CardManager : MonoBehaviour
         var cardObject = Instantiate(cardPrefab, startPos, Utils.QI);
         var card = cardObject.GetComponent<Card>();
 
-        card.Setup((CardDataSO)data, isMine);
+        card.Setup(data, isMine);
 
         (isMine ? myCards : otherCards).Add(card);
 
@@ -259,16 +244,7 @@ public class CardManager : MonoBehaviour
                 var cardSO = myDeck[0];
                 myDeck.RemoveAt(0);
 
-                CardData temp = new CardData();
-                temp.name = cardSO.cardName;
-                temp.attack = cardSO.attack;
-                temp.health = cardSO.health;
-                temp.manaCost = cardSO.manaCost;
-                temp.sprite = cardSO.sprite;
-                temp.graveTriggers = new List<EGraveTrigger>(cardSO.graveTriggers);
-                temp.deathTriggers = new List<EDeathTrigger>(cardSO.deathTriggers);
-
-                GraveManager.Inst.AddToGraveFromDeck(temp, true, deckAttacker);
+                GraveManager.Inst.AddToGraveFromDeck(cardSO, true, deckAttacker);
             }
 
             if (myDeck.Count <= 0)
@@ -285,16 +261,7 @@ public class CardManager : MonoBehaviour
                 var cardSO = enemyDeck[0];
                 enemyDeck.RemoveAt(0);
 
-                CardData temp = new CardData();
-                temp.name = cardSO.cardName;
-                temp.attack = cardSO.attack;
-                temp.health = cardSO.health;
-                temp.manaCost = cardSO.manaCost;
-                temp.sprite = cardSO.sprite;
-                temp.graveTriggers = new List<EGraveTrigger>(cardSO.graveTriggers);
-                temp.deathTriggers = new List<EDeathTrigger>(cardSO.deathTriggers);
-
-                GraveManager.Inst.AddToGraveFromDeck(temp, false, deckAttacker);
+                GraveManager.Inst.AddToGraveFromDeck(cardSO, false, deckAttacker);
             }
 
             if (enemyDeck.Count <= 0)
@@ -515,14 +482,14 @@ public class CardManager : MonoBehaviour
         {
             int curMana = TurnManager.Inst.otherCurMana;
 
-            List<Card> playableCards = otherCards.FindAll(x => x.data.manaCost <= curMana);
+            List<Card> playableCards = otherCards.FindAll(x => x.dataSO.manaCost <= curMana);
 
             if (playableCards.Count == 0)
                 return false;
 
-            int minCost = playableCards.Min(x => x.data.manaCost);
+            int minCost = playableCards.Min(x => x.dataSO.manaCost);
 
-            List<Card> lowestCostCards = playableCards.FindAll(x => x.data.manaCost == minCost);
+            List<Card> lowestCostCards = playableCards.FindAll(x => x.dataSO.manaCost == minCost);
 
             card = lowestCostCards[Random.Range(0, lowestCostCards.Count)];
         }

@@ -7,6 +7,9 @@ public class DungeonUIManager : MonoBehaviour
 
     public GameObject dungeonPanel;
 
+    [SerializeField] DeckSO trainingDeck;
+    [SerializeField] UnityEngine.UI.Button dungeonEnterButton;
+
     void Awake()
     {
         Inst = this;
@@ -16,6 +19,15 @@ public class DungeonUIManager : MonoBehaviour
     public void OpenDungeonPanel()
     {
         dungeonPanel.SetActive(true);
+
+        if (TutorialManager.Inst != null && !TutorialManager.Inst.hasPlayedTraining)
+        {
+            dungeonEnterButton.interactable = false;
+        }
+        else
+        {
+            dungeonEnterButton.interactable = true;
+        }
     }
 
     public void CloseDungeonPanel()
@@ -25,6 +37,12 @@ public class DungeonUIManager : MonoBehaviour
 
     public void OnClickTraining()
     {
+        BattleData.isTutorialBattle = true;
+        BattleData.tutorialEnemyDeck = trainingDeck;
+
+        if (TutorialManager.Inst != null)
+            TutorialManager.Inst.hasPlayedTraining = true;
+
         SceneManager.LoadScene("Battle");
     }
 

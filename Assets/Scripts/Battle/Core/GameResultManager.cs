@@ -46,6 +46,19 @@ public class GameResultManager : MonoBehaviour
 
         panel.SetActive(true);
 
+        if (BattleData.isTutorialBattle && TutorialManager.Inst != null)
+        {
+            TutorialManager.Inst.PlayBattleResultDialogue(true);
+
+            if (continueButton != null)
+                continueButton.gameObject.SetActive(false);
+
+            if (exitButton != null)
+                exitButton.gameObject.SetActive(false);
+
+            return;
+        }
+
         if (resultImage != null)
             resultImage.sprite = winSprite;
 
@@ -61,8 +74,6 @@ public class GameResultManager : MonoBehaviour
 
         if (exitButton != null)
             exitButton.gameObject.SetActive(false);
-
-        Time.timeScale = 0f;
     }
 
     public void ShowLose()
@@ -71,6 +82,19 @@ public class GameResultManager : MonoBehaviour
         isGameOver = true;
 
         panel.SetActive(true);
+
+        if (BattleData.isTutorialBattle && TutorialManager.Inst != null)
+        {
+            TutorialManager.Inst.PlayBattleResultDialogue(false);
+
+            if (continueButton != null)
+                continueButton.gameObject.SetActive(false);
+
+            if (exitButton != null)
+                exitButton.gameObject.SetActive(false);
+
+            return;
+        }
 
         if (resultImage != null)
             resultImage.sprite = loseSprite;
@@ -87,13 +111,17 @@ public class GameResultManager : MonoBehaviour
             exitButton.onClick.RemoveAllListeners();
             exitButton.onClick.AddListener(OnClickExit);
         }
-
-        Time.timeScale = 0f;
     }
 
     void OnClickContinue()
     {
         Time.timeScale = 1f;
+
+        if (BattleData.isTutorialBattle)
+        {
+            SceneManager.LoadScene(townSceneName);
+            return;
+        }
 
         int nodeID = PlayerPrefs.GetInt("SelectedNodeID", -1);
 
@@ -106,6 +134,10 @@ public class GameResultManager : MonoBehaviour
     void OnClickExit()
     {
         Time.timeScale = 1f;
+
+        BattleData.isTutorialBattle = false;
+        BattleData.tutorialEnemyDeck = null;
+
         SceneManager.LoadScene(townSceneName);
     }
 }

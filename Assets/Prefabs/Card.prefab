@@ -544,8 +544,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.04, y: -6.29}
-  m_SizeDelta: {x: 9.701, y: 2.31}
+  m_AnchoredPosition: {x: -0.193, y: -6.057}
+  m_SizeDelta: {x: 8.769, y: 3.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3022756222696860875
 MeshRenderer:
@@ -636,11 +636,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17.9
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 1
+  m_fontSizeMin: 2
   m_fontSizeMax: 18
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -1138,16 +1138,6 @@ MonoBehaviour:
   descriptionTMP: {fileID: 8427034675531219749}
   cardFront: {fileID: 21300000, guid: 21a2d6e278dd51b4e951f43bc4c7b74d, type: 3}
   cardBack: {fileID: -1520387674, guid: d53cbae78c2b91645a78ec4dd5f36996, type: 3}
-  data:
-    name: 
-    description: 
-    attack: 0
-    health: 0
-    manaCost: 0
-    sprite: {fileID: 0}
-    fieldSprite: {fileID: 0}
-    graveTriggers: 
-    deathTriggers: 
   dataSO: {fileID: 0}
   isMine: 0
   originPRS:

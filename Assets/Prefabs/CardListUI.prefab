@@ -185,8 +185,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.31401, y: -45.657}
-  m_SizeDelta: {x: 69.0576, y: 16.6854}
+  m_AnchoredPosition: {x: -0.31394994, y: -45.435677}
+  m_SizeDelta: {x: 65, y: 20.6687}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5805713671960512219
 CanvasRenderer:
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 1
+  m_fontSizeMin: 2
   m_fontSizeMax: 18
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -667,7 +667,7 @@ GameObject:
   - component: {fileID: 1095387413652608842}
   - component: {fileID: 2921602904680399429}
   m_Layer: 5
-  m_Name: ManaUI
+  m_Name: img_ManaUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

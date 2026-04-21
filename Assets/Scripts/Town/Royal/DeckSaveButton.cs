@@ -10,5 +10,8 @@ public class DeckSaveButton : MonoBehaviour
         {
             DeckEditManager.Inst.SaveDeck();
         }
+
+        if (TutorialManager.Inst != null)
+            TutorialManager.Inst.OnDeckCompleted();
     }
 }

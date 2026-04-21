@@ -14,7 +14,7 @@ public class CombatDeathTriggerSystem : MonoBehaviour
         GraveManager.OnEntityDiedInCombat -= HandleEntityDiedInCombat;
     }
 
-    void HandleEntityDiedInCombat(CardData deadData, bool deadIsMine, Entity killer, Entity deadEntity)
+    void HandleEntityDiedInCombat(CardDataSO deadData, bool deadIsMine, Entity killer, Entity deadEntity)
     {
         if (deadData == null) return;
         if (deadData.deathTriggers == null) return;
