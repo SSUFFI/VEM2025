@@ -24,6 +24,9 @@ public class NodeUI : MonoBehaviour
     public Button button;
     public Image iconImage;
 
+    [Header("Data")]
+    public NodeDataSO nodeData;
+
     public GameObject currentMark;
     public GameObject clearMark;
     public GameObject lockMark;

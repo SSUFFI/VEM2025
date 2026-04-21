@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
-  m_Name: 10012
+  m_Name: 10001
   m_EditorClassIdentifier: 
-  cardName: "\uAD11\uC804\uC758 \uB3CC\uACA9\uBCD1"
-  attack: 5
-  health: 4
-  manaCost: 4
-  sprite: {fileID: 21300000, guid: 654347a065d9078448071f266750e3e9, type: 3}
-  fieldSprite: {fileID: 21300000, guid: b4934d5773197764fbc640da53256f89, type: 3}
+  cardName: "\uD6C8\uB828\uC6A9 \uD5C8\uC218\uC544\uBE44"
+  attack: 1
+  health: 2
+  manaCost: 1
+  sprite: {fileID: 0}
+  fieldSprite: {fileID: 0}
   description: 
   graveTriggers: 
   deathTriggers: 

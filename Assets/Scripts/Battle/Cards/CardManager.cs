@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 using DG.Tweening;
 using TMPro;
+using System.Linq;
 
 public class CardManager : MonoBehaviour
 {
@@ -22,20 +23,16 @@ public class CardManager : MonoBehaviour
         if (myDeckSO == null)
             myDeckSO = Resources.Load<DeckSO>("DeckSO/MyDeckSO");
 
-        if (enemyDeckSO == null)
-            enemyDeckSO = Resources.Load<DeckSO>("DeckSO/EnemyDeckSO");
 
         Debug.Log("MyDeckSO Loaded: " + (myDeckSO != null));
-        Debug.Log("EnemyDeckSO Loaded: " + (enemyDeckSO != null));
     }
 
     [Header("Deck Data")]
     [SerializeField] DeckSO myDeckSO;
-    [SerializeField] DeckSO enemyDeckSO;
     [SerializeField] TMP_Text myDeckCountTMP;
     [SerializeField] TMP_Text enemyDeckCountTMP;
     List<CardDataSO> myDeck;
-    List<CardData> enemyDeck;
+    List<CardDataSO> enemyDeck;
 
     [Header("Card Prefab & Positions")]
     [SerializeField] GameObject cardPrefab;
@@ -87,10 +84,18 @@ public class CardManager : MonoBehaviour
         else
         {
             myDeck = new List<CardDataSO>();
-            Debug.LogWarning("저장된 플레이어 덱이 없음!");
+            Debug.LogWarning("PlayerDeck 없음!");
         }
 
-        enemyDeck = new List<CardData>(enemyDeckSO.deckItems);
+        if (BattleData.selectedEnemyDeck != null)
+        {
+            enemyDeck = new List<CardDataSO>(BattleData.selectedEnemyDeck.deckItems);
+        }
+        else
+        {
+            Debug.LogError("EnemyDeck 없음!");
+            enemyDeck = new List<CardDataSO>();
+        }
 
         Shuffle(myDeck);
         Shuffle(enemyDeck);
@@ -208,10 +213,7 @@ public class CardManager : MonoBehaviour
         var cardObject = Instantiate(cardPrefab, startPos, Utils.QI);
         var card = cardObject.GetComponent<Card>();
 
-        if (isMine)
-            card.Setup((CardDataSO)data, true);
-        else
-            card.Setup((CardData)data, false);
+        card.Setup((CardDataSO)data, isMine);
 
         (isMine ? myCards : otherCards).Add(card);
 
@@ -257,17 +259,21 @@ public class CardManager : MonoBehaviour
                 var cardSO = myDeck[0];
                 myDeck.RemoveAt(0);
 
-
                 CardData temp = new CardData();
                 temp.name = cardSO.cardName;
                 temp.attack = cardSO.attack;
                 temp.health = cardSO.health;
                 temp.manaCost = cardSO.manaCost;
                 temp.sprite = cardSO.sprite;
-                temp.graveTriggers = new System.Collections.Generic.List<EGraveTrigger>(cardSO.graveTriggers);
-                temp.deathTriggers = new System.Collections.Generic.List<EDeathTrigger>(cardSO.deathTriggers);
+                temp.graveTriggers = new List<EGraveTrigger>(cardSO.graveTriggers);
+                temp.deathTriggers = new List<EDeathTrigger>(cardSO.deathTriggers);
 
                 GraveManager.Inst.AddToGraveFromDeck(temp, true, deckAttacker);
+            }
+
+            if (myDeck.Count <= 0)
+            {
+                GameResultManager.Inst.ShowLose();
             }
         }
         else
@@ -276,10 +282,24 @@ public class CardManager : MonoBehaviour
 
             for (int i = 0; i < amount; i++)
             {
-                var card = enemyDeck[0];
+                var cardSO = enemyDeck[0];
                 enemyDeck.RemoveAt(0);
 
-                GraveManager.Inst.AddToGraveFromDeck(card, false, deckAttacker);
+                CardData temp = new CardData();
+                temp.name = cardSO.cardName;
+                temp.attack = cardSO.attack;
+                temp.health = cardSO.health;
+                temp.manaCost = cardSO.manaCost;
+                temp.sprite = cardSO.sprite;
+                temp.graveTriggers = new List<EGraveTrigger>(cardSO.graveTriggers);
+                temp.deathTriggers = new List<EDeathTrigger>(cardSO.deathTriggers);
+
+                GraveManager.Inst.AddToGraveFromDeck(temp, false, deckAttacker);
+            }
+
+            if (enemyDeck.Count <= 0)
+            {
+                GameResultManager.Inst.ShowWin();
             }
         }
 
@@ -485,17 +505,36 @@ public class CardManager : MonoBehaviour
         if (!isMine && otherCards.Count <= 0)
             return false;
 
-        Card card = isMine ? selectCard : otherCards[Random.Range(0, otherCards.Count)];
-        var spawnPos = isMine ? Utils.MousePos : card.transform.position;
+        Card card;
 
-        var targetCards = isMine ? myCards : otherCards;
+        if (isMine)
+        {
+            card = selectCard;
+        }
+        else
+        {
+            int curMana = TurnManager.Inst.otherCurMana;
+
+            List<Card> playableCards = otherCards.FindAll(x => x.data.manaCost <= curMana);
+
+            if (playableCards.Count == 0)
+                return false;
+
+            int minCost = playableCards.Min(x => x.data.manaCost);
+
+            List<Card> lowestCostCards = playableCards.FindAll(x => x.data.manaCost == minCost);
+
+            card = lowestCostCards[Random.Range(0, lowestCostCards.Count)];
+        }
 
         if (card == null)
             return false;
 
-        int cost = isMine
-            ? card.dataSO.manaCost
-            : card.data.manaCost;
+        var spawnPos = isMine ? Utils.MousePos : card.transform.position;
+
+        var targetCards = isMine ? myCards : otherCards;
+
+        int cost = card.dataSO.manaCost;
 
         if (!TurnManager.Inst.CanPayMana(isMine, cost))
         {
@@ -506,14 +545,7 @@ public class CardManager : MonoBehaviour
 
         bool spawnSuccess;
 
-        if (isMine)
-        {
-            spawnSuccess = EntityManager.Inst.SpawnEntity(isMine, card.dataSO, spawnPos);
-        }
-        else
-        {
-            spawnSuccess = EntityManager.Inst.SpawnEntity(isMine, card.data, spawnPos);
-        }
+        spawnSuccess = EntityManager.Inst.SpawnEntity(isMine, card.dataSO, spawnPos);
 
         if (spawnSuccess)
         {

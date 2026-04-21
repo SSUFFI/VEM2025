@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -45,6 +45,11 @@ public class NodeMapManager : MonoBehaviour
     {
         InitializeMap();
 
+        LoadClearedNode();
+
+        if (stagePanel != null)
+            stagePanel.SetActive(true);
+
         if (bottomButtonsRoot != null)
             bottomButtonsRoot.SetActive(false);
     }
@@ -89,10 +94,42 @@ public class NodeMapManager : MonoBehaviour
             bottomButtonsRoot.SetActive(true);
     }
 
+    void LoadClearedNode()
+    {
+        int clearedID = PlayerPrefs.GetInt("ClearedNodeID", -1);
+
+        if (clearedID == -1)
+            return;
+
+        selectedNodeID = clearedID;
+
+        ClearSelectedNode();
+
+        PlayerPrefs.DeleteKey("ClearedNodeID");
+    }
+
     public void OnClickStartGame()
     {
         if (selectedNodeID == -1)
             return;
+
+        NodeUI node = nodeDict[selectedNodeID];
+
+        if (node.nodeData != null)
+        {
+            if (node.nodeData.enemyDeck != null)
+            {
+                BattleData.selectedEnemyDeck = node.nodeData.enemyDeck;
+            }
+            else
+            {
+                Debug.LogWarning("NodeData에 enemyDeck 없음");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("NodeData 연결 안됨");
+        }
 
         PlayerPrefs.SetInt("SelectedNodeID", selectedNodeID);
         PlayerPrefs.Save();
