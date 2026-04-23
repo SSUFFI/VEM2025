@@ -46,6 +46,12 @@ public class GameResultManager : MonoBehaviour
 
         panel.SetActive(true);
 
+        if (resultImage != null)
+            resultImage.sprite = winSprite;
+
+        if (resultText != null)
+            resultText.text = "½Â¸®";
+
         if (BattleData.isTutorialBattle && TutorialManager.Inst != null)
         {
             TutorialManager.Inst.PlayBattleResultDialogue(true);
@@ -58,12 +64,6 @@ public class GameResultManager : MonoBehaviour
 
             return;
         }
-
-        if (resultImage != null)
-            resultImage.sprite = winSprite;
-
-        if (resultText != null)
-            resultText.text = "½Â¸®";
 
         if (continueButton != null)
         {
@@ -83,6 +83,12 @@ public class GameResultManager : MonoBehaviour
 
         panel.SetActive(true);
 
+        if (resultImage != null)
+            resultImage.sprite = loseSprite;
+
+        if (resultText != null)
+            resultText.text = "ÆÐ¹è";
+
         if (BattleData.isTutorialBattle && TutorialManager.Inst != null)
         {
             TutorialManager.Inst.PlayBattleResultDialogue(false);
@@ -95,12 +101,6 @@ public class GameResultManager : MonoBehaviour
 
             return;
         }
-
-        if (resultImage != null)
-            resultImage.sprite = loseSprite;
-
-        if (resultText != null)
-            resultText.text = "ÆÐ¹è";
 
         if (continueButton != null)
             continueButton.gameObject.SetActive(false);

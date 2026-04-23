@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
+  m_Name: 30014_WolfKing
+  m_EditorClassIdentifier: 
+  cardName: "\uAD11\uC57C\uC758 \uB291\uB300\uC655"
+  attack: 5
+  health: 2
+  manaCost: 4
+  sprite: {fileID: 21300000, guid: be58f7e01f274aa439822db3584af050, type: 3}
+  fieldSprite: {fileID: 21300000, guid: da9615f67f75d064ba765853eb43b638, type: 3}
+  description: 
+  graveTriggers: 
+  deathTriggers: 

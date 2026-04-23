@@ -11,8 +11,12 @@ public class GraveUICard : MonoBehaviour
     [SerializeField] TMP_Text manaTMP;
     [SerializeField] TMP_Text descriptionTMP;
 
+    CardDataSO data;
+
     public void Setup(CardDataSO data)
     {
+        this.data = data;
+
         character.sprite = data.sprite;
         nameTMP.text = data.cardName;
         attackTMP.text = data.attack.ToString();
@@ -23,5 +27,13 @@ public class GraveUICard : MonoBehaviour
 
         if (descriptionTMP != null)
             descriptionTMP.text = data.description;
+    }
+
+    public void OnClick()
+    {
+        if (CardPreviewManager.Inst == null) return;
+        if (data == null) return;
+
+        CardPreviewManager.Inst.Show(data);
     }
 }

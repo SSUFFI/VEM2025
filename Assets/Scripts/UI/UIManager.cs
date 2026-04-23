@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
 
     [Header("씬별 ESC 메뉴 패널")]
     [SerializeField] GameObject townMenuPanel;
+    [SerializeField] GameObject mapMenuPanel;
     [SerializeField] GameObject battleMenuPanel;
 
     void Awake()
@@ -56,6 +57,10 @@ public class UIManager : MonoBehaviour
                 menu = townMenuPanel;
                 break;
 
+            case "Map":
+                menu = mapMenuPanel;
+                break;
+
             case "Battle":
                 menu = battleMenuPanel;
                 break;
@@ -78,6 +83,10 @@ public class UIManager : MonoBehaviour
 
             case "Town":
                 menu = townMenuPanel;
+                break;
+
+            case "Map":
+                menu = mapMenuPanel;
                 break;
 
             case "Battle":

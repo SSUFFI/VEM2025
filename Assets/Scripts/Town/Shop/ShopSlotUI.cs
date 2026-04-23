@@ -7,25 +7,25 @@ public class ShopSlotUI : MonoBehaviour
     [Header("UI")]
     [SerializeField] Image iconImage;
     [SerializeField] Button button;
-    [SerializeField] TMP_Text lockText;
     [SerializeField] TMP_Text priceText;
+
+    [Header("Lock Icon")]
+    [SerializeField] Sprite lockIcon;
 
     ShopItemSO item;
     System.Action<ShopItemSO, RectTransform> onClick;
 
     public RectTransform Rect => transform as RectTransform;
 
-    public void SetLocked(bool locked, string lockedMsg = "?")
+    public void SetLocked(bool locked)
     {
         item = null;
         onClick = null;
 
-        if (iconImage != null) iconImage.enabled = !locked;
-
-        if (lockText != null)
+        if (iconImage != null)
         {
-            lockText.gameObject.SetActive(locked);
-            lockText.text = lockedMsg;
+            iconImage.enabled = true;
+            iconImage.sprite = locked ? lockIcon : null;
         }
 
         if (priceText != null)
@@ -42,8 +42,6 @@ public class ShopSlotUI : MonoBehaviour
     {
         item = newItem;
         onClick = clickCb;
-
-        if (lockText != null) lockText.gameObject.SetActive(false);
 
         if (iconImage != null)
         {

@@ -6,16 +6,38 @@ public class NodeDataSO : ScriptableObject
     public NodeType nodeType;
 
     [Header("Battle")]
+    public BattleTier battleTier;
     public DeckSO enemyDeck;
 
-    [Header("Extra")]
-    public bool isElite;
-    public bool isBoss;
+    [Header("Event")]
+    public EventType eventType;
+
+    [Header("Icon")]
+    public Sprite iconNormal;
+    public Sprite iconGray;
 }
 
 public enum NodeType
 {
+    Start,
     Battle,
-    Shop,
-    Event
+    Event,
+    Boss
+}
+
+public enum BattleTier
+{
+    None,
+    Tier1,
+    Tier2,
+    Tier3
+}
+
+public enum EventType
+{
+    None,
+    NPC,
+    Heal,
+    Explore,
+    Tablet
 }

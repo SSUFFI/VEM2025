@@ -22,7 +22,14 @@ public class NodeUI : MonoBehaviour
 
     [Header("UI")]
     public Button button;
-    public Image iconImage;
+
+    [Header("Base")]
+    [SerializeField] Image baseImage;
+    [SerializeField] Sprite baseNormal;
+    [SerializeField] Sprite baseGray;
+
+    [Header("Icon")]
+    [SerializeField] Image iconImage;
 
     [Header("Data")]
     public NodeDataSO nodeData;
@@ -36,6 +43,7 @@ public class NodeUI : MonoBehaviour
 
     float pulseTimer;
     Vector3 baseScale;
+    bool isSelected = false;
 
     void Awake()
     {
@@ -44,11 +52,13 @@ public class NodeUI : MonoBehaviour
 
     void Update()
     {
-        if (state == NodeState.Available)
+        if (isSelected)
         {
             pulseTimer += Time.deltaTime * 2f;
 
-            float scale = 1f + Mathf.Sin(pulseTimer) * 0.05f;
+            float t = (Mathf.Sin(pulseTimer) + 1f) * 0.5f;
+            float scale = 1f + t * 0.05f;
+
             transform.localScale = baseScale * scale;
         }
         else
@@ -69,29 +79,44 @@ public class NodeUI : MonoBehaviour
         {
             case NodeState.Locked:
                 button.interactable = false;
+                baseImage.sprite = baseGray;
 
-                if (isGoalNode)
+                if (nodeData != null)
                 {
-                    // Goal은 잠겨 있어도 회색으로 보이기
-                    iconImage.enabled = true;
-                    iconImage.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-                }
-                else
-                {
-                    // 일반 잠긴 노드는 숨김
-                    iconImage.enabled = false;
+                    if (nodeData.nodeType == NodeType.Event || isGoalNode)
+                    {
+                        iconImage.enabled = true;
+                        iconImage.sprite = nodeData.iconGray;
+                    }
+                    else
+                    {
+                        iconImage.enabled = false;
+                    }
                 }
                 break;
 
             case NodeState.Available:
                 button.interactable = true;
-                iconImage.enabled = true;
-                iconImage.color = Color.white;
+                baseImage.sprite = baseNormal;
+
+                if (nodeData != null)
+                {
+                    iconImage.enabled = true;
+                    iconImage.sprite = nodeData.iconNormal;
+                }
                 break;
 
             case NodeState.Cleared:
                 button.interactable = false;
-                iconImage.enabled = true;
+                baseImage.sprite = baseGray;
+
+                if (nodeData != null)
+                {
+                    iconImage.enabled = true;
+                    iconImage.sprite = nodeData.iconGray;
+                }
+
+                baseImage.color = new Color(0.6f, 0.6f, 0.6f, 1f);
                 iconImage.color = new Color(0.6f, 0.6f, 0.6f, 1f);
 
                 if (clearMark != null)
@@ -100,8 +125,13 @@ public class NodeUI : MonoBehaviour
 
             case NodeState.Current:
                 button.interactable = false;
-                iconImage.enabled = true;
-                iconImage.color = Color.white;
+                baseImage.sprite = baseNormal;
+
+                if (nodeData != null)
+                {
+                    iconImage.enabled = true;
+                    iconImage.sprite = nodeData.iconNormal;
+                }
 
                 if (currentMark != null)
                     currentMark.SetActive(true);
@@ -113,7 +143,12 @@ public class NodeUI : MonoBehaviour
 
     public void SetSelected(bool isSelected)
     {
+        this.isSelected = isSelected;
+
         if (selectedMark != null)
             selectedMark.SetActive(isSelected);
+
+        if (isSelected)
+            transform.SetAsLastSibling();
     }
 }

@@ -415,7 +415,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: c4fbc91d9e8a6864f9a48fd1cc47d89a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8096e909113ca8b4ba04d8d6d312055e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -574,16 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f589e9bb87c12034ab58448e9a2a28fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    name: 
-    description: 
-    attack: 0
-    health: 0
-    manaCost: 0
-    sprite: {fileID: 0}
-    fieldSprite: {fileID: 0}
-    graveTriggers: 
-    deathTriggers: 
+  dataSO: {fileID: 0}
   entity: {fileID: 887560038357117395}
   character: {fileID: 972777203534757111}
   frameRenderer: {fileID: 887560038357117395}

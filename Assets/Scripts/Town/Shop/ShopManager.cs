@@ -37,7 +37,7 @@ public class ShopManager : MonoBehaviour
             for (int i = 0; i < lockedSlots.Count; i++)
             {
                 if (lockedSlots[i] != null)
-                    lockedSlots[i].SetLocked(true, "?");
+                    lockedSlots[i].SetLocked(true);
             }
         }
 
@@ -60,14 +60,14 @@ public class ShopManager : MonoBehaviour
 
             if (i >= openedSlotCount)
             {
-                openSlots[i].SetLocked(true, "?");
+                openSlots[i].SetLocked(true);
                 continue;
             }
 
             var item = (i < picks.Count) ? picks[i] : null;
 
             if (item == null)
-                openSlots[i].SetLocked(true, "¹Ìµî·Ï");
+                openSlots[i].SetLocked(true);
             else
                 openSlots[i].SetItem(item, OnClickItem);
         }

@@ -58,6 +58,7 @@ public class CardManager : MonoBehaviour
     bool dragStartedFromZoom;
     bool isHandTransition = false;
     public bool isZoomMode = false;
+    public bool IsMyCardDrag => isMyCardDrag;
     const int MAX_HAND = 10;
 
     // ---------------------------- 덱 셔플 세팅 ----------------------------
@@ -190,6 +191,16 @@ public class CardManager : MonoBehaviour
         var data = PopItem(isMine);
         if (data == null)
             return;
+
+        var deck = isMine ? myDeck : enemyDeck;
+
+        if (deck.Count <= 0)
+        {
+            if (isMine)
+                GameResultManager.Inst.ShowLose();
+            else
+                GameResultManager.Inst.ShowWin();
+        }
 
         Vector3 startPos = isMine || otherCardSpawnPoint == null
             ? cardSpawnPoint.position
@@ -353,6 +364,8 @@ public class CardManager : MonoBehaviour
 
         selectCard = card;
         isMyCardDrag = true;
+
+        card.GetComponent<CardOrder>().SetMostFrontOrder(true);
     }
 
     public void EnterZoomMode()
@@ -460,10 +473,12 @@ public class CardManager : MonoBehaviour
             c.zoomPRS = prs;
             c.hasZoomPRS = true;
 
-            if (skipSelected && c == selectCard) continue;
+            if (skipSelected && c == selectCard)
+                continue;
 
             c.MoveTransform(prs, true, moveTime);
-            c.GetComponent<CardOrder>().SetMostFrontOrder(true);
+
+            c.GetComponent<CardOrder>().SetOriginOrder(i);
         }
     }
 
@@ -605,6 +620,8 @@ public class CardManager : MonoBehaviour
     {
         if (eCardState != ECardState.CanMouseDrag) return;
         if (selectCard == null) return;
+
+        selectCard.GetComponent<CardOrder>().SetMostFrontOrder(true);
 
         var scale = (isZoomMode && selectCard.hasZoomPRS) ? selectCard.zoomPRS.scale : selectCard.originPRS.scale;
 

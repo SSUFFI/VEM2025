@@ -78,8 +78,25 @@ public class Entity : MonoBehaviour
             frameRenderer.color = value ? Color.white : new Color(120f / 255f, 120f / 255f, 120f / 255f);
     }
 
+    void OnMouseOver()
+    {
+        if (CardPreviewManager.Inst != null && CardPreviewManager.Inst.IsOpen)
+            return;
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (dataSO == null) return;
+            if (CardPreviewManager.Inst == null) return;
+
+            CardPreviewManager.Inst.Show(dataSO);
+        }
+    }
+
     void OnMouseDown()
     {
+        if (CardPreviewManager.Inst != null && CardPreviewManager.Inst.IsOpen)
+            return;
+
         if (isMine)
             EntityManager.Inst.EntityMouseDown(this);
     }
