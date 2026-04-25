@@ -18,6 +18,7 @@ MonoBehaviour:
   manaCost: 2
   sprite: {fileID: 21300000, guid: 689ba6af77bbcb1478d7b78dcfd536b0, type: 3}
   fieldSprite: {fileID: 21300000, guid: fdfdba0800c93684d90f19a98c1d71e0, type: 3}
-  description: 
+  description: "\uD544\uB4DC\uC5D0\uC11C \uC804\uD22C\uB85C \uC8FD\uC744 \uC2DC \uCE74\uB4DC\uB97C
+    1\uC7A5 \uBF51\uC2B5\uB2C8\uB2E4."
   graveTriggers: 
-  deathTriggers: 
+  deathTriggers: 00000000

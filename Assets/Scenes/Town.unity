@@ -7413,7 +7413,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -265, y: -210.06}
+  m_AnchoredPosition: {x: -208, y: -210.06}
   m_SizeDelta: {x: 169.23, y: 109.749}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &695361332
@@ -15753,7 +15753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   step: 0
-  enableTutorial: 0
+  enableTutorial: 1
   dialogue: {fileID: 259310045}
   introLines:
   - speaker: 0
@@ -15818,9 +15818,9 @@ MonoBehaviour:
     nextIndex: -1
   - speaker: 0
     speakerName: "\uB300\uC0AC\uC81C"
-    text: "\uC81C\uAC00 \uB4E4\uC740 \uBC14\uB85C\uB294 \uC2E0\uAED8\uC11C \uC9C1\uC811,
-      \uC870\uB9CC\uAC04 \uC6A9\uB4E4\uC774 \uC7AC\uC559\uC744 \uBAB0\uACE0 \uC62C
-      \uAC83\uC774\uB77C\uACE0 \uB9D0\uC500\r\n\uD558\uC168\uC2B5\uB2C8\uB2E4."
+    text: "\uC81C\uAC00 \uB4E4\uC740 \uBC14\uB85C\uB294 \uC2E0\uAED8\uC11C \uC9C1\uC811
+      \r\n'\uC870\uB9CC\uAC04 \uC6A9\uB4E4\uC774 \uC7AC\uC559\uC744 \uBAB0\uACE0
+      \uC62C \uAC83'\uC774\uB77C\uACE0 \uB9D0\uC500\uD558\uC168\uC2B5\uB2C8\uB2E4."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
@@ -15829,8 +15829,9 @@ MonoBehaviour:
     nextIndex: -1
   - speaker: 0
     speakerName: "\uB300\uC0AC\uC81C"
-    text: "\uACE7 \uCD9C\uC815\uC744 \uB0B4\uB9AC\uC2E4 \uAC83 \uAC19\uC73C\uB2C8
-      \uC900\uBE44\uB97C \uD574\uB450\uB294 \uAC8C \uC88B\uC744 \uAC83 \uAC19\uAD70\uC694."
+    text: "\uC544\uB9C8\uB3C4 \uC989\uAC01 \uCD9C\uC815\uC744 \uB0B4\uB9AC\uC2E4
+      \uC218\uB3C4 \uC788\uC73C\uB2C8 \r\n\uBBF8\uB9AC \uC900\uBE44\uB97C \uD574\uB450\uB294
+      \uAC83\uC774 \uC88B\uC744 \uAC83 \uAC19\uC2B5\uB2C8\uB2E4."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
@@ -15839,8 +15840,8 @@ MonoBehaviour:
     nextIndex: -1
   - speaker: 0
     speakerName: "\uB300\uC0AC\uC81C"
-    text: "\uADF8 \uC131\uC720\uBB3C\uC774 \uC804\uC7A5\uC5D0\uC11C \uB3C4\uC6C0\uC774
-      \uB418\uAE38 \uBC14\uB78D\uB2C8\uB2E4."
+    text: "\uC131\uC720\uBB3C\uC774 \uC804\uC7A5\uC5D0\uC11C \uB3C4\uC6C0\uC774 \uB418\uAE38
+      \uBC14\uB77C\uACA0\uC2B5\uB2C8\uB2E4."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
@@ -15911,8 +15912,8 @@ MonoBehaviour:
   - speaker: 0
     speakerName: "\uC655"
     text: "\uD558\uB298\uC758 \uB73B\uC73C\uB85C \uC6B0\uB9AC \uC778\uB958\uC758
-      \uC874\uC18D\uC744 \uAC78\uACE0 \uC7AC\uC559\uC758 \uC2F9\uC744 \uBBF8\uB9AC
-      \uCE58\uC790\uB294 \uAC83\uC774 \uC9D0\uC758 \uD310\uB2E8\uC774\uB2E4."
+      \uC874\uC18D\uC744 \uAC78\uACE0\r\n'\uC7AC\uC559\uC758 \uC2F9\uC740 \uBBF8\uB9AC
+      \uCCD0\uC57C \uD55C\uB2E4.' \uC774\uAC83\uC774 \uC9D0\uC758 \uD310\uB2E8\uC774\uB2E4."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 60c1f0829f9e6354bbb7507a7370b558, type: 3}
     rightIllustration: {fileID: 0}
@@ -15922,7 +15923,7 @@ MonoBehaviour:
   - speaker: 0
     speakerName: "\uC655"
     text: "\uADF8\uB7EC\uB098 \uC6B0\uB9AC\uB294 \uC544\uC9C1 \uADF8\uB4E4\uC774
-      \uC800 \uB192\uC740 \uC544\uB974\uCE74\uB514\uC544\uC5D0 \uAC70\uC8FC\uD558\uACE0
+      \r\n\uC800 \uB192\uC740 \uC544\uB974\uCE74\uB514\uC544\uC5D0 \uAC70\uC8FC\uD558\uACE0
       \uC788\uB2E4\uB294 \uAC83\uB9CC \uC54C\uACE0 \uC788\uC744\uBFD0..."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 60c1f0829f9e6354bbb7507a7370b558, type: 3}
@@ -15932,8 +15933,8 @@ MonoBehaviour:
     nextIndex: -1
   - speaker: 0
     speakerName: "\uC655"
-    text: "\uAC00\uB294 \uAE38\uC5D0 \uB300\uD55C \uC815\uBCF4\uAC00 \uC5C6\uC73C\uB098,
-      \uD56D\uC0C1 \uADF8\uB807\uB4EF \uD558\uB298\uC758 \uB208\uC774 \uADF8\uB300\uB4E4\uC744
+    text: "\uAC00\uB294 \uAE38\uC5D0 \uB300\uD55C \uC815\uBCF4\uAC00 \uC5C6\uC73C\uB098,\r\n\uD56D\uC0C1
+      \uADF8\uB807\uB4EF \uD558\uB298\uC758 \uB208\uC774 \uADF8\uB300\uB4E4\uC744
       \uC778\uB3C4\uD560 \uAC83\uC774\uB2E4."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 60c1f0829f9e6354bbb7507a7370b558, type: 3}
@@ -16019,9 +16020,9 @@ MonoBehaviour:
   battleStartLines:
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
-    text: "\uC804\uD22C\uC5D0 \uB300\uD574 \uC54C\uB824\uC8FC\uC9C0. \uC2B9\uB9AC\uC870\uAC74\uC740
-      \uAC04\uB2E8\uD558\uB124. \uC0C1\uB300 \uBD80\uB300\uB97C \uC804\uBA78\uC2DC\uD0A4\uBA74
-      \uB05D\uC774\uC9C0."
+    text: "\uC804\uD22C\uC5D0 \uB300\uD574 \uC54C\uB824\uC8FC\uACA0\uB124. \uC2B9\uB9AC\uC870\uAC74\uC740
+      \uAC04\uB2E8\uD558\uC9C0.\r\n\uC0C1\uB300 \uBD80\uB300\uB97C \uC804\uBA78\uC2DC\uD0A4\uBA74
+      \uB05D\uC774\uB77C\uB124."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
@@ -16030,11 +16031,8 @@ MonoBehaviour:
     nextIndex: -1
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
-    text: "\uBA85\uC2EC\uD558\uAC8C. \uC790\uB124\uAC00 \uC774\uB044\uB294 \uAE30\uC0AC\uB2E8
-      \uC790\uCCB4\uAC00 \uACE7 \uC790\uB124\uC758 \uC0DD\uBA85\uB825\uC77C\uC138.
-      \uC790\uB124\uAC00 \uACF5\uACA9\uBC1B\uC744 \uB54C, \uAE30\uC0AC\uB2E8\uC740
-      \uC790\uB124\uB97C \uB300\uC2E0\uD574 \uD76C\uC0DD\uD558\uC5EC \uBB18\uC9C0\uB85C
-      \uBCF4\uB0B4\uC9C8 \uAC83\uC774\uB124."
+    text: "\uBA85\uC2EC\uD558\uAC8C \uC790\uB124\uAC00 \uC774\uB044\uB294\uAE30\uC0AC\uB2E8
+      \uC790\uCCB4\uAC00 \uACE7 \uC790\uB124\uC758 \uC0DD\uBA85\uB825\uC77C\uC138."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
@@ -16043,9 +16041,20 @@ MonoBehaviour:
     nextIndex: -1
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
-    text: "\uB9E4 \uD134 \uCD5C\uB300\uC804\uC220\uB825\uC774 1\uC529 \uC99D\uAC00\uD558\uBA70,
-      \uC18C\uBAA8\uD55C \uC804\uC220\uB825\uC740 \uC790\uC2E0\uC758 \uD134\uC5D0
-      \uB2E4\uC2DC \uCC44\uC6CC\uC9C8 \uAC78\uC138."
+    text: "\uC790\uB124\uAC00 \uACF5\uACA9\uBC1B\uC744\uB54C, \uC6A9\uB9F9\uD55C
+      \uAE30\uC0AC\uB4E4\uC740 \uC790\uB124\uB97C \uB300\uC2E0\uD574 \uD76C\uC0DD\uD560
+      \uAC83\uC774\uB124."
+    portrait: {fileID: 0}
+    leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
+    rightIllustration: {fileID: 0}
+    hasChoice: 0
+    choices: []
+    nextIndex: -1
+  - speaker: 0
+    speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
+    text: "\uADF8\uB9AC\uACE0 \uB9E4 \uD134 \uCD5C\uB300 \uC804\uC220\uB825\uC774
+      1\uC529 \uC99D\uAC00\uD558\uBA70,\r\n\uC18C\uBAA8\uD55C \uC804\uC220\uB825\uC740
+      \uC790\uC2E0\uC758 \uD134\uC774 \uB3CC\uC544\uC624\uBA74 \uC804\uBD80 \uD68C\uBCF5\uB420\uAC78\uC138"
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
@@ -16055,8 +16064,8 @@ MonoBehaviour:
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uC804\uC220\uB825\uC744 \uC18C\uBAA8\uD558\uC5EC \uC790\uB124\uAC00 \uD3B8\uC131\uD55C
-      \uAE30\uC0AC\uB2E8\uC6D0\uC911 \uAC00\uB2A5\uD55C \uBCD1\uB825\uC744 \uC804\uC7A5\uC5D0
-      \uBC30\uCE58\uD574\uBCF4\uAC8C."
+      \uAE30\uC0AC\uB2E8\uC6D0\uC911 \r\n\uBCD1\uB825\uC744 \uC120\uD0DD\uD558\uC5EC
+      \uC804\uC7A5\uC5D0 \uBC30\uCE58\uD574\uBCF4\uAC8C. "
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
@@ -16066,9 +16075,9 @@ MonoBehaviour:
   firstCardLines:
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
-    text: "\uC804\uC7A5\uC5D0 \uBC30\uCE58\uD55C \uAE30\uC0AC\uB2E8\uC73C\uB85C \uC801\uC744
-      \uACF5\uACA9\uD560\uB550 \uC77C\uBC29\uC801\uC73C\uB85C \uB54C\uB9AC\uB294
-      \uAC83\uC774 \uC544\uB2CC, \uC11C\uB85C\uC758 \uACF5\uACA9\uB825\uACFC \uCCB4\uB825\uC744
+    text: "\uC804\uC7A5\uC5D0 \uBC30\uCE58\uB41C \uAE30\uC0AC\uB2E8\uC73C\uB85C \uC0C1\uB300\uBC29\uC744
+      \uACF5\uACA9\uD560 \uB550 \uC77C\uBC29\uC801\uC73C\uB85C \uB54C\uB9AC\uB294
+      \uAC83\uC774 \uC544\uB2CC,\r\n\uC11C\uB85C\uC758 \uACF5\uACA9\uB825\uACFC \uCCB4\uB825\uC744
       \uB098\uB204\uB294 \uC804\uD22C\uB77C\uB294 \uAC83\uC744 \uBA85\uC2EC\uD558\uAC8C."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
@@ -16079,7 +16088,7 @@ MonoBehaviour:
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uB610\uD55C \uAE30\uC0AC\uB4E4\uC740 \uC804\uC7A5\uC5D0 \uBC30\uCE58\uB41C
-      \uCC28\uB840\uC5D0\uB294 \uACF5\uACA9\uD560 \uC21C \uC5C6\uB124. \uC228\uC744
+      \uCC28\uB840\uC5D0\uB294 \uBC14\uB85C \uACF5\uACA9\uD560 \uC21C \uC5C6\uB124.\r\n\uC228\uC744
       \uACE0\uB97C \uC2DC\uAC04\uC774 \uD544\uC694\uD558\uB2C8 \uBC30\uCE58\uB41C
       \uB2E4\uC74C \uD134\uBD80\uD130 \uACF5\uACA9\uC774 \uAC00\uB2A5\uD560 \uAC78\uC138."
     portrait: {fileID: 0}
@@ -16102,7 +16111,7 @@ MonoBehaviour:
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uB300\uB2E8\uD558\uAD70! \uC774\uC81C \uBC14\uB85C \uC2E4\uC804\uC73C\uB85C
-      \uB098\uAC00\uB3C4 \uC190\uC0C9\uC774 \uC5C6\uACA0\uC5B4. \uC790\uB124\uC758
+      \uB098\uAC00\uB3C4 \uC190\uC0C9\uC774 \uC5C6\uACA0\uC5B4. \n\uC790\uB124\uC758
       \uC120\uD0DD\uC744 \uBC1B\uC740 \uAE30\uC0AC\uB4E4\uACFC \uD568\uAED8 \uC601\uAD11\uC2A4\uB7EC\uC6B4
       \uCD9C\uC815\uC744 \uC2DC\uC791\uD558\uAC8C\uB098."
     portrait: {fileID: 0}
@@ -16114,9 +16123,20 @@ MonoBehaviour:
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uD639\uC5EC\uB098 \uC804\uC220 \uC5F0\uC2B5 \uC0C1\uB300\uAC00 \uD544\uC694\uD558\uB2E4\uBA74
-      \uC5B8\uC81C\uB4E0 \uD6C8\uB828\uC7A5\uC73C\uB85C \uCC3E\uC544\uC624\uAC8C.
-      \uB09C \uD3D0\uD558\uC640 \uC774\uACF3 \uB9C8\uC744\uC744 \uC9C0\uD0A4\uACE0
-      \uC788\uC744 \uD14C\uB2C8 \uB9D0\uC77C\uC138."
+      \uC5B8\uC81C\uB4E0 \uD6C8\uB828\uC7A5\uC73C\uB85C \uCC3E\uC544\uC624\uAC8C.\r\n\uB09C
+      \uD3D0\uD558\uC640 \uC774\uACF3 \uB9C8\uC744\uC744 \uC9C0\uD0A4\uACE0 \uC788\uC744\uD14C\uB2C8
+      \uB9D0\uC77C\uC138."
+    portrait: {fileID: 0}
+    leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
+    rightIllustration: {fileID: 0}
+    hasChoice: 0
+    choices: []
+    nextIndex: -1
+  - speaker: 0
+    speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
+    text: "\uC774\uC81C \uD6C8\uB828\uC7A5\uC758 \uC778\uC6D0\uB4E4\uB3C4 \uC790\uB124\uC640
+      \uD568\uAED8\uD558\uACE0 \uC2F6\uC5B4 \uD558\uB294\uB4EF\uD558\uB2C8\r\n\uC655\uAD6D\uC5D0\uC11C
+      \uB2E4\uC2DC \uD55C\uBC88 \uD655\uC778\uD574 \uBD04\uC774 \uC88B\uC744 \uAC78\uC138."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
@@ -16127,7 +16147,7 @@ MonoBehaviour:
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uD558\uD558\uD558! \uBBF8\uC548\uD558\uB124, \uBAA8\uC758\uC804\uC778\uB370
-      \uB0B4\uAC00 \uD798\uC870\uC808\uC744 \uBABB \uD588\uAD6C\uB9CC. \uD558\uC9C0\uB9CC
+      \uB0B4\uAC00 \uD798\uC870\uC808\uC744 \uBABB \uD588\uAD6C\uB9CC. \n\uD558\uC9C0\uB9CC
       \uC774\uC815\uB3C4 \uAE30\uC138\uB77C\uBA74 \uC2E4\uC804\uC5D0\uC11C\uB3C4
       \uCDA9\uBD84\uD788 \uD65C\uC57D\uD560\uAC70\uB77C \uBBFF\uB124."
     portrait: {fileID: 0}
@@ -16138,8 +16158,19 @@ MonoBehaviour:
     nextIndex: -1
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
+    text: "\uC774\uC81C \uD6C8\uB828\uC7A5\uC758 \uC778\uC6D0\uB4E4\uB3C4 \uC790\uB124\uC640
+      \uD568\uAED8\uD558\uACE0 \uC2F6\uC5B4 \uD558\uB294\uB4EF\uD558\uB2C8\r\n\uC655\uAD6D\uC5D0\uC11C
+      \uB2E4\uC2DC \uD55C\uBC88 \uD655\uC778\uD574 \uBD04\uC774 \uC88B\uC744 \uAC78\uC138."
+    portrait: {fileID: 0}
+    leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
+    rightIllustration: {fileID: 0}
+    hasChoice: 0
+    choices: []
+    nextIndex: -1
+  - speaker: 0
+    speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uBD88\uC548\uD558\uB2E4\uBA74 \uD55C\uBC88 \uB354 \uB300\uB828\uD574\uBCF4\uACA0\uB098?
-      \uC544\uB2C8\uBA74 \uBC14\uB85C \uCD9C\uC815\uD574\uB3C4 \uC790\uB128 \uCDA9\uBD84\uD788
+      \n\uC544\uB2C8\uBA74 \uBC14\uB85C \uCD9C\uC815\uD574\uB3C4 \uC790\uB128 \uCDA9\uBD84\uD788
       \uD574\uB0BC \uC218 \uC788\uC744\uAC8C\uC57C."
     portrait: {fileID: 0}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
@@ -18835,7 +18866,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB358\uC804 \uC785\uC7A5"
+  m_text: "\uC2DC\uC791\uC758 \uC232 -\uBC24-"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2dc0add154e2a6142afd61a473b3c24d, type: 2}
   m_sharedMaterial: {fileID: -4929212227970549368, guid: 2dc0add154e2a6142afd61a473b3c24d, type: 2}

@@ -3162,16 +3162,16 @@ MonoBehaviour:
   clearStageTempButton: {fileID: 1511648807}
   startData: {fileID: 11400000, guid: 15851ca5f96376347990ba31e41cea65, type: 2}
   stage1List:
-  - {fileID: 11400000, guid: 480140fb9d339ec4f89cae64748007a5, type: 2}
+  - {fileID: 11400000, guid: b6de8135caa5468478daf4465cd1adda, type: 2}
   stage2List:
-  - {fileID: 11400000, guid: d7a3d94765d5b3c42a40010ef10e78b9, type: 2}
+  - {fileID: 11400000, guid: 0be7ceb59fd73cd4eb14c15db7a2194a, type: 2}
   stage3List:
-  - {fileID: 11400000, guid: cdff7eb7291778f46bc74c2d5242d9a0, type: 2}
+  - {fileID: 11400000, guid: 7214638d162cb4b45a8c2a2e300287ff, type: 2}
   event_NPC: {fileID: 11400000, guid: 84b6d772ee0343d4fbb53d62809b07c3, type: 2}
   event_Heal: {fileID: 11400000, guid: a4d81cfed52982844afa3a0f156a74ae, type: 2}
   event_Explore: {fileID: 11400000, guid: 42cb2d3418883684ea559a9fae4cb57e, type: 2}
   event_Tablet: {fileID: 11400000, guid: 6f4a6f9115501134fa94e5c108ec7b8d, type: 2}
-  bossData: {fileID: 11400000, guid: 80afc1b837a37ff4a85ff0dcf1a28198, type: 2}
+  bossData: {fileID: 11400000, guid: 349508652d398a248b59abd479adc6fa, type: 2}
   pnl_Event_NPC: {fileID: 364671395}
   pnl_Event_Heal: {fileID: 1340967186}
   pnl_Event_Explore: {fileID: 2040879064}
