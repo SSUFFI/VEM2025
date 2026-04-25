@@ -275,10 +275,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 1217359596}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &58851266
 MonoBehaviour:
@@ -1495,10 +1491,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 166035746}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &242460264
 MonoBehaviour:
@@ -2128,10 +2120,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 1074464260}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &446944294
 MonoBehaviour:
@@ -2345,7 +2333,7 @@ GameObject:
   - component: {fileID: 526147780}
   - component: {fileID: 526147779}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: txt_Enter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2390,7 +2378,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC2DC\uC791"
+  m_text: "\uC785\uC7A5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2dc0add154e2a6142afd61a473b3c24d, type: 2}
   m_sharedMaterial: {fileID: -4929212227970549368, guid: 2dc0add154e2a6142afd61a473b3c24d, type: 2}
@@ -3026,10 +3014,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 536042190}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &703529063
 MonoBehaviour:
@@ -3269,10 +3253,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 148487901}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &797423726
 MonoBehaviour:
@@ -3564,10 +3544,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 228240387}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &873802721
 MonoBehaviour:
@@ -4946,10 +4922,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 278875919}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &1238225267
 MonoBehaviour:
@@ -5081,8 +5053,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -116.352, y: -301.1831}
-  m_SizeDelta: {x: 172.704, y: 49.634}
+  m_AnchoredPosition: {x: 0.00003624, y: -297.067}
+  m_SizeDelta: {x: 193.935, y: 57.89}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1265554707
 MonoBehaviour:
@@ -5479,10 +5451,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 334638159}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &1380843117
 MonoBehaviour:
@@ -5791,10 +5759,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 1981582564}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &1509521243
 MonoBehaviour:
@@ -5908,7 +5872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1511648806
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6218,10 +6182,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 179221782}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &1588608464
 MonoBehaviour:
@@ -6379,10 +6339,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 491455347}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &1606824556
 MonoBehaviour:
@@ -6674,10 +6630,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 442205024}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &1651875500
 MonoBehaviour:
@@ -7085,10 +7037,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 1433738272}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &1851268313
 MonoBehaviour:
@@ -7246,10 +7194,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 2001132981}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &1883786678
 MonoBehaviour:
@@ -8060,10 +8004,6 @@ MonoBehaviour:
   baseGray: {fileID: 21300000, guid: 282c6b2779cc0394ebdbca7928ab750c, type: 3}
   iconImage: {fileID: 146563084}
   nodeData: {fileID: 0}
-  currentMark: {fileID: 0}
-  clearMark: {fileID: 0}
-  lockMark: {fileID: 0}
-  selectedMark: {fileID: 0}
   state: 0
 --- !u!114 &2070198819
 MonoBehaviour:

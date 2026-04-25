@@ -104,12 +104,38 @@ public class NodeMapManager : MonoBehaviour
 
     public void InitializeMap()
     {
-        clearedNodeIDs.Clear();
-        currentNodeID = -1;
         selectedNodeID = -1;
-        blockedLaneMax = -1;
 
-        GenerateNodeData();
+        if (!NodeMapRuntimeData.initialized)
+        {
+            clearedNodeIDs.Clear();
+            currentNodeID = -1;
+            blockedLaneMax = -1;
+
+            GenerateNodeData();
+
+            NodeMapRuntimeData.savedNodeData.Clear();
+
+            foreach (NodeUI node in allNodes)
+                NodeMapRuntimeData.savedNodeData[node.nodeID] = node.nodeData;
+
+            NodeMapRuntimeData.initialized = true;
+            NodeMapRuntimeData.clearedNodeIDs = new HashSet<int>();
+            NodeMapRuntimeData.currentNodeID = -1;
+            NodeMapRuntimeData.blockedLaneMax = -1;
+        }
+        else
+        {
+            clearedNodeIDs = new HashSet<int>(NodeMapRuntimeData.clearedNodeIDs);
+            currentNodeID = NodeMapRuntimeData.currentNodeID;
+            blockedLaneMax = NodeMapRuntimeData.blockedLaneMax;
+
+            foreach (NodeUI node in allNodes)
+            {
+                if (NodeMapRuntimeData.savedNodeData.ContainsKey(node.nodeID))
+                    node.nodeData = NodeMapRuntimeData.savedNodeData[node.nodeID];
+            }
+        }
 
         foreach (NodeUI node in allNodes)
         {
@@ -117,11 +143,7 @@ public class NodeMapManager : MonoBehaviour
             node.SetSelected(false);
         }
 
-        if (nodeDict.ContainsKey(startNodeID))
-            nodeDict[startNodeID].SetState(NodeState.Available);
-
-        if (bottomButtonsRoot != null)
-            bottomButtonsRoot.SetActive(false);
+        RefreshAvailableNodes();
     }
 
     public void OnClickNode(int nodeID)
@@ -221,6 +243,10 @@ public class NodeMapManager : MonoBehaviour
             bottomButtonsRoot.SetActive(false);
 
         RefreshAvailableNodes();
+
+        NodeMapRuntimeData.clearedNodeIDs = new HashSet<int>(clearedNodeIDs);
+        NodeMapRuntimeData.currentNodeID = currentNodeID;
+        NodeMapRuntimeData.blockedLaneMax = blockedLaneMax;
     }
 
     private void RefreshAvailableNodes()

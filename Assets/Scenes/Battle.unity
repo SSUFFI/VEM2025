@@ -759,6 +759,7 @@ MonoBehaviour:
   myEmptyEntity: {fileID: 1586132999}
   myBossEntity: {fileID: 1630532894}
   otherBossEntity: {fileID: 1568446019}
+  myHeroPortrait: {fileID: 21300000, guid: 65e3660bb152c7846a989ef3a11ef751, type: 3}
 --- !u!1 &164403464
 GameObject:
   m_ObjectHideFlags: 0
@@ -4865,7 +4866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataSO: {fileID: 0}
   entity: {fileID: 0}
-  character: {fileID: 0}
+  character: {fileID: 1568446018}
   frameRenderer: {fileID: 0}
   nameTMP: {fileID: 0}
   attackTMP: {fileID: 0}

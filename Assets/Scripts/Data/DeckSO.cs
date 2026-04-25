@@ -5,4 +5,7 @@ using System.Collections.Generic;
 public class DeckSO : ScriptableObject
 {
     public CardDataSO[] deckItems;
+
+    [Header("Enemy Hero Portrait")]
+    public Sprite heroPortrait;
 }

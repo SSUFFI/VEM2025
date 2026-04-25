@@ -70,6 +70,15 @@ public class Entity : MonoBehaviour
         SetAttackable(false);
     }
 
+    public void SetupBoss(Sprite portrait)
+    {
+        if (character != null && portrait != null)
+            character.sprite = portrait;
+
+        SetAttackable(false);
+    }
+
+
     public void SetAttackable(bool value)
     {
         attackable = value;

@@ -26,7 +26,6 @@ public class GameResultManager : MonoBehaviour
     public string mapSceneName = "Map";
     public string townSceneName = "Town";
 
-
     public bool isGameOver = false;
 
     void Awake()
@@ -137,6 +136,8 @@ public class GameResultManager : MonoBehaviour
 
         BattleData.isTutorialBattle = false;
         BattleData.tutorialEnemyDeck = null;
+
+        NodeMapRuntimeData.ResetRun();
 
         SceneManager.LoadScene(townSceneName);
     }

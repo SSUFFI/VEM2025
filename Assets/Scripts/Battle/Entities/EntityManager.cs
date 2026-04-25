@@ -18,6 +18,7 @@ public class EntityManager : MonoBehaviour
     [SerializeField] Entity myEmptyEntity;
     [SerializeField] Entity myBossEntity;
     [SerializeField] Entity otherBossEntity;
+    [SerializeField] Sprite myHeroPortrait;
 
     const int MAX_ENTITY_COUNT = 6;
     public bool IsFullMyEntities => myEntities.Count >= MAX_ENTITY_COUNT && !ExistMyEmptyEntity;
@@ -35,6 +36,8 @@ public class EntityManager : MonoBehaviour
     void Start()
     {
         TurnManager.OnTurnStarted += OnTurnStarted;
+
+        SetupBossProfiles();
     }
 
     void OnDestroy()
@@ -55,6 +58,23 @@ public class EntityManager : MonoBehaviour
         ShowTargetPicker(ExistTargetPickEntity);
     }
 
+    void SetupBossProfiles()
+    {
+        Debug.Log("적 덱: " + BattleData.selectedEnemyDeck);
+
+        if (myBossEntity != null)
+            myBossEntity.SetupBoss(myHeroPortrait);
+
+        if (otherBossEntity != null &&
+            BattleData.selectedEnemyDeck != null)
+        {
+            Debug.Log("적 초상화 적용");
+
+            otherBossEntity.SetupBoss(
+                BattleData.selectedEnemyDeck.heroPortrait
+            );
+        }
+    }
 
     IEnumerator AICo()
     {

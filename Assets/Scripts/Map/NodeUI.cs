@@ -34,11 +34,6 @@ public class NodeUI : MonoBehaviour
     [Header("Data")]
     public NodeDataSO nodeData;
 
-    public GameObject currentMark;
-    public GameObject clearMark;
-    public GameObject lockMark;
-    public GameObject selectedMark;
-
     [HideInInspector] public NodeState state;
 
     float pulseTimer;
@@ -71,9 +66,8 @@ public class NodeUI : MonoBehaviour
     {
         state = newState;
 
-        if (currentMark != null) currentMark.SetActive(false);
-        if (clearMark != null) clearMark.SetActive(false);
-        if (lockMark != null) lockMark.SetActive(false);
+        baseImage.color = Color.white;
+        iconImage.color = Color.white;
 
         switch (newState)
         {
@@ -116,11 +110,8 @@ public class NodeUI : MonoBehaviour
                     iconImage.sprite = nodeData.iconGray;
                 }
 
-                baseImage.color = new Color(0.6f, 0.6f, 0.6f, 1f);
-                iconImage.color = new Color(0.6f, 0.6f, 0.6f, 1f);
-
-                if (clearMark != null)
-                    clearMark.SetActive(true);
+                baseImage.color = new Color(0.35f, 0.35f, 0.35f, 1f);
+                iconImage.color = new Color(0.35f, 0.35f, 0.35f, 1f);
                 break;
 
             case NodeState.Current:
@@ -132,9 +123,6 @@ public class NodeUI : MonoBehaviour
                     iconImage.enabled = true;
                     iconImage.sprite = nodeData.iconNormal;
                 }
-
-                if (currentMark != null)
-                    currentMark.SetActive(true);
                 break;
         }
 
@@ -144,9 +132,6 @@ public class NodeUI : MonoBehaviour
     public void SetSelected(bool isSelected)
     {
         this.isSelected = isSelected;
-
-        if (selectedMark != null)
-            selectedMark.SetActive(isSelected);
 
         if (isSelected)
             transform.SetAsLastSibling();
