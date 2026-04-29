@@ -24,7 +24,14 @@ public class Entity : MonoBehaviour
     public Vector3 originPos;
     int liveCount;
 
+    Tween tauntTween;
+    Color tauntBlue = new Color(0.55f, 0.85f, 1f);
+
     public CardDataSO Data => dataSO;
+
+    public bool HasTaunt =>
+        dataSO != null &&
+        dataSO.taunt;
 
     void Start()
     {
@@ -37,6 +44,8 @@ public class Entity : MonoBehaviour
     void OnDestroy()
     {
         TurnManager.OnTurnStarted -= OnTurnStarted;
+
+        tauntTween?.Kill();
     }
 
     void OnTurnStarted(bool myTurn)
@@ -78,13 +87,34 @@ public class Entity : MonoBehaviour
         SetAttackable(false);
     }
 
-
     public void SetAttackable(bool value)
     {
         attackable = value;
 
-        if (frameRenderer != null)
-            frameRenderer.color = value ? Color.white : new Color(120f / 255f, 120f / 255f, 120f / 255f);
+        Color baseColor = value
+            ? Color.white
+            : new Color(120f / 255f, 120f / 255f, 120f / 255f);
+
+        if (frameRenderer == null)
+            return;
+
+        tauntTween?.Kill();
+
+        if (HasTaunt)
+        {
+            frameRenderer.color = baseColor;
+
+            Color pulseColor = value
+                ? new Color(1f, 0.35f, 0.35f)
+                : new Color(0.45f, 0.20f, 0.20f);
+
+            tauntTween = frameRenderer.DOColor(pulseColor, 1.2f)
+                .SetLoops(-1, LoopType.Yoyo);
+        }
+        else
+        {
+            frameRenderer.color = baseColor;
+        }
     }
 
     void OnMouseOver()

@@ -10,6 +10,7 @@ public class DeckCardUI : MonoBehaviour,
     public TMP_Text nameTMP;
 
     CardDataSO data;
+    bool isHolding;
 
     public void Init(CardDataSO data, int count)
     {
@@ -19,25 +20,40 @@ public class DeckCardUI : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (!isHolding)
+                DeckListUI.Inst.StartRemove(data);
+        }
+
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            DeckListUI.Inst.StartRemove(data);
+            if (CardPreviewManager.Inst != null)
+                CardPreviewManager.Inst.Show(data);
         }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.button != PointerEventData.InputButton.Right)
+        if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
+        isHolding = false;
+        Invoke(nameof(StartHold), 0.18f);
+    }
+
+    void StartHold()
+    {
+        isHolding = true;
         DeckListUI.Inst.StartHoldRemove(data);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (eventData.button != PointerEventData.InputButton.Right)
+        if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
+        CancelInvoke(nameof(StartHold));
         DeckListUI.Inst.StopHold();
     }
 }

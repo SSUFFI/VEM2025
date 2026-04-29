@@ -28,6 +28,8 @@ public class EntityManager : MonoBehaviour
     bool ExistMyEmptyEntity => myEntities.Exists(x => x == myEmptyEntity);
     int MyEmptyEntityIndex => myEntities.FindIndex(x => x == myEmptyEntity);
     bool CanMouseInput => TurnManager.Inst.myTurn && !TurnManager.Inst.isLoading;
+    public Vector3 MyDeckSpawnPos => myBossEntity.transform.position;
+    public Vector3 OtherDeckSpawnPos => otherBossEntity.transform.position;
 
     Entity selectEntity;
     Entity targetPickEntity;
@@ -184,6 +186,12 @@ public class EntityManager : MonoBehaviour
 
         EntityAlignment(isMine);
 
+        StartCoroutine(TrySummonTokensCo(
+            isMine,
+            dataSO,
+            entity
+        ));
+
         return true;
     }
 
@@ -225,17 +233,37 @@ public class EntityManager : MonoBehaviour
         if (!CanMouseInput || selectEntity == null)
             return;
 
+        bool enemyHasTaunt = EnemyHasTaunt();
+
         bool existTarget = false;
+
         foreach (var hit in Physics2D.RaycastAll(Utils.MousePos, Vector3.forward))
         {
             Entity entity = hit.collider?.GetComponent<Entity>();
-            if (entity != null && !entity.isMine && selectEntity.attackable)
+
+            if (entity == null)
+                continue;
+
+            if (entity.isMine)
+                continue;
+
+            if (!selectEntity.attackable)
+                continue;
+
+            if (enemyHasTaunt)
             {
-                targetPickEntity = entity;
-                existTarget = true;
-                break;
+                if (entity.isBossOrEmpty)
+                    continue;
+
+                if (!entity.HasTaunt)
+                    continue;
             }
+
+            targetPickEntity = entity;
+            existTarget = true;
+            break;
         }
+
         if (!existTarget)
             targetPickEntity = null;
     }
@@ -388,21 +416,34 @@ public class EntityManager : MonoBehaviour
 
     Entity PickRandomMyTarget()
     {
-        List<Entity> candidates = new List<Entity>();
+        List<Entity> taunts = new List<Entity>();
+        List<Entity> normals = new List<Entity>();
 
         for (int i = 0; i < myEntities.Count; i++)
         {
             var e = myEntities[i];
+
             if (e == null) continue;
             if (e.isDie) continue;
             if (e.isBossOrEmpty) continue;
-            candidates.Add(e);
+
+            if (e.HasTaunt)
+                taunts.Add(e);
+            else
+                normals.Add(e);
         }
+
+        if (taunts.Count > 0)
+            return taunts[UnityEngine.Random.Range(0, taunts.Count)];
+
+        List<Entity> candidates = new List<Entity>(normals);
 
         if (myBossEntity != null && !myBossEntity.isDie)
             candidates.Add(myBossEntity);
 
-        if (candidates.Count == 0) return null;
+        if (candidates.Count == 0)
+            return null;
+
         return candidates[UnityEngine.Random.Range(0, candidates.Count)];
     }
 
@@ -523,6 +564,52 @@ public class EntityManager : MonoBehaviour
         Vector3 scale = arrowBaseScale;
         scale.y = targetScaleY;
         TargetArrow.localScale = scale;
+    }
+
+    bool EnemyHasTaunt()
+    {
+        foreach (var e in otherEntities)
+        {
+            if (e == null) continue;
+            if (e.isDie) continue;
+            if (e.isBossOrEmpty) continue;
+            if (e.HasTaunt)
+                return true;
+        }
+
+        return false;
+    }
+
+    IEnumerator TrySummonTokensCo(bool isMine, CardDataSO ownerData, Entity ownerEntity)
+    {
+        if (ownerData == null) yield break;
+        if (ownerEntity == null) yield break;
+        if (ownerData.summonOnPlayCards == null) yield break;
+        if (ownerData.summonOnPlayCards.Count == 0) yield break;
+
+        yield return new WaitForSeconds(0.8f);
+
+        foreach (var summonData in ownerData.summonOnPlayCards)
+        {
+            if (summonData == null)
+                continue;
+
+            if (isMine)
+                InsertMyEmptyEntity(999f);
+
+            Vector3 spawnPos = ownerEntity.transform.position;
+
+            bool success = SpawnEntity(
+                isMine,
+                summonData,
+                spawnPos
+            );
+
+            if (!success)
+                yield break;
+
+            yield return new WaitForSeconds(0.12f);
+        }
     }
 
     public void DisableMyAttackables()

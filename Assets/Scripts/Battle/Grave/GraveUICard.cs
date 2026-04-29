@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
-public class GraveUICard : MonoBehaviour
+public class GraveUICard : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] Image character;
     [SerializeField] TMP_Text nameTMP;
@@ -29,7 +30,15 @@ public class GraveUICard : MonoBehaviour
             descriptionTMP.text = data.description;
     }
 
-    public void OnClick()
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Right)
+            return;
+
+        ShowPreview();
+    }
+
+    public void ShowPreview()
     {
         if (CardPreviewManager.Inst == null) return;
         if (data == null) return;

@@ -18,7 +18,17 @@ MonoBehaviour:
   manaCost: 3
   sprite: {fileID: 21300000, guid: 01c6d65f5ae95d34b82fb827d3444d14, type: 3}
   fieldSprite: {fileID: 21300000, guid: ac4de5ca57e2ca346aeafa644e9400ce, type: 3}
-  description: "\uBC18\uACA9 : \uC774 \uCE74\uB4DC\uC758 \uACF5\uACA9\uB825\uB9CC\uD07C
-    \uB370\uBBF8\uC9C0\uB97C \uC90D\uB2C8\uB2E4."
-  graveTriggers: 00000000
-  deathTriggers: 
+  description: "\uC18C\uD658. \uC0C8\uB07C \uB291\uB300 1\n\uC2EC\uD310. \uC0C8\uB07C
+    \uB291\uB300 1"
+  keywords:
+  - "\uC18C\uD658 : \uC774 \uCE74\uB4DC\uB97C \uD544\uB4DC\uC5D0 \uB0B4\uB9B4 \uC2DC
+    \uD544\uB4DC\uC5D0 \uB0A8\uC740 \uC790\uB9AC\uAC00 \uC788\uB2E4\uBA74 \uD574\uB2F9
+    \uD558\uC218\uC778\uC744 \uC0DD\uC131\uD55C\uB2E4"
+  - "\uC2EC\uD310 : \uB371\uC774 \uACF5\uACA9\uBC1B\uC544 \uC774 \uCE74\uB4DC\uAC00
+    \uBB18\uC9C0\uB85C \uBCF4\uB0B4\uC9C8 \uC2DC \uBC1C\uB3D9"
+  taunt: 0
+  summonOnPlayCards:
+  - {fileID: 11400000, guid: ae205eb8dacc2d24fa78ea1657122700, type: 2}
+  summonOnDeckToGraveCards:
+  - {fileID: 11400000, guid: ae205eb8dacc2d24fa78ea1657122700, type: 2}
+  triggers: []

@@ -26,7 +26,7 @@ public class DeckListUI : MonoBehaviour
     {
         if (!isHolding) return;
 
-        if (!Input.GetMouseButton(1))
+        if (!Input.GetMouseButton(0))
         {
             StopHold();
             return;

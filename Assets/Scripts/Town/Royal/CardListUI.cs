@@ -17,6 +17,8 @@ public class CardListUI : MonoBehaviour,
     public TMP_Text manaTMP;
     public TMP_Text descriptionTMP;
 
+    bool isHolding;
+
     public void Init(CardDataSO data)
     {
         this.data = data;
@@ -34,30 +36,39 @@ public class CardListUI : MonoBehaviour,
     {
         if (DeckEditManager.Inst == null) return;
 
-        if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            DeckListUI.Inst.StartAdd(data);
-        }
-
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Debug.Log($"카드 확대: {data.cardName}");
+            if (!isHolding)
+                DeckListUI.Inst.StartAdd(data);
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (CardPreviewManager.Inst != null)
+                CardPreviewManager.Inst.Show(data);
         }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.button != PointerEventData.InputButton.Right)
+        if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
+        isHolding = false;
+        Invoke(nameof(StartHold), 0.18f);
+    }
+
+    void StartHold()
+    {
+        isHolding = true;
         DeckListUI.Inst.StartHoldAdd(data);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (eventData.button != PointerEventData.InputButton.Right)
+        if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
-        DeckListUI.Inst.StopHold();
+        CancelInvoke(nameof(StartHold));
     }
 }
