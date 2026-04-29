@@ -28,8 +28,12 @@ public class Utils
     {
         get
         {
-            Vector3 result = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            result.z = -10;
+            Vector3 pos = Input.mousePosition;
+            pos.z = -Camera.main.transform.position.z;
+
+            Vector3 result = Camera.main.ScreenToWorldPoint(pos);
+            result.z = 0f;
+
             return result;
         }
     }

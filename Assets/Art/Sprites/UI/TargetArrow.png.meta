@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: TargetArrow_4
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 9
+        width: 73
+        height: 447
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2638cab1f91c43a43b080bd8f078e1f3
+      internalID: -1908078310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +140,41 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      TargetArrow_0: 15990149
+      TargetArrow_1: 1492334617
+      TargetArrow_10: -754344905
+      TargetArrow_11: 27115707
+      TargetArrow_12: -1788878287
+      TargetArrow_13: -1623162358
+      TargetArrow_14: -1348632685
+      TargetArrow_15: -264003978
+      TargetArrow_16: 1281468222
+      TargetArrow_17: -1843439058
+      TargetArrow_18: 1298045406
+      TargetArrow_19: -442943306
+      TargetArrow_2: 874056131
+      TargetArrow_20: 180034684
+      TargetArrow_21: 1999974309
+      TargetArrow_22: 1611578017
+      TargetArrow_23: -1271459656
+      TargetArrow_24: -1416163103
+      TargetArrow_25: -1290254480
+      TargetArrow_26: -1184154108
+      TargetArrow_27: -533469242
+      TargetArrow_28: -1913150259
+      TargetArrow_29: 1220612426
+      TargetArrow_3: 1750826537
+      TargetArrow_30: 549554308
+      TargetArrow_31: 42894394
+      TargetArrow_32: -941603604
+      TargetArrow_33: -22107181
+      TargetArrow_4: -1908078310
+      TargetArrow_5: 1414184312
+      TargetArrow_6: 1578187450
+      TargetArrow_7: -429441862
+      TargetArrow_8: -1972165865
+      TargetArrow_9: 138307693
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

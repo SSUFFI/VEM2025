@@ -15753,7 +15753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   step: 0
-  enableTutorial: 1
+  enableTutorial: 0
   dialogue: {fileID: 259310045}
   introLines:
   - speaker: 0

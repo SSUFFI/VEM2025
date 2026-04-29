@@ -15,6 +15,7 @@ public class EntityManager : MonoBehaviour
     [SerializeField] List<Entity> myEntities;
     [SerializeField] List<Entity> otherEntities;
     [SerializeField] GameObject TargetPicker;
+    [SerializeField] Transform TargetArrow;
     [SerializeField] Entity myEmptyEntity;
     [SerializeField] Entity myBossEntity;
     [SerializeField] Entity otherBossEntity;
@@ -30,6 +31,7 @@ public class EntityManager : MonoBehaviour
 
     Entity selectEntity;
     Entity targetPickEntity;
+    Vector3 arrowBaseScale;
     WaitForSeconds delay1 = new WaitForSeconds(2);
     WaitForSeconds delay2 = new WaitForSeconds(2);
 
@@ -38,6 +40,20 @@ public class EntityManager : MonoBehaviour
         TurnManager.OnTurnStarted += OnTurnStarted;
 
         SetupBossProfiles();
+
+        if (TargetArrow != null)
+        {
+            arrowBaseScale = TargetArrow.localScale;
+            TargetArrow.gameObject.SetActive(false);
+
+            SpriteRenderer sr = TargetArrow.GetComponent<SpriteRenderer>();
+
+            if (sr != null)
+            {
+                sr.sortingLayerName = "TargetArrowTop";
+                sr.sortingOrder = 0;
+            }
+        }
     }
 
     void OnDestroy()
@@ -56,6 +72,9 @@ public class EntityManager : MonoBehaviour
     void Update()
     {
         ShowTargetPicker(ExistTargetPickEntity);
+
+        if (TargetArrow != null)
+            UpdateTargetArrow();
     }
 
     void SetupBossProfiles()
@@ -174,6 +193,19 @@ public class EntityManager : MonoBehaviour
             return;
 
         selectEntity = entity;
+
+        if (TargetArrow != null)
+        {
+            TargetArrow.position = entity.transform.position;
+
+            TargetArrow.localScale = new Vector3(
+                arrowBaseScale.x,
+                0f,
+                arrowBaseScale.z
+            );
+
+            TargetArrow.gameObject.SetActive(true);
+        }
     }
 
     public void EntityMouseUp()
@@ -215,7 +247,7 @@ public class EntityManager : MonoBehaviour
         Sequence sequence = DOTween.Sequence()
             .Append(attacker.transform.DOMove(defender.originPos, 0.4f)).SetEase(Ease.InSine)
             .AppendCallback(() =>
-            {               
+            {
                 //SpawnDamage(defender.attack, attacker.transform);
                 //SpawnDamage(attacker.attack, defender.transform);
             })
@@ -438,5 +470,67 @@ public class EntityManager : MonoBehaviour
                 EntityAlignment(entity.isMine);
                 Destroy(entity.gameObject);
             });
+    }
+
+    void UpdateTargetArrow()
+    {
+        if (TargetArrow == null)
+            return;
+
+        if (selectEntity == null || !selectEntity.attackable)
+        {
+            TargetArrow.gameObject.SetActive(false);
+            return;
+        }
+
+        TargetArrow.gameObject.SetActive(true);
+
+        Vector3 startPos = selectEntity.transform.position;
+        Vector3 endPos = Utils.MousePos;
+
+        if (targetPickEntity != null)
+            endPos = targetPickEntity.transform.position;
+
+        Vector3 dir = endPos - startPos;
+        float distance = dir.magnitude;
+
+        if (distance < 0.4f)
+        {
+            Vector3 scale0 = arrowBaseScale;
+            scale0.y = 0.05f;
+            TargetArrow.localScale = scale0;
+            return;
+        }
+
+        if (distance <= 0.05f)
+        {
+            TargetArrow.gameObject.SetActive(false);
+            return;
+        }
+
+        dir.Normalize();
+
+        TargetArrow.position = startPos;
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        TargetArrow.rotation = Quaternion.Euler(0, 0, angle);
+
+        SpriteRenderer sr = TargetArrow.GetComponent<SpriteRenderer>();
+
+        float spriteHeight = sr.sprite.bounds.size.y;
+        float targetScaleY = distance / spriteHeight;
+
+        Vector3 scale = arrowBaseScale;
+        scale.y = targetScaleY;
+        TargetArrow.localScale = scale;
+    }
+
+    public void DisableMyAttackables()
+    {
+        myEntities.ForEach(x =>
+        {
+            if (x != null && !x.isBossOrEmpty)
+                x.SetAttackable(false);
+        });
     }
 }

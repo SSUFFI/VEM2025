@@ -117,6 +117,9 @@ public class TurnManager : MonoBehaviour
 
     public void EndTurn()
     {
+        if (myTurn && EntityManager.Inst != null)
+            EntityManager.Inst.DisableMyAttackables();
+
         myTurn = !myTurn;
         StartCoroutine(StartTurnCo());
     }

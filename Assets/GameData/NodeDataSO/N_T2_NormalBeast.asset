@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24845b3a289c35443a1eb602710e13b0, type: 3}
-  m_Name: N_T1_EB
+  m_Name: N_T2_NormalBeast
   m_EditorClassIdentifier: 
   nodeType: 1
-  battleTier: 1
-  enemyDeck: {fileID: 11400000, guid: 050ff27e4275fc244ad54ff061ac4a86, type: 2}
+  battleTier: 2
+  enemyDeck: {fileID: 11400000, guid: 9b9f25e3c709cd5419859be5b194b71a, type: 2}
   eventType: 0
-  iconNormal: {fileID: 21300000, guid: 95f0024fc1ee0d7439b8379d90368bb6, type: 3}
-  iconGray: {fileID: 21300000, guid: 5e7e113336f892a40971328edb7e7400, type: 3}
+  iconNormal: {fileID: 21300000, guid: 93208eab5a0f72141be9c980408be620, type: 3}
+  iconGray: {fileID: 21300000, guid: 58f85f95fcf60834ba42115823e8ed74, type: 3}
