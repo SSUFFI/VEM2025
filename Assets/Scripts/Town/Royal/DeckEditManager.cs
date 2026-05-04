@@ -50,13 +50,27 @@ public class DeckEditManager : MonoBehaviour
         }
     }
 
+    public void ClearDeck()
+    {
+        currentDeck.Clear();
+        fixedOrder.Clear();
+    }
+
     public bool AddCard(CardDataSO data)
     {
         if (currentDeck.Count >= maxDeckSize)
-        {
-            Debug.Log("µ¦ °¡µæ Âü");
             return false;
+
+        int count = 0;
+
+        foreach (var card in currentDeck)
+        {
+            if (card == data)
+                count++;
         }
+
+        if (count >= 4)
+            return false;
 
         currentDeck.Add(data);
 

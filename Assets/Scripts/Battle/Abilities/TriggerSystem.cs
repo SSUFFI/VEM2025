@@ -1,7 +1,16 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class TriggerSystem : MonoBehaviour
 {
+    public static TriggerSystem Inst;
+
+    void Awake()
+    {
+        Inst = this;
+    }
+
     void OnEnable()
     {
         GraveManager.OnCardSentToGraveFromDeck += OnDeckToGrave;
@@ -14,12 +23,23 @@ public class TriggerSystem : MonoBehaviour
         GraveManager.OnEntityDiedInCombat -= OnFieldDeath;
     }
 
+    public void OnEnterField(CardDataSO data, bool isMine, Entity self)
+    {
+        if (data == null) return;
+        if (data.triggers == null) return;
+
+        foreach (var trigger in data.triggers)
+        {
+            if (trigger.triggerType != TriggerType.OnEnterField)
+                continue;
+
+            RunEffect(trigger, data, isMine, null, self, null);
+        }
+    }
+
     void OnDeckToGrave(CardDataSO data, bool isMineDeck, Entity deckAttacker)
     {
         if (data == null) return;
-
-        TrySummonJudgement(data, isMineDeck);
-
         if (data.triggers == null) return;
 
         foreach (var trigger in data.triggers)
@@ -27,7 +47,7 @@ public class TriggerSystem : MonoBehaviour
             if (trigger.triggerType != TriggerType.OnDeckToGrave)
                 continue;
 
-            RunEffect(trigger.effectType, data, isMineDeck, deckAttacker, null, null);
+            RunEffect(trigger, data, isMineDeck, deckAttacker, null, null);
         }
     }
 
@@ -41,19 +61,19 @@ public class TriggerSystem : MonoBehaviour
             if (trigger.triggerType != TriggerType.OnFieldDeath)
                 continue;
 
-            RunEffect(trigger.effectType, deadData, deadIsMine, killer, deadEntity, null);
+            RunEffect(trigger, deadData, deadIsMine, killer, deadEntity, null);
         }
     }
 
     void RunEffect(
-        EffectType effect,
+        CardTriggerData trigger,
         CardDataSO data,
         bool isMine,
         Entity target,
         Entity self,
         Entity extra)
     {
-        switch (effect)
+        switch (trigger.effectType)
         {
             case EffectType.None:
                 break;
@@ -65,7 +85,74 @@ public class TriggerSystem : MonoBehaviour
             case EffectType.Draw1:
                 TurnManager.OnAddCard?.Invoke(isMine);
                 break;
+
+            case EffectType.Summon:
+                Summon(trigger, isMine, self);
+                break;
+
+            case EffectType.DamageRandomEnemy:
+                DamageRandomEnemy(trigger.value, isMine);
+                break;
+
+            case EffectType.DamageAllEnemies:
+                DamageAllEnemies(trigger.value, isMine);
+                break;
         }
+    }
+
+    void Summon(CardTriggerData trigger, bool isMine, Entity owner)
+    {
+        StartCoroutine(SummonCo(trigger, isMine, owner));
+    }
+
+    IEnumerator SummonCo(CardTriggerData trigger, bool isMine, Entity owner)
+    {
+        if (trigger.summonCards == null || trigger.summonCards.Count == 0)
+            yield break;
+
+        if (EntityManager.Inst == null)
+            yield break;
+
+        bool isDeathSummon = owner != null && owner.isDie;
+
+        Entity safeOwner = owner;
+
+        if (owner != null && owner.isDie)
+        {
+            safeOwner = null;
+        }
+
+        EntityManager.Inst.SetSummonOwner(owner, isDeathSummon);
+
+        if (owner != null && !owner.isDie)
+            yield return new WaitForSeconds(0.8f);
+
+        foreach (var summonData in trigger.summonCards)
+        {
+            if (summonData == null)
+                continue;
+
+            Vector3 spawnPos = owner != null
+                ? owner.transform.position
+                : (isMine
+                    ? EntityManager.Inst.MyDeckSpawnPos
+                    : EntityManager.Inst.OtherDeckSpawnPos);
+
+            bool success = EntityManager.Inst.SpawnEntity(
+                isMine,
+                summonData,
+                spawnPos
+            );
+
+            if (!success)
+                break;
+
+            yield return new WaitForSeconds(0.12f);
+        }
+
+        EntityManager.Inst.ClearSummonOwner();
+
+        EntityManager.Inst.EntityAlignment(isMine);
     }
 
     void DealOwnAttackToAttacker(CardDataSO data, Entity attacker)
@@ -85,33 +172,51 @@ public class TriggerSystem : MonoBehaviour
             EntityManager.Inst.RemoveEntityIfDead(attacker);
     }
 
-    void TrySummonJudgement(CardDataSO data, bool isMine)
+    void DamageRandomEnemy(int damage, bool isMine)
     {
-        if (data.summonOnDeckToGraveCards == null) return;
-        if (data.summonOnDeckToGraveCards.Count == 0) return;
-        if (EntityManager.Inst == null) return;
+        var list = isMine
+            ? EntityManager.Inst.OtherEntities
+            : EntityManager.Inst.MyEntities;
 
-        foreach (var summonData in data.summonOnDeckToGraveCards)
+        List<Entity> targets = new List<Entity>();
+
+        foreach (var e in list)
         {
-            if (summonData == null)
-                continue;
+            if (e == null) continue;
+            if (e.isDie) continue;
+            if (e.isBossOrEmpty) continue;
 
-            if (isMine)
-                EntityManager.Inst.InsertMyEmptyEntity(999f);
+            targets.Add(e);
+        }
 
-            Vector3 spawnPos =
-                isMine
-                ? EntityManager.Inst.MyDeckSpawnPos
-                : EntityManager.Inst.OtherDeckSpawnPos;
+        if (targets.Count == 0) return;
 
-            bool success = EntityManager.Inst.SpawnEntity(
-                isMine,
-                summonData,
-                spawnPos
-            );
+        var target = targets[Random.Range(0, targets.Count)];
 
-            if (!success)
-                break;
+        target.Damaged(damage);
+
+        EntityManager.Inst.ShowDamage(damage, target.transform);
+        EntityManager.Inst.RemoveEntityIfDead(target);
+    }
+
+    void DamageAllEnemies(int damage, bool isMine)
+    {
+        var list = isMine
+            ? EntityManager.Inst.OtherEntities
+            : EntityManager.Inst.MyEntities;
+
+        List<Entity> targets = new List<Entity>(list);
+
+        foreach (var e in targets)
+        {
+            if (e == null) continue;
+            if (e.isDie) continue;
+            if (e.isBossOrEmpty) continue;
+
+            e.Damaged(damage);
+
+            EntityManager.Inst.ShowDamage(damage, e.transform);
+            EntityManager.Inst.RemoveEntityIfDead(e);
         }
     }
 }

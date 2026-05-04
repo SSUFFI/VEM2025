@@ -24,7 +24,8 @@ MonoBehaviour:
     \uD544\uB4DC\uC5D0 \uB0A8\uC740 \uC790\uB9AC\uAC00 \uC788\uB2E4\uBA74 \uD574\uB2F9
     \uD558\uC218\uC778\uC744 \uC0DD\uC131\uD55C\uB2E4"
   taunt: 0
-  summonOnPlayCards:
-  - {fileID: 11400000, guid: aa23a4c975965444b976264434610e59, type: 2}
-  summonOnDeckToGraveCards: []
-  triggers: []
+  triggers:
+  - triggerType: 0
+    effectType: 3
+    summonCards:
+    - {fileID: 11400000, guid: aa23a4c975965444b976264434610e59, type: 2}

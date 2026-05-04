@@ -31,11 +31,47 @@ public class EntityManager : MonoBehaviour
     public Vector3 MyDeckSpawnPos => myBossEntity.transform.position;
     public Vector3 OtherDeckSpawnPos => otherBossEntity.transform.position;
 
+    public List<Entity> MyEntities => myEntities;
+    public List<Entity> OtherEntities => otherEntities;
+
     Entity selectEntity;
     Entity targetPickEntity;
     Vector3 arrowBaseScale;
     WaitForSeconds delay1 = new WaitForSeconds(2);
     WaitForSeconds delay2 = new WaitForSeconds(2);
+
+
+    Entity summonOwner;
+    bool replaceMode;
+    bool isSummoning;
+    int replaceIndex;
+
+    public void SetSummonOwner(Entity owner, bool isReplace = false)
+    {
+        summonOwner = owner;
+        replaceMode = isReplace;
+        isSummoning = true;
+
+        if (owner != null)
+        {
+            var list = owner.isMine ? myEntities : otherEntities;
+            replaceIndex = list.IndexOf(owner);
+
+            if (replaceIndex < 0)
+            {
+                replaceMode = false;
+                replaceIndex = list.Count;
+            }
+        }
+    }
+
+    public void ClearSummonOwner()
+    {
+        summonOwner = null;
+        replaceMode = false;
+        replaceIndex = -1;
+        isSummoning = false;
+    }
 
     void Start()
     {
@@ -116,19 +152,21 @@ public class EntityManager : MonoBehaviour
     }
 
 
-    void EntityAlignment(bool isMine)
+    public void EntityAlignment(bool isMine)
     {
         float targetY = isMine ? -3.33f : 2.88f;
-        var targetEntities = isMine ? myEntities : otherEntities;
+        var list = isMine ? myEntities : otherEntities;
 
-        for (int i = 0; i < targetEntities.Count; i++)
+        float centerOffset = (list.Count - 1) * 0.5f;
+
+        for (int i = 0; i < list.Count; i++)
         {
-            float targetX = (targetEntities.Count - 1) * -2.4f + i * 5.2f;
+            float targetX = (i - centerOffset) * 5.2f;
 
-            var targetEntity = targetEntities[i];
-            targetEntity.originPos = new Vector3(targetX, targetY, 0);
-            targetEntity.MoveTransform(targetEntity.originPos, true, 0.5f);
-            targetEntity.GetComponent<CardOrder>()?.SetOriginOrder(i);
+            var e = list[i];
+            e.originPos = new Vector3(targetX, targetY, 0);
+            e.MoveTransform(e.originPos, true, 0.5f);
+            e.GetComponent<CardOrder>()?.SetOriginOrder(i);
         }
     }
 
@@ -161,36 +199,86 @@ public class EntityManager : MonoBehaviour
 
     public bool SpawnEntity(bool isMine, CardDataSO dataSO, Vector3 spawnPos)
     {
-        if (isMine)
+        if (!isSummoning)
         {
-            if (IsFullMyEntities || !ExistMyEmptyEntity)
-                return false;
+            if (isMine)
+            {
+                if (IsFullMyEntities || !ExistMyEmptyEntity)
+                    return false;
+            }
+            else
+            {
+                if (IsFullOtherEntities)
+                    return false;
+            }
         }
         else
         {
-            if (IsFullOtherEntities)
+            if (isMine && myEntities.Count >= MAX_ENTITY_COUNT)
+                return false;
+
+            if (!isMine && otherEntities.Count >= MAX_ENTITY_COUNT)
                 return false;
         }
 
         var entityObject = Instantiate(entityPrefab, spawnPos, Utils.QI);
         var entity = entityObject.GetComponent<Entity>();
+        entity.transform.position = spawnPos;
+        entity.originPos = spawnPos;
 
-        if (isMine)
-            myEntities[MyEmptyEntityIndex] = entity;
+        var list = isMine ? myEntities : otherEntities;
+
+        if (summonOwner != null)
+        {
+            if (replaceMode)
+            {
+                int insertIndex = Mathf.Clamp(replaceIndex, 0, list.Count);
+
+                list.Insert(insertIndex, entity);
+
+                entity.transform.position = summonOwner.transform.position;
+
+                replaceMode = false;
+                replaceIndex = insertIndex + 1;
+            }
+            else
+            {
+                int insertIndex = Mathf.Clamp(replaceIndex + 1, 0, list.Count);
+
+                list.Insert(insertIndex, entity);
+
+                replaceIndex = insertIndex;
+            }
+        }
         else
-            otherEntities.Insert(Random.Range(0, otherEntities.Count), entity);
+        {
+            if (isMine)
+            {
+                if (ExistMyEmptyEntity)
+                {
+                    list[MyEmptyEntityIndex] = entity;
+                }
+                else
+                {
+                    list.Add(entity);
+                }
+            }
+            else
+            {
+                list.Add(entity);
+            }
+        }
 
         entity.isMine = isMine;
         entity.Setup(dataSO);
+
         OnEntitySpawned?.Invoke(isMine);
 
-        EntityAlignment(isMine);
+        if (summonOwner == null)
+            EntityAlignment(isMine);
 
-        StartCoroutine(TrySummonTokensCo(
-            isMine,
-            dataSO,
-            entity
-        ));
+        if (TriggerSystem.Inst != null)
+            TriggerSystem.Inst.OnEnterField(dataSO, isMine, entity);
 
         return true;
     }
@@ -270,6 +358,7 @@ public class EntityManager : MonoBehaviour
 
     void Attack(Entity attacker, Entity defender)
     {
+       
         attacker.GetComponent<CardOrder>().SetMostFrontOrder(true);
 
         Sequence sequence = DOTween.Sequence()
@@ -373,29 +462,28 @@ public class EntityManager : MonoBehaviour
 
     IEnumerator AIAttackCo()
     {
-        List<Entity> attackers = new List<Entity>();
-        for (int i = 0; i < otherEntities.Count; i++)
-        {
-            var e = otherEntities[i];
-            if (e == null) continue;
-            if (e.isDie) continue;
-            if (e.isBossOrEmpty) continue;
-            if (!e.attackable) continue;
-            attackers.Add(e);
-        }
+        WaitForSeconds aiAtkDelay = new WaitForSeconds(1.4f);
 
-        for (int i = 0; i < attackers.Count; i++)
-        {
-            int r = UnityEngine.Random.Range(i, attackers.Count);
-            (attackers[i], attackers[r]) = (attackers[r], attackers[i]);
-        }
+        int safety = 20;
 
-        WaitForSeconds aiAtkDelay = new WaitForSeconds(0.9f);
-
-        foreach (var attacker in attackers)
+        while (safety-- > 0)
         {
-            if (attacker == null || attacker.isDie) continue;
-            if (!attacker.attackable) continue;
+            List<Entity> attackers = new List<Entity>();
+
+            foreach (var e in otherEntities)
+            {
+                if (e == null) continue;
+                if (e.isDie) continue;
+                if (e.isBossOrEmpty) continue;
+                if (!e.attackable) continue;
+
+                attackers.Add(e);
+            }
+
+            if (attackers.Count == 0)
+                break;
+
+            Entity attacker = attackers[Random.Range(0, attackers.Count)];
 
             Entity target = PickRandomMyTarget();
 
@@ -405,6 +493,7 @@ public class EntityManager : MonoBehaviour
             if (target == myBossEntity)
             {
                 yield return StartCoroutine(AttackBossCo(attacker));
+                yield return aiAtkDelay;
             }
             else
             {
@@ -580,37 +669,6 @@ public class EntityManager : MonoBehaviour
         return false;
     }
 
-    IEnumerator TrySummonTokensCo(bool isMine, CardDataSO ownerData, Entity ownerEntity)
-    {
-        if (ownerData == null) yield break;
-        if (ownerEntity == null) yield break;
-        if (ownerData.summonOnPlayCards == null) yield break;
-        if (ownerData.summonOnPlayCards.Count == 0) yield break;
-
-        yield return new WaitForSeconds(0.8f);
-
-        foreach (var summonData in ownerData.summonOnPlayCards)
-        {
-            if (summonData == null)
-                continue;
-
-            if (isMine)
-                InsertMyEmptyEntity(999f);
-
-            Vector3 spawnPos = ownerEntity.transform.position;
-
-            bool success = SpawnEntity(
-                isMine,
-                summonData,
-                spawnPos
-            );
-
-            if (!success)
-                yield break;
-
-            yield return new WaitForSeconds(0.12f);
-        }
-    }
 
     public void DisableMyAttackables()
     {
@@ -619,5 +677,20 @@ public class EntityManager : MonoBehaviour
             if (x != null && !x.isBossOrEmpty)
                 x.SetAttackable(false);
         });
+    }
+
+    public void InsertNextTo(Entity owner, Entity newEntity, bool isMine)
+    {
+        var list = isMine ? myEntities : otherEntities;
+
+        int index = list.IndexOf(owner);
+
+        if (index == -1)
+        {
+            list.Add(newEntity);
+            return;
+        }
+
+        list.Insert(index + 1, newEntity);
     }
 }

@@ -49,7 +49,7 @@ public class CardPreviewUI : MonoBehaviour
         if (data.keywords != null && data.keywords.Count > 0)
         {
             keywordObject.SetActive(true);
-            keywordTMP.text = string.Join(" / ", data.keywords);
+            keywordTMP.text = string.Join("\n\n", data.keywords);
         }
         else
         {

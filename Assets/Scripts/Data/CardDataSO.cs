@@ -16,14 +16,8 @@ public class CardDataSO : ScriptableObject
 
     public List<string> keywords = new List<string>();
 
-    [Header("Keyword")]
+    [Header("µµ¹ß")]
     public bool taunt;
-
-    [Header("Summon - Play")]
-    public List<CardDataSO> summonOnPlayCards = new List<CardDataSO>();
-
-    [Header("Summon - Judgement")]
-    public List<CardDataSO> summonOnDeckToGraveCards = new List<CardDataSO>();
 
     public List<CardTriggerData> triggers = new List<CardTriggerData>();
 }
@@ -33,10 +27,13 @@ public class CardTriggerData
 {
     public TriggerType triggerType;
     public EffectType effectType;
+    public int value;
+    public List<CardDataSO> summonCards = new List<CardDataSO>();
 }
 
 public enum TriggerType
 {
+    OnEnterField,
     OnDeckToGrave,
     OnFieldDeath
 }
@@ -44,7 +41,9 @@ public enum TriggerType
 public enum EffectType
 {
     None,
-
     DealOwnAttackToAttacker,
-    Draw1
+    Draw1,
+    Summon,
+    DamageRandomEnemy,
+    DamageAllEnemies
 }

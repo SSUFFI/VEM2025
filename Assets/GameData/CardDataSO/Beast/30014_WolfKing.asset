@@ -18,6 +18,14 @@ MonoBehaviour:
   manaCost: 4
   sprite: {fileID: 21300000, guid: be58f7e01f274aa439822db3584af050, type: 3}
   fieldSprite: {fileID: 21300000, guid: da9615f67f75d064ba765853eb43b638, type: 3}
-  description: 
-  graveTriggers: 
-  deathTriggers: 
+  description: "\uD568\uC131. \uC801 \uC804\uCCB4 \uD558\uC218\uC778 \uD53C\uD574
+    2"
+  keywords:
+  - "\uD568\uC131 : \uC774 \uCE74\uB4DC\uB97C \uD544\uB4DC\uC5D0 \uB0B4\uB9B4 \uC2DC
+    1\uD68C \uBC1C\uB3D9"
+  taunt: 0
+  triggers:
+  - triggerType: 0
+    effectType: 5
+    value: 2
+    summonCards: []
