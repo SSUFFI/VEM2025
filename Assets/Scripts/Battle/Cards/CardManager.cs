@@ -61,6 +61,8 @@ public class CardManager : MonoBehaviour
     public bool IsZoomMode => isZoomMode;
     public bool IsMyCardDrag => isMyCardDrag;
     const int MAX_HAND = 10;
+    public int MyDeckCount => myDeck.Count;
+    public int EnemyDeckCount => enemyDeck.Count;
 
     // ---------------------------- 덱 셔플 세팅 ----------------------------
 

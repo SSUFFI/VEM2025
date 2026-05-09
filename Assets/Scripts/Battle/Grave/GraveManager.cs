@@ -5,6 +5,8 @@ using UnityEngine;
 public class GraveManager : MonoBehaviour
 {
     public static GraveManager Inst;
+    public int MyGraveCount => myGrave.Count;
+    public int EnemyGraveCount => enemyGrave.Count;
 
     public List<CardDataSO> myGrave = new List<CardDataSO>();
     public List<CardDataSO> enemyGrave = new List<CardDataSO>();
