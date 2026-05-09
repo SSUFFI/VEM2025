@@ -6746,7 +6746,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB2C9\uB124\uC784"
+  m_text: "\uD788\uC2A4\uD1A0\uB9AC\uC544"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2dc0add154e2a6142afd61a473b3c24d, type: 2}
   m_sharedMaterial: {fileID: -4929212227970549368, guid: 2dc0add154e2a6142afd61a473b3c24d, type: 2}
@@ -7209,14 +7209,14 @@ RectTransform:
   m_GameObject: {fileID: 536040797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2136764238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -288.0551, y: 1.1863}
+  m_AnchoredPosition: {x: -287.7, y: 1.3}
   m_SizeDelta: {x: 72.3282, y: 73.8917}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &536040799
@@ -7239,7 +7239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d59d26c26b925bb46bf69d2848fd5c0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9854,7 +9854,7 @@ RectTransform:
   m_GameObject: {fileID: 826762523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.975, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2136764238}
@@ -14853,7 +14853,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 236, y: -96}
-  m_SizeDelta: {x: 277.96, y: 400.3844}
+  m_SizeDelta: {x: 278, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1335589964
 MonoBehaviour:
@@ -17571,15 +17571,15 @@ RectTransform:
   m_GameObject: {fileID: 1579511007}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -50}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1534694396}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -225.7, y: -55.5}
-  m_SizeDelta: {x: 235.5865, y: 281.0015}
+  m_AnchoredPosition: {x: -236, y: -96}
+  m_SizeDelta: {x: 278, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1579511009
 MonoBehaviour:
@@ -17990,7 +17990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   step: 0
-  enableTutorial: 0
+  enableTutorial: 1
   dialogue: {fileID: 259310045}
   introLines:
   - speaker: 0
@@ -18007,7 +18007,7 @@ MonoBehaviour:
     speakerName: "\uB300\uC0AC\uC81C"
     text: "\uD788\uC2A4\uD1A0\uB9AC\uC544! (\uAC70\uCE5C \uC228\uC744 \uBAB0\uC544\uC26C\uBA70)
       \uBC29\uAE08... \uC2E0\uC758 \uBAA9\uC18C\uB9AC\uB97C \uB4E4\uC5C8\uC2B5\uB2C8\uB2E4."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: d59d26c26b925bb46bf69d2848fd5c0b, type: 3}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -18016,7 +18016,7 @@ MonoBehaviour:
   - speaker: 1
     speakerName: "\uD788\uC2A4\uD1A0\uB9AC\uC544"
     text: "\uB124? \uC2E0\uD0C1\uC774\uB77C\uAD6C\uC694?"
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: 38ff8fb06eedda148a64b17609f56343, type: 3}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -18026,7 +18026,7 @@ MonoBehaviour:
     speakerName: "\uB300\uC0AC\uC81C"
     text: "\uC77C\uB2E8 \uC655\uAD81\uC5D4 \uC804\uB839\uC774 \uC18C\uC2DD\uC744
       \uC804\uB2EC\uD558\uACE0 \uC788\uC744\uAC81\uB2C8\uB2E4."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: cedc6d050e4f1124aab38fd9e0645da4, type: 3}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -18036,7 +18036,7 @@ MonoBehaviour:
     speakerName: "\uB300\uC0AC\uC81C"
     text: "\uC5EC\uAE30\uC11C \uD560 \uC774\uC57C\uAE30\uB294 \uC544\uB2C8\uB2C8
       \uC131\uB2F9\uC73C\uB85C \uC774\uB3D9\uD558\uC8E0."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: d7c52478b5ae04c4596b1928257e75cc, type: 3}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -19008,7 +19008,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -298.9, y: 3}
-  m_SizeDelta: {x: 190.5413, y: 154.2318}
+  m_SizeDelta: {x: 190.5413, y: 154.9613}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1661135958
 MonoBehaviour:
@@ -20102,15 +20102,15 @@ RectTransform:
   m_GameObject: {fileID: 1777277757}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 16157999}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -455, y: -102}
-  m_SizeDelta: {x: 113.995, y: 134.377}
+  m_AnchoredPosition: {x: -473, y: -194}
+  m_SizeDelta: {x: 278, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1777277759
 MonoBehaviour:
