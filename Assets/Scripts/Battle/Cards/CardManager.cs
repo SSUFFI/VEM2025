@@ -58,6 +58,7 @@ public class CardManager : MonoBehaviour
     bool dragStartedFromZoom;
     bool isHandTransition = false;
     public bool isZoomMode = false;
+    public bool IsZoomMode => isZoomMode;
     public bool IsMyCardDrag => isMyCardDrag;
     const int MAX_HAND = 10;
 
@@ -343,6 +344,10 @@ public class CardManager : MonoBehaviour
 
     public void OnCardClicked(Card card)
     {
+        if (BattleRelicUI.Inst != null &&
+            BattleRelicUI.Inst.IsTargeting)
+            return;
+
         if (isHandTransition) return;
 
         cardClickedThisFrame = true;

@@ -14,8 +14,13 @@ public class Entity : MonoBehaviour
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
 
+    [Header("Relic")]
+    [SerializeField] GameObject relicTargetMark;
+
     public int attack;
     public int health;
+    public int maxHealth;
+
     public bool isMine;
     public bool isDie;
     public bool isBossOrEmpty;
@@ -25,6 +30,10 @@ public class Entity : MonoBehaviour
     int liveCount;
 
     Tween tauntTween;
+    Tween relicMarkTween;
+
+    Vector3 relicMarkBaseScale;
+
     Color tauntBlue = new Color(0.55f, 0.85f, 1f);
 
     public CardDataSO Data => dataSO;
@@ -33,12 +42,27 @@ public class Entity : MonoBehaviour
         dataSO != null &&
         dataSO.taunt;
 
+    public bool CanAttack()
+    {
+        if (isDie) return false;
+        if (isBossOrEmpty) return false;
+        if (attack <= 0) return false;
+
+        return attackable;
+    }
+
     void Start()
     {
         TurnManager.OnTurnStarted += OnTurnStarted;
 
         if (isBossOrEmpty && healthTMP != null)
             healthTMP.gameObject.SetActive(false);
+
+        if (relicTargetMark != null)
+            relicMarkBaseScale =
+                relicTargetMark.transform.localScale;
+
+        SetRelicTargetMark(false);
     }
 
     void OnDestroy()
@@ -46,6 +70,7 @@ public class Entity : MonoBehaviour
         TurnManager.OnTurnStarted -= OnTurnStarted;
 
         tauntTween?.Kill();
+        relicMarkTween?.Kill();
     }
 
     void OnTurnStarted(bool myTurn)
@@ -62,7 +87,9 @@ public class Entity : MonoBehaviour
         this.dataSO = data;
 
         attack = data.attack;
+
         health = data.health;
+        maxHealth = data.health;
 
         character.sprite = data.fieldSprite != null
             ? data.fieldSprite
@@ -117,6 +144,34 @@ public class Entity : MonoBehaviour
         }
     }
 
+    public void SetRelicTargetMark(bool value)
+    {
+        if (relicTargetMark == null)
+            return;
+
+        relicTargetMark.SetActive(value);
+
+        relicMarkTween?.Kill();
+
+        relicTargetMark.transform.localScale =
+            relicMarkBaseScale;
+
+        if (value)
+        {
+            relicMarkTween =
+                relicTargetMark.transform
+                .DOScale(relicMarkBaseScale * 1.15f, 0.6f)
+                .SetLoops(-1, LoopType.Yoyo)
+                .SetEase(Ease.InOutQuad);
+        }
+    }
+
+    public void UpdateHealthUI()
+    {
+        if (healthTMP != null)
+            healthTMP.text = health.ToString();
+    }
+
     void OnMouseOver()
     {
         if (CardPreviewManager.Inst != null && CardPreviewManager.Inst.IsOpen)
@@ -133,6 +188,10 @@ public class Entity : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (BattleRelicUI.Inst != null &&
+            BattleRelicUI.Inst.IsTargeting)
+            return;
+
         if (CardPreviewManager.Inst != null && CardPreviewManager.Inst.IsOpen)
             return;
 
@@ -148,8 +207,23 @@ public class Entity : MonoBehaviour
 
     void OnMouseDrag()
     {
+        if (BattleRelicUI.Inst != null &&
+            BattleRelicUI.Inst.IsTargeting)
+            return;
+
         if (isMine)
             EntityManager.Inst.EntityMouseDrag();
+    }
+
+    void OnMouseUpAsButton()
+    {
+        if (BattleRelicUI.Inst == null)
+            return;
+
+        if (!BattleRelicUI.Inst.IsTargeting)
+            return;
+
+        BattleRelicUI.Inst.OnEntitySelected(this);
     }
 
     public bool Damaged(int damage)

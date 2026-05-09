@@ -309,7 +309,7 @@ public class EntityManager : MonoBehaviour
         if (!CanMouseInput)
             return;
 
-        if (selectEntity && targetPickEntity && selectEntity.attackable)
+        if (selectEntity && targetPickEntity && selectEntity.CanAttack())
             Attack(selectEntity, targetPickEntity);
 
         selectEntity = null;
@@ -335,7 +335,7 @@ public class EntityManager : MonoBehaviour
             if (entity.isMine)
                 continue;
 
-            if (!selectEntity.attackable)
+            if (!selectEntity.CanAttack())
                 continue;
 
             if (enemyHasTaunt)
@@ -457,7 +457,13 @@ public class EntityManager : MonoBehaviour
     public void AttackableReset(bool isMine)
     {
         var targetEntites = isMine ? myEntities : otherEntities;
-        targetEntites.ForEach(x => x.SetAttackable(true));
+
+        targetEntites.ForEach(x =>
+        {
+            if (x == null) return;
+
+            x.SetAttackable(x.attack > 0);
+        });
     }
 
     IEnumerator AIAttackCo()
@@ -475,7 +481,7 @@ public class EntityManager : MonoBehaviour
                 if (e == null) continue;
                 if (e.isDie) continue;
                 if (e.isBossOrEmpty) continue;
-                if (!e.attackable) continue;
+                if (!e.CanAttack()) continue;
 
                 attackers.Add(e);
             }
@@ -607,7 +613,7 @@ public class EntityManager : MonoBehaviour
         if (TargetArrow == null)
             return;
 
-        if (selectEntity == null || !selectEntity.attackable)
+        if (selectEntity == null || !selectEntity.CanAttack())
         {
             TargetArrow.gameObject.SetActive(false);
             return;
