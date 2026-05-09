@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using TMPro;
 using System.Collections;
 
@@ -274,26 +275,38 @@ public class BattleRelicUI : MonoBehaviour
         bool enemyTarget =
             relic.effectType == RelicEffectType.DamageEnemy2;
 
-        var targets = enemyTarget
-            ? EntityManager.Inst.OtherEntities
-            : EntityManager.Inst.MyEntities;
+        Entity[] entities =
+            GameObject.FindObjectsOfType<Entity>();
 
-        foreach (var e in targets)
+        foreach (var e in entities)
         {
             if (e == null) continue;
             if (e.isDie) continue;
             if (e.isBossOrEmpty) continue;
 
+            bool validTarget =
+                enemyTarget
+                ? !e.isMine
+                : e.isMine;
+
+            if (!validTarget)
+            {
+                e.SetRelicTargetMark(false);
+                continue;
+            }
+
             bool canTarget = true;
 
             if (!enemyTarget)
             {
-                canTarget = e.health < e.maxHealth;
+                canTarget =
+                    e.health < e.maxHealth;
             }
 
             e.SetRelicTargetMark(show && canTarget);
         }
     }
+
 
     public void OnEntitySelected(Entity entity)
     {

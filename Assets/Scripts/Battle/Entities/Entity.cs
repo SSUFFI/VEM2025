@@ -32,7 +32,6 @@ public class Entity : MonoBehaviour
     Tween tauntTween;
     Tween relicMarkTween;
 
-    Vector3 relicMarkBaseScale;
 
     Color tauntBlue = new Color(0.55f, 0.85f, 1f);
 
@@ -57,10 +56,6 @@ public class Entity : MonoBehaviour
 
         if (isBossOrEmpty && healthTMP != null)
             healthTMP.gameObject.SetActive(false);
-
-        if (relicTargetMark != null)
-            relicMarkBaseScale =
-                relicTargetMark.transform.localScale;
 
         SetRelicTargetMark(false);
     }
@@ -149,21 +144,26 @@ public class Entity : MonoBehaviour
         if (relicTargetMark == null)
             return;
 
-        relicTargetMark.SetActive(value);
-
         relicMarkTween?.Kill();
 
-        relicTargetMark.transform.localScale =
-            relicMarkBaseScale;
+        Vector3 baseScale = Vector3.one * 19f;
 
-        if (value)
+        relicTargetMark.transform.localScale =
+            baseScale;
+
+        if (!value)
         {
-            relicMarkTween =
-                relicTargetMark.transform
-                .DOScale(relicMarkBaseScale * 1.15f, 0.6f)
-                .SetLoops(-1, LoopType.Yoyo)
-                .SetEase(Ease.InOutQuad);
+            relicTargetMark.SetActive(false);
+            return;
         }
+
+        relicTargetMark.SetActive(true);
+
+        relicMarkTween =
+            relicTargetMark.transform
+            .DOScale(baseScale * 1.15f, 0.6f)
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetEase(Ease.InOutQuad);
     }
 
     public void UpdateHealthUI()
