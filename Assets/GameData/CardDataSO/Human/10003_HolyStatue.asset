@@ -24,6 +24,4 @@ MonoBehaviour:
     \uC0C1\uB300\uB294 \uB2E4\uB978 \uCE74\uB4DC\uB098 \uB371\uC744 \uACF5\uACA9\uD560
     \uC218 \uC5C6\uB2E4"
   taunt: 1
-  summonOnPlayCards: []
-  summonOnDeckToGraveCards: []
   triggers: []
