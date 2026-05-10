@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NightElf
   m_EditorClassIdentifier: 
   cardName: "\uC5D8\uD504 (\uBC24)"
-  attack: 5
+  attack: 4
   health: 3
   manaCost: 4
   sprite: {fileID: 21300000, guid: 89e72822fd0bcbb4984eb7357764033c, type: 3}
