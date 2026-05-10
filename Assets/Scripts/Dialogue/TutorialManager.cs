@@ -180,7 +180,7 @@ public class TutorialManager : MonoBehaviour
             dialogue.StartDialogue(royalLines);
 
             resumeLines = royalLines;
-            resumeIndex = 8;
+            resumeIndex = 9;
 
             step = TutorialStep.AfterRoyal;
         }

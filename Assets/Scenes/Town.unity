@@ -7192,14 +7192,14 @@ RectTransform:
   m_GameObject: {fileID: 536040797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 2.05, y: 2.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2136764238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -287.7, y: 1.3}
+  m_AnchoredPosition: {x: -288.3, y: 0.5}
   m_SizeDelta: {x: 72.3282, y: 73.8917}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &536040799
@@ -16330,7 +16330,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1534694396
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17629,7 +17629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   step: 0
-  enableTutorial: 0
+  enableTutorial: 1
   dialogue: {fileID: 259310045}
   introLines:
   - speaker: 0
@@ -17644,8 +17644,8 @@ MonoBehaviour:
     nextIndex: -1
   - speaker: 0
     speakerName: "\uB300\uC0AC\uC81C"
-    text: "\uD788\uC2A4\uD1A0\uB9AC\uC544! (\uAC70\uCE5C \uC228\uC744 \uBAB0\uC544\uC26C\uBA70)
-      \uBC29\uAE08... \uC2E0\uC758 \uBAA9\uC18C\uB9AC\uB97C \uB4E4\uC5C8\uC2B5\uB2C8\uB2E4."
+    text: "\uD788\uC2A4\uD1A0\uB9AC\uC544! \uBC29\uAE08... \uC2E0\uC758 \uBAA9\uC18C\uB9AC\uB97C
+      \uB4E4\uC5C8\uC2B5\uB2C8\uB2E4."
     portrait: {fileID: 21300000, guid: d59d26c26b925bb46bf69d2848fd5c0b, type: 3}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
@@ -17686,7 +17686,7 @@ MonoBehaviour:
     speakerName: "\uB300\uC0AC\uC81C"
     text: "\uD788\uC2A4\uD1A0\uB9AC\uC544 \uB2D8, \uC774\uC81C\uC57C \uB9D0\uC500
       \uB4DC\uB9B4 \uC218 \uC788\uACA0\uAD70\uC694."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: 05930d763b8e431439b5c7f7ce907ea3, type: 3}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17697,7 +17697,7 @@ MonoBehaviour:
     text: "\uC81C\uAC00 \uB4E4\uC740 \uBC14\uB85C\uB294 \uC2E0\uAED8\uC11C \uC9C1\uC811
       \r\n'\uC870\uB9CC\uAC04 \uC6A9\uB4E4\uC774 \uC7AC\uC559\uC744 \uBAB0\uACE0
       \uC62C \uAC83'\uC774\uB77C\uACE0 \uB9D0\uC500\uD558\uC168\uC2B5\uB2C8\uB2E4."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: 05930d763b8e431439b5c7f7ce907ea3, type: 3}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17708,7 +17708,7 @@ MonoBehaviour:
     text: "\uC544\uB9C8\uB3C4 \uC989\uAC01 \uCD9C\uC815\uC744 \uB0B4\uB9AC\uC2E4
       \uC218\uB3C4 \uC788\uC73C\uB2C8 \r\n\uBBF8\uB9AC \uC900\uBE44\uB97C \uD574\uB450\uB294
       \uAC83\uC774 \uC88B\uC744 \uAC83 \uAC19\uC2B5\uB2C8\uB2E4."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: 05930d763b8e431439b5c7f7ce907ea3, type: 3}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17718,7 +17718,7 @@ MonoBehaviour:
     speakerName: "\uB300\uC0AC\uC81C"
     text: "\uC131\uC720\uBB3C\uC774 \uC804\uC7A5\uC5D0\uC11C \uB3C4\uC6C0\uC774 \uB418\uAE38
       \uBC14\uB77C\uACA0\uC2B5\uB2C8\uB2E4."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: d59d26c26b925bb46bf69d2848fd5c0b, type: 3}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17728,7 +17728,7 @@ MonoBehaviour:
     speakerName: "\uB300\uC0AC\uC81C"
     text: "\uBC16\uC5D0\uC11C \uC804\uB839\uC774 \uBD80\uB974\uB294\uAD70\uC694.
       \uC870\uC2EC\uD788 \uB2E4\uB140\uC624\uC2DC\uAE38."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: d59d26c26b925bb46bf69d2848fd5c0b, type: 3}
     leftIllustration: {fileID: 21300000, guid: 3131b7f88d926b04792e89c1edf4b41e, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17738,7 +17738,7 @@ MonoBehaviour:
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uD788\uC2A4\uD1A0\uB9AC\uC544 \uB2E8\uC7A5, \uB9C8\uCE68 \uC798 \uC654\uB124."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: c21d6f9d3d17fad44bdc003b027a8f76, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17748,7 +17748,7 @@ MonoBehaviour:
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uD3D0\uD558\uAED8\uC11C \uC774\uBBF8 \uBAA8\uB4E0 \uB2E8\uC7A5\uB4E4\uC744
       \uC18C\uC9D1\uD558\uC168\uB124.\n\uC0C1\uD669\uC774 \uC88B\uC9C0 \uC54A\uC544."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: ba92fd527a019674d992867c6059968d, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17758,7 +17758,7 @@ MonoBehaviour:
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uBD84\uC704\uAE30\uAC00 \uC2EC\uC0C1\uCE58 \uC54A\uC740 \uB4EF \uD558\uB124\uB9CC,
       \uC790\uB124\uAC00 \uC788\uC73C\uB2C8 \uB4E0\uB4E0\uD558\uAD6C\uB9CC."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17768,7 +17768,7 @@ MonoBehaviour:
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uC774\uB7F4\uB54C\uAC00 \uC544\uB2C8\uC9C0.\n\uC5B4\uC11C \uD3D0\uD558\uAED8
       \uAC00\uBCF4\uB3C4\uB85D\uD558\uC9C0."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: 9044569e2ec443a41ae86792fae85aea, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17779,7 +17779,7 @@ MonoBehaviour:
     speakerName: "\uC655"
     text: "\uAE30\uC0AC\uB2E8\uC7A5\uB4E4\uC740 \uB4E4\uC5B4\uB77C.\n\uD604\uC7AC
       \uC2E0\uD0C1\uC774 \uB0B4\uB824\uC654\uB2E4."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: 74bff832c410614428f7ee88809cf48e, type: 3}
     leftIllustration: {fileID: 21300000, guid: 60c1f0829f9e6354bbb7507a7370b558, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17790,7 +17790,7 @@ MonoBehaviour:
     text: "\uD558\uB298\uC758 \uB73B\uC73C\uB85C \uC6B0\uB9AC \uC778\uB958\uC758
       \uC874\uC18D\uC744 \uAC78\uACE0\r\n'\uC7AC\uC559\uC758 \uC2F9\uC740 \uBBF8\uB9AC
       \uCCD0\uC57C \uD55C\uB2E4.' \uC774\uAC83\uC774 \uC9D0\uC758 \uD310\uB2E8\uC774\uB2E4."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: 7eab3d735b0b81a47a2c9db9837f9119, type: 3}
     leftIllustration: {fileID: 21300000, guid: 60c1f0829f9e6354bbb7507a7370b558, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17801,7 +17801,7 @@ MonoBehaviour:
     text: "\uADF8\uB7EC\uB098 \uC6B0\uB9AC\uB294 \uC544\uC9C1 \uADF8\uB4E4\uC774
       \r\n\uC800 \uB192\uC740 \uC544\uB974\uCE74\uB514\uC544\uC5D0 \uAC70\uC8FC\uD558\uACE0
       \uC788\uB2E4\uB294 \uAC83\uB9CC \uC54C\uACE0 \uC788\uC744\uBFD0..."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: b6d6efef1cb632848ae1516e1214e1ac, type: 3}
     leftIllustration: {fileID: 21300000, guid: 60c1f0829f9e6354bbb7507a7370b558, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17812,7 +17812,7 @@ MonoBehaviour:
     text: "\uAC00\uB294 \uAE38\uC5D0 \uB300\uD55C \uC815\uBCF4\uAC00 \uC5C6\uC73C\uB098,\r\n\uD56D\uC0C1
       \uADF8\uB807\uB4EF \uD558\uB298\uC758 \uB208\uC774 \uADF8\uB300\uB4E4\uC744
       \uC778\uB3C4\uD560 \uAC83\uC774\uB2E4."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: b6d6efef1cb632848ae1516e1214e1ac, type: 3}
     leftIllustration: {fileID: 21300000, guid: 60c1f0829f9e6354bbb7507a7370b558, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17822,7 +17822,7 @@ MonoBehaviour:
     speakerName: "\uC655"
     text: "\uADF8\uB7EC\uB2C8 \uADF8\uB300\uB4E4\uC740 \uAE30\uC0AC\uB2E8\uC744 \uC7AC\uD3B8\uC131\uD558\uC5EC
       \uC815\uCC30\uACFC \uB3D9\uC2DC\uC5D0 \uCD9C\uC815\uD558\uB77C."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: 7b6436b0b8b282a409128e6aeac22766, type: 3}
     leftIllustration: {fileID: 21300000, guid: 60c1f0829f9e6354bbb7507a7370b558, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17834,7 +17834,7 @@ MonoBehaviour:
       \uC6B0\uCE21\uC744 \uBCF4\uAC8C\uB098.\n\uC790\uB124\uC758 \uBD80\uB984\uC744
       \uAE30\uB2E4\uB9AC\uB294 \uAE30\uC0AC\uB2E8 \uD6C4\uBCF4\uC0DD\uB4E4\uC774
       \uBCF4\uC77C\uAC78\uC138."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17845,7 +17845,7 @@ MonoBehaviour:
     text: "\uAC01 \uAE30\uC0AC\uC758 \uB2A5\uB825\uC744 \uD655\uC778\uD558\uACE0,
       \uC790\uB124\uC758 \uC804\uB7B5\uC5D0 \uB9DE\uB294 \uC774\uB4E4\uC744 \uACE0\uC6A9\uD574
       \uAE30\uC0AC\uB2E8\uC744 \uD3B8\uC131\uD574\uBCF4\uAC8C\uB098."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17853,10 +17853,21 @@ MonoBehaviour:
     nextIndex: -1
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
-    text: "\uC9C0\uAE08\uC740 \uD6C8\uB828 \uB2E8\uACC4\uC774\uB2C8, \uB9C8\uC74C\uC5D0
-      \uAC00\uB294 \uAE30\uC0AC 40\uBA85\uC73C\uB85C \uC815\uC608\uBD80\uB300\uB97C
-      \uAFB8\uB824\uBCF4\uAC8C."
-    portrait: {fileID: 0}
+    text: "\uC6B0\uC120 \uB9C8\uC74C\uC774 \uAC00\uB294 \uAE30\uC0AC\uB4E4\uB85C
+      40\uBA85\uC758 \uC815\uC608 \uBD80\uB300\uB97C \uAFB8\uB824\uBCF4\uAC8C."
+    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
+    leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
+    rightIllustration: {fileID: 0}
+    hasChoice: 0
+    choices: []
+    nextIndex: -1
+  - speaker: 0
+    speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
+    text: "\uB2E8, \uAD70\uC758 \uADE0\uD615\uC744 \uC704\uD574 \uAC19\uC740 \uC774\uB984\uC744
+      \uAC00\uC9C4 \uAE30\uC0AC\uB4E4\uC740 \n\uCD5C\uB300 4\uBA85\uAE4C\uC9C0\uB9CC
+      \uD55C \uBD80\uB300\uC5D0 \uD3B8\uC131\uD560 \uC218 \uC788\uB2E4\uB294 \uC810\uC744
+      \uBA85\uC2EC\uD558\uAC8C."
+    portrait: {fileID: 21300000, guid: ba92fd527a019674d992867c6059968d, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17866,7 +17877,7 @@ MonoBehaviour:
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uC790\uB124, \uC2E4\uC804 \uCD9C\uC815\uC740 \uCC98\uC74C\uC774\uC9C0
       \uC54A\uB098."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: c21d6f9d3d17fad44bdc003b027a8f76, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17876,7 +17887,7 @@ MonoBehaviour:
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uB098\uAC00\uAE30 \uC804 \uC8FC\uC758\uD560 \uC810\uB4E4\uC5D0 \uB300\uD574
       \uBBF8\uB9AC \uC54C\uB824\uC8FC\uC9C0."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: c21d6f9d3d17fad44bdc003b027a8f76, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17887,7 +17898,7 @@ MonoBehaviour:
     text: "\uC6B0\uC120 \uD6C8\uB828\uC7A5\uC73C\uB85C \uB530\uB77C\uC624\uAC8C\uB098.
       \uC131\uBB38 \uBC16 \uBBF8\uAD81\uC785\uAD6C\uC5D0\uC11C \uAE30\uB2E4\uB9AC\uACE0
       \uC788\uACA0\uB124."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 21300000, guid: 428d5418a60b025459b86d0815076437, type: 3}
     hasChoice: 0
@@ -17899,7 +17910,7 @@ MonoBehaviour:
     text: "\uC804\uD22C\uC5D0 \uB300\uD574 \uC54C\uB824\uC8FC\uACA0\uB124. \uC2B9\uB9AC\uC870\uAC74\uC740
       \uAC04\uB2E8\uD558\uC9C0.\r\n\uC0C1\uB300 \uBD80\uB300\uB97C \uC804\uBA78\uC2DC\uD0A4\uBA74
       \uB05D\uC774\uB77C\uB124."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: ba92fd527a019674d992867c6059968d, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17909,7 +17920,7 @@ MonoBehaviour:
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uBA85\uC2EC\uD558\uAC8C \uC790\uB124\uAC00 \uC774\uB044\uB294\uAE30\uC0AC\uB2E8
       \uC790\uCCB4\uAC00 \uACE7 \uC790\uB124\uC758 \uC0DD\uBA85\uB825\uC77C\uC138."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: ba92fd527a019674d992867c6059968d, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17920,7 +17931,7 @@ MonoBehaviour:
     text: "\uC790\uB124\uAC00 \uACF5\uACA9\uBC1B\uC744\uB54C, \uC6A9\uB9F9\uD55C
       \uAE30\uC0AC\uB4E4\uC740 \uC790\uB124\uB97C \uB300\uC2E0\uD574 \uD76C\uC0DD\uD560
       \uAC83\uC774\uB124."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: ba92fd527a019674d992867c6059968d, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17931,7 +17942,7 @@ MonoBehaviour:
     text: "\uADF8\uB9AC\uACE0 \uB9E4 \uD134 \uCD5C\uB300 \uC804\uC220\uB825\uC774
       1\uC529 \uC99D\uAC00\uD558\uBA70,\r\n\uC18C\uBAA8\uD55C \uC804\uC220\uB825\uC740
       \uC790\uC2E0\uC758 \uD134\uC774 \uB3CC\uC544\uC624\uBA74 \uC804\uBD80 \uD68C\uBCF5\uB420\uAC78\uC138"
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: ba92fd527a019674d992867c6059968d, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17942,7 +17953,7 @@ MonoBehaviour:
     text: "\uC804\uC220\uB825\uC744 \uC18C\uBAA8\uD558\uC5EC \uC790\uB124\uAC00 \uD3B8\uC131\uD55C
       \uAE30\uC0AC\uB2E8\uC6D0\uC911 \r\n\uBCD1\uB825\uC744 \uC120\uD0DD\uD558\uC5EC
       \uC804\uC7A5\uC5D0 \uBC30\uCE58\uD574\uBCF4\uAC8C. "
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: ba92fd527a019674d992867c6059968d, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17967,7 +17978,7 @@ MonoBehaviour:
       \uCC28\uB840\uC5D0\uB294 \uBC14\uB85C \uACF5\uACA9\uD560 \uC21C \uC5C6\uB124.\r\n\uC228\uC744
       \uACE0\uB97C \uC2DC\uAC04\uC774 \uD544\uC694\uD558\uB2C8 \uBC30\uCE58\uB41C
       \uB2E4\uC74C \uD134\uBD80\uD130 \uACF5\uACA9\uC774 \uAC00\uB2A5\uD560 \uAC78\uC138."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: ba92fd527a019674d992867c6059968d, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17977,7 +17988,7 @@ MonoBehaviour:
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
     text: "\uC790, \uC774\uC81C \uC798 \uC774\uD574\uD588\uB294\uC9C0 \uBAA8\uC758\uC804\uC744
       \uCE58\uB904 \uBCF4\uB3C4\uB85D \uD558\uC9C0. \uD55C\uBC88 \uB364\uBCBC\uBCF4\uAC8C\uB098."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -17990,7 +18001,7 @@ MonoBehaviour:
       \uB098\uAC00\uB3C4 \uC190\uC0C9\uC774 \uC5C6\uACA0\uC5B4. \n\uC790\uB124\uC758
       \uC120\uD0DD\uC744 \uBC1B\uC740 \uAE30\uC0AC\uB4E4\uACFC \uD568\uAED8 \uC601\uAD11\uC2A4\uB7EC\uC6B4
       \uCD9C\uC815\uC744 \uC2DC\uC791\uD558\uAC8C\uB098."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: 9044569e2ec443a41ae86792fae85aea, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -18002,7 +18013,7 @@ MonoBehaviour:
       \uC5B8\uC81C\uB4E0 \uD6C8\uB828\uC7A5\uC73C\uB85C \uCC3E\uC544\uC624\uAC8C.\r\n\uB09C
       \uD3D0\uD558\uC640 \uC774\uACF3 \uB9C8\uC744\uC744 \uC9C0\uD0A4\uACE0 \uC788\uC744\uD14C\uB2C8
       \uB9D0\uC77C\uC138."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -18013,7 +18024,7 @@ MonoBehaviour:
     text: "\uC774\uC81C \uD6C8\uB828\uC7A5\uC758 \uC778\uC6D0\uB4E4\uB3C4 \uC790\uB124\uC640
       \uD568\uAED8\uD558\uACE0 \uC2F6\uC5B4 \uD558\uB294\uB4EF\uD558\uB2C8\r\n\uC655\uAD6D\uC5D0\uC11C
       \uB2E4\uC2DC \uD55C\uBC88 \uD655\uC778\uD574 \uBD04\uC774 \uC88B\uC744 \uAC78\uC138."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -18026,7 +18037,7 @@ MonoBehaviour:
       \uB0B4\uAC00 \uD798\uC870\uC808\uC744 \uBABB \uD588\uAD6C\uB9CC. \n\uD558\uC9C0\uB9CC
       \uC774\uC815\uB3C4 \uAE30\uC138\uB77C\uBA74 \uC2E4\uC804\uC5D0\uC11C\uB3C4
       \uCDA9\uBD84\uD788 \uD65C\uC57D\uD560\uAC70\uB77C \uBBFF\uB124."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -18037,7 +18048,7 @@ MonoBehaviour:
     text: "\uC774\uC81C \uD6C8\uB828\uC7A5\uC758 \uC778\uC6D0\uB4E4\uB3C4 \uC790\uB124\uC640
       \uD568\uAED8\uD558\uACE0 \uC2F6\uC5B4 \uD558\uB294\uB4EF\uD558\uB2C8\r\n\uC655\uAD6D\uC5D0\uC11C
       \uB2E4\uC2DC \uD55C\uBC88 \uD655\uC778\uD574 \uBD04\uC774 \uC88B\uC744 \uAC78\uC138."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
@@ -18048,7 +18059,7 @@ MonoBehaviour:
     text: "\uBD88\uC548\uD558\uB2E4\uBA74 \uD55C\uBC88 \uB354 \uB300\uB828\uD574\uBCF4\uACA0\uB098?
       \n\uC544\uB2C8\uBA74 \uBC14\uB85C \uCD9C\uC815\uD574\uB3C4 \uC790\uB128 \uCDA9\uBD84\uD788
       \uD574\uB0BC \uC218 \uC788\uC744\uAC8C\uC57C."
-    portrait: {fileID: 0}
+    portrait: {fileID: 21300000, guid: c21d6f9d3d17fad44bdc003b027a8f76, type: 3}
     leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
     rightIllustration: {fileID: 0}
     hasChoice: 0
