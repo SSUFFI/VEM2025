@@ -509,11 +509,17 @@ public class CardManager : MonoBehaviour
             if (playableCards.Count == 0)
                 return false;
 
-            int minCost = playableCards.Min(x => x.dataSO.manaCost);
+            int maxCost =
+                playableCards.Max(
+                    x => x.dataSO.manaCost);
 
-            List<Card> lowestCostCards = playableCards.FindAll(x => x.dataSO.manaCost == minCost);
+            List<Card> highestCostCards =
+                playableCards.FindAll(
+                    x => x.dataSO.manaCost == maxCost);
 
-            card = lowestCostCards[Random.Range(0, lowestCostCards.Count)];
+            card =
+                highestCostCards[
+                    Random.Range(0, highestCostCards.Count)];
         }
 
         if (card == null)

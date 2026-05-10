@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: "\uC655\uB3C4 \uC11D\uC0C1\uC218\uD638\uC790"
   attack: 3
   health: 3
-  manaCost: 3
+  manaCost: 4
   sprite: {fileID: 21300000, guid: 6d1d8c26a30779f42a330756724088d4, type: 3}
   fieldSprite: {fileID: 21300000, guid: 8096e909113ca8b4ba04d8d6d312055e, type: 3}
   description: "\uC18C\uD658. \uCC9C\uC0C1\uC758 \uC218\uD638\uC11D 1"
@@ -27,5 +27,6 @@ MonoBehaviour:
   triggers:
   - triggerType: 0
     effectType: 3
+    value: 0
     summonCards:
     - {fileID: 11400000, guid: aa23a4c975965444b976264434610e59, type: 2}
