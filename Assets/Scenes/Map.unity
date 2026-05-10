@@ -3163,10 +3163,14 @@ MonoBehaviour:
   startData: {fileID: 11400000, guid: 15851ca5f96376347990ba31e41cea65, type: 2}
   stage1List:
   - {fileID: 11400000, guid: b6de8135caa5468478daf4465cd1adda, type: 2}
+  - {fileID: 11400000, guid: ff331660630f684429ce27fcdde0b28e, type: 2}
   stage2List:
   - {fileID: 11400000, guid: 0be7ceb59fd73cd4eb14c15db7a2194a, type: 2}
+  - {fileID: 11400000, guid: 728d33cb2d2d44842b75644046da4298, type: 2}
+  - {fileID: 11400000, guid: e8ee11a771259934e91a44cffffe0f72, type: 2}
   stage3List:
   - {fileID: 11400000, guid: 7214638d162cb4b45a8c2a2e300287ff, type: 2}
+  - {fileID: 11400000, guid: 0b1ef6da5c5913240a5cded3badde735, type: 2}
   event_NPC: {fileID: 11400000, guid: 84b6d772ee0343d4fbb53d62809b07c3, type: 2}
   event_Heal: {fileID: 11400000, guid: a4d81cfed52982844afa3a0f156a74ae, type: 2}
   event_Explore: {fileID: 11400000, guid: 42cb2d3418883684ea559a9fae4cb57e, type: 2}
