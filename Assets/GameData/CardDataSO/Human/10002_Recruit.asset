@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 10002_Recruit
   m_EditorClassIdentifier: 
-  cardName: "\uC2E0\uBCD1 \uACAC\uC2B5\uBCD1"
+  cardName: "\uC2E0\uC785 \uACAC\uC2B5\uBCD1"
   attack: 1
   health: 1
   manaCost: 1
