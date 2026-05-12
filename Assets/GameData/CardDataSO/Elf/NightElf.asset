@@ -19,7 +19,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 89e72822fd0bcbb4984eb7357764033c, type: 3}
   fieldSprite: {fileID: 21300000, guid: c3b6a7b5f715cba4d892a752012ee32b, type: 3}
   description: "\uBA54\uC544\uB9AC. \uBB34\uC791\uC704 \uC801 2\uBA85\uC5D0\uAC8C
-    \uB370\uBBF8\uC9C0 2"
+    \uB370\uBBF8\uC9C0 1"
   keywords:
   - "\uBA54\uC544\uB9AC : \uD544\uB4DC\uC5D0\uC11C \uC804\uD22C\uB85C \uC0AC\uB9DD
     \uC2DC \uBC1C\uB3D9 "
@@ -27,9 +27,9 @@ MonoBehaviour:
   triggers:
   - triggerType: 2
     effectType: 4
-    value: 2
+    value: 1
     summonCards: []
   - triggerType: 2
     effectType: 4
-    value: 2
+    value: 1
     summonCards: []
