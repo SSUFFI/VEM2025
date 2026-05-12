@@ -60,7 +60,6 @@ public class Card : MonoBehaviour
         }
     }
 
-    void OnMouseOver() { }
     void OnMouseExit() { }
     void OnMouseUp() { }
 
@@ -86,4 +85,27 @@ public class Card : MonoBehaviour
             transform.localScale = prs.scale;
         }
     }
+
+    void OnMouseOver()
+    {
+        if (CardManager.Inst != null &&
+            !CardManager.Inst.IsZoomMode)
+            return;
+
+        if (CardPreviewManager.Inst != null &&
+            CardPreviewManager.Inst.IsOpen)
+            return;
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (dataSO == null)
+                return;
+
+            if (CardPreviewManager.Inst == null)
+                return;
+
+            CardPreviewManager.Inst.Show(dataSO);
+        }
+    }
+
 }
