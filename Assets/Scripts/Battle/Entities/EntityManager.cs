@@ -45,6 +45,7 @@ public class EntityManager : MonoBehaviour
     bool replaceMode;
     bool isSummoning;
     int replaceIndex;
+    bool aiPlaying;
 
     public void SetSummonOwner(Entity owner, bool isReplace = false)
     {
@@ -103,7 +104,7 @@ public class EntityManager : MonoBehaviour
     {
         AttackableReset(myTurn);
 
-        if (!myTurn)
+        if (!myTurn && !aiPlaying)
             StartCoroutine(AICo());
     }
 
@@ -135,18 +136,24 @@ public class EntityManager : MonoBehaviour
 
     IEnumerator AICo()
     {
+        aiPlaying = true;
+
         int safety = 20;
 
         while (safety-- > 0)
         {
-            bool success = CardManager.Inst.TryPutCard(false);
+            bool success =
+                CardManager.Inst.TryPutCard(false);
 
             if (!success)
                 break;
 
             yield return delay1;
         }
+
         yield return StartCoroutine(AIAttackCo());
+
+        aiPlaying = false;
 
         TurnManager.Inst.EndTurn();
     }

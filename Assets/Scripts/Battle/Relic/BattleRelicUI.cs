@@ -313,6 +313,9 @@ public class BattleRelicUI : MonoBehaviour
         if (!targeting)
             return;
 
+        if (entity.isBossOrEmpty)
+            return;
+
         if (PlayerRelicManager.Inst == null)
             return;
 
