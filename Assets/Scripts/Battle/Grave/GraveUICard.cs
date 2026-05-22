@@ -6,6 +6,8 @@ using TMPro;
 public class GraveUICard : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] Image character;
+    [SerializeField] Image raceImage;
+
     [SerializeField] TMP_Text nameTMP;
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
@@ -19,6 +21,13 @@ public class GraveUICard : MonoBehaviour, IPointerClickHandler
         this.data = data;
 
         character.sprite = data.sprite;
+
+        if (raceImage != null)
+        {
+            raceImage.sprite = data.raceSprite;
+            raceImage.gameObject.SetActive(data.raceSprite != null);
+        }
+
         nameTMP.text = data.cardName;
         attackTMP.text = data.attack.ToString();
         healthTMP.text = data.health.ToString();

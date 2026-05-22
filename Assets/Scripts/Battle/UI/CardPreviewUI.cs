@@ -6,6 +6,8 @@ public class CardPreviewUI : MonoBehaviour
 {
     [SerializeField] Image cardFrame;
     [SerializeField] Image character;
+    [SerializeField] Image raceImage;
+
     [SerializeField] TMP_Text nameTMP;
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
@@ -22,6 +24,12 @@ public class CardPreviewUI : MonoBehaviour
 
         if (character != null)
             character.sprite = data.sprite;
+
+        if (raceImage != null)
+        {
+            raceImage.sprite = data.raceSprite;
+            raceImage.gameObject.SetActive(data.raceSprite != null);
+        }
 
         if (nameTMP != null)
             nameTMP.text = data.cardName;

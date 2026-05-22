@@ -12,6 +12,8 @@ public class CardListUI : MonoBehaviour,
     public CardDataSO data;
 
     public Image cardImage;
+    public Image raceImage;
+
     public TMP_Text nameTMP;
     public TMP_Text attackTMP;
     public TMP_Text healthTMP;
@@ -26,6 +28,7 @@ public class CardListUI : MonoBehaviour,
     Color healthOriginColor;
     Color manaOriginColor;
     Color descriptionOriginColor;
+    Color raceOriginColor;
 
     void Awake()
     {
@@ -34,6 +37,9 @@ public class CardListUI : MonoBehaviour,
         healthOriginColor = healthTMP.color;
         manaOriginColor = manaTMP.color;
         descriptionOriginColor = descriptionTMP.color;
+
+        if (raceImage != null)
+            raceOriginColor = raceImage.color;
     }
 
     void Update()
@@ -54,6 +60,9 @@ public class CardListUI : MonoBehaviour,
 
         cardImage.color = isMaxCount ? gray : Color.white;
 
+        if (raceImage != null)
+            raceImage.color = isMaxCount ? gray : raceOriginColor;
+
         nameTMP.color = isMaxCount ? gray : nameOriginColor;
         attackTMP.color = isMaxCount ? gray : attackOriginColor;
         healthTMP.color = isMaxCount ? gray : healthOriginColor;
@@ -73,26 +82,38 @@ public class CardListUI : MonoBehaviour,
         manaTMP.text = data.manaCost.ToString();
         descriptionTMP.text = data.description;
 
+        if (raceImage != null)
+        {
+            raceImage.sprite = data.raceSprite;
+            raceImage.gameObject.SetActive(data.raceSprite != null);
+        }
+
         RefreshState();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (DeckEditManager.Inst == null) return;
-
-        if (isMaxCount)
+        if (data == null)
             return;
-
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            if (!isHolding)
-                DeckListUI.Inst.StartAdd(data);
-        }
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (CardPreviewManager.Inst != null)
                 CardPreviewManager.Inst.Show(data);
+
+            return;
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (DeckEditManager.Inst == null)
+                return;
+
+            if (isMaxCount)
+                return;
+
+            if (!isHolding)
+                DeckListUI.Inst.StartAdd(data);
         }
     }
 

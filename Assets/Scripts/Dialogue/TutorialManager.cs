@@ -48,7 +48,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject shopButton;
 
     bool templeDialogueDone = false;
-    public bool hasPlayedTraining = false;
+    public bool hasFinishedTraining = false;
     bool hasShownFirstCardTutorial = false;
     bool isPlayingBattleResultDialogue = false;
     bool isTutorialFinished = false;
@@ -230,6 +230,8 @@ public class TutorialManager : MonoBehaviour
     public void PlayBattleResultDialogue(bool isWin)
     {
         if (dialogue == null) return;
+
+        hasFinishedTraining = true;
 
         isPlayingBattleResultDialogue = true;
 

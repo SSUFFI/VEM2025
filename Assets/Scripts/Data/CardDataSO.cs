@@ -8,8 +8,12 @@ public class CardDataSO : ScriptableObject
     public int attack;
     public int health;
     public int manaCost;
+
     public Sprite sprite;
     public Sprite fieldSprite;
+
+    [Header("Á¾Á·")]
+    public Sprite raceSprite;
 
     [TextArea]
     public string description;

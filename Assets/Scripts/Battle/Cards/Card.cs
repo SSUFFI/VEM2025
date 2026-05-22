@@ -8,6 +8,8 @@ public class Card : MonoBehaviour
 {
     [SerializeField] SpriteRenderer card;
     [SerializeField] SpriteRenderer Character;
+    [SerializeField] SpriteRenderer raceRenderer;
+
     [SerializeField] TMP_Text nameTMP;
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
@@ -47,6 +49,12 @@ public class Card : MonoBehaviour
             healthTMP.text = data.health.ToString();
             manaTMP.text = data.manaCost.ToString();
             descriptionTMP.text = data.description;
+
+            if (raceRenderer != null)
+            {
+                raceRenderer.sprite = data.raceSprite;
+                raceRenderer.gameObject.SetActive(data.raceSprite != null);
+            }
         }
         else
         {
@@ -57,6 +65,12 @@ public class Card : MonoBehaviour
             healthTMP.text = "";
             manaTMP.text = "";
             descriptionTMP.text = "";
+
+            if (raceRenderer != null)
+            {
+                raceRenderer.sprite = null;
+                raceRenderer.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -107,5 +121,4 @@ public class Card : MonoBehaviour
             CardPreviewManager.Inst.Show(dataSO);
         }
     }
-
 }

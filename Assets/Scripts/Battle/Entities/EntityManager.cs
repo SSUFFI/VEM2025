@@ -27,7 +27,7 @@ public class EntityManager : MonoBehaviour
     bool ExistTargetPickEntity => targetPickEntity != null;
     bool ExistMyEmptyEntity => myEntities.Exists(x => x == myEmptyEntity);
     int MyEmptyEntityIndex => myEntities.FindIndex(x => x == myEmptyEntity);
-    bool CanMouseInput => TurnManager.Inst.myTurn && !TurnManager.Inst.isLoading;
+    bool CanMouseInput => TurnManager.Inst.myTurn && !TurnManager.Inst.isLoading && !isAttacking;
     public Vector3 MyDeckSpawnPos => myBossEntity.transform.position;
     public Vector3 OtherDeckSpawnPos => otherBossEntity.transform.position;
 
@@ -46,6 +46,9 @@ public class EntityManager : MonoBehaviour
     bool isSummoning;
     int replaceIndex;
     bool aiPlaying;
+    bool isAttacking;
+    Coroutine myAlignCo;
+    Coroutine otherAlignCo;
 
     public void SetSummonOwner(Entity owner, bool isReplace = false)
     {
@@ -138,26 +141,49 @@ public class EntityManager : MonoBehaviour
     {
         aiPlaying = true;
 
-        int safety = 20;
+        yield return StartCoroutine(AIPlayCardsCo());
 
-        while (safety-- > 0)
-        {
-            bool success =
-                CardManager.Inst.TryPutCard(false);
-
-            if (!success)
-                break;
-
+        if (HasAIAttacker())
             yield return delay1;
-        }
 
         yield return StartCoroutine(AIAttackCo());
+
+        yield return StartCoroutine(AIPlayCardsCo());
 
         aiPlaying = false;
 
         TurnManager.Inst.EndTurn();
     }
 
+    IEnumerator AIPlayCardsCo()
+    {
+        int safety = 20;
+
+        while (safety-- > 0)
+        {
+            bool success = CardManager.Inst.TryPutCard(false);
+
+            if (!success)
+                break;
+
+            yield return delay1;
+        }
+    }
+
+    bool HasAIAttacker()
+    {
+        foreach (var e in otherEntities)
+        {
+            if (e == null) continue;
+            if (e.isDie) continue;
+            if (e.isBossOrEmpty) continue;
+            if (!e.CanAttack()) continue;
+
+            return true;
+        }
+
+        return false;
+    }
 
     public void EntityAlignment(bool isMine)
     {
@@ -175,6 +201,36 @@ public class EntityManager : MonoBehaviour
             e.MoveTransform(e.originPos, true, 0.5f);
             e.GetComponent<CardOrder>()?.SetOriginOrder(i);
         }
+    }
+
+    public void RequestEntityAlignment(bool isMine)
+    {
+        if (isMine)
+        {
+            if (myAlignCo != null)
+                StopCoroutine(myAlignCo);
+
+            myAlignCo = StartCoroutine(DelayedEntityAlignmentCo(true));
+        }
+        else
+        {
+            if (otherAlignCo != null)
+                StopCoroutine(otherAlignCo);
+
+            otherAlignCo = StartCoroutine(DelayedEntityAlignmentCo(false));
+        }
+    }
+
+    IEnumerator DelayedEntityAlignmentCo(bool isMine)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        EntityAlignment(isMine);
+
+        if (isMine)
+            myAlignCo = null;
+        else
+            otherAlignCo = null;
     }
 
     public void InsertMyEmptyEntity(float xPos)
@@ -282,7 +338,7 @@ public class EntityManager : MonoBehaviour
         OnEntitySpawned?.Invoke(isMine);
 
         if (summonOwner == null)
-            EntityAlignment(isMine);
+            RequestEntityAlignment(isMine);
 
         if (TriggerSystem.Inst != null)
             TriggerSystem.Inst.OnEnterField(dataSO, isMine, entity);
@@ -316,8 +372,14 @@ public class EntityManager : MonoBehaviour
         if (!CanMouseInput)
             return;
 
-        if (selectEntity && targetPickEntity && selectEntity.CanAttack())
+        if (selectEntity != null &&
+            targetPickEntity != null &&
+            selectEntity.CanAttack() &&
+            !selectEntity.isDie &&
+            !targetPickEntity.isDie)
+        {
             Attack(selectEntity, targetPickEntity);
+        }
 
         selectEntity = null;
         targetPickEntity = null;
@@ -334,9 +396,12 @@ public class EntityManager : MonoBehaviour
 
         foreach (var hit in Physics2D.RaycastAll(Utils.MousePos, Vector3.forward))
         {
-            Entity entity = hit.collider?.GetComponent<Entity>();
+            Entity entity = hit.collider?.GetComponentInParent<Entity>();
 
             if (entity == null)
+                continue;
+
+            if (entity.isDie)
                 continue;
 
             if (entity.isMine)
@@ -365,21 +430,30 @@ public class EntityManager : MonoBehaviour
 
     void Attack(Entity attacker, Entity defender)
     {
-       
+        if (isAttacking) return;
+
+        if (attacker == null || defender == null) return;
+        if (attacker.isDie || defender.isDie) return;
+        if (!attacker.CanAttack()) return;
+
+        isAttacking = true;
+
+        selectEntity = null;
+        targetPickEntity = null;
+
+        attacker.SetAttackable(false);
         attacker.GetComponent<CardOrder>().SetMostFrontOrder(true);
 
         Sequence sequence = DOTween.Sequence()
-            .Append(attacker.transform.DOMove(defender.originPos, 0.4f)).SetEase(Ease.InSine)
-            .AppendCallback(() =>
-            {
-                //SpawnDamage(defender.attack, attacker.transform);
-                //SpawnDamage(attacker.attack, defender.transform);
-            })
-            .Append(attacker.transform.DOMove(attacker.originPos, 0.4f)).SetEase(Ease.OutSine)
+            .Append(attacker.transform.DOMove(defender.originPos, 0.3f).SetEase(Ease.InSine))
+            .Append(attacker.transform.DOMove(attacker.originPos, 0.3f).SetEase(Ease.OutSine))
             .OnComplete(() =>
             {
-                attacker.SetAttackable(false);
+                attacker.GetComponent<CardOrder>()?.SetMostFrontOrder(false);
+
                 AttackCallback(attacker, defender);
+
+                isAttacking = false;
             });
     }
 
@@ -415,6 +489,12 @@ public class EntityManager : MonoBehaviour
             if (!entity.isDie || entity.isBossOrEmpty)
                 continue;
 
+            entity.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+
+            Collider2D[] cols = entity.GetComponentsInChildren<Collider2D>();
+            foreach (var col in cols)
+                col.enabled = false;
+
             Entity killer = (entity == attacker) ? defender : attacker;
 
             GraveManager.Inst.RaiseEntityDiedInCombat(entity.Data, entity.isMine, killer, entity);
@@ -431,8 +511,8 @@ public class EntityManager : MonoBehaviour
                 .Append(entity.transform.DOScale(Vector3.zero, 0.3f)).SetEase(Ease.OutCirc)
                 .OnComplete(() =>
                 {
-                    EntityAlignment(entity.isMine);
                     Destroy(entity.gameObject);
+                    RequestEntityAlignment(entity.isMine);
                 });
         }
     }
@@ -610,8 +690,8 @@ public class EntityManager : MonoBehaviour
             .Append(entity.transform.DOScale(Vector3.zero, 0.3f)).SetEase(Ease.OutCirc)
             .OnComplete(() =>
             {
-                EntityAlignment(entity.isMine);
                 Destroy(entity.gameObject);
+                RequestEntityAlignment(entity.isMine);
             });
     }
 

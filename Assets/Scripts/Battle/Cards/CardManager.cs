@@ -150,8 +150,9 @@ public class CardManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             bool overUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+            bool overRelicButton = IsPointerOverRelicButton();
 
-            if (!overUI)
+            if (!overUI && !overRelicButton)
             {
                 if (GraveUI.Inst != null && GraveUI.Inst.IsOpen)
                 {
@@ -179,6 +180,24 @@ public class CardManager : MonoBehaviour
     {
         cardClickedThisFrame = false;
     }
+
+    bool IsPointerOverRelicButton()
+    {
+        if (BattleRelicUI.Inst == null)
+            return false;
+
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Collider2D[] hits = Physics2D.OverlapPointAll(mousePos);
+
+        foreach (var hit in hits)
+        {
+            if (hit.gameObject == BattleRelicUI.Inst.gameObject)
+                return true;
+        }
+
+        return false;
+    }
+
     // ---------------------------- 카드 드로우 ----------------------------
 
     void AddCard(bool isMine)

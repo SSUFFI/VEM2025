@@ -17,6 +17,9 @@ public class Entity : MonoBehaviour
     [Header("Relic")]
     [SerializeField] GameObject relicTargetMark;
 
+    [Header("Taunt")]
+    [SerializeField] GameObject tauntObject;
+
     public int attack;
     public int health;
     public int maxHealth;
@@ -29,11 +32,7 @@ public class Entity : MonoBehaviour
     public Vector3 originPos;
     int liveCount;
 
-    Tween tauntTween;
     Tween relicMarkTween;
-
-
-    Color tauntBlue = new Color(0.55f, 0.85f, 1f);
 
     public CardDataSO Data => dataSO;
 
@@ -64,7 +63,6 @@ public class Entity : MonoBehaviour
     {
         TurnManager.OnTurnStarted -= OnTurnStarted;
 
-        tauntTween?.Kill();
         relicMarkTween?.Kill();
     }
 
@@ -98,6 +96,9 @@ public class Entity : MonoBehaviour
         else
             healthTMP.gameObject.SetActive(false);
 
+        if (tauntObject != null)
+            tauntObject.SetActive(data.taunt);
+
         SetAttackable(false);
     }
 
@@ -120,23 +121,7 @@ public class Entity : MonoBehaviour
         if (frameRenderer == null)
             return;
 
-        tauntTween?.Kill();
-
-        if (HasTaunt)
-        {
-            frameRenderer.color = baseColor;
-
-            Color pulseColor = value
-                ? new Color(1f, 0.35f, 0.35f)
-                : new Color(0.45f, 0.20f, 0.20f);
-
-            tauntTween = frameRenderer.DOColor(pulseColor, 1.2f)
-                .SetLoops(-1, LoopType.Yoyo);
-        }
-        else
-        {
-            frameRenderer.color = baseColor;
-        }
+        frameRenderer.color = baseColor;
     }
 
     public void SetRelicTargetMark(bool value)
@@ -237,6 +222,12 @@ public class Entity : MonoBehaviour
         if (health <= 0)
         {
             isDie = true;
+
+            Collider2D[] cols = GetComponentsInChildren<Collider2D>();
+
+            foreach (var col in cols)
+                col.enabled = false;
+
             return true;
         }
 

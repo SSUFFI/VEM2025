@@ -20,7 +20,8 @@ public class DungeonUIManager : MonoBehaviour
     {
         dungeonPanel.SetActive(true);
 
-        if (TutorialManager.Inst != null && !TutorialManager.Inst.hasPlayedTraining)
+        if (TutorialManager.Inst != null &&
+            !TutorialManager.Inst.hasFinishedTraining)
         {
             dungeonEnterButton.interactable = false;
         }
@@ -39,9 +40,6 @@ public class DungeonUIManager : MonoBehaviour
     {
         BattleData.isTutorialBattle = true;
         BattleData.tutorialEnemyDeck = trainingDeck;
-
-        if (TutorialManager.Inst != null)
-            TutorialManager.Inst.hasPlayedTraining = true;
 
         SceneManager.LoadScene("Battle");
     }
