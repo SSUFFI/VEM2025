@@ -1,0 +1,393 @@
+fileFormatVersion: 2
+guid: e24473a121fad7740b609b2edcd74416
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HealMoveEffect_0
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 1172
+        width: 92
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11707178857fa3f4f935c37d51b98bca
+      internalID: 31178963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_1
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 1178
+        width: 107
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a293808f607425a4582c6af4d6c4da56
+      internalID: -1333827600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_2
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 1170
+        width: 120
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a26274b6bf1e3a546977a27d3cb7dbdf
+      internalID: -649272908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_3
+      rect:
+        serializedVersion: 2
+        x: 1650
+        y: 1168
+        width: 211
+        height: 125
+      alignment: 9
+      pivot: {x: 0.67532134, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4b1503c40bede44fbbf4928f8a5b94a
+      internalID: -984422977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_4
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 662
+        width: 299
+        height: 119
+      alignment: 9
+      pivot: {x: 0.75628215, y: 0.522204}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43ddc536e2d8266489b8d848572a1f7d
+      internalID: -599991897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_5
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 668
+        width: 389
+        height: 109
+      alignment: 9
+      pivot: {x: 0.8566163, y: 0.48787808}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7aa6957cdb912d24b9b18380ea68d5ec
+      internalID: -162111425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_6
+      rect:
+        serializedVersion: 2
+        x: 1011
+        y: 679
+        width: 433
+        height: 90
+      alignment: 9
+      pivot: {x: 0.89665914, y: 0.5293593}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70bfa1fba9d70404ebad54534a7ba7f3
+      internalID: -539890701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_7
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 699
+        width: 392
+        height: 92
+      alignment: 9
+      pivot: {x: 0.87073904, y: 0.51435983}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7196ebdd333e8c243b08f27a3ab759e1
+      internalID: -685332308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 186
+        width: 260
+        height: 81
+      alignment: 9
+      pivot: {x: 0.84045744, y: 0.49999925}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96798cc8e5bd9634cb35fe9ff2eca23d
+      internalID: 1922921272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_10
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 198
+        width: 247
+        height: 61
+      alignment: 9
+      pivot: {x: 0.85837597, y: 0.52165896}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 482c9404256496049929567cc8f57578
+      internalID: -227742521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_12
+      rect:
+        serializedVersion: 2
+        x: 1084
+        y: 205
+        width: 201
+        height: 56
+      alignment: 9
+      pivot: {x: 0.88780886, y: 0.52359253}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 258dc3082911ae940a5f7822e9045c66
+      internalID: 994207238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_13
+      rect:
+        serializedVersion: 2
+        x: 1730
+        y: 209
+        width: 69
+        height: 42
+      alignment: 9
+      pivot: {x: 0.71061903, y: 0.49999928}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34a62b93c0155b04d858cf1c3438e49f
+      internalID: -1205499847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      HealMoveEffect_0: 31178963
+      HealMoveEffect_1: -1333827600
+      HealMoveEffect_10: -227742521
+      HealMoveEffect_11: -343852127
+      HealMoveEffect_12: 994207238
+      HealMoveEffect_13: -1205499847
+      HealMoveEffect_2: -649272908
+      HealMoveEffect_3: -984422977
+      HealMoveEffect_4: -599991897
+      HealMoveEffect_5: -162111425
+      HealMoveEffect_6: -539890701
+      HealMoveEffect_7: -685332308
+      HealMoveEffect_8: 1922921272
+      HealMoveEffect_9: 1668318044
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

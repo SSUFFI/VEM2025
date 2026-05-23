@@ -374,10 +374,7 @@ public class BattleRelicUI : MonoBehaviour
 
             case RelicEffectType.HealAlly2:
 
-                entity.health =
-                    Mathf.Min(entity.health + 2, entity.maxHealth);
-
-                entity.UpdateHealthUI();
+                EntityManager.Inst.PlayHealEffect(transform, entity, 2);
 
                 break;
         }

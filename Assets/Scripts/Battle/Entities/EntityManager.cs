@@ -12,6 +12,9 @@ public class EntityManager : MonoBehaviour
 
     [SerializeField] GameObject entityPrefab;
     [SerializeField] GameObject damagePrefab;
+    [SerializeField] GameObject healPrefab;
+    [SerializeField] GameObject healMoveEffectPrefab;
+    [SerializeField] float healMoveDuration = 0.6f;
     [SerializeField] List<Entity> myEntities;
     [SerializeField] List<Entity> otherEntities;
     [SerializeField] GameObject TargetPicker;
@@ -59,13 +62,26 @@ public class EntityManager : MonoBehaviour
         if (owner != null)
         {
             var list = owner.isMine ? myEntities : otherEntities;
+
             replaceIndex = list.IndexOf(owner);
 
             if (replaceIndex < 0)
             {
-                replaceMode = false;
-                replaceIndex = list.Count;
+                replaceIndex = 0;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] == null) continue;
+
+                    if (list[i].originPos.x < owner.originPos.x)
+                        replaceIndex = i + 1;
+                }
             }
+        }
+        else
+        {
+            replaceMode = false;
+            replaceIndex = 0;
         }
     }
 
@@ -497,14 +513,20 @@ public class EntityManager : MonoBehaviour
 
             Entity killer = (entity == attacker) ? defender : attacker;
 
-            GraveManager.Inst.RaiseEntityDiedInCombat(entity.Data, entity.isMine, killer, entity);
-
-            GraveManager.Inst.AddToGrave(entity.Data, entity.isMine);
-
             if (entity.isMine)
                 myEntities.Remove(entity);
             else
                 otherEntities.Remove(entity);
+
+            GraveManager.Inst.RaiseEntityDiedInCombat(
+                entity.Data,
+                entity.isMine,
+                killer,
+                entity
+            );
+
+            GraveManager.Inst.AddToGrave(entity.Data, entity.isMine);
+            entity.addedToGrave = true;
 
             Sequence sequence = DOTween.Sequence()
                 .Append(entity.transform.DOShakePosition(1.3f))
@@ -785,5 +807,93 @@ public class EntityManager : MonoBehaviour
         }
 
         list.Insert(index + 1, newEntity);
+    }
+
+    public void PlayHealEffect(Transform from, Entity target, int healValue)
+    {
+        StartCoroutine(PlayHealEffectCo(from, target, healValue));
+    }
+
+    IEnumerator PlayHealEffectCo(Transform from, Entity target, int healValue)
+    {
+        if (from == null || target == null)
+            yield break;
+
+        GameObject moveEffect = null;
+
+        if (healMoveEffectPrefab != null)
+        {
+            moveEffect = Instantiate(
+                healMoveEffectPrefab,
+                from.position,
+                Quaternion.identity
+            );
+
+            moveEffect.GetComponent<CardOrder>().SetOrder(1000);
+
+            Vector3 dir = target.transform.position - from.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+            moveEffect.transform.rotation =
+                Quaternion.Euler(0f, 0f, angle);
+
+            moveEffect.transform
+                .DOMove(target.transform.position, healMoveDuration)
+                .SetEase(Ease.OutQuad);
+        }
+
+        yield return new WaitForSeconds(healMoveDuration);
+
+        if (moveEffect != null)
+            Destroy(moveEffect);
+
+        if (target == null || target.isDie)
+            yield break;
+
+        int prevHealth = target.health;
+
+        target.health =
+            Mathf.Min(target.health + healValue, target.maxHealth);
+
+        int realHeal =
+            target.health - prevHealth;
+
+        target.UpdateHealthUI();
+
+        ShowHeal(realHeal, target.transform);
+
+        Vector3 originScale = target.transform.localScale;
+
+        target.transform
+            .DOScale(originScale * 1.08f, 0.08f)
+            .SetLoops(2, LoopType.Yoyo)
+            .OnComplete(() =>
+            {
+                if (target != null)
+                    target.transform.localScale = originScale;
+            });
+    }
+
+    public void ShowHeal(int heal, Transform tr)
+    {
+        SpawnHeal(heal, tr);
+    }
+
+    void SpawnHeal(int heal, Transform tr)
+    {
+        if (heal <= 0)
+            return;
+
+        var healObject = Instantiate(
+            healPrefab,
+            tr.position,
+            Quaternion.identity
+        );
+
+        var healComponent =
+            healObject.GetComponent<Heal>();
+
+        healComponent.SetupTransform(tr);
+        healComponent.Healed(heal);
     }
 }

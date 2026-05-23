@@ -752,6 +752,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPrefab: {fileID: 8762702237770490428, guid: 681836404702ec6458f7a6aab1a90ce0, type: 3}
   damagePrefab: {fileID: 2200172676080767612, guid: d0378886839b5524fb121e919d6e10af, type: 3}
+  healPrefab: {fileID: 5576864096937842795, guid: 46b4ab6bcdaa2e94897246ee3b51169f, type: 3}
+  healMoveEffectPrefab: {fileID: 8703776875730091796, guid: c2c6114df2f27c34b83e5d6042489baa, type: 3}
+  healMoveDuration: 0.6
   myEntities: []
   otherEntities: []
   TargetPicker: {fileID: 95636374}
@@ -5786,6 +5789,7 @@ MonoBehaviour:
   attackTMP: {fileID: 0}
   healthTMP: {fileID: 0}
   relicTargetMark: {fileID: 0}
+  tauntObject: {fileID: 0}
   attack: 0
   health: 40
   maxHealth: 0
@@ -5966,6 +5970,7 @@ MonoBehaviour:
   attackTMP: {fileID: 0}
   healthTMP: {fileID: 0}
   relicTargetMark: {fileID: 0}
+  tauntObject: {fileID: 0}
   attack: 0
   health: 0
   maxHealth: 0
@@ -6080,6 +6085,7 @@ MonoBehaviour:
   attackTMP: {fileID: 0}
   healthTMP: {fileID: 0}
   relicTargetMark: {fileID: 0}
+  tauntObject: {fileID: 0}
   attack: 0
   health: 40
   maxHealth: 0

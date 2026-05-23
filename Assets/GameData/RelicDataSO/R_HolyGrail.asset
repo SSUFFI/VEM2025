@@ -18,5 +18,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 88c13288353fa9c41b2873f3c977d47a, type: 3}
   battleButtonSprite: {fileID: 21300000, guid: 6a9482d1c39e7054aaadbb96d4379b06, type: 3}
   effectType: 1
-  manaCost: 2
+  manaCost: 0
   isLocked: 0
