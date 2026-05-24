@@ -52,6 +52,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] ECardState eCardState;
 
     Card selectCard;
+    Card hoverCard;
     bool isMyCardDrag;
     bool onMyCardArea;
     bool cardClickedThisFrame = false;
@@ -174,6 +175,8 @@ public class CardManager : MonoBehaviour
 
         if (isMyCardDrag && Input.GetMouseButtonUp(0))
             CardMouseUp();
+
+        UpdateZoomHover();
     }
 
     void LateUpdate()
@@ -388,6 +391,9 @@ public class CardManager : MonoBehaviour
         if (eCardState != ECardState.CanMouseDrag)
             return;
 
+        SetHandHoverActive(false);
+        ClearHoverCard();
+
         selectCard = card;
         isMyCardDrag = true;
 
@@ -409,7 +415,11 @@ public class CardManager : MonoBehaviour
         if (handZoomPanel != null)
             handZoomPanel.SetActive(true);
 
-        DOVirtual.DelayedCall(0.25f, () => isHandTransition = false);
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            isHandTransition = false;
+            SetHandHoverActive(true);
+        });
     }
 
     public void OnZoomBackgroundClick()
@@ -423,6 +433,9 @@ public class CardManager : MonoBehaviour
         if (isHandTransition) return;
 
         isHandTransition = true;
+
+        SetHandHoverActive(false);
+        ClearHoverCard();
 
         isZoomMode = false;
         isMyCardDrag = false;
@@ -457,6 +470,8 @@ public class CardManager : MonoBehaviour
         selectCard.GetComponent<CardOrder>().SetMostFrontOrder(true);
 
         RefreshZoomLayout();
+
+        EnableHandHoverAfter(0.75f);
     }
 
     void RefreshZoomLayout()
@@ -502,10 +517,15 @@ public class CardManager : MonoBehaviour
             if (skipSelected && c == selectCard)
                 continue;
 
+            var hover = c.GetComponent<HandZoomCardHover>();
+
+            c.GetComponent<HandZoomCardHover>()?.SetHoverActive(false);
             c.MoveTransform(prs, true, moveTime);
 
             c.GetComponent<CardOrder>().SetOriginOrder(i);
         }
+
+        EnableHandHoverAfter(moveTime);
     }
 
     public bool TryPutCard(bool isMine)
@@ -575,9 +595,14 @@ public class CardManager : MonoBehaviour
                 selectCard = null;
 
                 if (isZoomMode)
+                {
                     ForceZoomLayout();
+                    EnableHandHoverAfter(0.75f);
+                }
                 else
+                {
                     CardAlignment(true);
+                }
             }
             else
             {
@@ -593,9 +618,14 @@ public class CardManager : MonoBehaviour
             if (isMine)
             {
                 if (isZoomMode)
+                {
                     ForceZoomLayout();
+                    EnableHandHoverAfter(0.75f);
+                }
                 else
+                {
                     CardAlignment(true);
+                }
             }
             else
             {
@@ -604,6 +634,81 @@ public class CardManager : MonoBehaviour
 
             return false;
         }
+    }
+
+    void SetHandHoverActive(bool value)
+    {
+        for (int i = 0; i < myCards.Count; i++)
+        {
+            if (myCards[i] == null) continue;
+
+            myCards[i].GetComponent<HandZoomCardHover>()?.SetHoverActive(value);
+        }
+    }
+
+    void UpdateZoomHover()
+    {
+        if (!isZoomMode || isMyCardDrag || isHandTransition || TurnManager.Inst.isLoading)
+        {
+            ClearHoverCard();
+            return;
+        }
+
+        Card newHover = GetMouseOverMyCard();
+
+        if (hoverCard == newHover)
+        {
+            if (hoverCard != null)
+                hoverCard.GetComponent<HandZoomCardHover>()?.HoverOn();
+
+            return;
+        }
+
+        ClearHoverCard();
+
+        hoverCard = newHover;
+
+        if (hoverCard != null)
+            hoverCard.GetComponent<HandZoomCardHover>()?.HoverOn();
+    }
+
+    Card GetMouseOverMyCard()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Collider2D[] hits = Physics2D.OverlapPointAll(mousePos);
+
+        foreach (var hit in hits)
+        {
+            Card c = hit.GetComponentInParent<Card>();
+
+            if (c == null) continue;
+            if (!c.isMine) continue;
+            if (!myCards.Contains(c)) continue;
+
+            return c;
+        }
+
+        return null;
+    }
+
+    void ClearHoverCard()
+    {
+        if (hoverCard == null) return;
+
+        hoverCard.GetComponent<HandZoomCardHover>()?.HoverOff();
+        hoverCard = null;
+    }
+
+    void EnableHandHoverAfter(float delay)
+    {
+        DOVirtual.DelayedCall(delay, () =>
+        {
+            if (isZoomMode && !isMyCardDrag && !isHandTransition && !TurnManager.Inst.isLoading)
+            {
+                SetHandHoverActive(true);
+                UpdateZoomHover();
+            }
+        });
     }
 
     // ---------------------------- 마우스 & 드래그 ----------------------------
@@ -646,6 +751,8 @@ public class CardManager : MonoBehaviour
 
         if (!success)
             ReturnSelectedCardToHand();
+
+        UpdateZoomHover();
     }
 
     void CardDrag()

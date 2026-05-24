@@ -1036,6 +1036,7 @@ GameObject:
   - component: {fileID: 8252234080861280943}
   - component: {fileID: 6658914959375967167}
   - component: {fileID: 251183254703875736}
+  - component: {fileID: 3449455487725613164}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -1476,3 +1477,18 @@ PolygonCollider2D:
       - {x: -2.2349854, y: -8.939941}
       - {x: -2.2244678, y: -8.9504595}
   m_UseDelaunayMesh: 0
+--- !u!114 &3449455487725613164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8974669888148503557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20bf1a020588d1e4cb0d79043d2d0ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverY: 0.45
+  hoverScale: 1.04
+  duration: 0.12

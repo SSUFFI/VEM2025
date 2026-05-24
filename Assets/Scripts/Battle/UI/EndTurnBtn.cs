@@ -30,23 +30,18 @@ public class EndTurnBtn : MonoBehaviour
 
     void Update()
     {
+        bool canClick =
+            TurnManager.Inst != null &&
+            TurnManager.Inst.myTurn &&
+            !TurnManager.Inst.isLoading;
+
         if (BattleRelicUI.Inst != null &&
             BattleRelicUI.Inst.IsTargeting)
         {
-            button.interactable = false;
-
-            image.sprite = inactive;
-
-            btnText.color = new Color32(55, 55, 55, 255);
-
-            return;
+            canClick = false;
         }
 
-        bool myTurn =
-            TurnManager.Inst != null &&
-            TurnManager.Inst.myTurn;
-
-        Setup(myTurn);
+        Setup(canClick);
     }
 
     public void Setup(bool isActive)
@@ -55,7 +50,6 @@ public class EndTurnBtn : MonoBehaviour
             return;
 
         image.sprite = isActive ? active : inactive;
-
         button.interactable = isActive;
 
         btnText.color = isActive
