@@ -4,7 +4,7 @@ using TMPro;
 public class Heal : MonoBehaviour
 {
     [SerializeField] TMP_Text healTMP;
-    [SerializeField] float destroyTime = 1.5f;
+    [SerializeField] float destroyTime = 2f;
 
     Transform tr;
 

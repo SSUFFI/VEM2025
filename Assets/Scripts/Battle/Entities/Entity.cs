@@ -234,6 +234,15 @@ public class Entity : MonoBehaviour
         return false;
     }
 
+    public bool CanBeHealed()
+    {
+        if (isBossOrEmpty) return false;
+        if (isDie) return false;
+        if (health >= maxHealth) return false;
+
+        return true;
+    }
+
     public void MoveTransform(Vector3 pos, bool useDotween, float dotweenTime = 0)
     {
         if (useDotween)

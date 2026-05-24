@@ -31,3 +31,8 @@ MonoBehaviour:
     value: 0
     summonCards:
     - {fileID: 11400000, guid: aa23a4c975965444b976264434610e59, type: 2}
+  - triggerType: 1
+    effectType: 7
+    value: 1
+    summonCards:
+    - {fileID: 11400000, guid: aa23a4c975965444b976264434610e59, type: 2}

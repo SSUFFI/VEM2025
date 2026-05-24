@@ -49,5 +49,7 @@ public enum EffectType
     Draw1,
     Summon,
     DamageRandomEnemy,
-    DamageAllEnemies
+    DamageAllEnemies,
+    HealRandomAlly,
+    HealAllAllies
 }

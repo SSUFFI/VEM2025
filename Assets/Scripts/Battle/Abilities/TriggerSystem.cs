@@ -97,6 +97,14 @@ public class TriggerSystem : MonoBehaviour
             case EffectType.DamageAllEnemies:
                 DamageAllEnemies(trigger.value, isMine);
                 break;
+
+            case EffectType.HealRandomAlly:
+                HealRandomAlly(trigger.value, isMine, self);
+                break;
+
+            case EffectType.HealAllAllies:
+                HealAllAllies(trigger.value, isMine, self);
+                break;
         }
     }
 
@@ -217,6 +225,96 @@ public class TriggerSystem : MonoBehaviour
 
             EntityManager.Inst.ShowDamage(damage, e.transform);
             EntityManager.Inst.RemoveEntityIfDead(e);
+        }
+    }
+
+    void HealRandomAlly(int healValue, bool isMine, Entity self)
+    {
+        if (EntityManager.Inst == null) return;
+        if (healValue <= 0) return;
+
+        var list = isMine
+            ? EntityManager.Inst.MyEntities
+            : EntityManager.Inst.OtherEntities;
+
+        List<Entity> targets = new List<Entity>();
+
+        foreach (var e in list)
+        {
+            if (e == null) continue;
+            if (!e.CanBeHealed()) continue;
+
+            targets.Add(e);
+        }
+
+        if (targets.Count == 0) return;
+
+        Entity target = targets[Random.Range(0, targets.Count)];
+
+        Transform from;
+
+        if (self != null)
+        {
+            from = self.transform;
+        }
+        else
+        {
+            Vector3 deckPos = isMine
+                ? EntityManager.Inst.MyDeckSpawnPos
+                : EntityManager.Inst.OtherDeckSpawnPos;
+
+            GameObject temp = new GameObject("HealFrom");
+
+            temp.transform.position = deckPos;
+
+            from = temp.transform;
+
+            Object.Destroy(temp, 1f);
+        }
+
+        EntityManager.Inst.PlayHealEffect(from, target, healValue);
+    }
+
+    void HealAllAllies(int healValue, bool isMine, Entity self)
+    {
+        if (EntityManager.Inst == null) return;
+        if (healValue <= 0) return;
+
+        var list = isMine
+            ? EntityManager.Inst.MyEntities
+            : EntityManager.Inst.OtherEntities;
+
+        Transform from = null;
+
+        if (self != null)
+        {
+            from = self.transform;
+        }
+        else
+        {
+            Vector3 deckPos = isMine
+                ? EntityManager.Inst.MyDeckSpawnPos
+                : EntityManager.Inst.OtherDeckSpawnPos;
+
+            GameObject temp = new GameObject("HealFrom");
+
+            temp.transform.position = deckPos;
+
+            from = temp.transform;
+
+            Object.Destroy(temp, 1f);
+        }
+
+        foreach (var e in list)
+        {
+            if (e == null) continue;
+            if (!e.CanBeHealed()) continue;
+
+            EntityManager.Inst.PlayHealEffect(
+                from != null ? from : e.transform,
+                e,
+                healValue
+            );
         }
     }
 }
