@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
+  m_Name: Elf_Loomi_Night
+  m_EditorClassIdentifier: 
+  cardName: "\uB8E8\uBBF8 (\uBC24)"
+  attack: 3
+  health: 2
+  manaCost: 2
+  sprite: {fileID: 21300000, guid: e55eba94b89fc3c4b8c1bc02764d0c76, type: 3}
+  fieldSprite: {fileID: 21300000, guid: 13d6bb41b2cac7344b812ad02d92cee8, type: 3}
+  raceSprite: {fileID: 0}
+  description: 
+  keywords: []
+  taunt: 0
+  triggers: []
