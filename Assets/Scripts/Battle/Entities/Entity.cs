@@ -33,6 +33,9 @@ public class Entity : MonoBehaviour
     int liveCount;
 
     Tween relicMarkTween;
+    Tween lowHpTween;
+
+    Color healthOriginColor = Color.white;
 
     public CardDataSO Data => dataSO;
 
@@ -59,11 +62,17 @@ public class Entity : MonoBehaviour
         SetRelicTargetMark(false);
     }
 
+    void Update()
+    {
+        RefreshLowHpEffect();
+    }
+
     void OnDestroy()
     {
         TurnManager.OnTurnStarted -= OnTurnStarted;
 
         relicMarkTween?.Kill();
+        lowHpTween?.Kill();
     }
 
     void OnTurnStarted(bool myTurn)
@@ -100,6 +109,8 @@ public class Entity : MonoBehaviour
             tauntObject.SetActive(data.taunt);
 
         SetAttackable(false);
+
+        RefreshLowHpEffect();
     }
 
     public void SetupBoss(Sprite portrait)
@@ -155,6 +166,38 @@ public class Entity : MonoBehaviour
     {
         if (healthTMP != null)
             healthTMP.text = health.ToString();
+
+        RefreshLowHpEffect();
+    }
+
+    void RefreshLowHpEffect()
+    {
+        if (healthTMP == null)
+            return;
+
+        lowHpTween?.Kill();
+        lowHpTween = null;
+
+        if (isBossOrEmpty || isDie)
+        {
+            healthTMP.color = Color.white;
+            return;
+        }
+
+        if (health < maxHealth)
+        {
+            Color white = Color.white;
+            Color red = new Color(1f, 0.05f, 0.05f);
+
+            float speed = 1.5f;
+            float t = Mathf.PingPong(Time.time / speed, 1f);
+
+            healthTMP.color = Color.Lerp(white, red, t);
+        }
+        else
+        {
+            healthTMP.color = Color.white;
+        }
     }
 
     void OnMouseOver()
@@ -217,7 +260,8 @@ public class Entity : MonoBehaviour
             return false;
 
         health -= damage;
-        healthTMP.text = health.ToString();
+
+        UpdateHealthUI();
 
         if (health <= 0)
         {
