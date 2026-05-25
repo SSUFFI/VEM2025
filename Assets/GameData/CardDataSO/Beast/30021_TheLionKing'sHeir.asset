@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
+  m_Name: 30021_TheLionKing'sHeir
+  m_EditorClassIdentifier: 
+  cardName: "\uC0AC\uC790\uC655\uC758 \uD6C4\uACC4\uC790"
+  attack: 6
+  health: 6
+  manaCost: 6
+  sprite: {fileID: 21300000, guid: c54285208312e9546a5e3808fd11d85b, type: 3}
+  fieldSprite: {fileID: 21300000, guid: ccaa0d7bfbfdbe14686978320e2de363, type: 3}
+  raceSprite: {fileID: 21300000, guid: 1c563fca880788145964437264b7d969, type: 3}
+  description: 
+  keywords: []
+  taunt: 0
+  triggers: []
