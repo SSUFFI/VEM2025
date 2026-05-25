@@ -113,10 +113,10 @@ TextureImporter:
       name: HealMoveEffect_0
       rect:
         serializedVersion: 2
-        x: 195
-        y: 1172
-        width: 92
-        height: 99
+        x: 268
+        y: 1113
+        width: 205
+        height: 216
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11707178857fa3f4f935c37d51b98bca
-      internalID: 31178963
+      spriteID: d233123e3463e454a86165ad8b49ac34
+      internalID: 1495776336
       vertices: []
       indices: 
       edges: []
@@ -134,19 +134,19 @@ TextureImporter:
       name: HealMoveEffect_1
       rect:
         serializedVersion: 2
-        x: 717
-        y: 1178
-        width: 107
-        height: 103
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 807
+        y: 1147
+        width: 185
+        height: 189
+      alignment: 9
+      pivot: {x: 0.47142333, y: 0.45804206}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a293808f607425a4582c6af4d6c4da56
-      internalID: -1333827600
+      spriteID: 23e1d94ee7f3ea447a2e3327b53516b4
+      internalID: -256843460
       vertices: []
       indices: 
       edges: []
@@ -155,10 +155,10 @@ TextureImporter:
       name: HealMoveEffect_2
       rect:
         serializedVersion: 2
-        x: 1212
-        y: 1170
-        width: 120
-        height: 115
+        x: 1300
+        y: 1131
+        width: 206
+        height: 207
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a26274b6bf1e3a546977a27d3cb7dbdf
-      internalID: -649272908
+      spriteID: f120b31ec18c18149909e6a58a5f9d48
+      internalID: -899446086
       vertices: []
       indices: 
       edges: []
@@ -176,19 +176,19 @@ TextureImporter:
       name: HealMoveEffect_3
       rect:
         serializedVersion: 2
-        x: 1650
-        y: 1168
-        width: 211
-        height: 125
+        x: 1814
+        y: 1136
+        width: 186
+        height: 210
       alignment: 9
-      pivot: {x: 0.67532134, y: 0.5}
+      pivot: {x: 0.5923784, y: 0.46223783}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4b1503c40bede44fbbf4928f8a5b94a
-      internalID: -984422977
+      spriteID: dd943f21e548b7c41bf44db7cdad4592
+      internalID: 775380702
       vertices: []
       indices: 
       edges: []
@@ -197,19 +197,19 @@ TextureImporter:
       name: HealMoveEffect_4
       rect:
         serializedVersion: 2
-        x: 131
-        y: 662
-        width: 299
-        height: 119
+        x: 159
+        y: 633
+        width: 320
+        height: 211
       alignment: 9
-      pivot: {x: 0.75628215, y: 0.522204}
+      pivot: {x: 0.68586457, y: 0.50000113}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43ddc536e2d8266489b8d848572a1f7d
-      internalID: -599991897
+      spriteID: 45108a7f14e716e43917566e944a6c1a
+      internalID: 1255609443
       vertices: []
       indices: 
       edges: []
@@ -218,19 +218,19 @@ TextureImporter:
       name: HealMoveEffect_5
       rect:
         serializedVersion: 2
-        x: 532
-        y: 668
-        width: 389
-        height: 109
+        x: 642
+        y: 652
+        width: 352
+        height: 187
       alignment: 9
-      pivot: {x: 0.8566163, y: 0.48787808}
+      pivot: {x: 0.7252901, y: 0.52827233}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7aa6957cdb912d24b9b18380ea68d5ec
-      internalID: -162111425
+      spriteID: 5266f648d83ed5b49a81a6f3b89de25a
+      internalID: -305778342
       vertices: []
       indices: 
       edges: []
@@ -239,19 +239,19 @@ TextureImporter:
       name: HealMoveEffect_6
       rect:
         serializedVersion: 2
-        x: 1011
-        y: 679
-        width: 433
-        height: 90
+        x: 1126
+        y: 651
+        width: 388
+        height: 208
       alignment: 9
-      pivot: {x: 0.89665914, y: 0.5293593}
+      pivot: {x: 0.71801347, y: 0.49364647}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70bfa1fba9d70404ebad54534a7ba7f3
-      internalID: -539890701
+      spriteID: 329d94a9320c7694b88ded9104f80b2f
+      internalID: -1229643821
       vertices: []
       indices: 
       edges: []
@@ -260,19 +260,19 @@ TextureImporter:
       name: HealMoveEffect_7
       rect:
         serializedVersion: 2
-        x: 1570
-        y: 699
-        width: 392
-        height: 92
+        x: 1675
+        y: 648
+        width: 325
+        height: 190
       alignment: 9
-      pivot: {x: 0.87073904, y: 0.51435983}
+      pivot: {x: 0.7765407, y: 0.54173875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7196ebdd333e8c243b08f27a3ab759e1
-      internalID: -685332308
+      spriteID: 04ee777b7c6e31c469ad92b819c6605e
+      internalID: 62427000
       vertices: []
       indices: 
       edges: []
@@ -281,19 +281,40 @@ TextureImporter:
       name: HealMoveEffect_8
       rect:
         serializedVersion: 2
-        x: 32
-        y: 186
-        width: 260
-        height: 81
+        x: 123
+        y: 116
+        width: 332
+        height: 188
       alignment: 9
-      pivot: {x: 0.84045744, y: 0.49999925}
+      pivot: {x: 0.75478613, y: 0.5140609}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96798cc8e5bd9634cb35fe9ff2eca23d
-      internalID: 1922921272
+      spriteID: 01aa4c82559fc9f4d84230d4fb94e078
+      internalID: -410234653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealMoveEffect_9
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 128
+        width: 265
+        height: 186
+      alignment: 9
+      pivot: {x: 0.6296769, y: 0.5142121}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c69fca3cf1293b4687e58f815c6976a
+      internalID: -15371666
       vertices: []
       indices: 
       edges: []
@@ -302,61 +323,40 @@ TextureImporter:
       name: HealMoveEffect_10
       rect:
         serializedVersion: 2
-        x: 539
-        y: 198
-        width: 247
-        height: 61
+        x: 1299
+        y: 135
+        width: 200
+        height: 190
       alignment: 9
-      pivot: {x: 0.85837597, y: 0.52165896}
+      pivot: {x: 0.49339172, y: 0.4791316}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 482c9404256496049929567cc8f57578
-      internalID: -227742521
+      spriteID: 970dbd0aad8123743a6983f204888d73
+      internalID: -2049077936
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealMoveEffect_12
+      name: HealMoveEffect_11
       rect:
         serializedVersion: 2
-        x: 1084
-        y: 205
-        width: 201
-        height: 56
+        x: 1830
+        y: 134
+        width: 170
+        height: 180
       alignment: 9
-      pivot: {x: 0.88780886, y: 0.52359253}
+      pivot: {x: 0.5466495, y: 0.51468563}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 258dc3082911ae940a5f7822e9045c66
-      internalID: 994207238
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HealMoveEffect_13
-      rect:
-        serializedVersion: 2
-        x: 1730
-        y: 209
-        width: 69
-        height: 42
-      alignment: 9
-      pivot: {x: 0.71061903, y: 0.49999928}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 34a62b93c0155b04d858cf1c3438e49f
-      internalID: -1205499847
+      spriteID: 50143ef283e6bd147a87f2dfab9e6514
+      internalID: 1017711648
       vertices: []
       indices: 
       edges: []
@@ -372,20 +372,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HealMoveEffect_0: 31178963
-      HealMoveEffect_1: -1333827600
-      HealMoveEffect_10: -227742521
-      HealMoveEffect_11: -343852127
-      HealMoveEffect_12: 994207238
-      HealMoveEffect_13: -1205499847
-      HealMoveEffect_2: -649272908
-      HealMoveEffect_3: -984422977
-      HealMoveEffect_4: -599991897
-      HealMoveEffect_5: -162111425
-      HealMoveEffect_6: -539890701
-      HealMoveEffect_7: -685332308
-      HealMoveEffect_8: 1922921272
-      HealMoveEffect_9: 1668318044
+      HealMoveEffect_0: 1495776336
+      HealMoveEffect_1: -256843460
+      HealMoveEffect_10: -2049077936
+      HealMoveEffect_11: 1017711648
+      HealMoveEffect_2: -899446086
+      HealMoveEffect_3: 775380702
+      HealMoveEffect_4: 1255609443
+      HealMoveEffect_5: -305778342
+      HealMoveEffect_6: -1229643821
+      HealMoveEffect_7: 62427000
+      HealMoveEffect_8: -410234653
+      HealMoveEffect_9: -15371666
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

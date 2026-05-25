@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c4b0d42855fe16c45b0499c9f7d4285b
+guid: 9ce6256fdabc44a49b64ed9a7131dabc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HealEffect_3
+      name: HealBurstEffect_3
       rect:
         serializedVersion: 2
-        x: 1131
-        y: 1080
-        width: 258
-        height: 277
+        x: 1132
+        y: 1065
+        width: 260
+        height: 430
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65057b8983f95a54486fd82a14cfb74a
-      internalID: -178513437
+      spriteID: 5538fc154ba36f948bbe454296211663
+      internalID: -126676052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealEffect_4
+      name: HealBurstEffect_4
       rect:
         serializedVersion: 2
         x: 1631
-        y: 1079
-        width: 288
-        height: 319
+        y: 1065
+        width: 290
+        height: 428
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 424898ef514094a428ccd466effac409
-      internalID: 888075517
+      spriteID: 8452f7a182a503248b0b35394612d61f
+      internalID: 1081757628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealEffect_1
+      name: HealBurstEffect_1
       rect:
         serializedVersion: 2
-        x: 162
-        y: 1052
-        width: 122
-        height: 125
+        x: 160
+        y: 1065
+        width: 124
+        height: 430
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,61 +166,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27ea1117f0d2d834f946a5a47f2cfa8e
-      internalID: -63987599
+      spriteID: f6a392aef437823488cdd8510fe1d483
+      internalID: 175138964
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealEffect_2
+      name: HealBurstEffect_2
       rect:
         serializedVersion: 2
-        x: 633
-        y: 1089
-        width: 193
-        height: 180
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a2b19b30bed24854dacb38310ec70019
-      internalID: 1473261016
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HealEffect_5
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 542
-        width: 343
-        height: 429
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cb43b2a615dc618439931add9dd2d696
-      internalID: -1270021125
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: HealEffect_6
-      rect:
-        serializedVersion: 2
-        x: 573
-        y: 547
-        width: 337
+        x: 631
+        y: 1065
+        width: 194
         height: 427
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -229,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6079967181ce919429f4fed0b7d990a1
-      internalID: 359750439
+      spriteID: 07ad346d3d766b945bd11a07e8db399f
+      internalID: -823929852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealEffect_7
+      name: HealBurstEffect_5
       rect:
         serializedVersion: 2
-        x: 1093
-        y: 546
-        width: 335
-        height: 420
+        x: 63
+        y: 540
+        width: 345
+        height: 430
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +208,62 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ce5a907f68dff148b90e8f2424a0bea
-      internalID: -1602060079
+      spriteID: b3ec4f7f3e381354b9e349fb9bbc1851
+      internalID: 1411502642
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealEffect_8
+      name: HealBurstEffect_6
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 540
+        width: 339
+        height: 430
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b49519657e4465347841e71f36a69d57
+      internalID: 2136466976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealBurstEffect_7
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 540
+        width: 335
+        height: 430
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0fddb2b498c6034e86f8d27cf9d7fb2
+      internalID: -123274787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealBurstEffect_8
       rect:
         serializedVersion: 2
         x: 1613
-        y: 538
-        width: 337
-        height: 432
+        y: 540
+        width: 339
+        height: 442
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +271,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93eb8c03ba5c6cf4e945970a904ca842
-      internalID: -74478143
+      spriteID: 8a7f002fe21e0d54bad6e364410719f0
+      internalID: -1696918635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealEffect_9
+      name: HealBurstEffect_9
       rect:
         serializedVersion: 2
-        x: 93
-        y: 96
-        width: 282
-        height: 321
+        x: 92
+        y: 85
+        width: 284
+        height: 430
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +292,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c783e30213aa6741b65b029e479733f
-      internalID: -41185367
+      spriteID: 5258041d231817c4f83db953836c175d
+      internalID: -404810528
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealEffect_10
+      name: HealBurstEffect_10
       rect:
         serializedVersion: 2
-        x: 614
-        y: 110
-        width: 254
-        height: 277
+        x: 610
+        y: 85
+        width: 256
+        height: 430
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +313,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8155a733ab37b4f40980fa56cf2590b1
-      internalID: 1599896446
+      spriteID: f04c7f6b861417a4b95f962a30299bd2
+      internalID: 748396455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealEffect_11
+      name: HealBurstEffect_11
       rect:
         serializedVersion: 2
-        x: 1169
-        y: 111
-        width: 193
-        height: 180
+        x: 1165
+        y: 85
+        width: 195
+        height: 430
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,20 +334,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d81b9808ead765c428d2b1644b2b63d8
-      internalID: -1646746191
+      spriteID: a062d1e2250dc614aac54c18420520ae
+      internalID: 1682904278
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: HealEffect_12
+      name: HealBurstEffect_12
       rect:
         serializedVersion: 2
         x: 1698
-        y: 67
-        width: 125
-        height: 124
+        y: 85
+        width: 127
+        height: 430
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,8 +355,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4f8b5ea8498fdf4594435a78d81b87c
-      internalID: -1010167675
+      spriteID: 39339a60c80a0e941b0b6f98153000f2
+      internalID: -1315342617
       vertices: []
       indices: 
       edges: []
@@ -372,20 +372,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      HealEffect_0: 860143568
-      HealEffect_1: -63987599
-      HealEffect_10: 1599896446
-      HealEffect_11: -1646746191
-      HealEffect_12: -1010167675
-      HealEffect_15: 1327052469
-      HealEffect_2: 1473261016
-      HealEffect_3: -178513437
-      HealEffect_4: 888075517
-      HealEffect_5: -1270021125
-      HealEffect_6: 359750439
-      HealEffect_7: -1602060079
-      HealEffect_8: -74478143
-      HealEffect_9: -41185367
+      HealBurstEffect_0: 738244238
+      HealBurstEffect_1: 175138964
+      HealBurstEffect_10: 748396455
+      HealBurstEffect_11: 1682904278
+      HealBurstEffect_12: -1315342617
+      HealBurstEffect_13: -396934237
+      HealBurstEffect_14: -149341865
+      HealBurstEffect_17: -569662591
+      HealBurstEffect_18: -141793452
+      HealBurstEffect_19: 1575169138
+      HealBurstEffect_2: -823929852
+      HealBurstEffect_21: -1201872545
+      HealBurstEffect_3: -126676052
+      HealBurstEffect_4: 1081757628
+      HealBurstEffect_5: 1411502642
+      HealBurstEffect_6: 2136466976
+      HealBurstEffect_7: -123274787
+      HealBurstEffect_8: -1696918635
+      HealBurstEffect_9: -404810528
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
