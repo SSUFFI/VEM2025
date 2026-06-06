@@ -12,8 +12,8 @@ public class ShopSlotUI : MonoBehaviour
     [Header("Lock Icon")]
     [SerializeField] Sprite lockIcon;
 
-    ShopItemSO item;
-    System.Action<ShopItemSO, RectTransform> onClick;
+    ItemSO item;
+    System.Action<ItemSO, RectTransform> onClick;
 
     public RectTransform Rect => transform as RectTransform;
 
@@ -38,7 +38,7 @@ public class ShopSlotUI : MonoBehaviour
         }
     }
 
-    public void SetItem(ShopItemSO newItem, System.Action<ShopItemSO, RectTransform> clickCb)
+    public void SetItem(ItemSO newItem, System.Action<ItemSO, RectTransform> clickCb)
     {
         item = newItem;
         onClick = clickCb;
@@ -59,6 +59,7 @@ public class ShopSlotUI : MonoBehaviour
         if (button != null)
         {
             button.interactable = (item != null);
+
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() =>
             {

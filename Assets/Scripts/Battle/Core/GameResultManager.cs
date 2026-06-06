@@ -26,6 +26,16 @@ public class GameResultManager : MonoBehaviour
     public string mapSceneName = "Map";
     public string townSceneName = "Town";
 
+    [Header("Reward Gold")]
+    [SerializeField] GameObject goldRoot;
+    [SerializeField] Image goldIcon;
+    [SerializeField] TMP_Text goldText;
+
+    [Header("Reward Items")]
+    [SerializeField] GameObject[] itemRoots;
+    [SerializeField] Image[] itemIcons;
+    [SerializeField] TMP_Text[] itemTexts;
+
     public bool isGameOver = false;
 
     void Awake()
@@ -36,6 +46,7 @@ public class GameResultManager : MonoBehaviour
             Destroy(gameObject);
 
         panel.SetActive(false);
+        HideRewards();
     }
 
     public void ShowWin()
@@ -53,6 +64,8 @@ public class GameResultManager : MonoBehaviour
 
         if (BattleData.isTutorialBattle && TutorialManager.Inst != null)
         {
+            HideRewards();
+
             TutorialManager.Inst.PlayBattleResultDialogue(true);
 
             if (continueButton != null)
@@ -63,6 +76,8 @@ public class GameResultManager : MonoBehaviour
 
             return;
         }
+
+        GiveAndShowRewards();
 
         if (continueButton != null)
         {
@@ -81,6 +96,7 @@ public class GameResultManager : MonoBehaviour
         isGameOver = true;
 
         panel.SetActive(true);
+        HideRewards();
 
         if (resultImage != null)
             resultImage.sprite = loseSprite;
@@ -109,6 +125,67 @@ public class GameResultManager : MonoBehaviour
             exitButton.gameObject.SetActive(true);
             exitButton.onClick.RemoveAllListeners();
             exitButton.onClick.AddListener(OnClickExit);
+        }
+    }
+
+    void GiveAndShowRewards()
+    {
+        HideRewards();
+
+        DeckSO deck = BattleData.selectedEnemyDeck;
+        if (deck == null)
+            return;
+
+        if (deck.goldItem != null && deck.goldAmount > 0)
+        {
+            if (InventoryManager.Inst != null)
+                InventoryManager.Inst.AddItem(deck.goldItem, deck.goldAmount);
+
+            if (goldRoot != null)
+                goldRoot.SetActive(true);
+
+            if (goldIcon != null)
+                goldIcon.sprite = deck.goldItem.icon;
+
+            if (goldText != null)
+                goldText.text = $"{deck.goldItem.itemName} x{deck.goldAmount}";
+        }
+
+        int max = Mathf.Min(4, deck.rewardItems.Count);
+
+        for (int i = 0; i < max; i++)
+        {
+            DeckRewardItem reward = deck.rewardItems[i];
+
+            if (reward == null || reward.item == null || reward.count <= 0)
+                continue;
+
+            if (InventoryManager.Inst != null)
+                InventoryManager.Inst.AddItem(reward.item, reward.count);
+
+            if (itemRoots != null && i < itemRoots.Length && itemRoots[i] != null)
+                itemRoots[i].SetActive(true);
+
+            if (itemIcons != null && i < itemIcons.Length && itemIcons[i] != null)
+                itemIcons[i].sprite = reward.item.icon;
+
+            if (itemTexts != null && i < itemTexts.Length && itemTexts[i] != null)
+                itemTexts[i].text = $"{reward.item.itemName} x{reward.count}";
+        }
+    }
+
+    void HideRewards()
+    {
+        if (goldRoot != null)
+            goldRoot.SetActive(false);
+
+        if (itemRoots != null)
+        {
+            for (int i = 0; i < itemRoots.Length; i++)
+            {
+                if (itemRoots[i] != null)
+                    itemRoots[i].SetActive(false);
+            }
         }
     }
 

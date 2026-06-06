@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57d5287cd2a39a048a50ae405af15f54, type: 3}
-  m_Name: DIBC0001_BeastFur
+  m_Name: DIBC0003_BeastClaw
   m_EditorClassIdentifier: 
-  itemId: DIBC0001_BeastFur
-  itemName: "\uC9D0\uC2B9\uC758 \uD138"
-  icon: {fileID: 21300000, guid: 1b0a148bb117e7f43a8283ad09d72183, type: 3}
-  description: "\uAC00\uC8FD\uC637\uC744 \uB367\uB300\uAC70\uB098 \uC9C8\uAE34 \uBC27\uC904\uC744
-    \uAF2C\uB294\uB370 \uC720\uC6A9"
+  itemId: DIBC0003_BeastClaw
+  itemName: "\uC57C\uC218\uC758 \uBC1C\uD1B1"
+  icon: {fileID: 21300000, guid: fe28ad5f3bf392b45906078f7e879761, type: 3}
+  description: "\uB9E4\uC6B0 \uB0A0\uCE74\uB85C\uC6B0\uBA70 \uC798\uBABB \uCC14\uB9AC\uBA74
+    \uC911\uB3C5\uB418\uAE30\uB3C4\uD568"
   price: 15
+  itemType: 1

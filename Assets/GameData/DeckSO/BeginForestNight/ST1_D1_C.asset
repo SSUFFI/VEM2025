@@ -54,3 +54,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d0413f1e4b929ae409f7ec5ad59ed7c0, type: 2}
   - {fileID: 11400000, guid: d0413f1e4b929ae409f7ec5ad59ed7c0, type: 2}
   heroPortrait: {fileID: 21300000, guid: 689ba6af77bbcb1478d7b78dcfd536b0, type: 3}
+  goldItem: {fileID: 11400000, guid: 4d5d7282570c1c544bc051471bb4ba76, type: 2}
+  goldAmount: 4444
+  rewardItems: []

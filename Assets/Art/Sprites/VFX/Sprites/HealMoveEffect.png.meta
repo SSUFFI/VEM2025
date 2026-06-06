@@ -117,8 +117,8 @@ TextureImporter:
         y: 1113
         width: 205
         height: 216
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5193419, y: 0.50000054}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -218,7 +218,7 @@ TextureImporter:
       name: HealMoveEffect_5
       rect:
         serializedVersion: 2
-        x: 642
+        x: 641
         y: 652
         width: 352
         height: 187
@@ -261,7 +261,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1675
-        y: 648
+        y: 651
         width: 325
         height: 190
       alignment: 9

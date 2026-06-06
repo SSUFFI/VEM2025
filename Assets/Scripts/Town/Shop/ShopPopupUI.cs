@@ -8,8 +8,8 @@ public class ShopPopupUI : MonoBehaviour
     [SerializeField] Button backgroundCloseButton;
 
     [Header("Popup Root (Move This: Background + Contents)")]
-    [SerializeField] RectTransform popupPanelRect; // = pnl_PopupUI
-    [SerializeField] GameObject popupRoot;         // = pnl_PopupUI (same object ok)
+    [SerializeField] RectTransform popupPanelRect;
+    [SerializeField] GameObject popupRoot;
 
     [Header("Canvas")]
     [SerializeField] Canvas rootCanvas;
@@ -22,8 +22,8 @@ public class ShopPopupUI : MonoBehaviour
     [Header("Buy Button")]
     [SerializeField] Button buyButton;
 
-    ShopItemSO current;
-    System.Action<ShopItemSO> onBuy;
+    ItemSO current;
+    System.Action<ItemSO> onBuy;
 
     const float SCREEN_MARGIN = 18f;
     const float ABOVE_GAP = 12f;
@@ -58,7 +58,7 @@ public class ShopPopupUI : MonoBehaviour
 
     public bool IsOpen => popupRoot != null && popupRoot.activeSelf;
 
-    public void Show(ShopItemSO item, RectTransform anchorRect, System.Action<ShopItemSO> buyCb)
+    public void Show(ItemSO item, RectTransform anchorRect, System.Action<ItemSO> buyCb)
     {
         current = item;
         onBuy = buyCb;
@@ -70,7 +70,6 @@ public class ShopPopupUI : MonoBehaviour
         if (popupRoot != null) popupRoot.SetActive(true);
         if (backgroundCloseButton != null) backgroundCloseButton.gameObject.SetActive(true);
 
-        // 같은 클릭으로 바로 닫히는거 방지
         ignoreBgUntil = Time.unscaledTime + 0.12f;
 
         Canvas.ForceUpdateCanvases();
@@ -121,12 +120,12 @@ public class ShopPopupUI : MonoBehaviour
                 uiCam,
                 out lp
             );
+
             min = Vector2.Min(min, lp);
             max = Vector2.Max(max, lp);
         }
 
         Rect c = canvasRect.rect;
-
         Vector2 delta = Vector2.zero;
 
         float leftLimit = c.xMin + margin;
@@ -134,10 +133,10 @@ public class ShopPopupUI : MonoBehaviour
         float bottomLimit = c.yMin + margin;
         float topLimit = c.yMax - margin;
 
-        if (min.x < leftLimit) delta.x += (leftLimit - min.x);
-        if (max.x > rightLimit) delta.x -= (max.x - rightLimit);
-        if (min.y < bottomLimit) delta.y += (bottomLimit - min.y);
-        if (max.y > topLimit) delta.y -= (max.y - topLimit);
+        if (min.x < leftLimit) delta.x += leftLimit - min.x;
+        if (max.x > rightLimit) delta.x -= max.x - rightLimit;
+        if (min.y < bottomLimit) delta.y += bottomLimit - min.y;
+        if (max.y > topLimit) delta.y -= max.y - topLimit;
 
         panel.anchoredPosition += delta;
     }

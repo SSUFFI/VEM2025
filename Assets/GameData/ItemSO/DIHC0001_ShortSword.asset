@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57d5287cd2a39a048a50ae405af15f54, type: 3}
-  m_Name: DIBC0003_BeastClaw
+  m_Name: DIHC0001_ShortSword
   m_EditorClassIdentifier: 
-  itemId: DIBC0003_BeastClaw
-  itemName: "\uC57C\uC218\uC758 \uBC1C\uD1B1"
-  icon: {fileID: 21300000, guid: fe28ad5f3bf392b45906078f7e879761, type: 3}
-  description: "\uB9E4\uC6B0 \uB0A0\uCE74\uB85C\uC6B0\uBA70 \uC798\uBABB \uCC14\uB9AC\uBA74
-    \uC911\uB3C5\uB418\uAE30\uB3C4\uD568"
+  itemId: DIHC0001_ShortSword
+  itemName: "\uC9E7\uC740 \uB2E8\uAC80"
+  icon: {fileID: 21300000, guid: 690566e85e47f9c49b3c51f252529dd6, type: 3}
+  description: "\uAC00\uC7A5 \uAE30\uBCF8\uC801\uC774\uBA74\uC11C\uB3C4 \uCE58\uBA85\uC801\uC778
+    \uB0A0\uBD99\uC774"
   price: 15
+  itemType: 1

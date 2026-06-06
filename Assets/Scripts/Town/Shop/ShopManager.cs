@@ -13,7 +13,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] List<ShopSlotUI> lockedSlots;
 
     [Header("Item Pool")]
-    [SerializeField] List<ShopItemSO> itemPool;
+    [SerializeField] List<ItemSO> itemPool;
 
     [Header("Popup")]
     [SerializeField] ShopPopupUI popupUI;
@@ -73,12 +73,12 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    static List<ShopItemSO> PickUnique(List<ShopItemSO> pool, int count)
+    static List<ItemSO> PickUnique(List<ItemSO> pool, int count)
     {
-        var result = new List<ShopItemSO>();
+        var result = new List<ItemSO>();
         if (pool == null || pool.Count == 0 || count <= 0) return result;
 
-        var temp = new List<ShopItemSO>(pool);
+        var temp = new List<ItemSO>(pool);
 
         for (int i = 0; i < temp.Count; i++)
         {
@@ -93,7 +93,7 @@ public class ShopManager : MonoBehaviour
         return result;
     }
 
-    void OnClickItem(ShopItemSO item, RectTransform slotRect)
+    void OnClickItem(ItemSO item, RectTransform slotRect)
     {
         if (popupUI == null || item == null) return;
 
@@ -106,7 +106,7 @@ public class ShopManager : MonoBehaviour
         popupUI.Show(item, slotRect, OnBuyItem);
     }
 
-    void OnBuyItem(ShopItemSO item)
+    void OnBuyItem(ItemSO item)
     {
         if (popupUI != null) popupUI.Hide();
     }
@@ -114,6 +114,7 @@ public class ShopManager : MonoBehaviour
     public void SetOpenedSlotCount(int count)
     {
         openedSlotCount = Mathf.Clamp(count, 0, openSlots.Count);
+
         if (shopPanel != null && shopPanel.activeSelf)
             RefreshDisplay();
     }
