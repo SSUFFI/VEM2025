@@ -97,8 +97,8 @@ public class NodeMapManager : MonoBehaviour
         if (stagePanel != null)
             stagePanel.SetActive(true);
 
-        if (bottomButtonsRoot != null)
-            bottomButtonsRoot.SetActive(false);
+       // if (bottomButtonsRoot != null)
+       //     bottomButtonsRoot.SetActive(false);
     }
 
 
@@ -156,13 +156,21 @@ public class NodeMapManager : MonoBehaviour
         if (clickedNode.state != NodeState.Available)
             return;
 
+        if (clickedNode.nodeData != null &&
+            clickedNode.nodeData.nodeType == NodeType.Start)
+        {
+            selectedNodeID = nodeID;
+            ClearSelectedNode();
+            return;
+        }
+
         selectedNodeID = nodeID;
 
         foreach (NodeUI node in allNodes)
             node.SetSelected(node.nodeID == selectedNodeID);
 
-        if (bottomButtonsRoot != null)
-            bottomButtonsRoot.SetActive(true);
+        if (NodeInfoPanelUI.Inst != null)
+            NodeInfoPanelUI.Inst.Show(clickedNode.nodeData);
     }
 
     void LoadClearedNode()
@@ -239,8 +247,8 @@ public class NodeMapManager : MonoBehaviour
 
         selectedNodeID = -1;
 
-        if (bottomButtonsRoot != null)
-            bottomButtonsRoot.SetActive(false);
+        if (NodeInfoPanelUI.Inst != null)
+            NodeInfoPanelUI.Inst.Hide();
 
         RefreshAvailableNodes();
 
