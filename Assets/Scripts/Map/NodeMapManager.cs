@@ -3,6 +3,29 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class StageData
+{
+    public string stageName;
+
+    [Header("Start")]
+    public NodeDataSO startData;
+
+    [Header("Battle Tiers")]
+    public List<NodeDataSO> tier1List = new List<NodeDataSO>();
+    public List<NodeDataSO> tier2List = new List<NodeDataSO>();
+    public List<NodeDataSO> tier3List = new List<NodeDataSO>();
+
+    [Header("Events")]
+    public NodeDataSO event_NPC;
+    public NodeDataSO event_Heal;
+    public NodeDataSO event_Explore;
+    public NodeDataSO event_Tablet;
+
+    [Header("Boss")]
+    public NodeDataSO bossData;
+}
+
 public class NodeMapManager : MonoBehaviour
 {
     public static NodeMapManager Inst { get; private set; }
@@ -20,23 +43,16 @@ public class NodeMapManager : MonoBehaviour
     [SerializeField] private Button startGameButton;
     [SerializeField] private Button clearStageTempButton;
 
-    [SerializeField] NodeDataSO startData;
+    [Header("Stage Data")]
+    [SerializeField] private List<StageData> stageDataList = new List<StageData>();
 
-    [SerializeField] List<NodeDataSO> stage1List;
-    [SerializeField] List<NodeDataSO> stage2List;
-    [SerializeField] List<NodeDataSO> stage3List;
-
-    [SerializeField] NodeDataSO event_NPC;
-    [SerializeField] NodeDataSO event_Heal;
-    [SerializeField] NodeDataSO event_Explore;
-    [SerializeField] NodeDataSO event_Tablet;
-
-    [SerializeField] NodeDataSO bossData;
-
+    [Header("Event Panels")]
     [SerializeField] GameObject pnl_Event_NPC;
     [SerializeField] GameObject pnl_Event_Heal;
     [SerializeField] GameObject pnl_Event_Explore;
     [SerializeField] GameObject pnl_Event_Tablet;
+
+    private StageData currentStageData;
 
     private Dictionary<int, NodeUI> nodeDict = new Dictionary<int, NodeUI>();
     private HashSet<int> clearedNodeIDs = new HashSet<int>();
@@ -52,26 +68,26 @@ public class NodeMapManager : MonoBehaviour
         switch (type)
         {
             case EventType.NPC:
-                pnl_Event_NPC.SetActive(true);
+                if (pnl_Event_NPC != null) pnl_Event_NPC.SetActive(true);
                 break;
             case EventType.Heal:
-                pnl_Event_Heal.SetActive(true);
+                if (pnl_Event_Heal != null) pnl_Event_Heal.SetActive(true);
                 break;
             case EventType.Explore:
-                pnl_Event_Explore.SetActive(true);
+                if (pnl_Event_Explore != null) pnl_Event_Explore.SetActive(true);
                 break;
             case EventType.Tablet:
-                pnl_Event_Tablet.SetActive(true);
+                if (pnl_Event_Tablet != null) pnl_Event_Tablet.SetActive(true);
                 break;
         }
     }
 
     public void CloseAllEventPanels()
     {
-        pnl_Event_NPC.SetActive(false);
-        pnl_Event_Heal.SetActive(false);
-        pnl_Event_Explore.SetActive(false);
-        pnl_Event_Tablet.SetActive(false);
+        if (pnl_Event_NPC != null) pnl_Event_NPC.SetActive(false);
+        if (pnl_Event_Heal != null) pnl_Event_Heal.SetActive(false);
+        if (pnl_Event_Explore != null) pnl_Event_Explore.SetActive(false);
+        if (pnl_Event_Tablet != null) pnl_Event_Tablet.SetActive(false);
     }
 
     private void Awake()
@@ -97,14 +113,15 @@ public class NodeMapManager : MonoBehaviour
         if (stagePanel != null)
             stagePanel.SetActive(true);
 
-       // if (bottomButtonsRoot != null)
-       //     bottomButtonsRoot.SetActive(false);
+        // if (bottomButtonsRoot != null)
+        //     bottomButtonsRoot.SetActive(false);
     }
-
 
     public void InitializeMap()
     {
         selectedNodeID = -1;
+
+        SetCurrentStageData();
 
         if (!NodeMapRuntimeData.initialized)
         {
@@ -144,6 +161,19 @@ public class NodeMapManager : MonoBehaviour
         }
 
         RefreshAvailableNodes();
+    }
+
+    void SetCurrentStageData()
+    {
+        if (stageDataList == null || stageDataList.Count == 0)
+        {
+            Debug.LogError("NodeMapManager: stageDataList가 비어있습니다. Inspector에서 1막/2막/3막 데이터를 넣어주세요.");
+            currentStageData = null;
+            return;
+        }
+
+        int stageIndex = Mathf.Clamp(StageProgress.selectedStage - 1, 0, stageDataList.Count - 1);
+        currentStageData = stageDataList[stageIndex];
     }
 
     public void OnClickNode(int nodeID)
@@ -194,6 +224,12 @@ public class NodeMapManager : MonoBehaviour
 
         NodeUI node = nodeDict[selectedNodeID];
 
+        if (node.nodeData == null)
+        {
+            Debug.LogWarning("선택한 노드에 nodeData가 없습니다.");
+            return;
+        }
+
         if (node.nodeData.nodeType == NodeType.Start)
         {
             ClearSelectedNode();
@@ -206,13 +242,8 @@ public class NodeMapManager : MonoBehaviour
             return;
         }
 
-        if (node.nodeData != null)
-        {
-            if (node.nodeData.enemyDeck != null)
-            {
-                BattleData.selectedEnemyDeck = node.nodeData.enemyDeck;
-            }
-        }
+        if (node.nodeData.enemyDeck != null)
+            BattleData.selectedEnemyDeck = node.nodeData.enemyDeck;
 
         PlayerPrefs.SetInt("SelectedNodeID", selectedNodeID);
         PlayerPrefs.Save();
@@ -296,45 +327,70 @@ public class NodeMapManager : MonoBehaviour
 
     void GenerateNodeData()
     {
+        if (currentStageData == null)
+            return;
+
         var startNode = allNodes.Find(n => n.nodeID == startNodeID);
-        startNode.nodeData = startData;
+        if (startNode != null)
+            startNode.nodeData = currentStageData.startData;
 
         List<NodeUI> availableNodes = new List<NodeUI>(allNodes);
 
         availableNodes.RemoveAll(n => n.nodeID == startNodeID);
 
         var lane2Node = availableNodes.Find(n => n.laneIndex == 1);
-        lane2Node.nodeData = GetRandomStage1();
-        availableNodes.Remove(lane2Node);
+        if (lane2Node != null)
+        {
+            lane2Node.nodeData = GetRandomTier1();
+            availableNodes.Remove(lane2Node);
+        }
 
         var lane10Node = availableNodes.Find(n => n.laneIndex == 9);
-        lane10Node.nodeData = event_Tablet;
-        availableNodes.Remove(lane10Node);
+        if (lane10Node != null)
+        {
+            lane10Node.nodeData = currentStageData.event_Tablet;
+            availableNodes.Remove(lane10Node);
+        }
 
         var lane11Node = availableNodes.Find(n => n.laneIndex == 10);
-        lane11Node.nodeData = bossData;
-        availableNodes.Remove(lane11Node);
+        if (lane11Node != null)
+        {
+            lane11Node.nodeData = currentStageData.bossData;
+            availableNodes.Remove(lane11Node);
+        }
 
         var tier3Candidates = availableNodes.FindAll(n => n.laneIndex >= 6 && n.laneIndex <= 8);
 
         for (int i = 0; i < 2; i++)
         {
+            if (tier3Candidates.Count == 0)
+                break;
+
             var node = GetRandomNode(tier3Candidates);
-            node.nodeData = GetRandomStage3();
+            if (node == null)
+                break;
+
+            node.nodeData = GetRandomTier3();
             availableNodes.Remove(node);
             tier3Candidates.Remove(node);
         }
 
         List<NodeDataSO> eventList = new List<NodeDataSO>()
-    {
-        event_NPC,
-        event_Heal,
-        event_Explore
-    };
+        {
+            currentStageData.event_NPC,
+            currentStageData.event_Heal,
+            currentStageData.event_Explore
+        };
 
         foreach (var e in eventList)
         {
+            if (e == null) continue;
+            if (availableNodes.Count == 0) break;
+
             var node = GetRandomNode(availableNodes);
+            if (node == null)
+                break;
+
             node.nodeData = e;
             availableNodes.Remove(node);
         }
@@ -343,35 +399,62 @@ public class NodeMapManager : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
+            if (tier2Candidates.Count == 0)
+                break;
+
             var node = GetRandomNode(tier2Candidates);
-            node.nodeData = GetRandomStage2();
+            if (node == null)
+                break;
+
+            node.nodeData = GetRandomTier2();
             availableNodes.Remove(node);
             tier2Candidates.Remove(node);
         }
 
         foreach (var node in availableNodes)
         {
-            node.nodeData = GetRandomStage1();
+            node.nodeData = GetRandomTier1();
         }
     }
 
     NodeUI GetRandomNode(List<NodeUI> list)
     {
+        if (list == null || list.Count == 0)
+            return null;
+
         return list[Random.Range(0, list.Count)];
     }
 
-    NodeDataSO GetRandomStage1()
+    NodeDataSO GetRandomTier1()
     {
-        return stage1List[Random.Range(0, stage1List.Count)];
+        if (currentStageData == null || currentStageData.tier1List == null || currentStageData.tier1List.Count == 0)
+        {
+            Debug.LogError("NodeMapManager: 현재 Stage의 Tier1 List가 비어있습니다.");
+            return null;
+        }
+
+        return currentStageData.tier1List[Random.Range(0, currentStageData.tier1List.Count)];
     }
 
-    NodeDataSO GetRandomStage2()
+    NodeDataSO GetRandomTier2()
     {
-        return stage2List[Random.Range(0, stage2List.Count)];
+        if (currentStageData == null || currentStageData.tier2List == null || currentStageData.tier2List.Count == 0)
+        {
+            Debug.LogError("NodeMapManager: 현재 Stage의 Tier2 List가 비어있습니다.");
+            return GetRandomTier1();
+        }
+
+        return currentStageData.tier2List[Random.Range(0, currentStageData.tier2List.Count)];
     }
 
-    NodeDataSO GetRandomStage3()
+    NodeDataSO GetRandomTier3()
     {
-        return stage3List[Random.Range(0, stage3List.Count)];
+        if (currentStageData == null || currentStageData.tier3List == null || currentStageData.tier3List.Count == 0)
+        {
+            Debug.LogError("NodeMapManager: 현재 Stage의 Tier3 List가 비어있습니다.");
+            return GetRandomTier2();
+        }
+
+        return currentStageData.tier3List[Random.Range(0, currentStageData.tier3List.Count)];
     }
 }

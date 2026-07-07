@@ -3356,24 +3356,17 @@ MonoBehaviour:
   bottomButtonsRoot: {fileID: 429313870}
   startGameButton: {fileID: 1265554707}
   clearStageTempButton: {fileID: 1511648807}
-  startData: {fileID: 11400000, guid: 15851ca5f96376347990ba31e41cea65, type: 2}
-  stage1List:
-  - {fileID: 11400000, guid: 714b42ecb8112d84fa4914717121d4e0, type: 2}
-  - {fileID: 11400000, guid: 486401ac7367d1940b1ea9f4c8826054, type: 2}
-  - {fileID: 11400000, guid: abf617d439aac3f41866f5848229ef85, type: 2}
-  stage2List:
-  - {fileID: 11400000, guid: 5a3ee3eefc8ab7f4b80924db40119a30, type: 2}
-  - {fileID: 11400000, guid: 3e3117258af065446947273835bef49d, type: 2}
-  - {fileID: 11400000, guid: 74eeaaa5080f7ea4b975f60841593319, type: 2}
-  stage3List:
-  - {fileID: 11400000, guid: 17d678a15dd56e445980aecc2462497e, type: 2}
-  - {fileID: 11400000, guid: a43b774306ce112439bafe48527b4c00, type: 2}
-  - {fileID: 11400000, guid: 5aebbcf61f4184147944739dda2272b4, type: 2}
-  event_NPC: {fileID: 11400000, guid: 84b6d772ee0343d4fbb53d62809b07c3, type: 2}
-  event_Heal: {fileID: 11400000, guid: a4d81cfed52982844afa3a0f156a74ae, type: 2}
-  event_Explore: {fileID: 11400000, guid: 42cb2d3418883684ea559a9fae4cb57e, type: 2}
-  event_Tablet: {fileID: 11400000, guid: 6f4a6f9115501134fa94e5c108ec7b8d, type: 2}
-  bossData: {fileID: 11400000, guid: 349508652d398a248b59abd479adc6fa, type: 2}
+  stageDataList:
+  - stageName: 
+    startData: {fileID: 0}
+    tier1List: []
+    tier2List: []
+    tier3List: []
+    event_NPC: {fileID: 0}
+    event_Heal: {fileID: 0}
+    event_Explore: {fileID: 0}
+    event_Tablet: {fileID: 0}
+    bossData: {fileID: 0}
   pnl_Event_NPC: {fileID: 364671395}
   pnl_Event_Heal: {fileID: 1340967186}
   pnl_Event_Explore: {fileID: 2040879064}
