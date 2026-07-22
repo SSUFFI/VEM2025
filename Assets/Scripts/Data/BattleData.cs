@@ -6,4 +6,6 @@ public static class BattleData
 
     public static DeckSO tutorialEnemyDeck;
     public static bool isTutorialBattle = false;
+
+    public static NodeType selectedNodeType;
 }

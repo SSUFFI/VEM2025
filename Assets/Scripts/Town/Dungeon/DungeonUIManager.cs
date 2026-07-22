@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DungeonUIManager : MonoBehaviour
 {
@@ -8,7 +9,11 @@ public class DungeonUIManager : MonoBehaviour
     public GameObject dungeonPanel;
 
     [SerializeField] DeckSO trainingDeck;
-    [SerializeField] UnityEngine.UI.Button dungeonEnterButton;
+
+    [Header("Stage Buttons")]
+    [SerializeField] Button stage1Button;
+    [SerializeField] Button stage2Button;
+    [SerializeField] Button stage3Button;
 
     void Awake()
     {
@@ -20,15 +25,18 @@ public class DungeonUIManager : MonoBehaviour
     {
         dungeonPanel.SetActive(true);
 
-        if (TutorialManager.Inst != null &&
-            !TutorialManager.Inst.hasFinishedTraining)
-        {
-            dungeonEnterButton.interactable = false;
-        }
-        else
-        {
-            dungeonEnterButton.interactable = true;
-        }
+        bool tutorialClear = TutorialManager.Inst == null ||
+                             TutorialManager.Inst.hasFinishedTraining;
+
+        stage1Button.interactable = tutorialClear;
+
+        stage2Button.interactable =
+            tutorialClear &&
+            StageProgress.highestClearedStage >= 1;
+
+        stage3Button.interactable =
+            tutorialClear &&
+            StageProgress.highestClearedStage >= 2;
     }
 
     public void CloseDungeonPanel()
@@ -44,8 +52,21 @@ public class DungeonUIManager : MonoBehaviour
         SceneManager.LoadScene("Battle");
     }
 
-    public void OnClickDungeonEnter()
+    public void OnClickStage1()
     {
+        StageProgress.selectedStage = 1;
+        SceneManager.LoadScene("Map");
+    }
+
+    public void OnClickStage2()
+    {
+        StageProgress.selectedStage = 2;
+        SceneManager.LoadScene("Map");
+    }
+
+    public void OnClickStage3()
+    {
+        StageProgress.selectedStage = 3;
         SceneManager.LoadScene("Map");
     }
 }

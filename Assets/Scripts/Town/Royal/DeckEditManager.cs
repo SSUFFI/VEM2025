@@ -88,4 +88,45 @@ public class DeckEditManager : MonoBehaviour
             fixedOrder.Remove(data);
     }
 
+    public void AutoBuildRandomDeck()
+    {
+        ClearDeck();
+
+        if (CardPool.Inst == null)
+            return;
+
+        List<CardDataSO> candidates = new List<CardDataSO>(CardPool.Inst.ownedCards);
+
+        while (currentDeck.Count < maxDeckSize)
+        {
+            List<CardDataSO> available = new List<CardDataSO>();
+
+            foreach (var card in candidates)
+            {
+                int count = 0;
+
+                foreach (var deckCard in currentDeck)
+                {
+                    if (deckCard == card)
+                        count++;
+                }
+
+                if (count < 4)
+                    available.Add(card);
+            }
+
+            if (available.Count == 0)
+                break;
+
+            CardDataSO randomCard = available[Random.Range(0, available.Count)];
+
+            AddCard(randomCard);
+        }
+
+        SaveDeck();
+
+        if (DeckListUI.Inst != null)
+            DeckListUI.Inst.Refresh();
+    }
+
 }

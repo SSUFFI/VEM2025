@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Object/NodeData")]
+[CreateAssetMenu(menuName = "Scriptable Object/NodeDataSO")]
 public class NodeDataSO : ScriptableObject
 {
     public NodeType nodeType;

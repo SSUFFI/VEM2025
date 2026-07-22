@@ -242,8 +242,11 @@ public class NodeMapManager : MonoBehaviour
             return;
         }
 
-        if (node.nodeData.enemyDeck != null)
+        if (node.nodeData != null)
+        {
             BattleData.selectedEnemyDeck = node.nodeData.enemyDeck;
+            BattleData.selectedNodeType = node.nodeData.nodeType;
+        }
 
         PlayerPrefs.SetInt("SelectedNodeID", selectedNodeID);
         PlayerPrefs.Save();

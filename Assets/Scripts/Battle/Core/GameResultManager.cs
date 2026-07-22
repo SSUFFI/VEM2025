@@ -199,6 +199,18 @@ public class GameResultManager : MonoBehaviour
             return;
         }
 
+        if (BattleData.selectedNodeType == NodeType.Boss)
+        {
+            StageProgress.highestClearedStage =
+                Mathf.Max(StageProgress.highestClearedStage,
+                          StageProgress.selectedStage);
+
+            NodeMapRuntimeData.ResetRun();
+
+            SceneManager.LoadScene(townSceneName);
+            return;
+        }
+
         int nodeID = PlayerPrefs.GetInt("SelectedNodeID", -1);
 
         PlayerPrefs.SetInt("ClearedNodeID", nodeID);

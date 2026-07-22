@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106e1fa79420b4d4389319a7224cbfaf, type: 3}
+  m_Name: S1_T1_C
+  m_EditorClassIdentifier: 
+  deckItems:
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: 48207010ca620e84baed6f5d5082aa25, type: 2}
+  - {fileID: 11400000, guid: de7c80c91c56dfb4fbb9ab238f79f153, type: 2}
+  - {fileID: 11400000, guid: de7c80c91c56dfb4fbb9ab238f79f153, type: 2}
+  - {fileID: 11400000, guid: de7c80c91c56dfb4fbb9ab238f79f153, type: 2}
+  - {fileID: 11400000, guid: de7c80c91c56dfb4fbb9ab238f79f153, type: 2}
+  - {fileID: 11400000, guid: de7c80c91c56dfb4fbb9ab238f79f153, type: 2}
+  - {fileID: 11400000, guid: de7c80c91c56dfb4fbb9ab238f79f153, type: 2}
+  - {fileID: 11400000, guid: de7c80c91c56dfb4fbb9ab238f79f153, type: 2}
+  - {fileID: 11400000, guid: de7c80c91c56dfb4fbb9ab238f79f153, type: 2}
+  - {fileID: 11400000, guid: de7c80c91c56dfb4fbb9ab238f79f153, type: 2}
+  - {fileID: 11400000, guid: acacdfec80dc56a4187038efb4598952, type: 2}
+  - {fileID: 11400000, guid: acacdfec80dc56a4187038efb4598952, type: 2}
+  - {fileID: 11400000, guid: acacdfec80dc56a4187038efb4598952, type: 2}
+  - {fileID: 11400000, guid: acacdfec80dc56a4187038efb4598952, type: 2}
+  - {fileID: 11400000, guid: acacdfec80dc56a4187038efb4598952, type: 2}
+  - {fileID: 11400000, guid: acacdfec80dc56a4187038efb4598952, type: 2}
+  - {fileID: 11400000, guid: acacdfec80dc56a4187038efb4598952, type: 2}
+  - {fileID: 11400000, guid: acacdfec80dc56a4187038efb4598952, type: 2}
+  - {fileID: 11400000, guid: acacdfec80dc56a4187038efb4598952, type: 2}
+  - {fileID: 11400000, guid: acacdfec80dc56a4187038efb4598952, type: 2}
+  - {fileID: 11400000, guid: d0413f1e4b929ae409f7ec5ad59ed7c0, type: 2}
+  - {fileID: 11400000, guid: d0413f1e4b929ae409f7ec5ad59ed7c0, type: 2}
+  - {fileID: 11400000, guid: d0413f1e4b929ae409f7ec5ad59ed7c0, type: 2}
+  - {fileID: 11400000, guid: d0413f1e4b929ae409f7ec5ad59ed7c0, type: 2}
+  - {fileID: 11400000, guid: d0413f1e4b929ae409f7ec5ad59ed7c0, type: 2}
+  - {fileID: 11400000, guid: d0413f1e4b929ae409f7ec5ad59ed7c0, type: 2}
+  - {fileID: 11400000, guid: d0413f1e4b929ae409f7ec5ad59ed7c0, type: 2}
+  - {fileID: 11400000, guid: d0413f1e4b929ae409f7ec5ad59ed7c0, type: 2}
+  heroPortrait: {fileID: 21300000, guid: 689ba6af77bbcb1478d7b78dcfd536b0, type: 3}
+  goldItem: {fileID: 11400000, guid: 4d5d7282570c1c544bc051471bb4ba76, type: 2}
+  goldAmount: 4444
+  rewardItems: []
