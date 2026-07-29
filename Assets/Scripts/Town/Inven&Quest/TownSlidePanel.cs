@@ -10,16 +10,18 @@ public class TownSlidePanel : MonoBehaviour
 
     bool opened;
 
+    public bool IsOpen => opened;
+
     void Start()
     {
         panel.anchoredPosition = closePos;
+        opened = false;
     }
 
     public void Toggle()
     {
         if (opened)
             Close();
-
         else
             Open();
     }
@@ -28,6 +30,8 @@ public class TownSlidePanel : MonoBehaviour
     {
         opened = true;
 
+        panel.DOKill();
+
         panel.DOAnchorPos(openPos, 0.35f)
             .SetEase(Ease.OutCubic);
     }
@@ -35,6 +39,8 @@ public class TownSlidePanel : MonoBehaviour
     public void Close()
     {
         opened = false;
+
+        panel.DOKill();
 
         panel.DOAnchorPos(closePos, 0.3f)
             .SetEase(Ease.InCubic);

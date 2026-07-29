@@ -21,6 +21,7 @@ public class ShopPopupUI : MonoBehaviour
 
     [Header("Buy Button")]
     [SerializeField] Button buyButton;
+    [SerializeField] TMP_Text buyButtonText;
 
     ItemSO current;
     System.Action<ItemSO> onBuy;
@@ -32,14 +33,17 @@ public class ShopPopupUI : MonoBehaviour
 
     void Awake()
     {
-        if (rootCanvas == null) rootCanvas = GetComponentInParent<Canvas>();
+        if (rootCanvas == null)
+            rootCanvas = GetComponentInParent<Canvas>();
 
         if (backgroundCloseButton != null)
         {
             backgroundCloseButton.onClick.RemoveAllListeners();
             backgroundCloseButton.onClick.AddListener(() =>
             {
-                if (Time.unscaledTime < ignoreBgUntil) return;
+                if (Time.unscaledTime < ignoreBgUntil)
+                    return;
+
                 Hide();
             });
         }
@@ -49,26 +53,41 @@ public class ShopPopupUI : MonoBehaviour
             buyButton.onClick.RemoveAllListeners();
             buyButton.onClick.AddListener(() =>
             {
-                if (current != null) onBuy?.Invoke(current);
+                if (current != null)
+                    onBuy?.Invoke(current);
             });
         }
 
         Hide();
     }
 
-    public bool IsOpen => popupRoot != null && popupRoot.activeSelf;
+    public bool IsOpen =>
+        popupRoot != null && popupRoot.activeSelf;
 
-    public void Show(ItemSO item, RectTransform anchorRect, System.Action<ItemSO> buyCb)
+    public void Show(
+        ItemSO item,
+        RectTransform anchorRect,
+        System.Action<ItemSO> buyCb)
     {
         current = item;
         onBuy = buyCb;
 
-        if (nameText != null) nameText.text = item != null ? item.itemName : "";
-        if (descText != null) descText.text = item != null ? item.description : "";
-        if (priceText != null) priceText.text = item != null ? $"{item.price:N0}원" : "";
+        if (nameText != null)
+            nameText.text = item != null ? item.itemName : "";
 
-        if (popupRoot != null) popupRoot.SetActive(true);
-        if (backgroundCloseButton != null) backgroundCloseButton.gameObject.SetActive(true);
+        if (descText != null)
+            descText.text = item != null ? item.description : "";
+
+        if (priceText != null)
+            priceText.text = item != null ? $"{item.price:N0}원" : "";
+
+        SetBuyableState();
+
+        if (popupRoot != null)
+            popupRoot.SetActive(true);
+
+        if (backgroundCloseButton != null)
+            backgroundCloseButton.gameObject.SetActive(true);
 
         ignoreBgUntil = Time.unscaledTime + 0.12f;
 
@@ -76,49 +95,90 @@ public class ShopPopupUI : MonoBehaviour
         PositionAboveAnchor(anchorRect);
     }
 
+    void SetBuyableState()
+    {
+        if (buyButton != null)
+            buyButton.interactable = current != null;
+
+        if (buyButtonText != null)
+            buyButtonText.text = "구입";
+    }
+
+    public void SetSoldOut()
+    {
+        if (buyButton != null)
+            buyButton.interactable = false;
+
+        if (buyButtonText != null)
+            buyButtonText.text = "품절";
+
+        onBuy = null;
+    }
+
     void PositionAboveAnchor(RectTransform anchorRect)
     {
-        if (popupPanelRect == null || rootCanvas == null || anchorRect == null) return;
+        if (popupPanelRect == null ||
+            rootCanvas == null ||
+            anchorRect == null)
+            return;
 
-        RectTransform canvasRect = rootCanvas.transform as RectTransform;
+        RectTransform canvasRect =
+            rootCanvas.transform as RectTransform;
 
         Vector3[] a = new Vector3[4];
         anchorRect.GetWorldCorners(a);
-        Vector3 anchorTopCenterWorld = (a[1] + a[2]) * 0.5f;
 
-        Camera uiCam = (rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : rootCanvas.worldCamera;
+        Vector3 anchorTopCenterWorld =
+            (a[1] + a[2]) * 0.5f;
 
-        Vector2 localPoint;
+        Camera uiCam =
+            rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay
+                ? null
+                : rootCanvas.worldCamera;
+
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect,
-            RectTransformUtility.WorldToScreenPoint(uiCam, anchorTopCenterWorld),
+            RectTransformUtility.WorldToScreenPoint(
+                uiCam,
+                anchorTopCenterWorld),
             uiCam,
-            out localPoint
+            out Vector2 localPoint
         );
 
         localPoint.y += ABOVE_GAP;
+
         popupPanelRect.pivot = new Vector2(0.5f, 0f);
         popupPanelRect.anchoredPosition = localPoint;
 
-        ClampToCanvas(canvasRect, popupPanelRect, SCREEN_MARGIN, uiCam);
+        ClampToCanvas(
+            canvasRect,
+            popupPanelRect,
+            SCREEN_MARGIN,
+            uiCam);
     }
 
-    static void ClampToCanvas(RectTransform canvasRect, RectTransform panel, float margin, Camera uiCam)
+    static void ClampToCanvas(
+        RectTransform canvasRect,
+        RectTransform panel,
+        float margin,
+        Camera uiCam)
     {
         Vector3[] p = new Vector3[4];
         panel.GetWorldCorners(p);
 
-        Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
-        Vector2 max = new Vector2(float.MinValue, float.MinValue);
+        Vector2 min =
+            new Vector2(float.MaxValue, float.MaxValue);
+
+        Vector2 max =
+            new Vector2(float.MinValue, float.MinValue);
 
         for (int i = 0; i < 4; i++)
         {
-            Vector2 lp;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 canvasRect,
                 RectTransformUtility.WorldToScreenPoint(uiCam, p[i]),
                 uiCam,
-                out lp
+                out Vector2 lp
             );
 
             min = Vector2.Min(min, lp);
@@ -133,10 +193,17 @@ public class ShopPopupUI : MonoBehaviour
         float bottomLimit = c.yMin + margin;
         float topLimit = c.yMax - margin;
 
-        if (min.x < leftLimit) delta.x += leftLimit - min.x;
-        if (max.x > rightLimit) delta.x -= max.x - rightLimit;
-        if (min.y < bottomLimit) delta.y += bottomLimit - min.y;
-        if (max.y > topLimit) delta.y -= max.y - topLimit;
+        if (min.x < leftLimit)
+            delta.x += leftLimit - min.x;
+
+        if (max.x > rightLimit)
+            delta.x -= max.x - rightLimit;
+
+        if (min.y < bottomLimit)
+            delta.y += bottomLimit - min.y;
+
+        if (max.y > topLimit)
+            delta.y -= max.y - topLimit;
 
         panel.anchoredPosition += delta;
     }
@@ -146,7 +213,10 @@ public class ShopPopupUI : MonoBehaviour
         current = null;
         onBuy = null;
 
-        if (backgroundCloseButton != null) backgroundCloseButton.gameObject.SetActive(false);
-        if (popupRoot != null) popupRoot.SetActive(false);
+        if (backgroundCloseButton != null)
+            backgroundCloseButton.gameObject.SetActive(false);
+
+        if (popupRoot != null)
+            popupRoot.SetActive(false);
     }
 }

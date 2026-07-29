@@ -6,7 +6,11 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Inst;
 
-    [Header("ESC로 닫을 패널")]
+    [Header("슬라이드 패널")]
+    [SerializeField] TownSlidePanel inventorySlidePanel;
+    [SerializeField] TownSlidePanel questSlidePanel;
+
+    [Header("ESC로 닫을 일반 패널")]
     [SerializeField] List<GameObject> escapePanels = new List<GameObject>();
 
     [Header("씬별 ESC 메뉴 패널")]
@@ -16,28 +20,43 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        if (Inst == null) Inst = this;
-        else Destroy(gameObject);
+        if (Inst == null)
+            Inst = this;
+        else
+            Destroy(gameObject);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
             HandleEscape();
-        }
     }
 
     void HandleEscape()
     {
+        // 슬라이드 패널은 SetActive(false)가 아니라
+        // 화면 밖으로 이동시켜 닫는다.
+        if (questSlidePanel != null && questSlidePanel.IsOpen)
+        {
+            questSlidePanel.Close();
+            return;
+        }
+
+        if (inventorySlidePanel != null && inventorySlidePanel.IsOpen)
+        {
+            inventorySlidePanel.Close();
+            return;
+        }
+
+        // 일반 패널은 기존처럼 비활성화
         for (int i = escapePanels.Count - 1; i >= 0; i--)
         {
-            var panel = escapePanels[i];
+            GameObject panel = escapePanels[i];
 
             if (panel != null && panel.activeInHierarchy)
             {
                 panel.SetActive(false);
-                return; 
+                return;
             }
         }
 
@@ -52,7 +71,6 @@ public class UIManager : MonoBehaviour
 
         switch (scene)
         {
-
             case "Town":
                 menu = townMenuPanel;
                 break;
@@ -80,7 +98,6 @@ public class UIManager : MonoBehaviour
 
         switch (scene)
         {
-
             case "Town":
                 menu = townMenuPanel;
                 break;

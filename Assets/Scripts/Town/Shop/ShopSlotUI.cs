@@ -13,14 +13,18 @@ public class ShopSlotUI : MonoBehaviour
     [SerializeField] Sprite lockIcon;
 
     ItemSO item;
-    System.Action<ItemSO, RectTransform> onClick;
+    System.Action<ItemSO, RectTransform, ShopSlotUI> onClick;
+
+    bool isSoldOut;
 
     public RectTransform Rect => transform as RectTransform;
+    public bool IsSoldOut => isSoldOut;
 
     public void SetLocked(bool locked)
     {
         item = null;
         onClick = null;
+        isSoldOut = false;
 
         if (iconImage != null)
         {
@@ -38,34 +42,57 @@ public class ShopSlotUI : MonoBehaviour
         }
     }
 
-    public void SetItem(ItemSO newItem, System.Action<ItemSO, RectTransform> clickCb)
+    public void SetItem(
+        ItemSO newItem,
+        System.Action<ItemSO, RectTransform, ShopSlotUI> clickCb)
     {
         item = newItem;
         onClick = clickCb;
+        isSoldOut = false;
 
         if (iconImage != null)
         {
-            iconImage.enabled = (item != null && item.icon != null);
-            iconImage.sprite = (item != null) ? item.icon : null;
+            iconImage.enabled = item != null && item.icon != null;
+            iconImage.sprite = item != null ? item.icon : null;
         }
 
         if (priceText != null)
         {
-            bool hasItem = (item != null);
+            bool hasItem = item != null;
+
             priceText.gameObject.SetActive(hasItem);
             priceText.text = hasItem ? $"{item.price:N0}원" : "";
         }
 
         if (button != null)
         {
-            button.interactable = (item != null);
+            button.interactable = item != null;
 
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() =>
             {
-                if (item != null)
-                    onClick?.Invoke(item, Rect);
+                if (item == null || isSoldOut)
+                    return;
+
+                onClick?.Invoke(item, Rect, this);
             });
+        }
+    }
+
+    public void SetSoldOut()
+    {
+        isSoldOut = true;
+
+        if (priceText != null)
+        {
+            priceText.gameObject.SetActive(true);
+            priceText.text = "품절";
+        }
+
+        if (button != null)
+        {
+            button.interactable = false;
+            button.onClick.RemoveAllListeners();
         }
     }
 }

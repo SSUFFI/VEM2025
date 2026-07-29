@@ -58,8 +58,7 @@ public class InventoryManager : MonoBehaviour
             items.Add(new InventoryItem(item, amount));
         }
 
-        if (InventoryUI.Inst != null)
-            InventoryUI.Inst.Refresh();
+        RefreshInventoryUI();
     }
 
     public void RemoveItem(ItemSO item, int amount = 1)
@@ -77,6 +76,41 @@ public class InventoryManager : MonoBehaviour
         if (exist.count <= 0)
             items.Remove(exist);
 
+        RefreshInventoryUI();
+    }
+
+    public int GetItemCount(ItemSO item)
+    {
+        if (item == null)
+            return 0;
+
+        InventoryItem exist = items.Find(x => x.item == item);
+
+        return exist != null ? exist.count : 0;
+    }
+
+    public bool TryRemoveItem(ItemSO item, int amount = 1)
+    {
+        if (item == null || amount <= 0)
+            return false;
+
+        InventoryItem exist = items.Find(x => x.item == item);
+
+        if (exist == null || exist.count < amount)
+            return false;
+
+        exist.count -= amount;
+
+        if (exist.count <= 0)
+            items.Remove(exist);
+
+        RefreshInventoryUI();
+
+        return true;
+    }
+
+    void RefreshInventoryUI()
+    {
         if (InventoryUI.Inst != null)
             InventoryUI.Inst.Refresh();
     }
