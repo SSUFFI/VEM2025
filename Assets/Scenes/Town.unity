@@ -2667,6 +2667,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8079738c9fa1644f9cc748f7c79104d, type: 2}
   - {fileID: 11400000, guid: 7312006ee51e3674f993cde5461de394, type: 2}
   - {fileID: 11400000, guid: 4bd0b1aa5f1891343a0a660c926b03b8, type: 2}
+  cardDatabase: {fileID: 11400000, guid: 4f61ab7710fc54340a731c12338928b9, type: 2}
 --- !u!4 &194212323
 Transform:
   m_ObjectHideFlags: 0
@@ -21331,6 +21332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+  itemDatabase: {fileID: 11400000, guid: 4023fa184d2b6364c83232d226825e3a, type: 2}
   testItem: {fileID: 11400000, guid: a2d6794874652054b96fdff4a34e31ad, type: 2}
 --- !u!1 &1624844276
 GameObject:
@@ -21494,7 +21496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   step: 0
-  enableTutorial: 0
+  enableTutorial: 1
   dialogue: {fileID: 259310045}
   introLines:
   - speaker: 0
@@ -23303,6 +23305,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 710d05cb4db092245ad40d1eaf4bf63d, type: 2}
   goldItem: {fileID: 11400000, guid: 4d5d7282570c1c544bc051471bb4ba76, type: 2}
   popupUI: {fileID: 488310759}
+  refreshHours: 6
 --- !u!4 &1736610324
 Transform:
   m_ObjectHideFlags: 0
@@ -24602,6 +24605,7 @@ MonoBehaviour:
   savedDeck: []
   fixedOrder: []
   maxDeckSize: 40
+  cardDatabase: {fileID: 11400000, guid: 4f61ab7710fc54340a731c12338928b9, type: 2}
 --- !u!1 &1820178178
 GameObject:
   m_ObjectHideFlags: 0

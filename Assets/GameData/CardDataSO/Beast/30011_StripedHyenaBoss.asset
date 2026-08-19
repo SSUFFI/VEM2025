@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 30011_StripedHyenaBoss
   m_EditorClassIdentifier: 
+  cardId: 30011_StripedHyenaBoss
   cardName: "\uD558\uC774\uC5D0\uB098 \uBB34\uB9AC\uC7A5"
   attack: 6
   health: 5

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 40004_NightElf
   m_EditorClassIdentifier: 
+  cardId: 40004_NightElf
   cardName: "\uC5D8\uD504 (\uBC24)"
   attack: 4
   health: 2

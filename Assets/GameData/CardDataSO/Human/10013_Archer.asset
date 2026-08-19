@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 10013_Archer
   m_EditorClassIdentifier: 
+  cardId: 10013_Archer
   cardName: "\uC815\uC608 \uC2E0\uAD81\uC218"
   attack: 5
   health: 2

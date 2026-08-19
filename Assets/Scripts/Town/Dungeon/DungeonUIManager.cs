@@ -18,30 +18,49 @@ public class DungeonUIManager : MonoBehaviour
     void Awake()
     {
         Inst = this;
-        dungeonPanel.SetActive(false);
+
+        if (dungeonPanel != null)
+            dungeonPanel.SetActive(false);
     }
 
     public void OpenDungeonPanel()
     {
-        dungeonPanel.SetActive(true);
+        if (dungeonPanel != null)
+            dungeonPanel.SetActive(true);
 
-        bool tutorialClear = TutorialManager.Inst == null ||
-                             TutorialManager.Inst.hasFinishedTraining;
+        bool tutorialClear =
+            PlayerPrefs.GetInt(
+                AccountManager.GetAccountKey("TutorialDone"),
+                0) == 1;
 
-        stage1Button.interactable = tutorialClear;
+        // Stage 1
+        if (stage1Button != null)
+        {
+            stage1Button.interactable =
+                tutorialClear;
+        }
 
-        stage2Button.interactable =
-            tutorialClear &&
-            StageProgress.highestClearedStage >= 1;
+        // Stage 2
+        if (stage2Button != null)
+        {
+            stage2Button.interactable =
+                tutorialClear &&
+                StageProgress.highestClearedStage >= 1;
+        }
 
-        stage3Button.interactable =
-            tutorialClear &&
-            StageProgress.highestClearedStage >= 2;
+        // Stage 3
+        if (stage3Button != null)
+        {
+            stage3Button.interactable =
+                tutorialClear &&
+                StageProgress.highestClearedStage >= 2;
+        }
     }
 
     public void CloseDungeonPanel()
     {
-        dungeonPanel.SetActive(false);
+        if (dungeonPanel != null)
+            dungeonPanel.SetActive(false);
     }
 
     public void OnClickTraining()
@@ -55,18 +74,21 @@ public class DungeonUIManager : MonoBehaviour
     public void OnClickStage1()
     {
         StageProgress.selectedStage = 1;
+
         SceneManager.LoadScene("Map");
     }
 
     public void OnClickStage2()
     {
         StageProgress.selectedStage = 2;
+
         SceneManager.LoadScene("Map");
     }
 
     public void OnClickStage3()
     {
         StageProgress.selectedStage = 3;
+
         SceneManager.LoadScene("Map");
     }
 }

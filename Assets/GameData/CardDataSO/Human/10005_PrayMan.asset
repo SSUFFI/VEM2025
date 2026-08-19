@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 10005_PrayMan
   m_EditorClassIdentifier: 
+  cardId: 10005_PrayMan
   cardName: "\uAE30\uB3C4\uD558\uB294 \uC790"
   attack: 1
   health: 4

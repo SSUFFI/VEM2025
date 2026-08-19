@@ -1,9 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "CardDataSO", menuName = "Scriptable Object/CardDataSO")]
+[CreateAssetMenu(
+    fileName = "CardDataSO",
+    menuName = "Scriptable Object/CardDataSO")]
 public class CardDataSO : ScriptableObject
 {
+    [Header("ID")]
+    public string cardId;
+
     public string cardName;
     public int attack;
     public int health;
@@ -18,12 +23,14 @@ public class CardDataSO : ScriptableObject
     [TextArea]
     public string description;
 
-    public List<string> keywords = new List<string>();
+    public List<string> keywords =
+        new List<string>();
 
     [Header("µµ¹ß")]
     public bool taunt;
 
-    public List<CardTriggerData> triggers = new List<CardTriggerData>();
+    public List<CardTriggerData> triggers =
+        new List<CardTriggerData>();
 }
 
 [System.Serializable]
@@ -32,7 +39,9 @@ public class CardTriggerData
     public TriggerType triggerType;
     public EffectType effectType;
     public int value;
-    public List<CardDataSO> summonCards = new List<CardDataSO>();
+
+    public List<CardDataSO> summonCards =
+        new List<CardDataSO>();
 }
 
 public enum TriggerType

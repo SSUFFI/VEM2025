@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 30007_MountainBoar
   m_EditorClassIdentifier: 
+  cardId: 30007_MountainBoar
   cardName: "\uC0B0\uC545 \uB9F7\uB3FC\uC9C0"
   attack: 5
   health: 5

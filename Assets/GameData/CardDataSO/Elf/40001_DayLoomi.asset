@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 40001_DayLoomi
   m_EditorClassIdentifier: 
+  cardId: 40001_DayLoomi
   cardName: "\uB8E8\uBBF8 (\uB0AE)"
   attack: 1
   health: 2

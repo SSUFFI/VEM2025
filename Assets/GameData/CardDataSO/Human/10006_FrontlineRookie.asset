@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 10006_FrontlineRookie
   m_EditorClassIdentifier: 
+  cardId: 10006_FrontlineRookie
   cardName: "\uC804\uC120\uC758 \uD48B\uB0B4\uAE30"
   attack: 3
   health: 2

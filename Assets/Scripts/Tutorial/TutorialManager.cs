@@ -73,7 +73,6 @@ public class TutorialManager : MonoBehaviour
             dialogue = FindObjectOfType<DialogueManager>();
     }
 
-
     void Start()
     {
         if (!enableTutorial)
@@ -83,11 +82,16 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        PlayerPrefs.DeleteKey("TutorialDone");
+        string tutorialKey =
+            AccountManager.GetAccountKey("TutorialDone");
 
-        if (PlayerPrefs.GetInt("TutorialDone", 0) == 1)
+        if (PlayerPrefs.GetInt(tutorialKey, 0) == 1)
         {
             UnlockAll();
+
+            hasFinishedTraining = true;
+            isTutorialFinished = true;
+
             step = TutorialStep.Done;
             return;
         }
@@ -98,41 +102,64 @@ public class TutorialManager : MonoBehaviour
 
     void LockAll()
     {
-        templeButton.SetActive(false);
-        royalButton.SetActive(false);
-        dungeonButton.SetActive(false);
-        shopButton.SetActive(false);
+        if (templeButton != null)
+            templeButton.SetActive(false);
+
+        if (royalButton != null)
+            royalButton.SetActive(false);
+
+        if (dungeonButton != null)
+            dungeonButton.SetActive(false);
+
+        if (shopButton != null)
+            shopButton.SetActive(false);
     }
 
     void UnlockAll()
     {
-        if (templeButton != null) templeButton.SetActive(true);
-        if (royalButton != null) royalButton.SetActive(true);
-        if (dungeonButton != null) dungeonButton.SetActive(true);
-        if (shopButton != null) shopButton.SetActive(true);
+        if (templeButton != null)
+            templeButton.SetActive(true);
+
+        if (royalButton != null)
+            royalButton.SetActive(true);
+
+        if (dungeonButton != null)
+            dungeonButton.SetActive(true);
+
+        if (shopButton != null)
+            shopButton.SetActive(true);
     }
 
     void StartIntro()
     {
         step = TutorialStep.Start;
-        dialogue.StartDialogue(introLines);
+
+        if (dialogue != null)
+            dialogue.StartDialogue(introLines);
     }
 
     public void OnDialogueEnd()
     {
-        if (isPlayingBattleResultDialogue && !isTutorialFinished)
+        if (isPlayingBattleResultDialogue)
         {
-            EndTutorial();
+            if (!isTutorialFinished)
+            {
+                EndTutorial();
+            }
 
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Town");
+            UnityEngine.SceneManagement.SceneManager
+                .LoadScene("Town");
 
             return;
         }
+    
 
         switch (step)
         {
             case TutorialStep.Start:
-                templeButton.SetActive(true);
+                if (templeButton != null)
+                    templeButton.SetActive(true);
+
                 step = TutorialStep.AfterIntro;
                 break;
 
@@ -141,7 +168,8 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case TutorialStep.BeforeRoyal:
-                royalButton.SetActive(true);
+                if (royalButton != null)
+                    royalButton.SetActive(true);
                 break;
 
             case TutorialStep.AfterRoyal:
@@ -162,7 +190,9 @@ public class TutorialManager : MonoBehaviour
     {
         if (step == TutorialStep.AfterTemple)
         {
-            dialogue.StartDialogue(beforeRoyalLines);
+            if (dialogue != null)
+                dialogue.StartDialogue(beforeRoyalLines);
+
             step = TutorialStep.BeforeRoyal;
         }
     }
@@ -170,14 +200,17 @@ public class TutorialManager : MonoBehaviour
     IEnumerator CoPlayTempleDialogue()
     {
         yield return new WaitForSeconds(0.2f);
-        dialogue.StartDialogue(templeLines);
+
+        if (dialogue != null)
+            dialogue.StartDialogue(templeLines);
     }
 
     public void OnRoyalEntered()
     {
         if (step == TutorialStep.BeforeRoyal)
         {
-            dialogue.StartDialogue(royalLines);
+            if (dialogue != null)
+                dialogue.StartDialogue(royalLines);
 
             resumeLines = royalLines;
             resumeIndex = 9;
@@ -192,14 +225,20 @@ public class TutorialManager : MonoBehaviour
         {
             ResumeDialogue();
 
-            dungeonButton.SetActive(true);
+            if (dungeonButton != null)
+                dungeonButton.SetActive(true);
+
             step = TutorialStep.AfterDeck;
         }
     }
 
     void ResumeDialogue()
     {
-        if (resumeLines == null) return;
+        if (resumeLines == null)
+            return;
+
+        if (dialogue == null)
+            return;
 
         dialogue.StartDialogue(resumeLines);
         dialogue.SetIndex(resumeIndex);
@@ -208,9 +247,12 @@ public class TutorialManager : MonoBehaviour
         resumeIndex = -1;
     }
 
-    public void StartBattleStartTutorial(System.Action onEnd)
+    public void StartBattleStartTutorial(
+        System.Action onEnd)
     {
-        if (!enableTutorial || !BattleData.isTutorialBattle || step == TutorialStep.Done)
+        if (!enableTutorial ||
+            !BattleData.isTutorialBattle ||
+            step == TutorialStep.Done)
         {
             onEnd?.Invoke();
             return;
@@ -227,21 +269,30 @@ public class TutorialManager : MonoBehaviour
         onEnd?.Invoke();
     }
 
-    public void PlayBattleResultDialogue(bool isWin)
+public void PlayBattleResultDialogue(bool isWin)
+{
+    hasFinishedTraining = true;
+
+    if (isTutorialFinished)
     {
-        if (dialogue == null) return;
+        UnityEngine.SceneManagement.SceneManager
+            .LoadScene("Town");
 
-        hasFinishedTraining = true;
-
-        isPlayingBattleResultDialogue = true;
-
-        if (isWin)
-            dialogue.StartDialogue(winLines);
-        else
-            dialogue.StartDialogue(loseLines);
+        return;
     }
 
-    void OnEnable()
+    if (dialogue == null)
+        return;
+
+    isPlayingBattleResultDialogue = true;
+
+    if (isWin)
+        dialogue.StartDialogue(winLines);
+    else
+        dialogue.StartDialogue(loseLines);
+}
+
+void OnEnable()
     {
         EntityManager.OnEntitySpawned += OnEntitySpawned;
     }
@@ -255,15 +306,23 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
 
-        dialogue.StartDialogue(firstCardLines);
+        if (dialogue != null)
+            dialogue.StartDialogue(firstCardLines);
     }
 
     void OnEntitySpawned(bool isMine)
     {
-        if (!enableTutorial) return;
-        if (!isMine) return;
-        if (!BattleData.isTutorialBattle) return;
-        if (hasShownFirstCardTutorial) return;
+        if (!enableTutorial)
+            return;
+
+        if (!isMine)
+            return;
+
+        if (!BattleData.isTutorialBattle)
+            return;
+
+        if (hasShownFirstCardTutorial)
+            return;
 
         hasShownFirstCardTutorial = true;
 
@@ -274,22 +333,27 @@ public class TutorialManager : MonoBehaviour
     {
         isTutorialFinished = true;
 
-        PlayerPrefs.SetInt("TutorialDone", 1);
+        string tutorialKey =
+            AccountManager.GetAccountKey("TutorialDone");
+
+        PlayerPrefs.SetInt(
+            tutorialKey,
+            1);
+
         PlayerPrefs.Save();
 
         if (BattleData.tutorialEnemyDeck != null)
         {
-            foreach (var card in BattleData.tutorialEnemyDeck.deckItems)
+            foreach (var card in
+                     BattleData.tutorialEnemyDeck.deckItems)
             {
                 CardPool.Inst.AddCard(card);
             }
         }
 
-
         BattleData.isTutorialBattle = false;
         BattleData.tutorialEnemyDeck = null;
 
         step = TutorialStep.Done;
-
     }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 10011_BulwarkGuard
   m_EditorClassIdentifier: 
+  cardId: 10011_BulwarkGuard
   cardName: "\uBC29\uBCBD\uC758 \uC218\uBE44\uBCD1"
   attack: 3
   health: 6

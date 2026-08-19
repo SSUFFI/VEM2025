@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 10004_HolyStatue
   m_EditorClassIdentifier: 
+  cardId: 10004_HolyStatue
   cardName: "\uCC9C\uC0C1\uC758 \uC218\uD638\uC11D"
   attack: 0
   health: 5

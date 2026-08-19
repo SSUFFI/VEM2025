@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 40002_NightLoomi
   m_EditorClassIdentifier: 
+  cardId: 40002_NightLoomi
   cardName: "\uB8E8\uBBF8 (\uBC24)"
   attack: 2
   health: 1

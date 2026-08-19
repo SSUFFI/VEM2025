@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 30002_BabyWolf
   m_EditorClassIdentifier: 
+  cardId: 30002_BabyWolf
   cardName: "\uC0C8\uB07C \uB291\uB300"
   attack: 2
   health: 1

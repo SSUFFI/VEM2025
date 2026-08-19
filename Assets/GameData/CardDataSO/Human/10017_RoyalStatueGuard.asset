@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 10017_RoyalStatueGuard
   m_EditorClassIdentifier: 
+  cardId: 10017_RoyalStatueGuard
   cardName: "\uC655\uB3C4 \uC11D\uC0C1\uC218\uD638\uC790"
   attack: 5
   health: 5

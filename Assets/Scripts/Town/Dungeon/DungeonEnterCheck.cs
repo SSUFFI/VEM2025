@@ -14,10 +14,14 @@ public class DungeonEnterCheck : MonoBehaviour
 
     void CheckDeck()
     {
-        if (DeckEditManager.Inst == null) return;
+        if (DeckEditManager.Inst == null)
+            return;
 
-        int count = DeckEditManager.Inst.currentDeck.Count;
-        int max = DeckEditManager.Inst.maxDeckSize;
+        int count =
+            DeckEditManager.Inst.savedDeck.Count;
+
+        int max =
+            DeckEditManager.Inst.maxDeckSize;
 
         if (count < max)
         {
@@ -26,7 +30,8 @@ public class DungeonEnterCheck : MonoBehaviour
             if (warningText != null)
             {
                 warningText.gameObject.SetActive(true);
-                warningText.text = $"덱을 {max}장 채워주세요";
+                warningText.text =
+                    $"덱을 {max}장 채워주세요";
             }
         }
         else

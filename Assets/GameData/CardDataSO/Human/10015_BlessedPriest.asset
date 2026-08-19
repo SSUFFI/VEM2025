@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 10015_BlessedPriest
   m_EditorClassIdentifier: 
+  cardId: 10015_BlessedPriest
   cardName: "\uCD95\uBCF5\uC758 \uC2E0\uC131 \uC0AC\uC81C"
   attack: 5
   health: 5

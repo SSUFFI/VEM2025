@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
   m_Name: 10012_WarVeteran
   m_EditorClassIdentifier: 
+  cardId: 10012_WarVeteran
   cardName: "\uC804\uC7A5\uC758 \uBC31\uC804 \uB178\uC7A5"
   attack: 4
   health: 5

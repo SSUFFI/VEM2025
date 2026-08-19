@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,9 +22,21 @@ public class ShopManager : MonoBehaviour
     [Header("Popup")]
     [SerializeField] ShopPopupUI popupUI;
 
+    [Header("Refresh")]
+    [SerializeField] float refreshHours = 6f;
+
     int openedSlotCount = 4;
 
     ShopSlotUI selectedSlot;
+
+    List<ItemSO> currentShopItems = new List<ItemSO>();
+
+    List<bool> soldOutStates = new List<bool>();
+
+    const string LAST_REFRESH_KEY = "Shop_LastRefresh";
+
+    const string ITEM_INDEX_KEY = "Shop_Item_";
+    const string SOLD_OUT_KEY = "Shop_SoldOut_";
 
     void Awake()
     {
@@ -31,6 +44,8 @@ public class ShopManager : MonoBehaviour
 
         if (shopPanel != null)
             shopPanel.SetActive(false);
+
+        LoadOrCreateShop();
     }
 
     public void OpenShop()
@@ -52,6 +67,8 @@ public class ShopManager : MonoBehaviour
             }
         }
 
+        CheckRefresh();
+
         RefreshDisplay();
     }
 
@@ -66,10 +83,144 @@ public class ShopManager : MonoBehaviour
             shopPanel.SetActive(false);
     }
 
+
+    void LoadOrCreateShop()
+    {
+        if (!PlayerPrefs.HasKey(LAST_REFRESH_KEY))
+        {
+            GenerateNewShop();
+            return;
+        }
+
+        if (IsRefreshTime())
+        {
+            GenerateNewShop();
+            return;
+        }
+
+        LoadShop();
+    }
+
+    void CheckRefresh()
+    {
+        if (IsRefreshTime())
+        {
+            GenerateNewShop();
+        }
+    }
+
+    bool IsRefreshTime()
+    {
+        if (!PlayerPrefs.HasKey(LAST_REFRESH_KEY))
+            return true;
+
+        string saved = PlayerPrefs.GetString(LAST_REFRESH_KEY);
+
+        if (!long.TryParse(saved, out long ticks))
+            return true;
+
+        DateTime lastRefresh =
+            new DateTime(ticks, DateTimeKind.Utc);
+
+        TimeSpan elapsed =
+            DateTime.UtcNow - lastRefresh;
+
+        return elapsed.TotalHours >= refreshHours;
+    }
+
+    void GenerateNewShop()
+    {
+        currentShopItems.Clear();
+        soldOutStates.Clear();
+
+        var picks =
+            PickUnique(itemPool, openedSlotCount);
+
+        for (int i = 0; i < openedSlotCount; i++)
+        {
+            ItemSO item =
+                i < picks.Count ? picks[i] : null;
+
+            currentShopItems.Add(item);
+            soldOutStates.Add(false);
+        }
+
+        SaveShop();
+
+        PlayerPrefs.SetString(
+            LAST_REFRESH_KEY,
+            DateTime.UtcNow.Ticks.ToString());
+
+        PlayerPrefs.Save();
+
+        Debug.Log("상점 상품이 새로 갱신되었습니다.");
+    }
+
+
+    void SaveShop()
+    {
+        for (int i = 0; i < openedSlotCount; i++)
+        {
+            ItemSO item =
+                i < currentShopItems.Count
+                    ? currentShopItems[i]
+                    : null;
+
+            int itemIndex = -1;
+
+            if (item != null)
+                itemIndex = itemPool.IndexOf(item);
+
+            PlayerPrefs.SetInt(
+                ITEM_INDEX_KEY + i,
+                itemIndex);
+
+            bool soldOut =
+                i < soldOutStates.Count &&
+                soldOutStates[i];
+
+            PlayerPrefs.SetInt(
+                SOLD_OUT_KEY + i,
+                soldOut ? 1 : 0);
+        }
+
+        PlayerPrefs.Save();
+    }
+
+    void LoadShop()
+    {
+        currentShopItems.Clear();
+        soldOutStates.Clear();
+
+        for (int i = 0; i < openedSlotCount; i++)
+        {
+            int index =
+                PlayerPrefs.GetInt(
+                    ITEM_INDEX_KEY + i,
+                    -1);
+
+            ItemSO item = null;
+
+            if (index >= 0 &&
+                index < itemPool.Count)
+            {
+                item = itemPool[index];
+            }
+
+            currentShopItems.Add(item);
+
+            bool soldOut =
+                PlayerPrefs.GetInt(
+                    SOLD_OUT_KEY + i,
+                    0) == 1;
+
+            soldOutStates.Add(soldOut);
+        }
+    }
+
+
     void RefreshDisplay()
     {
-        var picks = PickUnique(itemPool, openedSlotCount);
-
         for (int i = 0; i < openSlots.Count; i++)
         {
             if (openSlots[i] == null)
@@ -82,17 +233,24 @@ public class ShopManager : MonoBehaviour
             }
 
             ItemSO item =
-                i < picks.Count ? picks[i] : null;
+                i < currentShopItems.Count
+                    ? currentShopItems[i]
+                    : null;
 
             if (item == null)
             {
                 openSlots[i].SetLocked(true);
+                continue;
             }
-            else
+
+            openSlots[i].SetItem(
+                item,
+                OnClickItem);
+
+            if (i < soldOutStates.Count &&
+                soldOutStates[i])
             {
-                openSlots[i].SetItem(
-                    item,
-                    OnClickItem);
+                openSlots[i].SetSoldOut();
             }
         }
     }
@@ -101,24 +259,32 @@ public class ShopManager : MonoBehaviour
         List<ItemSO> pool,
         int count)
     {
-        var result = new List<ItemSO>();
+        var result =
+            new List<ItemSO>();
 
         if (pool == null ||
             pool.Count == 0 ||
             count <= 0)
             return result;
 
-        var temp = new List<ItemSO>(pool);
+        var temp =
+            new List<ItemSO>(pool);
 
         for (int i = 0; i < temp.Count; i++)
         {
-            int r = Random.Range(i, temp.Count);
+            int r =
+                UnityEngine.Random.Range(
+                    i,
+                    temp.Count);
 
             (temp[i], temp[r]) =
                 (temp[r], temp[i]);
         }
 
-        int take = Mathf.Min(count, temp.Count);
+        int take =
+            Mathf.Min(
+                count,
+                temp.Count);
 
         for (int i = 0; i < take; i++)
             result.Add(temp[i]);
@@ -126,12 +292,14 @@ public class ShopManager : MonoBehaviour
         return result;
     }
 
+
     void OnClickItem(
         ItemSO item,
         RectTransform slotRect,
         ShopSlotUI slot)
     {
-        if (popupUI == null || item == null)
+        if (popupUI == null ||
+            item == null)
             return;
 
         if (popupUI.IsOpen)
@@ -179,11 +347,26 @@ public class ShopManager : MonoBehaviour
 
         if (!paid)
         {
-            Debug.Log("금화가 부족합니다.");
+            Debug.Log(
+                "금화가 부족합니다.");
             return;
         }
 
-        InventoryManager.Inst.AddItem(item, 1);
+        InventoryManager.Inst.AddItem(
+            item,
+            1);
+
+        int slotIndex =
+            openSlots.IndexOf(
+                selectedSlot);
+
+        if (slotIndex >= 0 &&
+            slotIndex < soldOutStates.Count)
+        {
+            soldOutStates[slotIndex] = true;
+
+            SaveShop();
+        }
 
         selectedSlot.SetSoldOut();
 
@@ -194,10 +377,14 @@ public class ShopManager : MonoBehaviour
             $"{item.itemName} 구매 완료");
     }
 
+
     public void SetOpenedSlotCount(int count)
     {
         openedSlotCount =
-            Mathf.Clamp(count, 0, openSlots.Count);
+            Mathf.Clamp(
+                count,
+                0,
+                openSlots.Count);
 
         if (shopPanel != null &&
             shopPanel.activeSelf)
