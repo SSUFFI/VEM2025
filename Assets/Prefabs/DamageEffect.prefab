@@ -118,7 +118,7 @@ MonoBehaviour:
   midRenderers: []
   frontRenderers:
   - {fileID: 6986452824623094124}
-  sortingLayerName: entity
+  sortingLayerName: DamageEffect
 --- !u!95 &8061738317911899543
 Animator:
   serializedVersion: 5

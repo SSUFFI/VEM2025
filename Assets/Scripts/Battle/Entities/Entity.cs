@@ -30,6 +30,7 @@ public class Entity : MonoBehaviour
     public bool attackable;
     public bool addedToGrave = false;
     public Vector3 originPos;
+    public Vector3 originScale;
     int liveCount;
 
     Tween relicMarkTween;
@@ -42,6 +43,12 @@ public class Entity : MonoBehaviour
     public bool HasTaunt =>
         dataSO != null &&
         dataSO.taunt;
+
+    public void SetFieldScale(float scaleMultiplier)
+    {
+        originScale = transform.localScale * scaleMultiplier;
+        transform.localScale = originScale;
+    }
 
     public bool CanAttack()
     {

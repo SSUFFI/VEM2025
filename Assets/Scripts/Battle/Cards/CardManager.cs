@@ -309,6 +309,34 @@ public class CardManager : MonoBehaviour
         UpdateDeckCountUI();
     }
     // ---------------------------- 손패 정렬 ----------------------------
+    List<PRS> LeftPackedAlignment(Transform leftTr, Transform rightTr, int count, int maxCount, Vector3 scale)
+    {
+        List<PRS> result = new List<PRS>(count);
+
+        if (count <= 0)
+            return result;
+
+        float totalWidth = rightTr.position.x - leftTr.position.x;
+
+        float spacing = maxCount > 1
+            ? totalWidth / (maxCount - 1)
+            : 0f;
+
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 pos = leftTr.position;
+            pos.x += spacing * i;
+
+            result.Add(new PRS(
+                pos,
+                Quaternion.identity,
+                scale
+            ));
+        }
+
+        return result;
+    }
+
 
     void CardAlignment(bool isMine)
     {
@@ -317,7 +345,9 @@ public class CardManager : MonoBehaviour
         if (isMine)
             originPRSList = RoundAlignment(myCardLeft, myCardRight, myCards.Count, 0.5f, Vector3.one * 0.3f);
         else
-            originPRSList = RoundAlignment(otherCardLeft, otherCardRight, otherCards.Count, -0.5f, Vector3.one * 0.3f);
+        {
+            originPRSList = LeftPackedAlignment(otherCardLeft, otherCardRight, otherCards.Count, MAX_HAND, Vector3.one * 0.12f);
+        }
 
         var targetCards = isMine ? myCards : otherCards;
 
@@ -354,10 +384,22 @@ public class CardManager : MonoBehaviour
 
             if (count >= 4)
             {
-                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(lerps[i] - 0.5f, 2));
-                curve = height >= 0 ? curve : -curve;
-                pos.y += curve;
-                rot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, lerps[i]);
+                if (Mathf.Abs(height) > 0.001f)
+                {
+                    float curve = Mathf.Sqrt(
+                        Mathf.Pow(height, 2) -
+                        Mathf.Pow(lerps[i] - 0.5f, 2)
+                    );
+
+                    curve = height >= 0 ? curve : -curve;
+                    pos.y += curve;
+                }
+
+                rot = Quaternion.Slerp(
+                    leftTr.rotation,
+                    rightTr.rotation,
+                    lerps[i]
+                );
             }
 
             result.Add(new PRS(pos, rot, scale));

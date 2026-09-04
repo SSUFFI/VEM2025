@@ -11,6 +11,8 @@ public class Damage : MonoBehaviour
 
     Vector3 baseScale;
 
+    float externalScaleMultiplier = 1f;
+
     static Dictionary<Transform, int> hitStackCount =
         new Dictionary<Transform, int>();
 
@@ -22,6 +24,11 @@ public class Damage : MonoBehaviour
     public void SetupTransform(Transform tr)
     {
         this.tr = tr;
+    }
+
+    public void SetScaleMultiplier(float value)
+    {
+        externalScaleMultiplier = value;
     }
 
     public void Damaged(int damage)
@@ -65,7 +72,7 @@ public class Damage : MonoBehaviour
                 tr.position + offset;
 
             transform.localScale =
-                baseScale * scaleMultiplier;
+                baseScale * scaleMultiplier * externalScaleMultiplier;
         }
     }
 

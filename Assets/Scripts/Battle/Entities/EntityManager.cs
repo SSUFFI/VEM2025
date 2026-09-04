@@ -23,6 +23,11 @@ public class EntityManager : MonoBehaviour
     [SerializeField] Entity myBossEntity;
     [SerializeField] Entity otherBossEntity;
     [SerializeField] Sprite myHeroPortrait;
+    [SerializeField] float deckDamageEffectScale = 1.5f;
+
+    [Header("Entity Scale")]
+    [SerializeField] float myEntityScale = 1f;
+    [SerializeField] float enemyEntityScale = 0.8f;
 
     const int MAX_ENTITY_COUNT = 6;
     public bool IsFullMyEntities => myEntities.Count >= MAX_ENTITY_COUNT && !ExistMyEmptyEntity;
@@ -201,16 +206,20 @@ public class EntityManager : MonoBehaviour
         return false;
     }
 
+
+
     public void EntityAlignment(bool isMine)
     {
-        float targetY = isMine ? -3.33f : 2.88f;
+        float targetY = isMine ? -4.5f : 0.45f;
+        float spacing = isMine ? 5.2f : 4.0f;
+
         var list = isMine ? myEntities : otherEntities;
 
         float centerOffset = (list.Count - 1) * 0.5f;
 
         for (int i = 0; i < list.Count; i++)
         {
-            float targetX = (i - centerOffset) * 5.2f;
+            float targetX = (i - centerOffset) * spacing;
 
             var e = list[i];
             e.originPos = new Vector3(targetX, targetY, 0);
@@ -351,6 +360,8 @@ public class EntityManager : MonoBehaviour
         entity.isMine = isMine;
         entity.Setup(dataSO);
 
+        entity.SetFieldScale(isMine ? myEntityScale : enemyEntityScale);
+
         OnEntitySpawned?.Invoke(isMine);
 
         if (summonOwner == null)
@@ -458,19 +469,48 @@ public class EntityManager : MonoBehaviour
         targetPickEntity = null;
 
         attacker.SetAttackable(false);
-        attacker.GetComponent<CardOrder>().SetMostFrontOrder(true);
+        attacker.GetComponent<CardOrder>()?.SetMostFrontOrder(true);
 
-        Sequence sequence = DOTween.Sequence()
-            .Append(attacker.transform.DOMove(defender.originPos, 0.3f).SetEase(Ease.InSine))
-            .Append(attacker.transform.DOMove(attacker.originPos, 0.3f).SetEase(Ease.OutSine))
-            .OnComplete(() =>
-            {
-                attacker.GetComponent<CardOrder>()?.SetMostFrontOrder(false);
+        Sequence sequence = DOTween.Sequence();
 
-                AttackCallback(attacker, defender);
+        sequence.Append(
+            attacker.transform
+                .DOMove(defender.originPos, 0.3f)
+                .SetEase(Ease.InSine)
+        );
 
-                isAttacking = false;
-            });
+        if (!defender.isBossOrEmpty)
+        {
+            sequence.Join(
+                attacker.transform
+                    .DOScale(defender.originScale, 0.3f)
+                    .SetEase(Ease.InSine)
+            );
+        }
+
+        sequence.Append(
+            attacker.transform
+                .DOMove(attacker.originPos, 0.3f)
+                .SetEase(Ease.OutSine)
+        );
+
+        if (!defender.isBossOrEmpty)
+        {
+            sequence.Join(
+                attacker.transform
+                    .DOScale(attacker.originScale, 0.3f)
+                    .SetEase(Ease.OutSine)
+            );
+        }
+
+        sequence.OnComplete(() =>
+        {
+            attacker.GetComponent<CardOrder>()?.SetMostFrontOrder(false);
+
+            AttackCallback(attacker, defender);
+
+            isAttacking = false;
+        });
     }
 
     void AttackCallback(params Entity[] entities)
@@ -484,7 +524,7 @@ public class EntityManager : MonoBehaviour
         {
             int damage = attacker.attack;
 
-            SpawnDamage(damage, defender.transform);
+            SpawnDeckDamage(damage, defender.transform);
             CardManager.Inst.DamageDeck(damage, defender.isMine, attacker);
             RemoveEntityIfDead(attacker);
 
@@ -549,8 +589,27 @@ public class EntityManager : MonoBehaviour
     void ShowTargetPicker(bool isShow)
     {
         TargetPicker.SetActive(isShow);
-        if (ExistTargetPickEntity)
+
+        if (!ExistTargetPickEntity)
+            return;
+
+        Collider2D col = targetPickEntity.GetComponentInChildren<Collider2D>();
+
+        if (col == null)
+        {
             TargetPicker.transform.position = targetPickEntity.transform.position;
+            return;
+        }
+
+        Bounds bounds = col.bounds;
+
+        TargetPicker.transform.position = bounds.center;
+
+        TargetPicker.transform.localScale = new Vector3(
+            bounds.size.x,
+            bounds.size.y,
+            1f
+        );
     }
 
     void SpawnDamage(int damage, Transform tr)
@@ -559,6 +618,23 @@ public class EntityManager : MonoBehaviour
             return;
 
         var damageComponent = Instantiate(damagePrefab).GetComponent<Damage>();
+
+        damageComponent.transform.localScale *= deckDamageEffectScale;
+
+        damageComponent.SetupTransform(tr);
+        damageComponent.Damaged(damage);
+    }
+
+    void SpawnDeckDamage(int damage, Transform tr)
+    {
+        if (damage <= 0)
+            return;
+
+        var damageComponent =
+            Instantiate(damagePrefab).GetComponent<Damage>();
+
+        damageComponent.SetScaleMultiplier(deckDamageEffectScale);
+
         damageComponent.SetupTransform(tr);
         damageComponent.Damaged(damage);
     }
@@ -661,7 +737,7 @@ public class EntityManager : MonoBehaviour
             .Append(attacker.transform.DOMove(bossPos, 0.35f).SetEase(Ease.InSine))
             .AppendCallback(() =>
             {
-                SpawnDamage(attacker.attack, myBossEntity.transform);
+                SpawnDeckDamage(attacker.attack, myBossEntity.transform);
             })
             .Append(attacker.transform.DOMove(attacker.originPos, 0.35f).SetEase(Ease.OutSine))
             .OnComplete(() =>

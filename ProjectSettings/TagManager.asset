@@ -50,3 +50,6 @@ TagManager:
   - name: TargetArrowTop
     uniqueID: 1219519877
     locked: 0
+  - name: DamageEffect
+    uniqueID: 891928735
+    locked: 0

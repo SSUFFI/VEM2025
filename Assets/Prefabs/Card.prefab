@@ -1139,7 +1139,7 @@ MonoBehaviour:
   manaTMP: {fileID: 3277947810218777394}
   descriptionTMP: {fileID: 8427034675531219749}
   cardFront: {fileID: 21300000, guid: 9b459e4972fa3e34cbc2dd87e9975967, type: 3}
-  cardBack: {fileID: -1520387674, guid: d53cbae78c2b91645a78ec4dd5f36996, type: 3}
+  cardBack: {fileID: 21300000, guid: d53cbae78c2b91645a78ec4dd5f36996, type: 3}
   dataSO: {fileID: 0}
   isMine: 0
   originPRS:
@@ -1175,7 +1175,7 @@ MonoBehaviour:
   - {fileID: 4565577618796817908}
   - {fileID: 7783343915143661806}
   - {fileID: 3022756222696860875}
-  sortingLayerName: Card
+  sortingLayerName: card
 --- !u!60 &251183254703875736
 PolygonCollider2D:
   m_ObjectHideFlags: 0
