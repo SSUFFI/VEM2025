@@ -44,6 +44,9 @@ TagManager:
   - name: entity
     uniqueID: 3131816095
     locked: 0
+  - name: entityEffect
+    uniqueID: 3790452683
+    locked: 0
   - name: card
     uniqueID: 2712552057
     locked: 0
