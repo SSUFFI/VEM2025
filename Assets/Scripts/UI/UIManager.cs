@@ -35,6 +35,29 @@ public class UIManager : MonoBehaviour
 
     void HandleEscape()
     {
+        string scene = SceneManager.GetActiveScene().name;
+
+        bool isTownTutorial =
+            scene == "Town" &&
+            TutorialManager.Inst != null &&
+            TutorialManager.Inst.enableTutorial &&
+            TutorialManager.Inst.step != TutorialStep.Done;
+
+        if (isTownTutorial)
+        {
+            if (townMenuPanel != null)
+            {
+                bool willOpen = !townMenuPanel.activeSelf;
+
+                townMenuPanel.SetActive(willOpen);
+
+                if (willOpen)
+                    townMenuPanel.transform.SetAsLastSibling();
+            }
+
+            return;
+        }
+
         if (questSlidePanel != null && questSlidePanel.IsOpen)
         {
             questSlidePanel.Close();
