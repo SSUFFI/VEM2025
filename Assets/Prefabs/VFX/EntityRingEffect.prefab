@@ -24334,7 +24334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3937490100552368278}
   m_Layer: 0
-  m_Name: Effect_Ring01
+  m_Name: EntityRingEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

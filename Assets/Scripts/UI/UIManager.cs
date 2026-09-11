@@ -1,6 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -34,8 +35,6 @@ public class UIManager : MonoBehaviour
 
     void HandleEscape()
     {
-        // 슬라이드 패널은 SetActive(false)가 아니라
-        // 화면 밖으로 이동시켜 닫는다.
         if (questSlidePanel != null && questSlidePanel.IsOpen)
         {
             questSlidePanel.Close();
@@ -48,7 +47,6 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        // 일반 패널은 기존처럼 비활성화
         for (int i = escapePanels.Count - 1; i >= 0; i--)
         {
             GameObject panel = escapePanels[i];
@@ -134,5 +132,49 @@ public class UIManager : MonoBehaviour
     public void OnClickSurrender()
     {
         SceneManager.LoadScene("Town");
+    }
+
+    public void GoTitle()
+    {
+        StartCoroutine(GoTitleCo());
+    }
+
+    IEnumerator GoTitleCo()
+    {
+        Time.timeScale = 1f;
+
+        PlayerPrefs.Save();
+
+        if (InventoryManager.Inst != null)
+            Destroy(InventoryManager.Inst.gameObject);
+
+        if (CardPool.Inst != null)
+            Destroy(CardPool.Inst.gameObject);
+
+        if (DeckEditManager.Inst != null)
+            Destroy(DeckEditManager.Inst.gameObject);
+
+        if (PlayerRelicManager.Inst != null)
+            Destroy(PlayerRelicManager.Inst.gameObject);
+
+        if (TutorialManager.Inst != null)
+            Destroy(TutorialManager.Inst.gameObject);
+
+        DialogueManager dialogue =
+            FindObjectOfType<DialogueManager>();
+
+        if (dialogue != null)
+            Destroy(dialogue.gameObject);
+
+        if (AccountManager.Inst != null)
+            Destroy(AccountManager.Inst.gameObject);
+
+        BattleData.isTutorialBattle = false;
+        BattleData.tutorialEnemyDeck = null;
+        BattleData.selectedEnemyDeck = null;
+
+        yield return null;
+
+        SceneManager.LoadScene("Title");
     }
 }

@@ -42,9 +42,6 @@ public class DeckEditManager : MonoBehaviour
         }
     }
 
-    // =========================================================
-    // LOAD TO EDIT
-    // =========================================================
 
     public void LoadDeck()
     {
@@ -63,9 +60,6 @@ public class DeckEditManager : MonoBehaviour
         }
     }
 
-    // =========================================================
-    // SAVE DECK
-    // =========================================================
 
     public void SaveDeck()
     {
@@ -105,7 +99,6 @@ public class DeckEditManager : MonoBehaviour
                 continue;
             }
 
-            // 중복 카드도 그대로 저장
             saveData.cardIds.Add(
                 card.cardId);
         }
@@ -123,9 +116,6 @@ public class DeckEditManager : MonoBehaviour
             $"저장 덱 저장 완료 : {key}");
     }
 
-    // =========================================================
-    // LOAD SAVED DECK
-    // =========================================================
 
     public void LoadSavedDeck()
     {
@@ -182,8 +172,7 @@ public class DeckEditManager : MonoBehaviour
                 continue;
             }
 
-            // 같은 카드가 4장이라면
-            // 4번 그대로 추가됨
+
             savedDeck.Add(card);
         }
 
@@ -191,9 +180,6 @@ public class DeckEditManager : MonoBehaviour
             $"저장 덱 불러오기 완료 : {savedDeck.Count}장");
     }
 
-    // =========================================================
-    // EDIT
-    // =========================================================
 
     public void ClearDeck()
     {
@@ -239,9 +225,6 @@ public class DeckEditManager : MonoBehaviour
             fixedOrder.Remove(data);
     }
 
-    // =========================================================
-    // AUTO BUILD
-    // =========================================================
 
     public void AutoBuildRandomDeck()
     {

@@ -19,7 +19,6 @@ public class CardPool : MonoBehaviour
     [Header("Card Database")]
     [SerializeField] CardDatabaseSO cardDatabase;
 
-    // 인스펙터에 넣어둔 초기 카드들을 기억하기 위한 리스트
     List<CardDataSO> startingCards =
         new List<CardDataSO>();
 
@@ -30,8 +29,6 @@ public class CardPool : MonoBehaviour
             Inst = this;
             DontDestroyOnLoad(gameObject);
 
-            // LoadCardPool에서 Clear하기 전에
-            // 인스펙터에 넣어둔 초기 카드들을 백업
             startingCards =
                 new List<CardDataSO>(ownedCards);
 
@@ -43,9 +40,6 @@ public class CardPool : MonoBehaviour
         }
     }
 
-    // =========================================================
-    // ADD CARD
-    // =========================================================
 
     public void AddCard(CardDataSO card)
     {
@@ -60,9 +54,6 @@ public class CardPool : MonoBehaviour
         SaveCardPool();
     }
 
-    // =========================================================
-    // SAVE
-    // =========================================================
 
     public void SaveCardPool()
     {
@@ -103,9 +94,6 @@ public class CardPool : MonoBehaviour
             $"카드 풀 저장 완료 : {key}");
     }
 
-    // =========================================================
-    // LOAD
-    // =========================================================
 
     public void LoadCardPool()
     {
@@ -121,9 +109,7 @@ public class CardPool : MonoBehaviour
             AccountManager.GetAccountKey(
                 "CardPool");
 
-        // =====================================================
-        // 저장된 카드풀이 없는 새 계정
-        // =====================================================
+
 
         if (!PlayerPrefs.HasKey(key))
         {
@@ -131,7 +117,7 @@ public class CardPool : MonoBehaviour
                 new List<CardDataSO>(
                     startingCards);
 
-            // 새 계정의 초기 카드풀로 저장
+
             SaveCardPool();
 
             Debug.Log(
@@ -140,9 +126,6 @@ public class CardPool : MonoBehaviour
             return;
         }
 
-        // =====================================================
-        // 기존 계정
-        // =====================================================
 
         ownedCards.Clear();
 
@@ -183,9 +166,7 @@ public class CardPool : MonoBehaviour
             $"카드 풀 불러오기 완료 : {ownedCards.Count}장");
     }
 
-    // =========================================================
-    // CLEAR
-    // =========================================================
+
 
     public void ClearCardPool()
     {

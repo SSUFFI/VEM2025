@@ -30,13 +30,22 @@ public class ShopManager : MonoBehaviour
     ShopSlotUI selectedSlot;
 
     List<ItemSO> currentShopItems = new List<ItemSO>();
-
     List<bool> soldOutStates = new List<bool>();
 
-    const string LAST_REFRESH_KEY = "Shop_LastRefresh";
+    string GetLastRefreshKey()
+    {
+        return AccountManager.GetAccountKey("Shop_LastRefresh");
+    }
 
-    const string ITEM_INDEX_KEY = "Shop_Item_";
-    const string SOLD_OUT_KEY = "Shop_SoldOut_";
+    string GetItemIndexKey(int index)
+    {
+        return AccountManager.GetAccountKey($"Shop_Item_{index}");
+    }
+
+    string GetSoldOutKey(int index)
+    {
+        return AccountManager.GetAccountKey($"Shop_SoldOut_{index}");
+    }
 
     void Awake()
     {
@@ -68,7 +77,6 @@ public class ShopManager : MonoBehaviour
         }
 
         CheckRefresh();
-
         RefreshDisplay();
     }
 
@@ -83,10 +91,11 @@ public class ShopManager : MonoBehaviour
             shopPanel.SetActive(false);
     }
 
-
     void LoadOrCreateShop()
     {
-        if (!PlayerPrefs.HasKey(LAST_REFRESH_KEY))
+        string refreshKey = GetLastRefreshKey();
+
+        if (!PlayerPrefs.HasKey(refreshKey))
         {
             GenerateNewShop();
             return;
@@ -104,17 +113,17 @@ public class ShopManager : MonoBehaviour
     void CheckRefresh()
     {
         if (IsRefreshTime())
-        {
             GenerateNewShop();
-        }
     }
 
     bool IsRefreshTime()
     {
-        if (!PlayerPrefs.HasKey(LAST_REFRESH_KEY))
+        string refreshKey = GetLastRefreshKey();
+
+        if (!PlayerPrefs.HasKey(refreshKey))
             return true;
 
-        string saved = PlayerPrefs.GetString(LAST_REFRESH_KEY);
+        string saved = PlayerPrefs.GetString(refreshKey);
 
         if (!long.TryParse(saved, out long ticks))
             return true;
@@ -148,14 +157,13 @@ public class ShopManager : MonoBehaviour
         SaveShop();
 
         PlayerPrefs.SetString(
-            LAST_REFRESH_KEY,
+            GetLastRefreshKey(),
             DateTime.UtcNow.Ticks.ToString());
 
         PlayerPrefs.Save();
 
         Debug.Log("상점 상품이 새로 갱신되었습니다.");
     }
-
 
     void SaveShop()
     {
@@ -172,7 +180,7 @@ public class ShopManager : MonoBehaviour
                 itemIndex = itemPool.IndexOf(item);
 
             PlayerPrefs.SetInt(
-                ITEM_INDEX_KEY + i,
+                GetItemIndexKey(i),
                 itemIndex);
 
             bool soldOut =
@@ -180,7 +188,7 @@ public class ShopManager : MonoBehaviour
                 soldOutStates[i];
 
             PlayerPrefs.SetInt(
-                SOLD_OUT_KEY + i,
+                GetSoldOutKey(i),
                 soldOut ? 1 : 0);
         }
 
@@ -196,7 +204,7 @@ public class ShopManager : MonoBehaviour
         {
             int index =
                 PlayerPrefs.GetInt(
-                    ITEM_INDEX_KEY + i,
+                    GetItemIndexKey(i),
                     -1);
 
             ItemSO item = null;
@@ -211,13 +219,12 @@ public class ShopManager : MonoBehaviour
 
             bool soldOut =
                 PlayerPrefs.GetInt(
-                    SOLD_OUT_KEY + i,
+                    GetSoldOutKey(i),
                     0) == 1;
 
             soldOutStates.Add(soldOut);
         }
     }
-
 
     void RefreshDisplay()
     {
@@ -292,7 +299,6 @@ public class ShopManager : MonoBehaviour
         return result;
     }
 
-
     void OnClickItem(
         ItemSO item,
         RectTransform slotRect,
@@ -347,8 +353,7 @@ public class ShopManager : MonoBehaviour
 
         if (!paid)
         {
-            Debug.Log(
-                "금화가 부족합니다.");
+            Debug.Log("금화가 부족합니다.");
             return;
         }
 
@@ -357,14 +362,12 @@ public class ShopManager : MonoBehaviour
             1);
 
         int slotIndex =
-            openSlots.IndexOf(
-                selectedSlot);
+            openSlots.IndexOf(selectedSlot);
 
         if (slotIndex >= 0 &&
             slotIndex < soldOutStates.Count)
         {
             soldOutStates[slotIndex] = true;
-
             SaveShop();
         }
 
@@ -376,7 +379,6 @@ public class ShopManager : MonoBehaviour
         Debug.Log(
             $"{item.itemName} 구매 완료");
     }
-
 
     public void SetOpenedSlotCount(int count)
     {

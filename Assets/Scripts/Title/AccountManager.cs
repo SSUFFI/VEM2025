@@ -171,7 +171,7 @@ public class AccountManager : MonoBehaviour
         RefreshUI();
 
         Debug.Log(
-            $"계정 {currentAccount} 선택");
+            $"프로필 {currentAccount} 선택");
     }
 
     void DeleteAccount(string account)
@@ -191,7 +191,7 @@ public class AccountManager : MonoBehaviour
         RefreshUI();
 
         Debug.Log(
-            $"계정 {account} 삭제");
+            $"프로필 {account} 삭제");
     }
 
     void DeleteAccountData(string account)
@@ -221,6 +221,29 @@ public class AccountManager : MonoBehaviour
             GetAccountKey(
                 account,
                 "SavedDeck"));
+
+        PlayerPrefs.DeleteKey(
+            GetAccountKey(
+                account,
+                "HighestClearedStage"));
+
+        PlayerPrefs.DeleteKey(
+            GetAccountKey(
+                account,
+                "Shop_LastRefresh"));
+
+        for (int i = 0; i < 12; i++)
+        {
+            PlayerPrefs.DeleteKey(
+                GetAccountKey(
+                    account,
+                    $"Shop_Item_{i}"));
+
+            PlayerPrefs.DeleteKey(
+                GetAccountKey(
+                    account,
+                    $"Shop_SoldOut_{i}"));
+        }
     }
 
     public void OpenAccountPanel()
@@ -250,12 +273,12 @@ public class AccountManager : MonoBehaviour
             if (string.IsNullOrEmpty(currentAccount))
             {
                 currentAccountText.text =
-                    "현재 계정 : ?";
+                    "현재 프로필 : ?";
             }
             else
             {
                 currentAccountText.text =
-                    $"현재 계정 : {currentAccount}";
+                    $"현재 프로필 : {currentAccount}";
             }
         }
 

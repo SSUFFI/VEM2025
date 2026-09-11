@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 using DG.Tweening;
 using TMPro;
 using System.Linq;
+using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
 {
@@ -48,6 +49,13 @@ public class CardManager : MonoBehaviour
     [SerializeField] RectTransform zoomContent;
     [SerializeField] Transform zoomRoot;
 
+    [Header("Deck HP")]
+    [SerializeField] Image myDeckHpImage;
+    [SerializeField] Image enemyDeckHpImage;
+
+    int myMaxDeckCount;
+    int enemyMaxDeckCount;
+
     enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
     [SerializeField] ECardState eCardState;
 
@@ -62,8 +70,6 @@ public class CardManager : MonoBehaviour
     public bool IsZoomMode => isZoomMode;
     public bool IsMyCardDrag => isMyCardDrag;
     const int MAX_HAND = 10;
-    public int MyDeckCount => myDeck.Count;
-    public int EnemyDeckCount => enemyDeck.Count;
 
     // ---------------------------- 덱 셔플 세팅 ----------------------------
 
@@ -109,7 +115,12 @@ public class CardManager : MonoBehaviour
         Shuffle(myDeck);
         Shuffle(enemyDeck);
 
+        myMaxDeckCount = myDeck.Count;
+        enemyMaxDeckCount = enemyDeck.Count;
+
         UpdateDeckCountUI();
+        UpdateMyDeckHp();
+        UpdateEnemyDeckHp();
     }
 
     void Shuffle(List<CardDataSO> deck)
@@ -130,6 +141,24 @@ public class CardManager : MonoBehaviour
             enemyDeckCountTMP.text = enemyDeck.Count.ToString();
     }
 
+    void UpdateMyDeckHp()
+    {
+        if (myDeckHpImage == null || myMaxDeckCount <= 0)
+            return;
+
+        myDeckHpImage.fillAmount =
+            (float)myDeck.Count / myMaxDeckCount;
+    }
+
+    void UpdateEnemyDeckHp()
+    {
+        if (enemyDeckHpImage == null || enemyMaxDeckCount <= 0)
+            return;
+
+        enemyDeckHpImage.fillAmount =
+            (float)enemyDeck.Count / enemyMaxDeckCount;
+    }
+
     // ---------------------------- 덱에서 카드 1장 뽑기 ----------------------------
 
     public CardDataSO PopItem(bool isMine)
@@ -141,6 +170,12 @@ public class CardManager : MonoBehaviour
 
         var data = deck[0];
         deck.RemoveAt(0);
+
+        if (isMine)
+            UpdateMyDeckHp();
+        else
+            UpdateEnemyDeckHp();
+
         return data;
     }
 
@@ -307,6 +342,11 @@ public class CardManager : MonoBehaviour
         }
 
         UpdateDeckCountUI();
+
+        if (isMine)
+            UpdateMyDeckHp();
+        else
+            UpdateEnemyDeckHp();
     }
     // ---------------------------- 손패 정렬 ----------------------------
     List<PRS> LeftPackedAlignment(Transform leftTr, Transform rightTr, int count, int maxCount, Vector3 scale)
