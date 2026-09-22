@@ -690,7 +690,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 21300000, guid: a89964a0d0afb314aa3bf83254075fd9, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 6d176aa28652b0d47b31083319924767, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: a89964a0d0afb314aa3bf83254075fd9, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: 6d176aa28652b0d47b31083319924767, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -701,7 +701,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 20860189}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1248910233}
+        m_TargetAssemblyTypeName: TrainingSelectManager, Assembly-CSharp
+        m_MethodName: OpenTrainingPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &20860189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2648,7 +2660,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 21300000, guid: 573694a5816dc8f449d3399818cba541, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: c5a783b6fda620c46a19f75f08cab419, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 573694a5816dc8f449d3399818cba541, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: c5a783b6fda620c46a19f75f08cab419, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -6590,7 +6602,7 @@ GameObject:
   - component: {fileID: 432004046}
   - component: {fileID: 432004045}
   m_Layer: 5
-  m_Name: txt_Award
+  m_Name: txt_TrainingAward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10030,13 +10042,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1431305234}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1248910233}
+        m_TargetAssemblyTypeName: TrainingSelectManager, Assembly-CSharp
+        m_MethodName: CloseTrainingPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -16718,6 +16730,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242382955}
   m_CullTransparentMesh: 1
+--- !u!1 &1248910232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1248910234}
+  - component: {fileID: 1248910233}
+  m_Layer: 0
+  m_Name: TrainingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1248910233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248910232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e0ad68b6e984641bb948ce5a3a575d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trainingPanel: {fileID: 1707344729}
+  training1Button: {fileID: 1462662130}
+  training2Button: {fileID: 1314769191}
+  training3Button: {fileID: 190337474}
+  mockBattleButton: {fileID: 764864610}
+--- !u!4 &1248910234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248910232}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1255137645
 GameObject:
   m_ObjectHideFlags: 0
@@ -17623,7 +17684,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 21300000, guid: 573694a5816dc8f449d3399818cba541, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: c5a783b6fda620c46a19f75f08cab419, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 573694a5816dc8f449d3399818cba541, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: c5a783b6fda620c46a19f75f08cab419, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -17634,7 +17695,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1314769192}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1248910233}
+        m_TargetAssemblyTypeName: TrainingSelectManager, Assembly-CSharp
+        m_MethodName: StartTraining2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1314769192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18819,7 +18892,7 @@ GameObject:
   - component: {fileID: 1431305238}
   - component: {fileID: 1431305239}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: TownUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18862,6 +18935,7 @@ MonoBehaviour:
   - {fileID: 1775902553}
   - {fileID: 1955486593}
   - {fileID: 1903802730}
+  - {fileID: 1707344729}
   townMenuPanel: {fileID: 1449929138}
   mapMenuPanel: {fileID: 0}
   battleMenuPanel: {fileID: 0}
@@ -19488,7 +19562,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 21300000, guid: 573694a5816dc8f449d3399818cba541, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: c5a783b6fda620c46a19f75f08cab419, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 573694a5816dc8f449d3399818cba541, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: c5a783b6fda620c46a19f75f08cab419, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -19499,7 +19573,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1462662131}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1248910233}
+        m_TargetAssemblyTypeName: TrainingSelectManager, Assembly-CSharp
+        m_MethodName: StartTraining1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1462662131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22301,41 +22387,6 @@ MonoBehaviour:
     hasChoice: 0
     choices: []
     nextIndex: -1
-  firstCardLines:
-  - speaker: 0
-    speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
-    text: "\uC804\uC7A5\uC5D0 \uBC30\uCE58\uB41C \uAE30\uC0AC\uB2E8\uC73C\uB85C \uC0C1\uB300\uBC29\uC744
-      \uACF5\uACA9\uD560 \uB550 \uC77C\uBC29\uC801\uC73C\uB85C \uB54C\uB9AC\uB294
-      \uAC83\uC774 \uC544\uB2CC,\r\n\uC11C\uB85C\uC758 \uACF5\uACA9\uB825\uACFC \uCCB4\uB825\uC744
-      \uB098\uB204\uB294 \uC804\uD22C\uB77C\uB294 \uAC83\uC744 \uBA85\uC2EC\uD558\uAC8C."
-    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
-    leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
-    rightIllustration: {fileID: 0}
-    hasChoice: 0
-    choices: []
-    nextIndex: -1
-  - speaker: 0
-    speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
-    text: "\uB610\uD55C \uAE30\uC0AC\uB4E4\uC740 \uC804\uC7A5\uC5D0 \uBC30\uCE58\uB41C
-      \uCC28\uB840\uC5D0\uB294 \uBC14\uB85C \uACF5\uACA9\uD560 \uC21C \uC5C6\uB124.\r\n\uC228\uC744
-      \uACE0\uB97C \uC2DC\uAC04\uC774 \uD544\uC694\uD558\uB2C8 \uBC30\uCE58\uB41C
-      \uB2E4\uC74C \uD134\uBD80\uD130 \uACF5\uACA9\uC774 \uAC00\uB2A5\uD560 \uAC78\uC138."
-    portrait: {fileID: 21300000, guid: ba92fd527a019674d992867c6059968d, type: 3}
-    leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
-    rightIllustration: {fileID: 0}
-    hasChoice: 0
-    choices: []
-    nextIndex: -1
-  - speaker: 0
-    speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
-    text: "\uC790, \uC774\uC81C \uC798 \uC774\uD574\uD588\uB294\uC9C0 \uBAA8\uC758\uC804\uC744
-      \uCE58\uB904 \uBCF4\uB3C4\uB85D \uD558\uC9C0. \uD55C\uBC88 \uB364\uBCBC\uBCF4\uAC8C\uB098."
-    portrait: {fileID: 21300000, guid: cdf13db63ed13704db97bc4fccee8154, type: 3}
-    leftIllustration: {fileID: 21300000, guid: 35ed3daaac767e944bae827eb97e72ee, type: 3}
-    rightIllustration: {fileID: 0}
-    hasChoice: 0
-    choices: []
-    nextIndex: -1
   winLines:
   - speaker: 0
     speakerName: "\uC81C1\uAE30\uC0AC\uB2E8\uC7A5"
@@ -24827,6 +24878,8 @@ RectTransform:
   - {fileID: 211303965}
   - {fileID: 206470136}
   - {fileID: 20860187}
+  - {fileID: 1915907343}
+  - {fileID: 1707344730}
   - {fileID: 1728871272}
   - {fileID: 1955486594}
   - {fileID: 1962352979}
@@ -24843,7 +24896,6 @@ RectTransform:
   - {fileID: 1452021265}
   - {fileID: 884300021}
   - {fileID: 825928141}
-  - {fileID: 1707344730}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -26724,6 +26776,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1915907342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1915907343}
+  m_Layer: 5
+  m_Name: -------------------Training
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1915907343
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915907342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1797564890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1919312370
 GameObject:
   m_ObjectHideFlags: 0
@@ -30389,6 +30476,7 @@ SceneRoots:
   - {fileID: 1518075665}
   - {fileID: 1908028154}
   - {fileID: 1983272394}
+  - {fileID: 1248910234}
   - {fileID: 1620979908}
   - {fileID: 1431305236}
   - {fileID: 1817346716}

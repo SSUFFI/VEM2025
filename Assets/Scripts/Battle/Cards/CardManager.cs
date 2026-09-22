@@ -85,8 +85,25 @@ public class CardManager : MonoBehaviour
         TurnManager.OnAddCard -= AddCard;
     }
 
-    void SetupDecks()
+    public void SetupDecks()
     {
+        if (BattleData.IsBattleTutorial &&
+            BattleTutorialManager.Inst != null)
+        {
+            BattleTutorialManager.Inst.SetupTutorialDecks(
+                out myDeck,
+                out enemyDeck);
+
+            myMaxDeckCount = myDeck.Count;
+            enemyMaxDeckCount = enemyDeck.Count;
+
+            UpdateDeckCountUI();
+            UpdateMyDeckHp();
+            UpdateEnemyDeckHp();
+
+            return;
+        }
+
 
         if (DeckEditManager.Inst != null && DeckEditManager.Inst.savedDeck.Count > 0)
         {
@@ -238,7 +255,7 @@ public class CardManager : MonoBehaviour
 
     // ---------------------------- 카드 드로우 ----------------------------
 
-    void AddCard(bool isMine)
+    public void AddCard(bool isMine)
     {
         var hand = isMine ? myCards : otherCards;
         if (hand.Count >= MAX_HAND)
@@ -292,6 +309,62 @@ public class CardManager : MonoBehaviour
         }
 
         UpdateDeckCountUI();
+    }
+
+    public Card AddTutorialCardToHand(
+        CardDataSO data,
+        bool isMine)
+    {
+        if (!BattleData.IsBattleTutorial)
+            return null;
+
+        if (data == null)
+            return null;
+
+        var hand = isMine ? myCards : otherCards;
+
+        if (hand.Count >= MAX_HAND)
+            return null;
+
+        Vector3 startPos =
+            isMine || otherCardSpawnPoint == null
+                ? cardSpawnPoint.position
+                : otherCardSpawnPoint.position;
+
+        var cardObject =
+            Instantiate(
+                cardPrefab,
+                startPos,
+                Utils.QI);
+
+        var card =
+            cardObject.GetComponent<Card>();
+
+        card.Setup(data, isMine);
+
+        hand.Add(card);
+
+        SetOriginOrder(isMine);
+
+        if (isMine)
+        {
+            if (isZoomMode)
+            {
+                LayoutZoomHandFixed(
+                    0.75f,
+                    skipSelected: false);
+            }
+            else
+            {
+                CardAlignment(true);
+            }
+        }
+        else
+        {
+            CardAlignment(false);
+        }
+
+        return card;
     }
 
     void SetOriginOrder(bool isMine)
@@ -348,6 +421,22 @@ public class CardManager : MonoBehaviour
         else
             UpdateEnemyDeckHp();
     }
+
+    public void SetTutorialEnemyDeck(
+    List<CardDataSO> cards)
+    {
+        if (!BattleData.IsBattleTutorial)
+            return;
+
+        enemyDeck = new List<CardDataSO>(cards);
+
+        enemyMaxDeckCount =
+            Mathf.Max(enemyMaxDeckCount, enemyDeck.Count);
+
+        UpdateDeckCountUI();
+        UpdateEnemyDeckHp();
+    }
+
     // ---------------------------- 손패 정렬 ----------------------------
     List<PRS> LeftPackedAlignment(Transform leftTr, Transform rightTr, int count, int maxCount, Vector3 scale)
     {
@@ -668,6 +757,13 @@ public class CardManager : MonoBehaviour
             TurnManager.Inst.PayMana(isMine, cost);
 
             targetCards.Remove(card);
+
+            if (BattleTutorialManager.Inst != null)
+            {
+                BattleTutorialManager.Inst.OnCardPlayed(
+                    card.dataSO,
+                    isMine);
+            }
 
             card.transform.DOKill();
             Destroy(card.gameObject);

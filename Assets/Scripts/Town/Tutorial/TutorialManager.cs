@@ -34,9 +34,6 @@ public class TutorialManager : MonoBehaviour
     [Header("Battle Start Dialogue")]
     public DialogueManager.Line[] battleStartLines;
 
-    [Header("First Card Tutorial")]
-    public DialogueManager.Line[] firstCardLines;
-
     [Header("Battle Result Dialogue")]
     public DialogueManager.Line[] winLines;
     public DialogueManager.Line[] loseLines;
@@ -49,7 +46,6 @@ public class TutorialManager : MonoBehaviour
 
     bool templeDialogueDone = false;
     public bool hasFinishedTraining = false;
-    bool hasShownFirstCardTutorial = false;
     bool isPlayingBattleResultDialogue = false;
     bool isTutorialFinished = false;
 
@@ -269,64 +265,26 @@ public class TutorialManager : MonoBehaviour
         onEnd?.Invoke();
     }
 
-public void PlayBattleResultDialogue(bool isWin)
-{
-    hasFinishedTraining = true;
-
-    if (isTutorialFinished)
+    public void PlayBattleResultDialogue(bool isWin)
     {
-        UnityEngine.SceneManagement.SceneManager
-            .LoadScene("Town");
+        hasFinishedTraining = true;
 
-        return;
-    }
+        if (isTutorialFinished)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Town");
 
-    if (dialogue == null)
-        return;
+            return;
+        }
 
-    isPlayingBattleResultDialogue = true;
-
-    if (isWin)
-        dialogue.StartDialogue(winLines);
-    else
-        dialogue.StartDialogue(loseLines);
-}
-
-void OnEnable()
-    {
-        EntityManager.OnEntitySpawned += OnEntitySpawned;
-    }
-
-    void OnDisable()
-    {
-        EntityManager.OnEntitySpawned -= OnEntitySpawned;
-    }
-
-    IEnumerator CoFirstCardTutorial()
-    {
-        yield return new WaitForSeconds(0.3f);
-
-        if (dialogue != null)
-            dialogue.StartDialogue(firstCardLines);
-    }
-
-    void OnEntitySpawned(bool isMine)
-    {
-        if (!enableTutorial)
+        if (dialogue == null)
             return;
 
-        if (!isMine)
-            return;
+        isPlayingBattleResultDialogue = true;
 
-        if (!BattleData.isTutorialBattle)
-            return;
-
-        if (hasShownFirstCardTutorial)
-            return;
-
-        hasShownFirstCardTutorial = true;
-
-        StartCoroutine(CoFirstCardTutorial());
+        if(isWin)
+            dialogue.StartDialogue(winLines);
+        else
+            dialogue.StartDialogue(loseLines);
     }
 
     public void EndTutorial()

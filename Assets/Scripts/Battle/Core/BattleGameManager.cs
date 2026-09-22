@@ -12,17 +12,21 @@ public class BattleGameManager : MonoBehaviour
 
     void Start()
     {
-        if (BattleData.isTutorialBattle && TutorialManager.Inst != null)
+        if (BattleData.IsBattleTutorial)
         {
-            TutorialManager.Inst.StartBattleStartTutorial(() =>
+            if (BattleTutorialManager.Inst != null)
             {
-                StartGame();
-            });
+                BattleTutorialManager.Inst.StartTutorial();
+                return;
+            }
+
+            Debug.LogError(
+                "BattleTutorialManager가 Battle 씬에 없습니다.");
+
+            return;
         }
-        else
-        {
-            StartGame();
-        }
+
+        StartGame();
     }
 
     void Update()

@@ -10,7 +10,12 @@ public class BattleRelicUI : MonoBehaviour
     void Awake() => Inst = this;
 
     [SerializeField] SpriteRenderer relicRenderer;
+
+    [Header("Mana UI")]
+    [SerializeField] GameObject manaCostRoot;
     [SerializeField] TextMeshPro manaCostTMP;
+
+    public GameObject ManaCostRoot => manaCostRoot;
 
     [Header("Target Guide")]
     [SerializeField] GameObject targetGuideRoot;
@@ -77,11 +82,7 @@ public class BattleRelicUI : MonoBehaviour
 
     void SetupRelic()
     {
-        if (PlayerRelicManager.Inst == null)
-            return;
-
-        RelicDataSO relic =
-            PlayerRelicManager.Inst.equippedRelic;
+        RelicDataSO relic = GetCurrentRelic();
 
         if (relic == null)
             return;
@@ -97,11 +98,7 @@ public class BattleRelicUI : MonoBehaviour
 
     void RefreshVisual()
     {
-        if (PlayerRelicManager.Inst == null)
-            return;
-
-        RelicDataSO relic =
-            PlayerRelicManager.Inst.equippedRelic;
+        RelicDataSO relic = GetCurrentRelic();
 
         if (relic == null)
             return;
@@ -149,11 +146,7 @@ public class BattleRelicUI : MonoBehaviour
 
     void OnRelicClicked()
     {
-        if (PlayerRelicManager.Inst == null)
-            return;
-
-        RelicDataSO relic =
-            PlayerRelicManager.Inst.equippedRelic;
+        RelicDataSO relic = GetCurrentRelic();
 
         if (relic == null)
             return;
@@ -223,8 +216,6 @@ public class BattleRelicUI : MonoBehaviour
         ShowTargetMarks(true);
 
         ShowTargetGuide(true);
-
-        Debug.Log("유물 타겟팅 시작");
     }
 
     void CancelTargeting()
@@ -234,8 +225,6 @@ public class BattleRelicUI : MonoBehaviour
         ShowTargetMarks(false);
 
         ShowTargetGuide(false);
-
-        Debug.Log("유물 타겟팅 취소");
     }
 
     void ShowTargetGuide(bool show)
@@ -248,11 +237,7 @@ public class BattleRelicUI : MonoBehaviour
         if (!show)
             return;
 
-        if (PlayerRelicManager.Inst == null)
-            return;
-
-        RelicDataSO relic =
-            PlayerRelicManager.Inst.equippedRelic;
+        RelicDataSO relic = GetCurrentRelic();
 
         if (relic == null)
             return;
@@ -263,11 +248,7 @@ public class BattleRelicUI : MonoBehaviour
 
     void ShowTargetMarks(bool show)
     {
-        if (PlayerRelicManager.Inst == null)
-            return;
-
-        RelicDataSO relic =
-            PlayerRelicManager.Inst.equippedRelic;
+        RelicDataSO relic = GetCurrentRelic();
 
         if (relic == null)
             return;
@@ -316,11 +297,7 @@ public class BattleRelicUI : MonoBehaviour
         if (entity.isBossOrEmpty)
             return;
 
-        if (PlayerRelicManager.Inst == null)
-            return;
-
-        RelicDataSO relic =
-            PlayerRelicManager.Inst.equippedRelic;
+        RelicDataSO relic = GetCurrentRelic();
 
         if (relic == null)
             return;
@@ -347,15 +324,16 @@ public class BattleRelicUI : MonoBehaviour
         ShowTargetMarks(false);
 
         ShowTargetGuide(false);
+
+        if (BattleTutorialManager.Inst != null && BattleTutorialManager.Inst.IsActive)
+        {
+            BattleTutorialManager.Inst.OnRelicUsed(relic, entity);
+        }
     }
 
     void ApplyRelicEffect(Entity entity)
     {
-        if (PlayerRelicManager.Inst == null)
-            return;
-
-        RelicDataSO relic =
-            PlayerRelicManager.Inst.equippedRelic;
+        RelicDataSO relic = GetCurrentRelic();
 
         if (relic == null)
             return;
@@ -385,4 +363,20 @@ public class BattleRelicUI : MonoBehaviour
         usedThisTurn = true;
         targeting = false;
     }
+
+    RelicDataSO GetCurrentRelic()
+    {
+        if (BattleData.battleMode == BattleMode.Tutorial2 &&
+            BattleTutorialManager.Inst != null &&
+            BattleTutorialManager.Inst.Tutorial2Relic != null)
+        {
+            return BattleTutorialManager.Inst.Tutorial2Relic;
+        }
+
+        if (PlayerRelicManager.Inst == null)
+            return null;
+
+        return PlayerRelicManager.Inst.equippedRelic;
+    }
+
 }

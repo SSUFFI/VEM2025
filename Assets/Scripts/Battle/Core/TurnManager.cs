@@ -53,6 +53,33 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    public IEnumerator StartTutorialGameCo()
+    {
+        isLoading = true;
+
+        myTurn = true;
+
+        if (BattleData.battleMode == BattleMode.Tutorial2)
+        {
+            int startMana = 4;
+
+            myMaxMana = startMana;
+            myCurMana = startMana;
+
+            OnManaChanged?.Invoke();
+        }
+        else
+        {
+            ApplyTurnStartMana(true);
+        }
+
+        yield return new WaitForSeconds(0.7f);
+
+        isLoading = false;
+
+        OnTurnStarted?.Invoke(true);
+    }
+
     public IEnumerator StartGameCo()
     {
         GameSetup();
@@ -71,15 +98,22 @@ public class TurnManager : MonoBehaviour
     IEnumerator StartTurnCo()
     {
         isLoading = true;
+
         if (myTurn)
             BattleGameManager.Inst.Notification("³ªÀÇ ÅÏ");
 
         ApplyTurnStartMana(myTurn);
 
         yield return delay07;
-        OnAddCard?.Invoke(myTurn);
-        yield return delay07;
+
+        if (!BattleData.IsBattleTutorial)
+        {
+            OnAddCard?.Invoke(myTurn);
+            yield return delay07;
+        }
+
         isLoading = false;
+
         OnTurnStarted?.Invoke(myTurn);
     }
 

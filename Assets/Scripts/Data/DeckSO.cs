@@ -13,8 +13,9 @@ public class DeckSO : ScriptableObject
 {
     public CardDataSO[] deckItems;
 
-    [Header("Enemy Hero Portrait")]
+    [Header("Enemy Hero")]
     public Sprite heroPortrait;
+    public Sprite battleBackground;
 
     [Header("Battle Reward")]
     public ItemSO goldItem;

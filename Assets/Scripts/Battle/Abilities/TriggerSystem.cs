@@ -49,6 +49,11 @@ public class TriggerSystem : MonoBehaviour
 
             RunEffect(trigger, data, isMineDeck, deckAttacker, null, null);
         }
+
+        if (BattleTutorialManager.Inst != null && BattleTutorialManager.Inst.IsActive)
+        {
+            BattleTutorialManager.Inst.OnDeckToGraveTriggered(data, isMineDeck, deckAttacker);
+        }
     }
 
     void OnFieldDeath(CardDataSO deadData, bool deadIsMine, Entity killer, Entity deadEntity)

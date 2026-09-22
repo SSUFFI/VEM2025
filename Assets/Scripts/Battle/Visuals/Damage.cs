@@ -9,6 +9,8 @@ public class Damage : MonoBehaviour
 
     Transform tr;
 
+    Vector3? positionOverride;
+
     Vector3 baseScale;
 
     float externalScaleMultiplier = 1f;
@@ -24,6 +26,11 @@ public class Damage : MonoBehaviour
     public void SetupTransform(Transform tr)
     {
         this.tr = tr;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        positionOverride = position;
     }
 
     public void SetScaleMultiplier(float value)
@@ -60,19 +67,16 @@ public class Damage : MonoBehaviour
 
             if (stack > 0)
             {
-                offset = new Vector3(
-                    Random.Range(-0.8f, 0.8f),
-                    Random.Range(0.3f, 1.0f),
-                    0);
+                offset = new Vector3(Random.Range(-0.8f, 0.8f), Random.Range(0.3f, 1.0f), 0);
 
                 scaleMultiplier = 0.8f;
             }
 
-            transform.position =
-                tr.position + offset;
+            Vector3 basePosition = positionOverride ?? tr.position;
 
-            transform.localScale =
-                baseScale * scaleMultiplier * externalScaleMultiplier;
+            transform.position = basePosition + offset;
+
+            transform.localScale = baseScale * scaleMultiplier * externalScaleMultiplier;
         }
     }
 

@@ -6,6 +6,8 @@ using TMPro;
 
 public class EndTurnBtn : MonoBehaviour
 {
+    public static EndTurnBtn Inst;
+
     [SerializeField] Sprite active;
     [SerializeField] Sprite inactive;
     [SerializeField] TMP_Text btnText;
@@ -15,6 +17,8 @@ public class EndTurnBtn : MonoBehaviour
 
     void Start()
     {
+        Inst = this;
+
         button = GetComponent<Button>();
         image = GetComponent<Image>();
 
@@ -26,6 +30,9 @@ public class EndTurnBtn : MonoBehaviour
     void OnDestroy()
     {
         TurnManager.OnTurnStarted -= Setup;
+
+        if (Inst == this)
+            Inst = null;
     }
 
     void Update()
@@ -39,6 +46,14 @@ public class EndTurnBtn : MonoBehaviour
             BattleRelicUI.Inst.IsTargeting)
         {
             canClick = false;
+        }
+
+        if (canClick &&
+            BattleTutorialManager.Inst != null &&
+            BattleTutorialManager.Inst.IsActive)
+        {
+            canClick =
+                BattleTutorialManager.Inst.CanEndTurn();
         }
 
         Setup(canClick);

@@ -52,6 +52,16 @@ public class GameResultManager : MonoBehaviour
     public void ShowWin()
     {
         if (isGameOver) return;
+
+        if (BattleData.IsBattleTutorial &&
+            BattleTutorialManager.Inst != null)
+        {
+            BattleTutorialManager.Inst
+                .OnTutorialWin();
+
+            return;
+        }
+
         isGameOver = true;
 
         panel.SetActive(true);

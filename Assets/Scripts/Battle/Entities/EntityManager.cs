@@ -25,6 +25,9 @@ public class EntityManager : MonoBehaviour
     [SerializeField] Sprite myHeroPortrait;
     [SerializeField] float deckDamageEffectScale = 1.5f;
 
+    [Header("Tutorial")]
+    [SerializeField] Sprite tutorialEnemyPortrait;
+
     [Header("Entity Scale")]
     [SerializeField] float myEntityScale = 1f;
     [SerializeField] float enemyEntityScale = 0.8f;
@@ -41,6 +44,10 @@ public class EntityManager : MonoBehaviour
 
     public List<Entity> MyEntities => myEntities;
     public List<Entity> OtherEntities => otherEntities;
+    public Entity OtherBossEntity => otherBossEntity;
+
+    public GameObject TutorialTargetPicker => TargetPicker;
+    public GameObject TutorialTargetArrow => TargetArrow != null ? TargetArrow.gameObject : null;
 
     Entity selectEntity;
     Entity targetPickEntity;
@@ -55,6 +62,7 @@ public class EntityManager : MonoBehaviour
     int replaceIndex;
     bool aiPlaying;
     bool isAttacking;
+    bool tutorialForcedAttack;
     Coroutine myAlignCo;
     Coroutine otherAlignCo;
 
@@ -128,8 +136,22 @@ public class EntityManager : MonoBehaviour
     {
         AttackableReset(myTurn);
 
-        if (!myTurn && !aiPlaying)
-            StartCoroutine(AICo());
+        if (!myTurn)
+        {
+            if (BattleData.IsBattleTutorial)
+            {
+                if (BattleTutorialManager.Inst != null)
+                {
+                    BattleTutorialManager.Inst
+                        .OnTutorialEnemyTurnStarted();
+                }
+
+                return;
+            }
+
+            if (!aiPlaying)
+                StartCoroutine(AICo());
+        }
     }
 
     void Update()
@@ -142,19 +164,24 @@ public class EntityManager : MonoBehaviour
 
     void SetupBossProfiles()
     {
-        Debug.Log("적 덱: " + BattleData.selectedEnemyDeck);
-
         if (myBossEntity != null)
             myBossEntity.SetupBoss(myHeroPortrait);
 
-        if (otherBossEntity != null &&
-            BattleData.selectedEnemyDeck != null)
-        {
-            Debug.Log("적 초상화 적용");
+        if (otherBossEntity == null)
+            return;
 
+        if (BattleData.IsBattleTutorial)
+        {
+            if (tutorialEnemyPortrait != null)
+                otherBossEntity.SetupBoss(tutorialEnemyPortrait);
+
+            return;
+        }
+
+        if (BattleData.selectedEnemyDeck != null)
+        {
             otherBossEntity.SetupBoss(
-                BattleData.selectedEnemyDeck.heroPortrait
-            );
+                BattleData.selectedEnemyDeck.heroPortrait);
         }
     }
 
@@ -360,7 +387,14 @@ public class EntityManager : MonoBehaviour
         entity.isMine = isMine;
         entity.Setup(dataSO);
 
-        entity.SetFieldScale(isMine ? myEntityScale : enemyEntityScale);
+        entity.SetFieldScale(
+            isMine ? myEntityScale : enemyEntityScale);
+
+        if (BattleTutorialHighlight.Inst != null)
+        {
+            BattleTutorialHighlight.Inst.DimNewTarget(
+                entity.gameObject);
+        }
 
         OnEntitySpawned?.Invoke(isMine);
 
@@ -455,6 +489,30 @@ public class EntityManager : MonoBehaviour
             targetPickEntity = null;
     }
 
+    public bool TutorialAttack(Entity attacker, Entity defender)
+    {
+        if (!BattleData.IsBattleTutorial)
+            return false;
+
+        if (attacker == null ||
+            defender == null)
+            return false;
+
+        if (isAttacking)
+            return false;
+
+        if (!attacker.CanAttack())
+            return false;
+
+        tutorialForcedAttack = true;
+
+        Attack(attacker, defender);
+
+        tutorialForcedAttack = false;
+
+        return true;
+    }
+
     void Attack(Entity attacker, Entity defender)
     {
         if (isAttacking) return;
@@ -462,6 +520,14 @@ public class EntityManager : MonoBehaviour
         if (attacker == null || defender == null) return;
         if (attacker.isDie || defender.isDie) return;
         if (!attacker.CanAttack()) return;
+
+        if (!tutorialForcedAttack && BattleTutorialManager.Inst != null && BattleTutorialManager.Inst.IsActive)
+        {
+            if (!BattleTutorialManager.Inst.CanAttack(attacker, defender))
+            {
+                return;
+            }
+        }
 
         isAttacking = true;
 
@@ -539,6 +605,13 @@ public class EntityManager : MonoBehaviour
 
         SpawnDamage(defenderDamage, defender.transform);
         SpawnDamage(attackerDamage, attacker.transform);
+
+        if (BattleTutorialManager.Inst != null && BattleTutorialManager.Inst.IsActive)
+        {
+            BattleTutorialManager.Inst.OnAttackResolved(
+                attacker,
+                defender);
+        }
 
         foreach (var entity in entities)
         {
@@ -630,12 +703,16 @@ public class EntityManager : MonoBehaviour
         if (damage <= 0)
             return;
 
-        var damageComponent =
-            Instantiate(damagePrefab).GetComponent<Damage>();
+        var damageComponent = Instantiate(damagePrefab).GetComponent<Damage>();
 
         damageComponent.SetScaleMultiplier(deckDamageEffectScale);
-
         damageComponent.SetupTransform(tr);
+
+        Collider2D col = tr.GetComponent<Collider2D>();
+
+        if (col != null)
+            damageComponent.SetPosition(col.bounds.center);
+
         damageComponent.Damaged(damage);
     }
 

@@ -58,4 +58,4 @@ MonoBehaviour:
   goldAmount: 5775
   rewardItems:
   - item: {fileID: 11400000, guid: e7af9b990bf8215409e3959e2c939151, type: 2}
-    count: 75
+    count: 15
