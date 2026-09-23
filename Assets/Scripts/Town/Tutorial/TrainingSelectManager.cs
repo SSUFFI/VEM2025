@@ -15,10 +15,14 @@ public class TrainingSelectManager : MonoBehaviour
     [SerializeField] Button training3Button;
     [SerializeField] Button mockBattleButton;
 
-    static bool training1Completed;
-    static bool training2Completed;
-    static bool training3Completed;
+    [Header("Mock Battle")]
+    [SerializeField] DeckSO mockBattleDeck;
+
     static bool openPanelOnReturn;
+
+    const string TRAINING_1_KEY = "Training1Completed";
+    const string TRAINING_2_KEY = "Training2Completed";
+    const string TRAINING_3_KEY = "Training3Completed";
 
     void Awake()
     {
@@ -61,6 +65,15 @@ public class TrainingSelectManager : MonoBehaviour
 
     public void RefreshButtons()
     {
+        bool training1Completed =
+            IsTraining1Completed;
+
+        bool training2Completed =
+            IsTraining2Completed;
+
+        bool training3Completed =
+            IsTraining3Completed;
+
         SetButtonState(
             training1Button,
             true);
@@ -75,7 +88,7 @@ public class TrainingSelectManager : MonoBehaviour
 
         SetButtonState(
             mockBattleButton,
-            true);
+            training3Completed);
     }
 
     void SetButtonState(
@@ -118,10 +131,11 @@ public class TrainingSelectManager : MonoBehaviour
 
     public void StartTraining2()
     {
-        if (!training1Completed)
+        if (!IsTraining1Completed)
             return;
 
-        BattleData.SetBattleMode(BattleMode.Tutorial2);
+        BattleData.SetBattleMode(
+            BattleMode.Tutorial2);
 
         BattleData.selectedEnemyDeck = null;
         BattleData.tutorialEnemyDeck = null;
@@ -131,10 +145,11 @@ public class TrainingSelectManager : MonoBehaviour
 
     public void StartTraining3()
     {
-        if (!training2Completed)
+        if (!IsTraining2Completed)
             return;
 
-        BattleData.SetBattleMode(BattleMode.Tutorial3);
+        BattleData.SetBattleMode(
+            BattleMode.Tutorial3);
 
         BattleData.selectedEnemyDeck = null;
         BattleData.tutorialEnemyDeck = null;
@@ -142,9 +157,31 @@ public class TrainingSelectManager : MonoBehaviour
         SceneManager.LoadScene("Battle");
     }
 
+    public void StartMockBattle()
+    {
+        if (!IsTraining3Completed)
+            return;
+
+        if (mockBattleDeck == null)
+        {
+            Debug.LogWarning(
+                "TrainingSelectManager에 Mock Battle Deck이 연결되지 않았습니다.");
+
+            return;
+        }
+
+        BattleData.ResetBattleMode();
+
+        BattleData.isTutorialBattle = true;
+        BattleData.tutorialEnemyDeck = mockBattleDeck;
+
+        SceneManager.LoadScene("Battle");
+    }
+
     public static void CompleteTraining1()
     {
-        training1Completed = true;
+        SetCompleted(
+            TRAINING_1_KEY);
 
         if (Inst != null)
             Inst.RefreshButtons();
@@ -152,7 +189,8 @@ public class TrainingSelectManager : MonoBehaviour
 
     public static void CompleteTraining2()
     {
-        training2Completed = true;
+        SetCompleted(
+            TRAINING_2_KEY);
 
         if (Inst != null)
             Inst.RefreshButtons();
@@ -160,20 +198,46 @@ public class TrainingSelectManager : MonoBehaviour
 
     public static void CompleteTraining3()
     {
-        training3Completed = true;
+        bool wasAlreadyCompleted =
+            IsTraining3Completed;
+
+        SetCompleted(
+            TRAINING_3_KEY);
 
         if (Inst != null)
             Inst.RefreshButtons();
+
+        if (!wasAlreadyCompleted &&
+            TutorialManager.Inst != null)
+        {
+            TutorialManager.Inst.CompleteNewTrainingTutorial();
+        }
+    }
+
+    static void SetCompleted(string key)
+    {
+        PlayerPrefs.SetInt(
+            AccountManager.GetAccountKey(key),
+            1);
+
+        PlayerPrefs.Save();
+    }
+
+    static bool GetCompleted(string key)
+    {
+        return PlayerPrefs.GetInt(
+            AccountManager.GetAccountKey(key),
+            0) == 1;
     }
 
     public static bool IsTraining1Completed =>
-        training1Completed;
+        GetCompleted(TRAINING_1_KEY);
 
     public static bool IsTraining2Completed =>
-        training2Completed;
+        GetCompleted(TRAINING_2_KEY);
 
     public static bool IsTraining3Completed =>
-        training3Completed;
+        GetCompleted(TRAINING_3_KEY);
 
     void OnDestroy()
     {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum TutorialStep
 {
@@ -7,10 +8,9 @@ public enum TutorialStep
     AfterIntro,
     AfterTemple,
     BeforeRoyal,
-    AfterRelic,
     AfterRoyal,
     AfterDeck,
-    AfterDungeon,
+    Training,
     Done
 }
 
@@ -31,22 +31,19 @@ public class TutorialManager : MonoBehaviour
     public DialogueManager.Line[] beforeRoyalLines;
     public DialogueManager.Line[] royalLines;
 
-    [Header("Battle Start Dialogue")]
-    public DialogueManager.Line[] battleStartLines;
-
-    [Header("Battle Result Dialogue")]
-    public DialogueManager.Line[] winLines;
-    public DialogueManager.Line[] loseLines;
-
     [Header("Buttons")]
     public GameObject templeButton;
     public GameObject royalButton;
+    public GameObject trainingButton;
     public GameObject dungeonButton;
     public GameObject shopButton;
 
+    [Header("Tutorial Reward Cards")]
+    [SerializeField]
+    List<CardDataSO> tutorialRewardCards =
+        new List<CardDataSO>();
+
     bool templeDialogueDone = false;
-    public bool hasFinishedTraining = false;
-    bool isPlayingBattleResultDialogue = false;
     bool isTutorialFinished = false;
 
     DialogueManager.Line[] resumeLines;
@@ -75,6 +72,7 @@ public class TutorialManager : MonoBehaviour
         {
             UnlockAll();
             step = TutorialStep.Done;
+            isTutorialFinished = true;
             return;
         }
 
@@ -85,10 +83,9 @@ public class TutorialManager : MonoBehaviour
         {
             UnlockAll();
 
-            hasFinishedTraining = true;
             isTutorialFinished = true;
-
             step = TutorialStep.Done;
+
             return;
         }
 
@@ -104,6 +101,9 @@ public class TutorialManager : MonoBehaviour
         if (royalButton != null)
             royalButton.SetActive(false);
 
+        if (trainingButton != null)
+            trainingButton.SetActive(false);
+
         if (dungeonButton != null)
             dungeonButton.SetActive(false);
 
@@ -118,6 +118,9 @@ public class TutorialManager : MonoBehaviour
 
         if (royalButton != null)
             royalButton.SetActive(true);
+
+        if (trainingButton != null)
+            trainingButton.SetActive(true);
 
         if (dungeonButton != null)
             dungeonButton.SetActive(true);
@@ -136,37 +139,30 @@ public class TutorialManager : MonoBehaviour
 
     public void OnDialogueEnd()
     {
-        if (isPlayingBattleResultDialogue)
-        {
-            if (!isTutorialFinished)
-            {
-                EndTutorial();
-            }
-
-            UnityEngine.SceneManagement.SceneManager
-                .LoadScene("Town");
-
-            return;
-        }
-    
-
         switch (step)
         {
             case TutorialStep.Start:
+
                 if (templeButton != null)
                     templeButton.SetActive(true);
 
                 step = TutorialStep.AfterIntro;
                 break;
 
+
             case TutorialStep.AfterIntro:
+
                 step = TutorialStep.AfterTemple;
                 break;
 
+
             case TutorialStep.BeforeRoyal:
+
                 if (royalButton != null)
                     royalButton.SetActive(true);
+
                 break;
+
 
             case TutorialStep.AfterRoyal:
                 break;
@@ -178,7 +174,9 @@ public class TutorialManager : MonoBehaviour
         if (!templeDialogueDone)
         {
             templeDialogueDone = true;
-            StartCoroutine(CoPlayTempleDialogue());
+
+            StartCoroutine(
+                CoPlayTempleDialogue());
         }
     }
 
@@ -187,7 +185,8 @@ public class TutorialManager : MonoBehaviour
         if (step == TutorialStep.AfterTemple)
         {
             if (dialogue != null)
-                dialogue.StartDialogue(beforeRoyalLines);
+                dialogue.StartDialogue(
+                    beforeRoyalLines);
 
             step = TutorialStep.BeforeRoyal;
         }
@@ -217,15 +216,18 @@ public class TutorialManager : MonoBehaviour
 
     public void OnDeckCompleted()
     {
-        if (step == TutorialStep.AfterRoyal)
-        {
-            ResumeDialogue();
+        if (step != TutorialStep.AfterRoyal)
+            return;
 
-            if (dungeonButton != null)
-                dungeonButton.SetActive(true);
+        ResumeDialogue();
 
-            step = TutorialStep.AfterDeck;
-        }
+        if (trainingButton != null)
+            trainingButton.SetActive(true);
+
+        if (dungeonButton != null)
+            dungeonButton.SetActive(false);
+
+        step = TutorialStep.AfterDeck;
     }
 
     void ResumeDialogue()
@@ -243,56 +245,27 @@ public class TutorialManager : MonoBehaviour
         resumeIndex = -1;
     }
 
-    public void StartBattleStartTutorial(
-        System.Action onEnd)
+    public void OnTrainingEntered()
     {
-        if (!enableTutorial ||
-            !BattleData.isTutorialBattle ||
-            step == TutorialStep.Done)
+        if (step == TutorialStep.AfterDeck)
         {
-            onEnd?.Invoke();
-            return;
+            step = TutorialStep.Training;
         }
-
-        if (dialogue == null)
-        {
-            onEnd?.Invoke();
-            return;
-        }
-
-        dialogue.StartDialogue(battleStartLines);
-
-        onEnd?.Invoke();
     }
 
-    public void PlayBattleResultDialogue(bool isWin)
+    public void CompleteNewTrainingTutorial()
     {
-        hasFinishedTraining = true;
-
         if (isTutorialFinished)
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Town");
-
-            return;
-        }
-
-        if (dialogue == null)
             return;
 
-        isPlayingBattleResultDialogue = true;
+        GiveTutorialRewardCards();
 
-        if(isWin)
-            dialogue.StartDialogue(winLines);
-        else
-            dialogue.StartDialogue(loseLines);
-    }
-
-    public void EndTutorial()
-    {
         isTutorialFinished = true;
+        step = TutorialStep.Done;
 
         string tutorialKey =
-            AccountManager.GetAccountKey("TutorialDone");
+            AccountManager.GetAccountKey(
+                "TutorialDone");
 
         PlayerPrefs.SetInt(
             tutorialKey,
@@ -300,18 +273,39 @@ public class TutorialManager : MonoBehaviour
 
         PlayerPrefs.Save();
 
-        if (BattleData.tutorialEnemyDeck != null)
+        UnlockAll();
+
+        if (TrainingSelectManager.Inst != null)
         {
-            foreach (var card in
-                     BattleData.tutorialEnemyDeck.deckItems)
-            {
-                CardPool.Inst.AddCard(card);
-            }
+            TrainingSelectManager.Inst
+                .RefreshButtons();
         }
 
-        BattleData.isTutorialBattle = false;
-        BattleData.tutorialEnemyDeck = null;
+        Debug.Log(
+            "새 전투 튜토리얼 완료 / 카드 보상 지급 / 미궁 해금");
+    }
 
-        step = TutorialStep.Done;
+    void GiveTutorialRewardCards()
+    {
+        if (CardPool.Inst == null)
+        {
+            Debug.LogWarning(
+                "CardPool이 없어 튜토리얼 보상을 지급할 수 없습니다.");
+
+            return;
+        }
+
+        foreach (CardDataSO card in tutorialRewardCards)
+        {
+            if (card == null)
+                continue;
+
+            CardPool.Inst.AddCard(card);
+        }
+    }
+
+    public bool IsTutorialFinished()
+    {
+        return isTutorialFinished;
     }
 }

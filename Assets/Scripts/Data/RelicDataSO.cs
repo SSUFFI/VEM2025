@@ -10,6 +10,7 @@ public enum RelicEffectType
 public class RelicDataSO : ScriptableObject
 {
     [Header("Info")]
+    public string relicId;
     public string relicName;
 
     [TextArea]

@@ -45,6 +45,7 @@ public class EntityManager : MonoBehaviour
     public List<Entity> MyEntities => myEntities;
     public List<Entity> OtherEntities => otherEntities;
     public Entity OtherBossEntity => otherBossEntity;
+    public Entity MyBossEntity => myBossEntity;
 
     public GameObject TutorialTargetPicker => TargetPicker;
     public GameObject TutorialTargetArrow => TargetArrow != null ? TargetArrow.gameObject : null;
@@ -887,7 +888,14 @@ public class EntityManager : MonoBehaviour
         Vector3 endPos = Utils.MousePos;
 
         if (targetPickEntity != null)
-            endPos = targetPickEntity.transform.position;
+        {
+            Collider2D col = targetPickEntity.GetComponentInChildren<Collider2D>();
+
+            if (col != null)
+                endPos = col.bounds.center;
+            else
+                endPos = targetPickEntity.transform.position;
+        }
 
         Vector3 dir = endPos - startPos;
         float distance = dir.magnitude;

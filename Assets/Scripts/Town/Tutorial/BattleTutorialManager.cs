@@ -99,6 +99,11 @@ public class BattleTutorialManager : MonoBehaviour
 
     int tutorial3EnemyJudgmentGraveCount;
 
+    [Header("Tutorial 3 Grave Highlight")]
+    [SerializeField] GameObject tutorial3MyGraveHighlight;
+    [SerializeField] GameObject tutorial3EnemyGraveHighlight;
+
+
     void Awake()
     {
         Inst = this;
@@ -221,12 +226,12 @@ public class BattleTutorialManager : MonoBehaviour
 
     void SetupTutorial3Decks(List<CardDataSO> myDeck, List<CardDataSO> enemyDeck)
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             enemyDeck.Add(tutorial3EnemyJudgmentCard);
         }
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             myDeck.Add(tutorial3PlayerJudgmentCard);
         }
@@ -305,6 +310,9 @@ public class BattleTutorialManager : MonoBehaviour
 
             case BattleMode.Tutorial2:
                 return tutorial2Step == Tutorial2Step.TauntCardPlayed;
+
+            case BattleMode.Tutorial3:
+                return tutorial3Step == Tutorial3Step.EndTurn;
         }
 
         return false;
@@ -342,6 +350,17 @@ public class BattleTutorialManager : MonoBehaviour
                 {
                     StartCoroutine(
                         Tutorial2EnemyTurn1Co());
+
+                    return;
+                }
+
+                break;
+
+            case BattleMode.Tutorial3:
+
+                if (tutorial3Step == Tutorial3Step.EndTurn)
+                {
+                    StartCoroutine(Tutorial3EnemyTurnCo());
 
                     return;
                 }
@@ -694,6 +713,23 @@ public class BattleTutorialManager : MonoBehaviour
         }
     }
 
+    IEnumerator WaitForTutorialExitClick()
+    {
+        yield return null;
+
+        while (Input.GetMouseButton(0) ||
+               Input.GetMouseButton(1))
+        {
+            yield return null;
+        }
+
+        while (!Input.GetMouseButtonDown(0) &&
+               !Input.GetMouseButtonDown(1))
+        {
+            yield return null;
+        }
+    }
+
     void CompleteTutorial1()
     {
         tutorial1Step = Tutorial1Step.Complete;
@@ -730,10 +766,10 @@ public class BattleTutorialManager : MonoBehaviour
     {
         if (BattleTutorialUI.Inst != null)
         {
-            BattleTutorialUI.Inst.ShowGuide("적의 덱이 모두 소진되었습니다.\n\n훈련을 종료합니다.");
+            BattleTutorialUI.Inst.ShowGuide("적의 덱이 모두 소진되었습니다.\n\n아무 곳이나 눌러 훈련을 종료합니다.");
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return StartCoroutine(WaitForTutorialExitClick());
 
         TrainingSelectManager.CompleteTraining1();
         TrainingSelectManager.OpenPanelAfterReturn();
@@ -894,12 +930,40 @@ public class BattleTutorialManager : MonoBehaviour
     {
         if (BattleTutorialUI.Inst != null)
         {
-            BattleTutorialUI.Inst.ShowGuide("성유물과 하수인의 능력을 활용해 적을 처치했습니다.\n\n훈련을 종료합니다.");
+            BattleTutorialUI.Inst.ShowGuide("성유물과 하수인의 능력을 활용해 적을 처치했습니다.\n\n아무 곳이나 눌러 훈련을 종료합니다.");
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return StartCoroutine(WaitForTutorialExitClick()
+        );
 
         TrainingSelectManager.CompleteTraining2();
+        TrainingSelectManager.OpenPanelAfterReturn();
+
+        BattleData.ResetBattleMode();
+
+        SceneManager.LoadScene("Town");
+    }
+
+    IEnumerator CompleteTutorial3Co()
+    {
+        if (GameResultManager.Inst != null)
+            GameResultManager.Inst.isGameOver = true;
+
+        if (GraveUI.Inst != null &&
+            GraveUI.Inst.IsOpen)
+        {
+            GraveUI.Inst.Close();
+        }
+
+        if (BattleTutorialUI.Inst != null)
+        {
+            BattleTutorialUI.Inst.ShowGuide("하수인과 손패도 우클릭하여 확대할 수 있습니다.\n\n아무 곳이나 눌러 훈련을 종료합니다.");
+        }
+
+        yield return StartCoroutine(WaitForTutorialExitClick()
+        );
+
+        TrainingSelectManager.CompleteTraining3();
         TrainingSelectManager.OpenPanelAfterReturn();
 
         BattleData.ResetBattleMode();
@@ -1031,6 +1095,7 @@ public class BattleTutorialManager : MonoBehaviour
 
         tutorial3Step = Tutorial3Step.OpenEnemyGrave;
 
+
         if (BattleTutorialHighlight.Inst != null)
         {
             Entity playerEntity = EntityManager.Inst.MyEntities.Find(x => x != null && !x.isBossOrEmpty && !x.isDie && x.Data == tutorial3PlayerCard);
@@ -1046,11 +1111,225 @@ public class BattleTutorialManager : MonoBehaviour
             {
                 BattleTutorialHighlight.Inst.DimTarget(enemyBoss.gameObject);
             }
+
+            if (tutorial3EnemyGraveHighlight != null)
+            {
+                BattleTutorialHighlight.Inst.Highlight(tutorial3EnemyGraveHighlight);
+            }
         }
 
         if (BattleTutorialUI.Inst != null)
         {
             BattleTutorialUI.Inst.ShowGuide("심판 능력으로 하수인들이 소환되었습니다.\n\n상대의 묘지를 확인하세요.");
+        }
+    }
+
+    IEnumerator Tutorial3EnemyTurnCo()
+    {
+        tutorial3Step = Tutorial3Step.EnemyTurn;
+
+        if (BattleTutorialHighlight.Inst != null && EndTurnBtn.Inst != null)
+        {
+            BattleTutorialHighlight.Inst.DimTarget(EndTurnBtn.Inst.gameObject);
+        }
+
+        if (BattleTutorialUI.Inst != null)
+        {
+            BattleTutorialUI.Inst.HideGuide();
+        }
+
+        yield return new WaitForSeconds(0.8f);
+
+        List<Entity> wolves = EntityManager.Inst.OtherEntities.FindAll( x => x != null && !x.isBossOrEmpty && !x.isDie && x.Data == tutorial3WolfCard);
+
+        foreach (Entity wolf in wolves)
+        {
+            if (wolf == null || wolf.isDie)
+                continue;
+
+            if (!wolf.CanAttack())
+                continue;
+
+            List<Entity> targets = new List<Entity>();
+
+            foreach (Entity entity in EntityManager.Inst.MyEntities)
+            {
+                if (entity == null)
+                    continue;
+
+                if (entity.isDie)
+                    continue;
+
+                if (entity.isBossOrEmpty)
+                    continue;
+
+                targets.Add(entity);
+            }
+
+            Entity myBoss = EntityManager.Inst.MyBossEntity;
+
+            if (myBoss != null && !myBoss.isDie)
+            {
+                targets.Add(myBoss);
+            }
+
+            if (targets.Count == 0)
+                break;
+
+            Entity target = targets[Random.Range(0, targets.Count)];
+
+            EntityManager.Inst.TutorialAttack(wolf, target
+            );
+
+            yield return new WaitForSeconds(1.7f);
+        }
+
+        yield return new WaitForSeconds(0.8f);
+
+        tutorial3Step = Tutorial3Step.OpenMyGrave;
+
+        if (BattleTutorialHighlight.Inst != null && tutorial3MyGraveHighlight != null)
+        {
+            BattleTutorialHighlight.Inst.Highlight(tutorial3MyGraveHighlight);
+        }
+
+        if (BattleTutorialUI.Inst != null)
+        {
+            BattleTutorialUI.Inst.ShowGuide("이번에는 내 묘지를 확인하세요.");
+        }
+    }
+
+    public void OnGraveOpened(bool isMine)
+    {
+        if (!IsActive)
+            return;
+
+        if (BattleData.battleMode != BattleMode.Tutorial3)
+            return;
+
+        if (tutorial3Step == Tutorial3Step.OpenEnemyGrave)
+        {
+            if (isMine)
+                return;
+
+            if (BattleTutorialHighlight.Inst != null && tutorial3EnemyGraveHighlight != null)
+            {
+                BattleTutorialHighlight.Inst.DimTarget(tutorial3EnemyGraveHighlight);
+            }
+
+            tutorial3Step = Tutorial3Step.PreviewEnemyJudgment;
+
+            if (BattleTutorialUI.Inst != null)
+            {
+                BattleTutorialUI.Inst.ShowGuide("묘지로 보내진 심판 카드를 우클릭하여 확인하세요.");
+            }
+
+            return;
+        }
+
+        if (tutorial3Step == Tutorial3Step.OpenMyGrave)
+        {
+            if (!isMine)
+                return;
+
+            if (BattleTutorialHighlight.Inst != null && tutorial3MyGraveHighlight != null)
+            {
+                BattleTutorialHighlight.Inst.DimTarget(tutorial3MyGraveHighlight);
+            }
+
+            tutorial3Step = Tutorial3Step.PreviewMyJudgment;
+
+            if (BattleTutorialUI.Inst != null)
+            {
+                BattleTutorialUI.Inst.ShowGuide("내 묘지의 심판 카드를 우클릭하여 확인하세요.");
+            }
+
+            return;
+        }
+    }
+
+    public void OnGraveCardPreviewed(CardDataSO data, bool isMine)
+    {
+        if (!IsActive)
+            return;
+
+        if (BattleData.battleMode != BattleMode.Tutorial3)
+            return;
+
+        if (data == null)
+            return;
+
+
+        if (tutorial3Step == Tutorial3Step.PreviewEnemyJudgment)
+        {
+            if (isMine)
+                return;
+
+            if (data != tutorial3EnemyJudgmentCard)
+                return;
+
+            tutorial3Step =
+                Tutorial3Step.EnemyJudgmentChecked;
+
+            if (BattleTutorialUI.Inst != null)
+            {
+                BattleTutorialUI.Inst.ShowGuide("심판 능력은 덱에서 묘지로 보내졌을 때 발동합니다.\n\n확대를 닫으세요.");
+            }
+
+            return;
+        }
+
+
+        if (tutorial3Step == Tutorial3Step.PreviewMyJudgment)
+        {
+            if (!isMine)
+                return;
+
+            if (data != tutorial3PlayerJudgmentCard)
+                return;
+
+            tutorial3Step = Tutorial3Step.Complete;
+
+            if (BattleTutorialUI.Inst != null)
+            {
+                BattleTutorialUI.Inst.ShowGuide("같은 심판 능력으로 상대 하수인들이 처치되었습니다.\n\n확대를 닫으세요.");
+            }
+
+            return;
+        }
+    }
+
+    public void OnCardPreviewClosed()
+    {
+        if (!IsActive)
+            return;
+
+        if (BattleData.battleMode != BattleMode.Tutorial3)
+            return;
+
+
+        if (tutorial3Step == Tutorial3Step.EnemyJudgmentChecked)
+        {
+            tutorial3Step = Tutorial3Step.EndTurn;
+
+            if (BattleTutorialHighlight.Inst != null && EndTurnBtn.Inst != null)
+            {
+                BattleTutorialHighlight.Inst.Highlight(EndTurnBtn.Inst.gameObject);
+            }
+
+            if (BattleTutorialUI.Inst != null)
+            {
+                BattleTutorialUI.Inst.ShowGuide("턴 종료 버튼을 눌러 상대의 턴으로 넘기세요.");
+            }
+
+            return;
+        }
+
+
+        if (tutorial3Step == Tutorial3Step.Complete)
+        {
+            StartCoroutine(CompleteTutorial3Co());
+            return;
         }
     }
 

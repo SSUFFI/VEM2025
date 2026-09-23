@@ -15,10 +15,12 @@ public class GraveUICard : MonoBehaviour, IPointerClickHandler
     [SerializeField] TMP_Text descriptionTMP;
 
     CardDataSO data;
+    bool isMine;
 
-    public void Setup(CardDataSO data)
+    public void Setup(CardDataSO data, bool isMine)
     {
         this.data = data;
+        this.isMine = isMine;
 
         character.sprite = data.sprite;
 
@@ -53,5 +55,10 @@ public class GraveUICard : MonoBehaviour, IPointerClickHandler
         if (data == null) return;
 
         CardPreviewManager.Inst.Show(data);
+
+        if (BattleTutorialManager.Inst != null && BattleTutorialManager.Inst.IsActive)
+        {
+            BattleTutorialManager.Inst.OnGraveCardPreviewed(data, isMine);
+        }
     }
 }

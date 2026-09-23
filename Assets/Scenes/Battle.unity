@@ -2119,6 +2119,8 @@ MonoBehaviour:
   tutorial3WolfCard: {fileID: 11400000, guid: ae205eb8dacc2d24fa78ea1657122700, type: 2}
   tutorial3PlayerJudgmentCard: {fileID: 11400000, guid: e8079738c9fa1644f9cc748f7c79104d, type: 2}
   tutorial3Step: 0
+  tutorial3MyGraveHighlight: {fileID: 1061767254}
+  tutorial3EnemyGraveHighlight: {fileID: 1864526157}
 --- !u!4 &411646356
 Transform:
   m_ObjectHideFlags: 0
@@ -4043,7 +4045,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 195563657}
   m_HandleRect: {fileID: 195563656}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5872,7 +5874,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -411, y: 11}
+  m_AnchoredPosition: {x: -571, y: 177}
   m_SizeDelta: {x: 355.852, y: 489.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1409555367
@@ -5890,6 +5892,8 @@ MonoBehaviour:
   gravePanel: {fileID: 1409555365}
   content: {fileID: 148956152}
   cardPrefab: {fileID: 7072539133604271767, guid: 3008998ea6bbbee499adbb19766e0d17, type: 3}
+  myGraveHighlightTarget: {fileID: 1061767254}
+  enemyGraveHighlightTarget: {fileID: 1864526157}
 --- !u!114 &1409555368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9099,7 +9103,7 @@ Transform:
   m_GameObject: {fileID: 2025412464}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.53, y: -8.31, z: -10}
+  m_LocalPosition: {x: -17.43, y: -2.25, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

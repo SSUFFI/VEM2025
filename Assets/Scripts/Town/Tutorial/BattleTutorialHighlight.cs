@@ -79,25 +79,35 @@ public class BattleTutorialHighlight : MonoBehaviour
             return;
 
         SpriteRenderer[] renderers =
-            target.GetComponentsInChildren<SpriteRenderer>(
-                true);
+            target.GetComponentsInChildren<SpriteRenderer>(true);
 
         foreach (SpriteRenderer renderer in renderers)
         {
             if (renderer == null)
                 continue;
 
-            if (spriteOriginalColors.TryGetValue(
-                renderer,
-                out Color original))
+            if (spriteOriginalColors.TryGetValue(renderer, out Color original))
             {
                 renderer.color = original;
+            }
+            else
+            {
+                Color current = renderer.color;
+
+                Color restored = new Color(
+                    Mathf.Clamp01(current.r / DIM_VALUE),
+                    Mathf.Clamp01(current.g / DIM_VALUE),
+                    Mathf.Clamp01(current.b / DIM_VALUE),
+                    current.a
+                );
+
+                spriteOriginalColors.Add(renderer, restored);
+                renderer.color = restored;
             }
         }
 
         Graphic[] graphics =
-            target.GetComponentsInChildren<Graphic>(
-                true);
+            target.GetComponentsInChildren<Graphic>(true);
 
         foreach (Graphic graphic in graphics)
         {
@@ -107,28 +117,51 @@ public class BattleTutorialHighlight : MonoBehaviour
             if (graphic is TMP_Text)
                 continue;
 
-            if (graphicOriginalColors.TryGetValue(
-                graphic,
-                out Color original))
+            if (graphicOriginalColors.TryGetValue(graphic, out Color original))
             {
                 graphic.color = original;
+            }
+            else
+            {
+                Color current = graphic.color;
+
+                Color restored = new Color(
+                    Mathf.Clamp01(current.r / DIM_VALUE),
+                    Mathf.Clamp01(current.g / DIM_VALUE),
+                    Mathf.Clamp01(current.b / DIM_VALUE),
+                    current.a
+                );
+
+                graphicOriginalColors.Add(graphic, restored);
+                graphic.color = restored;
             }
         }
 
         TMP_Text[] texts =
-            target.GetComponentsInChildren<TMP_Text>(
-                true);
+            target.GetComponentsInChildren<TMP_Text>(true);
 
         foreach (TMP_Text text in texts)
         {
             if (text == null)
                 continue;
 
-            if (textOriginalColors.TryGetValue(
-                text,
-                out Color original))
+            if (textOriginalColors.TryGetValue(text, out Color original))
             {
                 text.color = original;
+            }
+            else
+            {
+                Color current = text.color;
+
+                Color restored = new Color(
+                    Mathf.Clamp01(current.r / DIM_VALUE),
+                    Mathf.Clamp01(current.g / DIM_VALUE),
+                    Mathf.Clamp01(current.b / DIM_VALUE),
+                    current.a
+                );
+
+                textOriginalColors.Add(text, restored);
+                text.color = restored;
             }
         }
     }

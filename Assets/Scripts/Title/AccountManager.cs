@@ -232,6 +232,26 @@ public class AccountManager : MonoBehaviour
                 account,
                 "Shop_LastRefresh"));
 
+        PlayerPrefs.DeleteKey(
+            GetAccountKey(
+                account,
+                "EquippedRelic"));
+
+        PlayerPrefs.DeleteKey(
+            GetAccountKey(
+               account,
+               "Training1Completed"));
+
+        PlayerPrefs.DeleteKey(
+            GetAccountKey(
+                account,
+                "Training2Completed"));
+
+        PlayerPrefs.DeleteKey(
+            GetAccountKey(
+                account,
+                "Training3Completed"));
+
         for (int i = 0; i < 12; i++)
         {
             PlayerPrefs.DeleteKey(

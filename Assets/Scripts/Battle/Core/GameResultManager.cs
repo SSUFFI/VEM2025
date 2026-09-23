@@ -51,8 +51,10 @@ public class GameResultManager : MonoBehaviour
 
     public void ShowWin()
     {
-        if (isGameOver) return;
+        if (isGameOver)
+            return;
 
+        // 새 전투 튜토리얼 1~3
         if (BattleData.IsBattleTutorial &&
             BattleTutorialManager.Inst != null)
         {
@@ -72,14 +74,18 @@ public class GameResultManager : MonoBehaviour
         if (resultText != null)
             resultText.text = "승리";
 
-        if (BattleData.isTutorialBattle && TutorialManager.Inst != null)
+        // 훈련장의 모의전투
+        if (BattleData.isTutorialBattle)
         {
             HideRewards();
 
-            TutorialManager.Inst.PlayBattleResultDialogue(true);
-
             if (continueButton != null)
-                continueButton.gameObject.SetActive(false);
+            {
+                continueButton.gameObject.SetActive(true);
+                continueButton.onClick.RemoveAllListeners();
+                continueButton.onClick.AddListener(
+                    OnClickMockBattleReturn);
+            }
 
             if (exitButton != null)
                 exitButton.gameObject.SetActive(false);
@@ -93,7 +99,8 @@ public class GameResultManager : MonoBehaviour
         {
             continueButton.gameObject.SetActive(true);
             continueButton.onClick.RemoveAllListeners();
-            continueButton.onClick.AddListener(OnClickContinue);
+            continueButton.onClick.AddListener(
+                OnClickContinue);
         }
 
         if (exitButton != null)
@@ -102,7 +109,9 @@ public class GameResultManager : MonoBehaviour
 
     public void ShowLose()
     {
-        if (isGameOver) return;
+        if (isGameOver)
+            return;
+
         isGameOver = true;
 
         panel.SetActive(true);
@@ -114,15 +123,19 @@ public class GameResultManager : MonoBehaviour
         if (resultText != null)
             resultText.text = "패배";
 
-        if (BattleData.isTutorialBattle && TutorialManager.Inst != null)
+        // 모의전투는 패배해도 훈련장으로 복귀.
+        if (BattleData.isTutorialBattle)
         {
-            TutorialManager.Inst.PlayBattleResultDialogue(false);
-
             if (continueButton != null)
                 continueButton.gameObject.SetActive(false);
 
             if (exitButton != null)
-                exitButton.gameObject.SetActive(false);
+            {
+                exitButton.gameObject.SetActive(true);
+                exitButton.onClick.RemoveAllListeners();
+                exitButton.onClick.AddListener(
+                    OnClickMockBattleReturn);
+            }
 
             return;
         }
@@ -134,7 +147,8 @@ public class GameResultManager : MonoBehaviour
         {
             exitButton.gameObject.SetActive(true);
             exitButton.onClick.RemoveAllListeners();
-            exitButton.onClick.AddListener(OnClickExit);
+            exitButton.onClick.AddListener(
+                OnClickExit);
         }
     }
 
@@ -142,45 +156,82 @@ public class GameResultManager : MonoBehaviour
     {
         HideRewards();
 
-        DeckSO deck = BattleData.selectedEnemyDeck;
+        DeckSO deck =
+            BattleData.selectedEnemyDeck;
+
         if (deck == null)
             return;
 
-        if (deck.goldItem != null && deck.goldAmount > 0)
+        if (deck.goldItem != null &&
+            deck.goldAmount > 0)
         {
             if (InventoryManager.Inst != null)
-                InventoryManager.Inst.AddItem(deck.goldItem, deck.goldAmount);
+            {
+                InventoryManager.Inst.AddItem(
+                    deck.goldItem,
+                    deck.goldAmount);
+            }
 
             if (goldRoot != null)
                 goldRoot.SetActive(true);
 
             if (goldIcon != null)
-                goldIcon.sprite = deck.goldItem.icon;
+                goldIcon.sprite =
+                    deck.goldItem.icon;
 
             if (goldText != null)
-                goldText.text = $"{deck.goldItem.itemName} x{deck.goldAmount}";
+            {
+                goldText.text =
+                    $"{deck.goldItem.itemName} x{deck.goldAmount}";
+            }
         }
 
-        int max = Mathf.Min(4, deck.rewardItems.Count);
+        int max =
+            Mathf.Min(
+                4,
+                deck.rewardItems.Count);
 
         for (int i = 0; i < max; i++)
         {
-            DeckRewardItem reward = deck.rewardItems[i];
+            DeckRewardItem reward =
+                deck.rewardItems[i];
 
-            if (reward == null || reward.item == null || reward.count <= 0)
+            if (reward == null ||
+                reward.item == null ||
+                reward.count <= 0)
+            {
                 continue;
+            }
 
             if (InventoryManager.Inst != null)
-                InventoryManager.Inst.AddItem(reward.item, reward.count);
+            {
+                InventoryManager.Inst.AddItem(
+                    reward.item,
+                    reward.count);
+            }
 
-            if (itemRoots != null && i < itemRoots.Length && itemRoots[i] != null)
+            if (itemRoots != null &&
+                i < itemRoots.Length &&
+                itemRoots[i] != null)
+            {
                 itemRoots[i].SetActive(true);
+            }
 
-            if (itemIcons != null && i < itemIcons.Length && itemIcons[i] != null)
-                itemIcons[i].sprite = reward.item.icon;
+            if (itemIcons != null &&
+                i < itemIcons.Length &&
+                itemIcons[i] != null)
+            {
+                itemIcons[i].sprite =
+                    reward.item.icon;
+            }
 
-            if (itemTexts != null && i < itemTexts.Length && itemTexts[i] != null)
-                itemTexts[i].text = $"{reward.item.itemName} x{reward.count}";
+            if (itemTexts != null &&
+                i < itemTexts.Length &&
+                itemTexts[i] != null)
+            {
+                itemTexts[i].text =
+                    $"{reward.item.itemName} x{reward.count}";
+            }
         }
     }
 
@@ -191,7 +242,9 @@ public class GameResultManager : MonoBehaviour
 
         if (itemRoots != null)
         {
-            for (int i = 0; i < itemRoots.Length; i++)
+            for (int i = 0;
+                 i < itemRoots.Length;
+                 i++)
             {
                 if (itemRoots[i] != null)
                     itemRoots[i].SetActive(false);
@@ -199,34 +252,54 @@ public class GameResultManager : MonoBehaviour
         }
     }
 
+    void OnClickMockBattleReturn()
+    {
+        Time.timeScale = 1f;
+
+        TrainingSelectManager
+            .OpenPanelAfterReturn();
+
+        BattleData.isTutorialBattle = false;
+        BattleData.tutorialEnemyDeck = null;
+        BattleData.selectedEnemyDeck = null;
+
+        SceneManager.LoadScene(
+            townSceneName);
+    }
+
     void OnClickContinue()
     {
         Time.timeScale = 1f;
 
-        if (BattleData.isTutorialBattle)
-        {
-            SceneManager.LoadScene(townSceneName);
-            return;
-        }
-
-        if (BattleData.selectedNodeType == NodeType.Boss)
+        if (BattleData.selectedNodeType ==
+            NodeType.Boss)
         {
             StageProgress.highestClearedStage =
-                Mathf.Max(StageProgress.highestClearedStage,
-                          StageProgress.selectedStage);
+                Mathf.Max(
+                    StageProgress.highestClearedStage,
+                    StageProgress.selectedStage);
 
             NodeMapRuntimeData.ResetRun();
 
-            SceneManager.LoadScene(townSceneName);
+            SceneManager.LoadScene(
+                townSceneName);
+
             return;
         }
 
-        int nodeID = PlayerPrefs.GetInt("SelectedNodeID", -1);
+        int nodeID =
+            PlayerPrefs.GetInt(
+                "SelectedNodeID",
+                -1);
 
-        PlayerPrefs.SetInt("ClearedNodeID", nodeID);
+        PlayerPrefs.SetInt(
+            "ClearedNodeID",
+            nodeID);
+
         PlayerPrefs.Save();
 
-        SceneManager.LoadScene(mapSceneName);
+        SceneManager.LoadScene(
+            mapSceneName);
     }
 
     void OnClickExit()
@@ -238,6 +311,7 @@ public class GameResultManager : MonoBehaviour
 
         NodeMapRuntimeData.ResetRun();
 
-        SceneManager.LoadScene(townSceneName);
+        SceneManager.LoadScene(
+            townSceneName);
     }
 }

@@ -26,12 +26,22 @@ public class CardPreviewManager : MonoBehaviour
 
         if (previewCard != null)
             previewCard.Setup(data);
+
+        if (BattleTutorialManager.Inst != null && BattleTutorialManager.Inst.IsActive && BattleTutorialHighlight.Inst != null && panel != null)
+        {
+            BattleTutorialHighlight.Inst.Highlight(panel);
+        }
     }
 
     public void Hide()
     {
         if (panel != null)
             panel.SetActive(false);
+
+        if (BattleTutorialManager.Inst != null && BattleTutorialManager.Inst.IsActive)
+        {
+            BattleTutorialManager.Inst.OnCardPreviewClosed();
+        }
     }
 
     public void OnBackgroundClick()

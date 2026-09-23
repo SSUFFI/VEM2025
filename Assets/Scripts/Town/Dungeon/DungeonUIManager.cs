@@ -8,8 +8,6 @@ public class DungeonUIManager : MonoBehaviour
 
     public GameObject dungeonPanel;
 
-    [SerializeField] DeckSO trainingDeck;
-
     [Header("Stage Buttons")]
     [SerializeField] Button stage1Button;
     [SerializeField] Button stage2Button;
@@ -30,17 +28,16 @@ public class DungeonUIManager : MonoBehaviour
 
         bool tutorialClear =
             PlayerPrefs.GetInt(
-                AccountManager.GetAccountKey("TutorialDone"),
+                AccountManager.GetAccountKey(
+                    "TutorialDone"),
                 0) == 1;
 
-        // Stage 1
         if (stage1Button != null)
         {
             stage1Button.interactable =
                 tutorialClear;
         }
 
-        // Stage 2
         if (stage2Button != null)
         {
             stage2Button.interactable =
@@ -48,7 +45,6 @@ public class DungeonUIManager : MonoBehaviour
                 StageProgress.highestClearedStage >= 1;
         }
 
-        // Stage 3
         if (stage3Button != null)
         {
             stage3Button.interactable =
@@ -63,16 +59,11 @@ public class DungeonUIManager : MonoBehaviour
             dungeonPanel.SetActive(false);
     }
 
-    public void OnClickTraining()
-    {
-        BattleData.isTutorialBattle = true;
-        BattleData.tutorialEnemyDeck = trainingDeck;
-
-        SceneManager.LoadScene("Battle");
-    }
-
     public void OnClickStage1()
     {
+        if (!IsTutorialCompleted())
+            return;
+
         StageProgress.selectedStage = 1;
 
         SceneManager.LoadScene("Map");
@@ -80,6 +71,9 @@ public class DungeonUIManager : MonoBehaviour
 
     public void OnClickStage2()
     {
+        if (!IsTutorialCompleted())
+            return;
+
         StageProgress.selectedStage = 2;
 
         SceneManager.LoadScene("Map");
@@ -87,8 +81,19 @@ public class DungeonUIManager : MonoBehaviour
 
     public void OnClickStage3()
     {
+        if (!IsTutorialCompleted())
+            return;
+
         StageProgress.selectedStage = 3;
 
         SceneManager.LoadScene("Map");
+    }
+
+    bool IsTutorialCompleted()
+    {
+        return PlayerPrefs.GetInt(
+            AccountManager.GetAccountKey(
+                "TutorialDone"),
+            0) == 1;
     }
 }

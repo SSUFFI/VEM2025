@@ -11,6 +11,13 @@ public class GraveUI : MonoBehaviour
     [SerializeField] Transform content;
     [SerializeField] GameObject cardPrefab;
 
+    [Header("Grave Highlight Targets")]
+    [SerializeField] GameObject myGraveHighlightTarget;
+    [SerializeField] GameObject enemyGraveHighlightTarget;
+
+    public GameObject MyGraveHighlightTarget => myGraveHighlightTarget;
+    public GameObject EnemyGraveHighlightTarget => enemyGraveHighlightTarget;
+
     bool isOpen = false;
     public bool IsOpen => isOpen;
 
@@ -29,7 +36,12 @@ public class GraveUI : MonoBehaviour
         foreach (var data in list)
         {
             var obj = Instantiate(cardPrefab, content);
-            obj.GetComponent<GraveUICard>().Setup(data);
+            obj.GetComponent<GraveUICard>().Setup(data, isMine);
+        }
+
+        if (BattleTutorialManager.Inst != null && BattleTutorialManager.Inst.IsActive)
+        {
+            BattleTutorialManager.Inst.OnGraveOpened(isMine);
         }
     }
 

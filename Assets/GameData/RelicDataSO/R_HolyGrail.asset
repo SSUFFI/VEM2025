@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7658de2812d16424d9ab2d6a7a9d26fe, type: 3}
   m_Name: R_HolyGrail
   m_EditorClassIdentifier: 
+  relicId: R_HolyGrail
   relicName: "\uC131\uBC30"
   description: "\uC544\uAD70 \uD558\uC218\uC778 1\uBA85\uC5D0\uAC8C \uD68C\uBCF5
     2"
