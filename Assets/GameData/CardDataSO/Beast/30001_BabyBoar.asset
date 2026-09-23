@@ -23,4 +23,8 @@ MonoBehaviour:
   description: 
   keywords: []
   taunt: 0
-  triggers: []
+  triggers:
+  - triggerType: 0
+    effectType: 0
+    value: 0
+    summonCards: []

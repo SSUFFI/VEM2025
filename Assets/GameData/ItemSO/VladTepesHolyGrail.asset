@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d5287cd2a39a048a50ae405af15f54, type: 3}
+  m_Name: VladTepesHolyGrail
+  m_EditorClassIdentifier: 
+  itemId: DIUL0001
+  itemName: "\uBE14\uB77C\uB4DC \uCCB4\uD398\uC288\uC758 \uC131\uBC30"
+  icon: {fileID: 21300000, guid: 2e5c30390d1698d4a9b65755c35b6f46, type: 3}
+  description: "\uBD88\uBA78\uC758 \uAD70\uC8FC\uAC00 \uC0AC\uC6A9\uD588\uB358 \uC800\uC8FC\uBC1B\uC740
+    \uC131\uBC30"
+  price: 60
+  itemType: 0

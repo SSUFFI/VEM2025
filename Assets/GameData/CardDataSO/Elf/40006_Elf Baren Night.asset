@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
+  m_Name: 40006_Elf Baren Night
+  m_EditorClassIdentifier: 
+  cardId: 40006_Elf Baren Night
+  cardName: "\uBC14\uB80C (\uBC24)"
+  attack: 4
+  health: 3
+  manaCost: 4
+  sprite: {fileID: 21300000, guid: 439ae55abae21f8479eb7c8dfbe4a90c, type: 3}
+  fieldSprite: {fileID: 21300000, guid: 69e1862c52fdc88478540a8b3aa5904b, type: 3}
+  raceSprite: {fileID: 21300000, guid: 80c7e0007f9035542b9173210f57b8cf, type: 3}
+  description: "\uC804\uC0AC ] \uACF5\uACA9\uD55C \uC801 \uAE30\uC0AC\uC5D0\uAC8C
+    \uB370\uBBF8\uC9C0 (4)\n\uC2EC\uD310 ] \uACF5\uACA9\uD55C \uC801 \uAE30\uC0AC\uC5D0\uAC8C
+    \uB370\uBBF8\uC9C0 (4)"
+  keywords:
+  - "\uD568\uC131 : \uC774 \uCE74\uB4DC\uB97C \uD544\uB4DC\uC5D0 \uB0B4\uB9B4 \uC2DC
+    1\uD68C \uBC1C\uB3D9"
+  taunt: 0
+  triggers:
+  - triggerType: 1
+    effectType: 1
+    value: 0
+    summonCards: []
+  - triggerType: 2
+    effectType: 1
+    value: 0
+    summonCards: []

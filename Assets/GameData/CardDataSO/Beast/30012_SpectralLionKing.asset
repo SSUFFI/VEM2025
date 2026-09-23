@@ -14,13 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 30012_SpectralLionKing
   cardName: "\uC0AC\uC790\uC655\uC758 \uD63C"
-  attack: 8
-  health: 7
-  manaCost: 8
+  attack: 6
+  health: 6
+  manaCost: 6
   sprite: {fileID: 21300000, guid: ff694e52bf0492b479bf1b16686c4e72, type: 3}
   fieldSprite: {fileID: 21300000, guid: 2099987ea0df6184eaa3f6e58ebf56f3, type: 3}
   raceSprite: {fileID: 21300000, guid: 1c563fca880788145964437264b7d969, type: 3}
-  description: 
+  description: "\uD568\uC131 ] \uC801 \uC804\uCCB4 \uB370\uBBF8\uC9C0 (2)"
   keywords: []
-  taunt: 0
-  triggers: []
+  taunt: 1
+  triggers:
+  - triggerType: 0
+    effectType: 5
+    value: 2
+    summonCards: []

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd7f5568c351c3438a2684e9a385faf, type: 3}
+  m_Name: 30016_SwiftOstrich
+  m_EditorClassIdentifier: 
+  cardId: 30016_SwiftOstrich
+  cardName: "\uC7AC\uBE60\uB978 \uD0C0\uC870"
+  attack: 3
+  health: 1
+  manaCost: 2
+  sprite: {fileID: 21300000, guid: bb5316291606071468dc185464f01f3d, type: 3}
+  fieldSprite: {fileID: 21300000, guid: 5da5dcb83fac844448bc865e939260b5, type: 3}
+  raceSprite: {fileID: 21300000, guid: 1c563fca880788145964437264b7d969, type: 3}
+  description: 
+  keywords: []
+  taunt: 0
+  triggers: []

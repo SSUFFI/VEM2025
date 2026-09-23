@@ -1647,10 +1647,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1600, y: 900}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1676,7 +1676,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 200
@@ -23598,13 +23598,25 @@ MonoBehaviour:
   - {fileID: 1299205619}
   - {fileID: 1221595026}
   itemPool:
-  - {fileID: 11400000, guid: 2f68f57b47b24c84a91c7ce19074d03e, type: 2}
-  - {fileID: 11400000, guid: 3677f0be2876aa74aa65bbca74f5b286, type: 2}
-  - {fileID: 11400000, guid: 713aa5ec2a7e9d742b842c71ecb45841, type: 2}
-  - {fileID: 11400000, guid: e7af9b990bf8215409e3959e2c939151, type: 2}
-  - {fileID: 11400000, guid: d73050864fb69434faf5ccf5966c6c5f, type: 2}
-  - {fileID: 11400000, guid: a2d6794874652054b96fdff4a34e31ad, type: 2}
-  - {fileID: 11400000, guid: 710d05cb4db092245ad40d1eaf4bf63d, type: 2}
+  - {fileID: 11400000, guid: 8f00c5b00df75bd4aa8c56576a80b9b1, type: 2}
+  - {fileID: 11400000, guid: 50400f000c08d1044b9762c8849f6346, type: 2}
+  - {fileID: 11400000, guid: 8599817af3b30af48a5565f54c4b00ad, type: 2}
+  - {fileID: 11400000, guid: 4ee412208d43cd24dab7664a97140a7b, type: 2}
+  - {fileID: 11400000, guid: ecd1456517d34834592df84e0d0b2bd8, type: 2}
+  - {fileID: 11400000, guid: f1f22aa917fe0d445a306f1f497691b4, type: 2}
+  - {fileID: 11400000, guid: 6ca3699192d81f54fbea1e9080dc7987, type: 2}
+  - {fileID: 11400000, guid: 808dcfbfb8ee42148a38d742f9a34a11, type: 2}
+  - {fileID: 11400000, guid: bfa9eb7bfced92145b95fb64ecdefeee, type: 2}
+  - {fileID: 11400000, guid: 9809b31fe540eb84f8513aa4d85f4af6, type: 2}
+  - {fileID: 11400000, guid: e554aa9be24766046bcf37cca142e8c8, type: 2}
+  - {fileID: 11400000, guid: e5a471ce65e6f9e42a59052c0888292d, type: 2}
+  - {fileID: 11400000, guid: 7ebe2aec6bc18664d997bc63217618e9, type: 2}
+  - {fileID: 11400000, guid: 560d81e7daad8b349bb3e794c3f0900f, type: 2}
+  - {fileID: 11400000, guid: 9eee0951871367445b145d12d444141a, type: 2}
+  - {fileID: 11400000, guid: cc32807fd9af820468ce8b22af95ba27, type: 2}
+  - {fileID: 11400000, guid: eb5bff79ba4e2bb4db2db9747c9155a1, type: 2}
+  - {fileID: 11400000, guid: 4fd2d6d72b5386840a31bc4fa2be89c5, type: 2}
+  - {fileID: 11400000, guid: ce38bb175a794dd4990d81e4d6a5adac, type: 2}
   goldItem: {fileID: 11400000, guid: 4d5d7282570c1c544bc051471bb4ba76, type: 2}
   popupUI: {fileID: 488310759}
   refreshHours: 6
