@@ -51,6 +51,9 @@ public class TrainingSelectManager : MonoBehaviour
         if (trainingPanel == null)
             return;
 
+        if (TutorialIndicatorManager.Inst != null)
+            TutorialIndicatorManager.Inst.Hide();
+
         RefreshButtons();
         trainingPanel.SetActive(true);
     }

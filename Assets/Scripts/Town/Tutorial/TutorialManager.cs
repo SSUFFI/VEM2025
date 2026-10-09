@@ -23,6 +23,29 @@ public class TutorialManager : MonoBehaviour
     [Header("Debug")]
     public bool enableTutorial = true;
 
+    [Header("Temple Tutorial")]
+    [SerializeField] GameObject templeTutorialPanel;
+
+    [Header("Temple Tutorial Hidden UI")]
+    [SerializeField] GameObject[] templeHiddenUI;
+
+    [Header("Royal Tutorial")]
+    [SerializeField] GameObject royalTutorialPanel;
+
+    [Header("Royal Tutorial Hidden UI")]
+    [SerializeField] GameObject[] royalHiddenUI;
+
+    [Header("Tutorial Indicator Targets")]
+    [SerializeField] RectTransform templeIndicatorTarget;
+    [SerializeField] RectTransform priestIndicatorTarget;
+    [SerializeField] RectTransform royalIndicatorTarget;
+    [SerializeField] RectTransform kingIndicatorTarget;
+    [SerializeField] RectTransform trainingIndicatorTarget;
+
+    [Header("Tutorial Indicator Settings")]
+    [SerializeField] float indicatorOffsetY = 40f;
+    [SerializeField] float indicatorScale = 1f;
+
     [Header("Dialogue")]
     public DialogueManager dialogue;
 
@@ -49,6 +72,9 @@ public class TutorialManager : MonoBehaviour
     DialogueManager.Line[] resumeLines;
     int resumeIndex = -1;
 
+    bool isRoyalFirstDialogue = false;
+
+
     void Awake()
     {
         if (Inst == null)
@@ -65,6 +91,7 @@ public class TutorialManager : MonoBehaviour
         if (dialogue == null)
             dialogue = FindObjectOfType<DialogueManager>();
     }
+
 
     void Start()
     {
@@ -129,6 +156,23 @@ public class TutorialManager : MonoBehaviour
             shopButton.SetActive(true);
     }
 
+    void ShowTutorialIndicator(RectTransform target)
+    {
+        if (TutorialIndicatorManager.Inst == null || target == null)
+            return;
+
+        TutorialIndicatorManager.Inst.Show(
+            target,
+            indicatorOffsetY,
+            indicatorScale);
+    }
+
+    void HideTutorialIndicator()
+    {
+        if (TutorialIndicatorManager.Inst != null)
+            TutorialIndicatorManager.Inst.Hide();
+    }
+
     void StartIntro()
     {
         step = TutorialStep.Start;
@@ -139,6 +183,12 @@ public class TutorialManager : MonoBehaviour
 
     public void OnDialogueEnd()
     {
+        if (isRoyalFirstDialogue)
+        {
+            isRoyalFirstDialogue = false;
+            SetRoyalUIVisible(true);
+        }
+
         switch (step)
         {
             case TutorialStep.Start:
@@ -147,48 +197,98 @@ public class TutorialManager : MonoBehaviour
                     templeButton.SetActive(true);
 
                 step = TutorialStep.AfterIntro;
-                break;
 
+                ShowTutorialIndicator(templeIndicatorTarget);
+                break;
 
             case TutorialStep.AfterIntro:
 
+                SetTempleUIVisible(true);
+
                 step = TutorialStep.AfterTemple;
                 break;
-
 
             case TutorialStep.BeforeRoyal:
 
                 if (royalButton != null)
                     royalButton.SetActive(true);
 
+                ShowTutorialIndicator(royalIndicatorTarget);
                 break;
 
-
             case TutorialStep.AfterRoyal:
+                break;
+
+            case TutorialStep.AfterDeck:
+
+                ShowTutorialIndicator(trainingIndicatorTarget);
                 break;
         }
     }
 
     public void OnTempleEntered()
     {
-        if (!templeDialogueDone)
-        {
-            templeDialogueDone = true;
+        if (!enableTutorial || isTutorialFinished || templeDialogueDone)
+            return;
 
-            StartCoroutine(
-                CoPlayTempleDialogue());
+        HideTutorialIndicator();
+
+        if (templeTutorialPanel != null)
+        {
+            templeTutorialPanel.SetActive(true);
+            ShowTutorialIndicator(priestIndicatorTarget);
         }
+        else
+        {
+            Debug.LogWarning("성당 튜토리얼 패널이 연결되지 않았습니다.");
+        }
+    }
+
+    public void OnTemplePriestClicked()
+    {
+        if (!enableTutorial || isTutorialFinished || templeDialogueDone)
+            return;
+
+        templeDialogueDone = true;
+
+        HideTutorialIndicator();
+
+        if (templeTutorialPanel != null)
+            templeTutorialPanel.SetActive(false);
+
+        SetTempleUIVisible(false);
+
+        StartCoroutine(CoPlayTempleDialogue());
     }
 
     public void OnTempleExit()
     {
-        if (step == TutorialStep.AfterTemple)
+        if (templeTutorialPanel != null)
+            templeTutorialPanel.SetActive(false);
+
+        if (step == TutorialStep.AfterIntro && !templeDialogueDone)
+        {
+            ShowTutorialIndicator(templeIndicatorTarget);
+            return;
+        }
+
+        HideTutorialIndicator();
+
+        if (step == TutorialStep.AfterTemple && templeDialogueDone)
         {
             if (dialogue != null)
-                dialogue.StartDialogue(
-                    beforeRoyalLines);
+                dialogue.StartDialogue(beforeRoyalLines);
 
             step = TutorialStep.BeforeRoyal;
+        }
+    }
+
+    void SetTempleUIVisible(bool visible)
+    {
+        foreach (GameObject obj in templeHiddenUI)
+        {
+            if (obj != null)
+                obj.SetActive(visible);
         }
     }
 
@@ -202,15 +302,59 @@ public class TutorialManager : MonoBehaviour
 
     public void OnRoyalEntered()
     {
-        if (step == TutorialStep.BeforeRoyal)
+        if (step != TutorialStep.BeforeRoyal)
+            return;
+
+        HideTutorialIndicator();
+
+        if (royalTutorialPanel != null)
         {
-            if (dialogue != null)
-                dialogue.StartDialogue(royalLines);
+            royalTutorialPanel.SetActive(true);
+            ShowTutorialIndicator(kingIndicatorTarget);
+        }
+        else
+        {
+            Debug.LogWarning("왕국 튜토리얼 패널이 연결되지 않았습니다.");
+        }
+    }
 
-            resumeLines = royalLines;
-            resumeIndex = 9;
+    public void OnRoyalKingClicked()
+    {
+        if (step != TutorialStep.BeforeRoyal)
+            return;
 
-            step = TutorialStep.AfterRoyal;
+        HideTutorialIndicator();
+
+        if (royalTutorialPanel != null)
+            royalTutorialPanel.SetActive(false);
+
+        isRoyalFirstDialogue = true;
+        SetRoyalUIVisible(false);
+
+        resumeLines = royalLines;
+        resumeIndex = 9;
+
+        step = TutorialStep.AfterRoyal;
+
+        if (dialogue != null)
+            dialogue.StartDialogue(royalLines);
+    }
+
+    public void CloseRoyalTutorialPanel()
+    {
+        if (royalTutorialPanel != null)
+            royalTutorialPanel.SetActive(false);
+
+        if (step == TutorialStep.BeforeRoyal)
+            ShowTutorialIndicator(royalIndicatorTarget);
+    }
+
+    void SetRoyalUIVisible(bool visible)
+    {
+        foreach (GameObject obj in royalHiddenUI)
+        {
+            if (obj != null)
+                obj.SetActive(visible);
         }
     }
 
@@ -228,6 +372,8 @@ public class TutorialManager : MonoBehaviour
             dungeonButton.SetActive(false);
 
         step = TutorialStep.AfterDeck;
+
+        ShowTutorialIndicator(trainingIndicatorTarget);
     }
 
     void ResumeDialogue()
@@ -249,6 +395,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (step == TutorialStep.AfterDeck)
         {
+            HideTutorialIndicator();
             step = TutorialStep.Training;
         }
     }
@@ -258,6 +405,7 @@ public class TutorialManager : MonoBehaviour
         if (isTutorialFinished)
             return;
 
+        HideTutorialIndicator();
         GiveTutorialRewardCards();
 
         isTutorialFinished = true;

@@ -27,5 +27,8 @@ public class RoyalUIManager : MonoBehaviour
     public void CloseRoyal()
     {
         royalPanel.SetActive(false);
+
+        if (TutorialManager.Inst != null)
+            TutorialManager.Inst.CloseRoyalTutorialPanel();
     }
 }
