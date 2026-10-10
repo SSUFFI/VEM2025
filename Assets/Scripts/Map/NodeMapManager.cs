@@ -238,6 +238,9 @@ public class NodeMapManager : MonoBehaviour
 
         if (node.nodeData.nodeType == NodeType.Event)
         {
+            if (NodeInfoPanelUI.Inst != null)
+                NodeInfoPanelUI.Inst.Hide();
+
             OpenEventPanel(node.nodeData.eventType);
             return;
         }

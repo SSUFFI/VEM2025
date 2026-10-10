@@ -22,6 +22,9 @@ public class NodeInfoPanelUI : MonoBehaviour
     [SerializeField] float shownX = 350f;
     [SerializeField] float duration = 0.35f;
 
+    [Header("Close Area")]
+    [SerializeField] GameObject nodeInfoCloseArea;
+
     void Awake()
     {
         Inst = this;
@@ -45,6 +48,17 @@ public class NodeInfoPanelUI : MonoBehaviour
             closeButton.onClick.AddListener(Hide);
         }
 
+        if (nodeInfoCloseArea != null)
+        {
+            Button closeAreaButton = nodeInfoCloseArea.GetComponent<Button>();
+
+            if (closeAreaButton != null)
+            {
+                closeAreaButton.onClick.RemoveAllListeners();
+                closeAreaButton.onClick.AddListener(Hide);
+            }
+        }
+
         HideInstant();
     }
 
@@ -52,7 +66,11 @@ public class NodeInfoPanelUI : MonoBehaviour
     {
         RefreshRewardIcons(nodeData);
 
+        if (nodeInfoCloseArea != null)
+            nodeInfoCloseArea.SetActive(true);
+
         gameObject.SetActive(true);
+
         panelRect.DOKill();
         panelRect.DOAnchorPosX(shownX, duration).SetEase(Ease.OutCubic);
     }
@@ -101,9 +119,11 @@ public class NodeInfoPanelUI : MonoBehaviour
 
     public void Hide()
     {
+        if (nodeInfoCloseArea != null)
+            nodeInfoCloseArea.SetActive(false);
+
         panelRect.DOKill();
-        panelRect.DOAnchorPosX(hiddenX, duration).SetEase(Ease.InCubic)
-            .OnComplete(() => gameObject.SetActive(false));
+        panelRect.DOAnchorPosX(hiddenX, duration).SetEase(Ease.InCubic).OnComplete(() => gameObject.SetActive(false));
     }
 
     public void HideInstant()
@@ -112,6 +132,10 @@ public class NodeInfoPanelUI : MonoBehaviour
             panelRect = transform as RectTransform;
 
         panelRect.anchoredPosition = new Vector2(hiddenX, panelRect.anchoredPosition.y);
+
+        if (nodeInfoCloseArea != null)
+            nodeInfoCloseArea.SetActive(false);
+
         gameObject.SetActive(false);
     }
 }
