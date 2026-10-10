@@ -40,6 +40,9 @@ public class TempleUIManager : MonoBehaviour
 
     public void OpenMainPanel()
     {
+        if (TutorialManager.Inst != null)
+            TutorialManager.Inst.SuspendTownIndicator();
+
         OpenPanel(mainPanel);
     }
 
@@ -68,7 +71,10 @@ public class TempleUIManager : MonoBehaviour
         CloseTemple();
 
         if (TutorialManager.Inst != null)
+        {
             TutorialManager.Inst.OnTempleExit();
+            TutorialManager.Inst.ResumeTownIndicator();
+        }
     }
 
     public void OnClickBackToMain()

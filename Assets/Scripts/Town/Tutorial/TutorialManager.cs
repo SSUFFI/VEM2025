@@ -70,6 +70,7 @@ public class TutorialManager : MonoBehaviour
 
     bool templeDialogueDone = false;
     bool isTutorialFinished = false;
+    bool isTownIndicatorSuspended = false;
 
     DialogueManager.Line[] resumeLines;
     int resumeIndex = -1;
@@ -237,6 +238,26 @@ public class TutorialManager : MonoBehaviour
             indicatorScale);
     }
 
+    public void SuspendTownIndicator()
+    {
+        if (TutorialIndicatorManager.Inst == null)
+            return;
+
+        isTownIndicatorSuspended = true;
+        TutorialIndicatorManager.Inst.Suspend();
+    }
+
+    public void ResumeTownIndicator()
+    {
+        if (!isTownIndicatorSuspended)
+            return;
+
+        isTownIndicatorSuspended = false;
+
+        if (TutorialIndicatorManager.Inst != null)
+            TutorialIndicatorManager.Inst.Resume();
+    }
+
     void HideTutorialIndicator()
     {
         if (TutorialIndicatorManager.Inst != null)
@@ -340,10 +361,10 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        HideTutorialIndicator();
-
         if (step == TutorialStep.AfterTemple && templeDialogueDone)
         {
+            HideTutorialIndicator();
+
             if (dialogue != null)
                 dialogue.StartDialogue(beforeRoyalLines);
 

@@ -15,6 +15,9 @@ public class RoyalUIManager : MonoBehaviour
 
     public void OpenRoyal()
     {
+        if (TutorialManager.Inst != null)
+            TutorialManager.Inst.SuspendTownIndicator();
+
         royalPanel.SetActive(true);
 
         if (TutorialManager.Inst != null)
@@ -29,6 +32,9 @@ public class RoyalUIManager : MonoBehaviour
         royalPanel.SetActive(false);
 
         if (TutorialManager.Inst != null)
+        {
             TutorialManager.Inst.CloseRoyalTutorialPanel();
+            TutorialManager.Inst.ResumeTownIndicator();
+        }
     }
 }

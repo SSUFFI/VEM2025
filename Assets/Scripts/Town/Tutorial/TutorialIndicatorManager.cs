@@ -30,13 +30,13 @@ public class TutorialIndicatorManager : MonoBehaviour
         if (currentTarget == null || indicator == null)
             return;
 
+        if (!indicator.gameObject.activeSelf)
+            return;
+
         UpdateIndicatorPosition();
     }
 
-    public void Show(
-        RectTransform target,
-        float offsetY = 30f,
-        float scale = 1f)
+    public void Show(RectTransform target, float offsetY = 30f, float scale = 1f)
     {
         if (target == null || indicator == null)
             return;
@@ -62,11 +62,30 @@ public class TutorialIndicatorManager : MonoBehaviour
             indicator.gameObject.SetActive(false);
     }
 
+    public void Suspend()
+    {
+
+        if (indicator != null)
+            indicator.gameObject.SetActive(false);
+    }
+
+    public void Resume()
+    {
+        if (currentTarget == null || indicator == null)
+            return;
+
+        if (!currentTarget.gameObject.activeInHierarchy)
+            return;
+
+        indicator.gameObject.SetActive(true);
+        UpdateIndicatorPosition();
+    }
+
     void UpdateIndicatorPosition()
     {
         if (!currentTarget.gameObject.activeInHierarchy)
         {
-            Hide();
+            Suspend();
             return;
         }
 
