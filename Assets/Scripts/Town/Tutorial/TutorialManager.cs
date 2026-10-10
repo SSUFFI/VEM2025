@@ -60,6 +60,8 @@ public class TutorialManager : MonoBehaviour
     public GameObject trainingButton;
     public GameObject dungeonButton;
     public GameObject shopButton;
+    public GameObject inventoryButton;
+    public GameObject questButton;
 
     [Header("Tutorial Reward Cards")]
     [SerializeField]
@@ -136,6 +138,12 @@ public class TutorialManager : MonoBehaviour
 
         if (shopButton != null)
             shopButton.SetActive(false);
+
+        if (inventoryButton != null)
+            inventoryButton.SetActive(false);
+
+        if (questButton != null)
+            questButton.SetActive(false);
     }
 
     void UnlockAll()
@@ -154,6 +162,68 @@ public class TutorialManager : MonoBehaviour
 
         if (shopButton != null)
             shopButton.SetActive(true);
+
+        if (inventoryButton != null)
+            inventoryButton.SetActive(true);
+
+        if (questButton != null)
+            questButton.SetActive(true);
+    }
+
+    public void RegisterTownButtons(
+    GameObject temple,
+    GameObject royal,
+    GameObject training,
+    GameObject dungeon,
+    GameObject shop,
+    GameObject inventory,
+    GameObject quest)
+    {
+        templeButton = temple;
+        royalButton = royal;
+        trainingButton = training;
+        dungeonButton = dungeon;
+        shopButton = shop;
+        inventoryButton = inventory;
+        questButton = quest;
+
+        RefreshTownButtons();
+    }
+
+    public void RefreshTownButtons()
+    {
+        if (!enableTutorial || isTutorialFinished || step == TutorialStep.Done)
+        {
+            UnlockAll();
+            return;
+        }
+
+        if (templeButton != null)
+            templeButton.SetActive(step != TutorialStep.Start);
+
+        if (royalButton != null)
+            royalButton.SetActive(
+                step == TutorialStep.BeforeRoyal ||
+                step == TutorialStep.AfterRoyal ||
+                step == TutorialStep.AfterDeck ||
+                step == TutorialStep.Training);
+
+        if (trainingButton != null)
+            trainingButton.SetActive(
+                step == TutorialStep.AfterDeck ||
+                step == TutorialStep.Training);
+
+        if (dungeonButton != null)
+            dungeonButton.SetActive(false);
+
+        if (shopButton != null)
+            shopButton.SetActive(false);
+
+        if (inventoryButton != null)
+            inventoryButton.SetActive(false);
+
+        if (questButton != null)
+            questButton.SetActive(false);
     }
 
     void ShowTutorialIndicator(RectTransform target)
@@ -220,8 +290,6 @@ public class TutorialManager : MonoBehaviour
                 break;
 
             case TutorialStep.AfterDeck:
-
-                ShowTutorialIndicator(trainingIndicatorTarget);
                 break;
         }
     }
@@ -347,6 +415,9 @@ public class TutorialManager : MonoBehaviour
 
         if (step == TutorialStep.BeforeRoyal)
             ShowTutorialIndicator(royalIndicatorTarget);
+
+        if (step == TutorialStep.AfterDeck && dialogue != null && !dialogue.IsDialoguePlaying)
+            ShowTutorialIndicator(trainingIndicatorTarget);
     }
 
     void SetRoyalUIVisible(bool visible)
@@ -372,8 +443,6 @@ public class TutorialManager : MonoBehaviour
             dungeonButton.SetActive(false);
 
         step = TutorialStep.AfterDeck;
-
-        ShowTutorialIndicator(trainingIndicatorTarget);
     }
 
     void ResumeDialogue()

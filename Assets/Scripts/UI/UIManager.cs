@@ -19,12 +19,39 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject mapMenuPanel;
     [SerializeField] GameObject battleMenuPanel;
 
+    [Header("마을 튜토리얼 버튼")]
+    [SerializeField] GameObject templeButton;
+    [SerializeField] GameObject royalButton;
+    [SerializeField] GameObject trainingButton;
+    [SerializeField] GameObject dungeonButton;
+    [SerializeField] GameObject shopButton;
+    [SerializeField] GameObject inventoryButton;
+    [SerializeField] GameObject questButton;
+
     void Awake()
     {
         if (Inst == null)
             Inst = this;
         else
             Destroy(gameObject);
+    }
+
+    void Start()
+    {
+        if (SceneManager.GetActiveScene().name != "Town")
+            return;
+
+        if (TutorialManager.Inst == null)
+            return;
+
+        TutorialManager.Inst.RegisterTownButtons(
+            templeButton,
+            royalButton,
+            trainingButton,
+            dungeonButton,
+            shopButton,
+            inventoryButton,
+            questButton);
     }
 
     void Update()
