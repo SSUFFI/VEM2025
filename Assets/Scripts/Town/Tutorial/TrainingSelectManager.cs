@@ -174,6 +174,15 @@ public class TrainingSelectManager : MonoBehaviour
         SceneManager.LoadScene("Battle");
     }
 
+    public void OnClickMockBattle()
+    {
+        if (!IsTraining3Completed)
+            return;
+
+        if (TrainingPopup.Inst != null)
+            TrainingPopup.Inst.ShowMockBattleConfirm();
+    }
+
     public void StartMockBattle()
     {
         if (!IsTraining3Completed)

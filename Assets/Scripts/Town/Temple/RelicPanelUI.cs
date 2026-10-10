@@ -71,7 +71,10 @@ public class RelicPanelUI : MonoBehaviour
 
         descriptionTMP.text = data.description;
         infoIcon.sprite = data.icon;
-        manaCostTMP.text = data.manaCost.ToString();
+
+        manaCostTMP.text = data.isLocked
+        ? "?"
+        : data.manaCost.ToString();
     }
 
     public void OnClickEquip()
@@ -79,10 +82,15 @@ public class RelicPanelUI : MonoBehaviour
         if (selectedSlot == null)
             return;
 
+        RelicDataSO data = selectedSlot.Data;
+
+        if (data == null || data.isLocked)
+            return;
+
         if (PlayerRelicManager.Inst == null)
             return;
 
-        PlayerRelicManager.Inst.EquipRelic(selectedSlot.Data);
+        PlayerRelicManager.Inst.EquipRelic(data);
 
         RefreshEquipButton();
     }
@@ -92,9 +100,19 @@ public class RelicPanelUI : MonoBehaviour
         if (selectedSlot == null)
             return;
 
-        bool equipped =
-            PlayerRelicManager.Inst != null &&
-            PlayerRelicManager.Inst.equippedRelic == selectedSlot.Data;
+        RelicDataSO data = selectedSlot.Data;
+
+        if (data == null)
+            return;
+
+        if (data.isLocked)
+        {
+            equipButton.interactable = false;
+            equipButtonTMP.text = "¹ÌÇØ±Ý";
+            return;
+        }
+
+        bool equipped = PlayerRelicManager.Inst != null && PlayerRelicManager.Inst.equippedRelic == data;
 
         equipButton.interactable = !equipped;
 

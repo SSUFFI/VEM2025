@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: beeb823a7b655514a8890a1ad0b6fa4d
+guid: ece82b9de774fde4d860d06c0b37ca5c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,91 +108,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: RelicNoteObject_0
-      rect:
-        serializedVersion: 2
-        x: 225
-        y: 484
-        width: 420
-        height: 420
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b82eb43459010ea43a864e714164228f
-      internalID: 1605937321
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RelicNoteObject_1
-      rect:
-        serializedVersion: 2
-        x: 225
-        y: 57
-        width: 420
-        height: 420
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4cf7b16135c73514f982661b8574a038
-      internalID: 290700364
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RelicNoteObject_2
-      rect:
-        serializedVersion: 2
-        x: 844
-        y: 486
-        width: 450
-        height: 452
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 02e4a002e0ec318479592aee67415392
-      internalID: -1946518597
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RelicNoteObject_3
-      rect:
-        serializedVersion: 2
-        x: 822
-        y: 45
-        width: 450
-        height: 430
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a41316b761877164f831912ec03d6929
-      internalID: 502531907
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -203,12 +119,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      RelicNoteObject_0: 1605937321
-      RelicNoteObject_1: 290700364
-      RelicNoteObject_2: -1946518597
-      RelicNoteObject_3: 502531907
-      RelicNoteObject_4: -1114431895
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

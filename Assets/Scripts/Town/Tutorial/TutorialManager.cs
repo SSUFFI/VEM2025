@@ -72,6 +72,7 @@ public class TutorialManager : MonoBehaviour
     bool isTutorialFinished = false;
     bool isTownIndicatorSuspended = false;
     public bool TempleDialogueDone => templeDialogueDone;
+    public bool EnableTutorial => enableTutorial;
 
     DialogueManager.Line[] resumeLines;
     int resumeIndex = -1;

@@ -45,7 +45,10 @@ public class TempleUIManager : MonoBehaviour
 
         OpenPanel(mainPanel);
 
-        if (TutorialManager.Inst != null && !TutorialManager.Inst.TempleDialogueDone)
+        if (TutorialManager.Inst != null &&
+            TutorialManager.Inst.EnableTutorial &&
+            !TutorialManager.Inst.IsTutorialFinished() &&
+            !TutorialManager.Inst.TempleDialogueDone)
             return;
 
         TempleDoorController.Inst?.OpenDoors();

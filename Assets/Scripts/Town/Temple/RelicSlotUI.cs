@@ -10,6 +10,8 @@ public class RelicSlotUI : MonoBehaviour
     [SerializeField] Image iconImage;
     [SerializeField] TMP_Text manaTMP;
     [SerializeField] Button button;
+    [SerializeField] GameObject relicChain;
+    [SerializeField] GameObject relicLock;
 
     [Header("Sprites")]
     [SerializeField] Sprite lockSprite;
@@ -19,6 +21,7 @@ public class RelicSlotUI : MonoBehaviour
 
     [SerializeField] Sprite frameOpened;
     [SerializeField] Sprite frameSelected;
+
 
     RelicDataSO data;
 
@@ -49,13 +52,19 @@ public class RelicSlotUI : MonoBehaviour
 
         bool unlocked = !data.isLocked;
 
-        iconImage.gameObject.SetActive(unlocked);
+        if (relicChain != null)
+            relicChain.SetActive(!unlocked);
+
+        if (relicLock != null)
+            relicLock.SetActive(!unlocked);
+
+        iconImage.gameObject.SetActive(true);
+
         manaTMP.gameObject.SetActive(unlocked);
 
         if (data.isLocked)
         {
             baseImage.sprite = lockSprite;
-
             frameImage.gameObject.SetActive(false);
         }
         else
@@ -72,6 +81,31 @@ public class RelicSlotUI : MonoBehaviour
                 baseImage.sprite = baseOpened;
                 frameImage.sprite = frameOpened;
             }
+        }
+
+        RefreshBrightness(selected);
+    }
+
+    void RefreshBrightness(bool selected)
+    {
+        float brightness = selected ? 1f : 0.65f;
+
+        foreach (Image image in GetComponentsInChildren<Image>(true))
+        {
+            Color color = image.color;
+            color.r = brightness;
+            color.g = brightness;
+            color.b = brightness;
+            image.color = color;
+        }
+
+        foreach (TMP_Text text in GetComponentsInChildren<TMP_Text>(true))
+        {
+            Color color = text.color;
+            color.r = brightness;
+            color.g = brightness;
+            color.b = brightness;
+            text.color = color;
         }
     }
 }
