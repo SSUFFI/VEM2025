@@ -963,8 +963,15 @@ public class BattleTutorialManager : MonoBehaviour
         yield return StartCoroutine(WaitForTutorialExitClick()
         );
 
+        bool firstClear = !TrainingSelectManager.IsTraining3Completed;
+
         TrainingSelectManager.CompleteTraining3();
         TrainingSelectManager.OpenPanelAfterReturn();
+
+        if (firstClear)
+        {
+            TrainingSelectManager.ShowPopupAfterReturn();
+        }
 
         BattleData.ResetBattleMode();
 

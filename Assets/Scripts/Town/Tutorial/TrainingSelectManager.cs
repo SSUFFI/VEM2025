@@ -19,6 +19,7 @@ public class TrainingSelectManager : MonoBehaviour
     [SerializeField] DeckSO mockBattleDeck;
 
     static bool openPanelOnReturn;
+    static bool showPopupOnReturn;
 
     const string TRAINING_1_KEY = "Training1Completed";
     const string TRAINING_2_KEY = "Training2Completed";
@@ -39,11 +40,24 @@ public class TrainingSelectManager : MonoBehaviour
             openPanelOnReturn = false;
             OpenTrainingPanel();
         }
+
+        if (showPopupOnReturn)
+        {
+            showPopupOnReturn = false;
+
+            if (TrainingPopup.Inst != null)
+                TrainingPopup.Inst.Show();
+        }
     }
 
     public static void OpenPanelAfterReturn()
     {
         openPanelOnReturn = true;
+    }
+
+    public static void ShowPopupAfterReturn()
+    {
+        showPopupOnReturn = true;
     }
 
     public void OpenTrainingPanel()
