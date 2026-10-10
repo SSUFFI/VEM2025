@@ -71,6 +71,7 @@ public class TutorialManager : MonoBehaviour
     bool templeDialogueDone = false;
     bool isTutorialFinished = false;
     bool isTownIndicatorSuspended = false;
+    public bool TempleDialogueDone => templeDialogueDone;
 
     DialogueManager.Line[] resumeLines;
     int resumeIndex = -1;
@@ -203,16 +204,10 @@ public class TutorialManager : MonoBehaviour
             templeButton.SetActive(step != TutorialStep.Start);
 
         if (royalButton != null)
-            royalButton.SetActive(
-                step == TutorialStep.BeforeRoyal ||
-                step == TutorialStep.AfterRoyal ||
-                step == TutorialStep.AfterDeck ||
-                step == TutorialStep.Training);
+            royalButton.SetActive(step == TutorialStep.BeforeRoyal || step == TutorialStep.AfterRoyal || step == TutorialStep.AfterDeck || step == TutorialStep.Training);
 
         if (trainingButton != null)
-            trainingButton.SetActive(
-                step == TutorialStep.AfterDeck ||
-                step == TutorialStep.Training);
+            trainingButton.SetActive(step == TutorialStep.AfterDeck || step == TutorialStep.Training);
 
         if (dungeonButton != null)
             dungeonButton.SetActive(false);
@@ -295,6 +290,8 @@ public class TutorialManager : MonoBehaviour
             case TutorialStep.AfterIntro:
 
                 SetTempleUIVisible(true);
+
+                TempleDoorController.Inst?.OpenDoors();
 
                 step = TutorialStep.AfterTemple;
                 break;

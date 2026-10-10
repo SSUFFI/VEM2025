@@ -44,6 +44,11 @@ public class TempleUIManager : MonoBehaviour
             TutorialManager.Inst.SuspendTownIndicator();
 
         OpenPanel(mainPanel);
+
+        if (TutorialManager.Inst != null && !TutorialManager.Inst.TempleDialogueDone)
+            return;
+
+        TempleDoorController.Inst?.OpenDoors();
     }
 
     public void OnClickRelic()
