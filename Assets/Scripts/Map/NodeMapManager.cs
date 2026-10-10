@@ -272,6 +272,14 @@ public class NodeMapManager : MonoBehaviour
 
         NodeUI selectedNode = nodeDict[selectedNodeID];
 
+        if (StageProgress.selectedStage == 1 && selectedNode.nodeData != null && selectedNode.nodeData.nodeType == NodeType.Boss)
+        {
+            string key = AccountManager.GetAccountKey("Stage1BossCleared");
+
+            PlayerPrefs.SetInt(key, 1);
+            PlayerPrefs.Save();
+        }
+
         clearedNodeIDs.Add(selectedNodeID);
 
         if (selectedNode.laneIndex > blockedLaneMax)

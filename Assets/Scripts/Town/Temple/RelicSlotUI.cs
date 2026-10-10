@@ -50,7 +50,7 @@ public class RelicSlotUI : MonoBehaviour
         if (data == null)
             return;
 
-        bool unlocked = !data.isLocked;
+        bool unlocked = !IsLocked();
 
         if (relicChain != null)
             relicChain.SetActive(!unlocked);
@@ -62,7 +62,7 @@ public class RelicSlotUI : MonoBehaviour
 
         manaTMP.gameObject.SetActive(unlocked);
 
-        if (data.isLocked)
+        if (IsLocked())
         {
             baseImage.sprite = lockSprite;
             frameImage.gameObject.SetActive(false);
@@ -84,6 +84,20 @@ public class RelicSlotUI : MonoBehaviour
         }
 
         RefreshBrightness(selected);
+    }
+
+    public bool IsLocked()
+    {
+        if (data == null)
+            return true;
+
+        if (data.relicId == "R_Mace")
+        {
+            string key = AccountManager.GetAccountKey("Stage1BossCleared");
+            return PlayerPrefs.GetInt(key, 0) != 1;
+        }
+
+        return data.isLocked;
     }
 
     void RefreshBrightness(bool selected)
@@ -108,4 +122,5 @@ public class RelicSlotUI : MonoBehaviour
             text.color = color;
         }
     }
+
 }

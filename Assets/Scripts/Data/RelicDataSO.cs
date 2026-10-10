@@ -16,6 +16,10 @@ public class RelicDataSO : ScriptableObject
     [TextArea]
     public string description;
 
+    [Header("Locked Info")]
+    [TextArea]
+    public string lockedDescription;
+
     [Header("Visual")]
     public Sprite icon;
 

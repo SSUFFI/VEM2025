@@ -15,6 +15,7 @@ MonoBehaviour:
   relicId: R_PropheticBooks
   relicName: "\uC131\uACBD"
   description: ???
+  lockedDescription: "???\n\n\uD574\uAE08 \uC870\uAC74 : ?"
   icon: {fileID: 21300000, guid: 98c0b8d82abcdbd429ba9a3529ba15c9, type: 3}
   battleButtonSprite: {fileID: 21300000, guid: 335c25e0252a89143a1116acb380790c, type: 3}
   effectType: 0

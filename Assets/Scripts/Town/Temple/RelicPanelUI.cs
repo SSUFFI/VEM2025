@@ -15,6 +15,7 @@ public class RelicPanelUI : MonoBehaviour
     [SerializeField] List<RelicDataSO> relicDatas;
 
     [Header("Info Panel")]
+    [SerializeField] TMP_Text relicNameTMP;
     [SerializeField] TMP_Text descriptionTMP;
     [SerializeField] Image infoIcon;
     [SerializeField] TMP_Text manaCostTMP;
@@ -22,6 +23,10 @@ public class RelicPanelUI : MonoBehaviour
     [Header("Equip Button")]
     [SerializeField] Button equipButton;
     [SerializeField] TMP_Text equipButtonTMP;
+
+    [Header("Enhance Button")]
+    [SerializeField] Button enhanceButton;
+    [SerializeField] TMP_Text enhanceButtonTMP;
 
     RelicSlotUI selectedSlot;
 
@@ -43,6 +48,13 @@ public class RelicPanelUI : MonoBehaviour
             equipButton.onClick.RemoveAllListeners();
             equipButton.onClick.AddListener(OnClickEquip);
         }
+
+        RefreshEnhanceButton();
+    }
+
+    void OnEnable()
+    {
+        RefreshEnhanceButton();
     }
 
     public void SelectRelic(RelicSlotUI slot)
@@ -69,12 +81,17 @@ public class RelicPanelUI : MonoBehaviour
         if (data == null)
             return;
 
-        descriptionTMP.text = data.description;
+        relicNameTMP.text = data.relicName;
+
+        descriptionTMP.text = selectedSlot.IsLocked()
+            ? data.lockedDescription
+            : data.description;
+
         infoIcon.sprite = data.icon;
 
-        manaCostTMP.text = data.isLocked
-        ? "?"
-        : data.manaCost.ToString();
+        manaCostTMP.text = selectedSlot.IsLocked()
+            ? "?"
+            : data.manaCost.ToString();
     }
 
     public void OnClickEquip()
@@ -84,7 +101,7 @@ public class RelicPanelUI : MonoBehaviour
 
         RelicDataSO data = selectedSlot.Data;
 
-        if (data == null || data.isLocked)
+        if (data == null || selectedSlot.IsLocked())
             return;
 
         if (PlayerRelicManager.Inst == null)
@@ -105,7 +122,7 @@ public class RelicPanelUI : MonoBehaviour
         if (data == null)
             return;
 
-        if (data.isLocked)
+        if (selectedSlot.IsLocked())
         {
             equipButton.interactable = false;
             equipButtonTMP.text = "미해금";
@@ -120,4 +137,27 @@ public class RelicPanelUI : MonoBehaviour
             ? "장착 중"
             : "장착";
     }
+
+    void RefreshEnhanceButton()
+    {
+        if (enhanceButton == null ||
+            enhanceButtonTMP == null)
+            return;
+
+        string key = AccountManager.GetAccountKey("Stage1BossCleared");
+
+        bool stage1Cleared = PlayerPrefs.GetInt(key, 0) == 1;
+
+        enhanceButton.interactable = stage1Cleared;
+
+        enhanceButtonTMP.text = stage1Cleared ? "강화" : "강화\n스테이지1 클리어 시 해금";
+    }
+
+    bool IsStage1BossCleared()
+    {
+        string key = AccountManager.GetAccountKey("Stage1BossCleared");
+        return PlayerPrefs.GetInt(key, 0) == 1;
+    }
+
+
 }

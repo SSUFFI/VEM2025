@@ -1469,8 +1469,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.76, y: -122.802}
-  m_SizeDelta: {x: 399.168, y: 217.241}
+  m_AnchoredPosition: {x: -0.3567, y: -132.07738}
+  m_SizeDelta: {x: 372.5515, y: 198.6902}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &89061462
 MonoBehaviour:
@@ -1519,12 +1519,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 24
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 1
-  m_fontSizeMax: 30
+  m_fontSizeMax: 24
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -5356,11 +5356,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9083fca1023d494e91b648eab097cdf, type: 2}
   - {fileID: 11400000, guid: 11704caef99763d4a90c60069fbecba3, type: 2}
   - {fileID: 11400000, guid: bd486fe6769baec4e802f2095b48f3f5, type: 2}
+  relicNameTMP: {fileID: 2091418089}
   descriptionTMP: {fileID: 89061462}
   infoIcon: {fileID: 1456091824}
   manaCostTMP: {fileID: 147753154}
   equipButton: {fileID: 781844756}
   equipButtonTMP: {fileID: 1064654472}
+  enhanceButton: {fileID: 455693798}
+  enhanceButtonTMP: {fileID: 1577901398}
 --- !u!1 &343237995
 GameObject:
   m_ObjectHideFlags: 0
@@ -9128,7 +9131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &515893396
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9146,7 +9149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.464, y: -10}
+  m_AnchoredPosition: {x: -0.35673, y: -11}
   m_SizeDelta: {x: 214.303, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &515893397
@@ -9169,7 +9172,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b170f3b7f7535d3438a78bb9d2cb7734, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c5a783b6fda620c46a19f75f08cab419, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22740,8 +22743,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.6335983, y: -0.21120071}
+  m_SizeDelta: {x: -22.3847, y: -11.4036}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1577901398
 MonoBehaviour:
@@ -22793,9 +22796,9 @@ MonoBehaviour:
   m_fontSize: 30
   m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 3
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -31557,7 +31560,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uB984\uD14C\uC2A4\uD2B8"
+  m_text: '?'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2dc0add154e2a6142afd61a473b3c24d, type: 2}
   m_sharedMaterial: {fileID: -4929212227970549368, guid: 2dc0add154e2a6142afd61a473b3c24d, type: 2}
@@ -31584,8 +31587,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 27
+  m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

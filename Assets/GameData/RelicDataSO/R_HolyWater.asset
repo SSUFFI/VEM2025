@@ -15,6 +15,7 @@ MonoBehaviour:
   relicId: R_HolyWater
   relicName: "\uC131\uC218"
   description: ???
+  lockedDescription: "???\n\n\uD574\uAE08 \uC870\uAC74 : ?"
   icon: {fileID: 21300000, guid: e0fc9bc8b9979b5429ebdaf8522d7728, type: 3}
   battleButtonSprite: {fileID: 21300000, guid: d0b9d642e4e876d4498686a7123d1484, type: 3}
   effectType: 0

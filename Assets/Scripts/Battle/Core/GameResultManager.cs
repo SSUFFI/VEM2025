@@ -271,35 +271,32 @@ public class GameResultManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        if (BattleData.selectedNodeType ==
-            NodeType.Boss)
+        if (BattleData.selectedNodeType == NodeType.Boss)
         {
-            StageProgress.highestClearedStage =
-                Mathf.Max(
-                    StageProgress.highestClearedStage,
-                    StageProgress.selectedStage);
+            StageProgress.highestClearedStage = Mathf.Max(StageProgress.highestClearedStage, StageProgress.selectedStage);
+
+            if (StageProgress.selectedStage == 1)
+            {
+                string key = AccountManager.GetAccountKey("Stage1BossCleared");
+
+                PlayerPrefs.SetInt(key, 1);
+                PlayerPrefs.Save();
+            }
 
             NodeMapRuntimeData.ResetRun();
 
-            SceneManager.LoadScene(
-                townSceneName);
+            SceneManager.LoadScene(townSceneName);
 
             return;
         }
 
-        int nodeID =
-            PlayerPrefs.GetInt(
-                "SelectedNodeID",
-                -1);
+        int nodeID = PlayerPrefs.GetInt("SelectedNodeID", -1);
 
-        PlayerPrefs.SetInt(
-            "ClearedNodeID",
-            nodeID);
+        PlayerPrefs.SetInt("ClearedNodeID", nodeID);
 
         PlayerPrefs.Save();
 
-        SceneManager.LoadScene(
-            mapSceneName);
+        SceneManager.LoadScene(mapSceneName);
     }
 
     void OnClickExit()
