@@ -17,4 +17,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 19f08497b5b982549b117aa769d31e87, type: 3}
   description: "\uB450\uD23C\uD558\uACE0 \uAE30\uB984\uC9C4 \uBA67\uB3FC\uC9C0 \uB4B7\uB2E4\uB9AC"
   price: 30
-  itemType: 0
+  itemType: 1

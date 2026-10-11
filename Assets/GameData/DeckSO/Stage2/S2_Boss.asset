@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106e1fa79420b4d4389319a7224cbfaf, type: 3}
+  m_Name: S2_Boss
+  m_EditorClassIdentifier: 
+  deckItems:
+  - {fileID: 11400000, guid: ea9b863b4be7dd845889f232f8a980c6, type: 2}
+  - {fileID: 11400000, guid: ea9b863b4be7dd845889f232f8a980c6, type: 2}
+  - {fileID: 11400000, guid: ea9b863b4be7dd845889f232f8a980c6, type: 2}
+  - {fileID: 11400000, guid: ea9b863b4be7dd845889f232f8a980c6, type: 2}
+  - {fileID: 11400000, guid: 2ad25f80d1246314b80ec03c529b0d77, type: 2}
+  - {fileID: 11400000, guid: 2ad25f80d1246314b80ec03c529b0d77, type: 2}
+  - {fileID: 11400000, guid: 2ad25f80d1246314b80ec03c529b0d77, type: 2}
+  - {fileID: 11400000, guid: efe1ddd754ca7174cab7158424b50dbe, type: 2}
+  - {fileID: 11400000, guid: efe1ddd754ca7174cab7158424b50dbe, type: 2}
+  - {fileID: 11400000, guid: efe1ddd754ca7174cab7158424b50dbe, type: 2}
+  - {fileID: 11400000, guid: efe1ddd754ca7174cab7158424b50dbe, type: 2}
+  - {fileID: 11400000, guid: ea490d712c414064b965a6f4b7fcf8e6, type: 2}
+  - {fileID: 11400000, guid: ea490d712c414064b965a6f4b7fcf8e6, type: 2}
+  - {fileID: 11400000, guid: ea490d712c414064b965a6f4b7fcf8e6, type: 2}
+  - {fileID: 11400000, guid: ea490d712c414064b965a6f4b7fcf8e6, type: 2}
+  - {fileID: 11400000, guid: e1c50e54741a6314f81c7e9830f76dfd, type: 2}
+  - {fileID: 11400000, guid: e1c50e54741a6314f81c7e9830f76dfd, type: 2}
+  - {fileID: 11400000, guid: e1c50e54741a6314f81c7e9830f76dfd, type: 2}
+  - {fileID: 11400000, guid: c2286f7329b542a43bd4c8888ef88c00, type: 2}
+  - {fileID: 11400000, guid: c2286f7329b542a43bd4c8888ef88c00, type: 2}
+  - {fileID: 11400000, guid: c2286f7329b542a43bd4c8888ef88c00, type: 2}
+  - {fileID: 11400000, guid: f9f8f2f3999d4c5489442efc7edf5352, type: 2}
+  - {fileID: 11400000, guid: f9f8f2f3999d4c5489442efc7edf5352, type: 2}
+  - {fileID: 11400000, guid: f9f8f2f3999d4c5489442efc7edf5352, type: 2}
+  - {fileID: 11400000, guid: 1ddbe3992835c464688537838fc616b6, type: 2}
+  - {fileID: 11400000, guid: 1ddbe3992835c464688537838fc616b6, type: 2}
+  - {fileID: 11400000, guid: 1ddbe3992835c464688537838fc616b6, type: 2}
+  - {fileID: 11400000, guid: 978bd482ff34b1843aba79acb66d4a9d, type: 2}
+  - {fileID: 11400000, guid: 978bd482ff34b1843aba79acb66d4a9d, type: 2}
+  - {fileID: 11400000, guid: 2b3daf3ea8dd09f4d8413c94ed5c00ae, type: 2}
+  - {fileID: 11400000, guid: 2b3daf3ea8dd09f4d8413c94ed5c00ae, type: 2}
+  - {fileID: 11400000, guid: 2b3daf3ea8dd09f4d8413c94ed5c00ae, type: 2}
+  heroPortrait: {fileID: 21300000, guid: ca1ed6c91da814746895dd8f13fb6be4, type: 3}
+  battleBackground: {fileID: 21300000, guid: c4b1333a1ffe0d84cb16473e7c6dae82, type: 3}
+  goldItem: {fileID: 11400000, guid: 4d5d7282570c1c544bc051471bb4ba76, type: 2}
+  goldAmount: 300
+  rewardItems:
+  - item: {fileID: 11400000, guid: 8599817af3b30af48a5565f54c4b00ad, type: 2}
+    count: 4
+  - item: {fileID: 11400000, guid: 4ee412208d43cd24dab7664a97140a7b, type: 2}
+    count: 5
+  - item: {fileID: 11400000, guid: ecd1456517d34834592df84e0d0b2bd8, type: 2}
+    count: 6
+  - item: {fileID: 11400000, guid: cc32807fd9af820468ce8b22af95ba27, type: 2}
+    count: 1

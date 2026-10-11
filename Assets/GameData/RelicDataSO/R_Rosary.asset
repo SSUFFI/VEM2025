@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: R_Rosary
   m_EditorClassIdentifier: 
   relicId: R_Rosary
-  relicName: "\uBB35\uC8FC"
+  relicName: "\uACB0\uC18D\uC758 \uAE08\uBE5B \uB85C\uC790\uB9AC\uC624 "
   description: ???
   lockedDescription: "???\n\n\uD574\uAE08 \uC870\uAC74 : ?"
   icon: {fileID: 21300000, guid: 6e185dbc7c0ea25459b783f0e70fa751, type: 3}

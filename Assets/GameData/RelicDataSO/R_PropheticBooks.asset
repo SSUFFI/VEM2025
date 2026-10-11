@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: R_PropheticBooks
   m_EditorClassIdentifier: 
   relicId: R_PropheticBooks
-  relicName: "\uC131\uACBD"
+  relicName: "\uC9C4\uB9AC\uC758 \uC608\uC5B8\uC11C "
   description: ???
   lockedDescription: "???\n\n\uD574\uAE08 \uC870\uAC74 : ?"
   icon: {fileID: 21300000, guid: 98c0b8d82abcdbd429ba9a3529ba15c9, type: 3}

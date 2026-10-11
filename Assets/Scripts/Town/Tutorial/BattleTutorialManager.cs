@@ -291,7 +291,7 @@ public class BattleTutorialManager : MonoBehaviour
 
                 if (BattleTutorialUI.Inst != null)
                 {
-                    BattleTutorialUI.Inst.ShowGuide("도발을 가진 하수인이 있으면\n적은 그 하수인을 먼저 공격해야 합니다.\n\n턴 종료 버튼을 누르세요.");
+                    BattleTutorialUI.Inst.ShowGuide("선봉을 가진 하수인이 있으면\n적은 그 하수인을 먼저 공격해야 합니다.\n\n턴 종료 버튼을 누르세요.");
                 }
 
                 break;
@@ -539,7 +539,7 @@ public class BattleTutorialManager : MonoBehaviour
 
         if (BattleTutorialUI.Inst != null)
         {
-            BattleTutorialUI.Inst.ShowGuide("성유물은 마나를 소모하여 사용할 수 있습니다.\n\n성유물을 사용해 도발 하수인의 체력을 회복하세요.");
+            BattleTutorialUI.Inst.ShowGuide("성유물은 마나를 소모하여 사용할 수 있습니다.\n\n성유물을 사용해 선봉 하수인의 체력을 회복하세요.");
         }
     }
 
@@ -827,7 +827,7 @@ public class BattleTutorialManager : MonoBehaviour
 
         if (BattleTutorialUI.Inst != null)
         {
-            BattleTutorialUI.Inst.ShowGuide("도발 능력을 가진 하수인을 필드에 배치하세요.");
+            BattleTutorialUI.Inst.ShowGuide("선봉 능력을 가진 하수인을 필드에 배치하세요.");
         }
 
         StartCoroutine(TurnManager.Inst.StartTutorialGameCo());

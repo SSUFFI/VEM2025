@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: R_SliverBell
   m_EditorClassIdentifier: 
   relicId: R_SliverBell
-  relicName: "\uC740\uC885"
+  relicName: "\uACE0\uADC0\uD55C \uC740\uBE5B \uC885 "
   description: ???
   lockedDescription: "???\n\n\uD574\uAE08 \uC870\uAC74 : ?"
   icon: {fileID: 21300000, guid: 625f5031eef0a2b459421ea9d8c429cc, type: 3}

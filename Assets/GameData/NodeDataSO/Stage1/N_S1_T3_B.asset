@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeType: 1
   battleTier: 3
-  enemyDeck: {fileID: 11400000, guid: 942b4a2931e8e724f9388a2cf2c24abc, type: 2}
+  enemyDeck: {fileID: 11400000, guid: ca2668e8f75751c4eb73772ef4168aef, type: 2}
   eventType: 0
   iconNormal: {fileID: 21300000, guid: 2d7399232eb7dec4689539480e3bb378, type: 3}
   iconGray: {fileID: 21300000, guid: 226197ce4c63fcd49b6bee0ab1e8c8e9, type: 3}

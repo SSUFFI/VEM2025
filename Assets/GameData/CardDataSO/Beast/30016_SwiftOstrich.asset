@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 30016_SwiftOstrich
   cardName: "\uC7AC\uBE60\uB978 \uD0C0\uC870"
-  attack: 3
+  attack: 4
   health: 1
   manaCost: 2
   sprite: {fileID: 21300000, guid: bb5316291606071468dc185464f01f3d, type: 3}
