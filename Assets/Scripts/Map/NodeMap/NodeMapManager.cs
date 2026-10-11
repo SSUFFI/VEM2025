@@ -52,6 +52,9 @@ public class NodeMapManager : MonoBehaviour
     [SerializeField] GameObject pnl_Event_Explore;
     [SerializeField] GameObject pnl_Event_Tablet;
 
+    [Header("Extra Life")]
+    [SerializeField] GameObject extraLifeIcon;
+
     private StageData currentStageData;
 
     private Dictionary<int, NodeUI> nodeDict = new Dictionary<int, NodeUI>();
@@ -113,8 +116,7 @@ public class NodeMapManager : MonoBehaviour
         if (stagePanel != null)
             stagePanel.SetActive(true);
 
-        // if (bottomButtonsRoot != null)
-        //     bottomButtonsRoot.SetActive(false);
+        RefreshExtraLifeUI();
     }
 
     public void InitializeMap()
@@ -471,4 +473,23 @@ public class NodeMapManager : MonoBehaviour
 
         return currentStageData.tier3List[Random.Range(0, currentStageData.tier3List.Count)];
     }
+
+    public void OnClickExtraLifeEvent()
+    {
+        NodeMapRuntimeData.ObtainExtraLife();
+
+        CloseAllEventPanels();
+
+        ClearSelectedNode();
+
+        RefreshExtraLifeUI();
+    }
+
+    void RefreshExtraLifeUI()
+    {
+        if (extraLifeIcon != null)
+            extraLifeIcon.SetActive(NodeMapRuntimeData.hasExtraLife);
+    }
+
+
 }

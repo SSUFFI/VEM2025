@@ -13,6 +13,22 @@ public static class NodeMapRuntimeData
     public static Dictionary<int, NodeDataSO> savedNodeData
         = new Dictionary<int, NodeDataSO>();
 
+    public static bool hasExtraLife = false;
+
+    public static void ObtainExtraLife()
+    {
+        hasExtraLife = true;
+    }
+
+    public static bool ConsumeExtraLife()
+    {
+        if (!hasExtraLife)
+            return false;
+
+        hasExtraLife = false;
+        return true;
+    }
+
     public static void ResetRun()
     {
         initialized = false;
@@ -20,5 +36,7 @@ public static class NodeMapRuntimeData
         currentNodeID = -1;
         blockedLaneMax = -1;
         savedNodeData.Clear();
+
+        hasExtraLife = false;
     }
 }

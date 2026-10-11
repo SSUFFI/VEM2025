@@ -54,7 +54,6 @@ public class GameResultManager : MonoBehaviour
         if (isGameOver)
             return;
 
-        // 새 전투 튜토리얼 1~3
         if (BattleData.IsBattleTutorial &&
             BattleTutorialManager.Inst != null)
         {
@@ -74,7 +73,6 @@ public class GameResultManager : MonoBehaviour
         if (resultText != null)
             resultText.text = "승리";
 
-        // 훈련장의 모의전투
         if (BattleData.isTutorialBattle)
         {
             HideRewards();
@@ -123,7 +121,6 @@ public class GameResultManager : MonoBehaviour
         if (resultText != null)
             resultText.text = "패배";
 
-        // 모의전투는 패배해도 훈련장으로 복귀.
         if (BattleData.isTutorialBattle)
         {
             if (continueButton != null)
@@ -133,8 +130,7 @@ public class GameResultManager : MonoBehaviour
             {
                 exitButton.gameObject.SetActive(true);
                 exitButton.onClick.RemoveAllListeners();
-                exitButton.onClick.AddListener(
-                    OnClickMockBattleReturn);
+                exitButton.onClick.AddListener(OnClickMockBattleReturn);
             }
 
             return;
@@ -147,8 +143,15 @@ public class GameResultManager : MonoBehaviour
         {
             exitButton.gameObject.SetActive(true);
             exitButton.onClick.RemoveAllListeners();
-            exitButton.onClick.AddListener(
-                OnClickExit);
+
+            if (NodeMapRuntimeData.hasExtraLife)
+            {
+                exitButton.onClick.AddListener(OnClickExtraLifeReturn);
+            }
+            else
+            {
+                exitButton.onClick.AddListener(OnClickExit);
+            }
         }
     }
 
@@ -221,16 +224,14 @@ public class GameResultManager : MonoBehaviour
                 i < itemIcons.Length &&
                 itemIcons[i] != null)
             {
-                itemIcons[i].sprite =
-                    reward.item.icon;
+                itemIcons[i].sprite = reward.item.icon;
             }
 
             if (itemTexts != null &&
                 i < itemTexts.Length &&
                 itemTexts[i] != null)
             {
-                itemTexts[i].text =
-                    $"{reward.item.itemName} x{reward.count}";
+                itemTexts[i].text = $"{reward.item.itemName} x{reward.count}";
             }
         }
     }
@@ -310,5 +311,15 @@ public class GameResultManager : MonoBehaviour
 
         SceneManager.LoadScene(
             townSceneName);
+    }
+
+    void OnClickExtraLifeReturn()
+    {
+        if (!NodeMapRuntimeData.ConsumeExtraLife())
+            return;
+
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(mapSceneName);
     }
 }
