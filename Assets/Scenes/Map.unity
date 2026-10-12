@@ -5992,6 +5992,7 @@ GameObject:
   - component: {fileID: 1387102487}
   - component: {fileID: 1387102489}
   - component: {fileID: 1387102488}
+  - component: {fileID: 1387102490}
   m_Layer: 5
   m_Name: img_ExtraLifeEvent
   m_TagString: Untagged
@@ -6056,6 +6057,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387102486}
   m_CullTransparentMesh: 1
+--- !u!114 &1387102490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387102486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df0e8b4581f0ef40972eaad5ba6efeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minScale: 1
+  maxScale: 1.15
+  speed: 2
 --- !u!1 &1393118061
 GameObject:
   m_ObjectHideFlags: 0
