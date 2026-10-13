@@ -33,6 +33,12 @@ public class Entity : MonoBehaviour
     public Vector3 originScale;
     int liveCount;
 
+    bool isMobileTouch;
+    Vector2 touchStartPos;
+    float maxTouchDistance;
+
+    const float TOUCH_DRAG_THRESHOLD = 25f;
+
     Tween relicMarkTween;
     Tween lowHpTween;
 
@@ -223,12 +229,22 @@ public class Entity : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (BattleRelicUI.Inst != null &&
-            BattleRelicUI.Inst.IsTargeting)
+        if (BattleRelicUI.Inst != null && BattleRelicUI.Inst.IsTargeting)
             return;
 
         if (CardPreviewManager.Inst != null && CardPreviewManager.Inst.IsOpen)
             return;
+
+        if (isDie || isBossOrEmpty || dataSO == null)
+            return;
+
+        isMobileTouch = Application.isMobilePlatform && Input.touchCount > 0;
+
+        if (isMobileTouch)
+        {
+            touchStartPos = Input.GetTouch(0).position;
+            maxTouchDistance = 0f;
+        }
 
         if (isMine)
             EntityManager.Inst.EntityMouseDown(this);
@@ -238,13 +254,38 @@ public class Entity : MonoBehaviour
     {
         if (isMine)
             EntityManager.Inst.EntityMouseUp();
+
+        if (!isMobileTouch)
+            return;
+
+        isMobileTouch = false;
+
+        if (maxTouchDistance >= TOUCH_DRAG_THRESHOLD)
+            return;
+
+        if (isDie || isBossOrEmpty || dataSO == null)
+            return;
+
+        if (BattleRelicUI.Inst != null && BattleRelicUI.Inst.IsTargeting)
+            return;
+
+        if (CardPreviewManager.Inst != null && !CardPreviewManager.Inst.IsOpen)
+        {
+            CardPreviewManager.Inst.Show(dataSO);
+        }
     }
 
     void OnMouseDrag()
     {
-        if (BattleRelicUI.Inst != null &&
-            BattleRelicUI.Inst.IsTargeting)
+        if (BattleRelicUI.Inst != null && BattleRelicUI.Inst.IsTargeting)
             return;
+
+        if (isMobileTouch && Input.touchCount > 0)
+        {
+            float distance = Vector2.Distance(touchStartPos, Input.GetTouch(0).position);
+
+            maxTouchDistance = Mathf.Max(maxTouchDistance, distance);
+        }
 
         if (isMine)
             EntityManager.Inst.EntityMouseDrag();

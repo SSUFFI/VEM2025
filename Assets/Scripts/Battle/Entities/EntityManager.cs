@@ -984,10 +984,7 @@ public class EntityManager : MonoBehaviour
 
         if (healMoveEffectPrefab != null)
         {
-            moveEffect = Instantiate(
-                healMoveEffectPrefab,
-                from.position,
-                Quaternion.identity
+            moveEffect = Instantiate(healMoveEffectPrefab, from.position, Quaternion.identity
             );
 
             moveEffect.GetComponent<CardOrder>().SetOrder(1000);
@@ -995,12 +992,9 @@ public class EntityManager : MonoBehaviour
             Vector3 dir = target.transform.position - from.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-            moveEffect.transform.rotation =
-                Quaternion.Euler(0f, 0f, angle);
+            moveEffect.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
-            moveEffect.transform
-                .DOMove(target.transform.position, healMoveDuration)
-                .SetEase(Ease.OutQuad);
+            moveEffect.transform.DOMove(target.transform.position, healMoveDuration).SetEase(Ease.OutQuad);
         }
 
         yield return new WaitForSeconds(healMoveDuration);
@@ -1013,11 +1007,9 @@ public class EntityManager : MonoBehaviour
 
         int prevHealth = target.health;
 
-        target.health =
-            Mathf.Min(target.health + healValue, target.maxHealth);
+        target.health = Mathf.Min(target.health + healValue, target.maxHealth);
 
-        int realHeal =
-            target.health - prevHealth;
+        int realHeal = target.health - prevHealth;
 
         target.UpdateHealthUI();
 
@@ -1025,10 +1017,7 @@ public class EntityManager : MonoBehaviour
 
         Vector3 originScale = target.transform.localScale;
 
-        target.transform
-            .DOScale(originScale * 1.08f, 0.08f)
-            .SetLoops(2, LoopType.Yoyo)
-            .OnComplete(() =>
+        target.transform.DOScale(originScale * 1.08f, 0.08f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
             {
                 if (target != null)
                     target.transform.localScale = originScale;
@@ -1045,14 +1034,9 @@ public class EntityManager : MonoBehaviour
         if (heal <= 0)
             return;
 
-        var healObject = Instantiate(
-            healPrefab,
-            tr.position,
-            Quaternion.identity
-        );
+        var healObject = Instantiate(healPrefab, tr.position, Quaternion.identity);
 
-        var healComponent =
-            healObject.GetComponent<Heal>();
+        var healComponent = healObject.GetComponent<Heal>();
 
         healComponent.SetupTransform(tr);
         healComponent.Healed(heal);

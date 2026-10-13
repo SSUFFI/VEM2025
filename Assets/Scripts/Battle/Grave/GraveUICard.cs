@@ -43,8 +43,16 @@ public class GraveUICard : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button != PointerEventData.InputButton.Right)
-            return;
+        if (!Application.isMobilePlatform)
+        {
+            if (eventData.button != PointerEventData.InputButton.Right)
+                return;
+        }
+        else
+        {
+            if (eventData.button != PointerEventData.InputButton.Left)
+                return;
+        }
 
         ShowPreview();
     }

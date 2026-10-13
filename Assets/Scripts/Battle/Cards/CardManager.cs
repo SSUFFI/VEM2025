@@ -71,6 +71,10 @@ public class CardManager : MonoBehaviour
     public bool IsMyCardDrag => isMyCardDrag;
     const int MAX_HAND = 10;
 
+    bool isMobileCardTouch;
+    Vector2 mobileTouchStartPos;
+    const float MOBILE_DRAG_THRESHOLD = 25f;
+
     // ---------------------------- 덱 셔플 세팅 ----------------------------
 
     void Start()
@@ -202,7 +206,24 @@ public class CardManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            bool overUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+            bool overUI = false;
+
+            if (EventSystem.current != null)
+            {
+                if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+
+                    overUI = EventSystem.current.IsPointerOverGameObject(
+                        touch.fingerId
+                    );
+                }
+                else
+                {
+                    overUI = EventSystem.current.IsPointerOverGameObject();
+                }
+            }
+
             bool overRelicButton = IsPointerOverRelicButton();
 
             if (!overUI && !overRelicButton)
@@ -568,6 +589,13 @@ public class CardManager : MonoBehaviour
         selectCard = card;
         isMyCardDrag = true;
 
+        isMobileCardTouch = Application.isMobilePlatform && Input.touchCount > 0;
+
+        if (isMobileCardTouch)
+        {
+            mobileTouchStartPos = Input.GetTouch(0).position;
+        }
+
         card.GetComponent<CardOrder>().SetMostFrontOrder(true);
     }
 
@@ -916,7 +944,34 @@ public class CardManager : MonoBehaviour
         isMyCardDrag = false;
 
         if (eCardState != ECardState.CanMouseDrag)
+        {
+            isMobileCardTouch = false;
             return;
+        }
+
+        if (isMobileCardTouch && selectCard != null)
+        {
+            Vector2 endPos = Input.mousePosition;
+
+            float distance = Vector2.Distance(mobileTouchStartPos, endPos);
+
+            if (distance < MOBILE_DRAG_THRESHOLD)
+            {
+                CardDataSO previewData = selectCard.dataSO;
+
+                isMobileCardTouch = false;
+
+                EntityManager.Inst.RemoveMyEmptyEntity();
+                ReturnSelectedCardToHand();
+
+                if (CardPreviewManager.Inst != null)
+                    CardPreviewManager.Inst.Show(previewData);
+
+                return;
+            }
+        }
+
+        isMobileCardTouch = false;
 
         if (onMyCardArea)
         {
