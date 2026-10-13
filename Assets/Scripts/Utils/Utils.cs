@@ -28,7 +28,17 @@ public class Utils
     {
         get
         {
-            Vector3 pos = Input.mousePosition;
+            Vector3 pos;
+
+            if (Input.touchCount > 0)
+            {
+                pos = Input.GetTouch(0).position;
+            }
+            else
+            {
+                pos = Input.mousePosition;
+            }
+
             pos.z = -Camera.main.transform.position.z;
 
             Vector3 result = Camera.main.ScreenToWorldPoint(pos);
