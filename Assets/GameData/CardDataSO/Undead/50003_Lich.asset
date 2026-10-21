@@ -20,8 +20,11 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 0640cf8ed757c514caacec758bc10124, type: 3}
   fieldSprite: {fileID: 21300000, guid: 1e7c59637a959594abbe55e74b8c968c, type: 3}
   raceSprite: {fileID: 21300000, guid: e27375d27d557024b81a4d191f95b3cd, type: 3}
-  description: "\uC804\uC0AC: \uC801 \uAE30\uC0AC \uC804\uCCB4\uC5D0 \uD53C\uD574
-    3\r"
+  descriptionTop: 
+  descriptionMiddle: 
+  descriptionBottom: "\uC801 \uAE30\uC0AC \uC804\uCCB4\uC5D0\uAC8C\n3\uB9CC\uD07C
+    \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
+  descriptionFloor: 
   keywords:
   - "\uC804\uC0AC: \uAE30\uC0AC\uAC00 \uC804\uD22C\uB85C \uC0AC\uB9DD\uD560 \uB54C
     \uBC1C\uB3D9\uD569\uB2C8\uB2E4. "

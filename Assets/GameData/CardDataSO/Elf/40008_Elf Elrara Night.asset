@@ -20,8 +20,11 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 5f804adf442ea9147b2031b6828bec10, type: 3}
   fieldSprite: {fileID: 21300000, guid: 6e6af0609fe0edf4983d3d3243a55612, type: 3}
   raceSprite: {fileID: 21300000, guid: 80c7e0007f9035542b9173210f57b8cf, type: 3}
-  description: "\uD568\uC131: \uBB34\uC791\uC704 \uC801 \uAE30\uC0AC 1\uBA85\uC5D0\uAC8C
-    \n\uD53C\uD574 2\r"
+  descriptionTop: "\uBB34\uC791\uC704 \uC801 \uAE30\uC0AC 1\uBA85\uC5D0\uAC8C \n2\uC758
+    \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
+  descriptionMiddle: 
+  descriptionBottom: 
+  descriptionFloor: 
   keywords:
   - "\uD568\uC131: \uAE30\uC0AC\uAC00 \uC804\uC7A5\uC5D0 \uB193\uC77C \uB54C \uBC1C\uB3D9\uD569\uB2C8\uB2E4. "
   taunt: 0

@@ -20,9 +20,12 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: c74eb412efa6dd4419091bf1c010476c, type: 3}
   fieldSprite: {fileID: 21300000, guid: 7d656bbf52c41f5459ff171ce4f033a7, type: 3}
   raceSprite: {fileID: 21300000, guid: 80c7e0007f9035542b9173210f57b8cf, type: 3}
-  description: "\uD568\uC131: \uBB34\uC791\uC704 \uC544\uAD70 \uAE30\uC0AC\uB4E4\uC5D0\uAC8C
-    \n\uCC28\uB840\uB85C 4/4 \uD68C\uBCF5 \n\uD568\uC131: \uBB34\uC791\uC704 \uC801
-    \uAE30\uC0AC\uB4E4\uC5D0\uAC8C \n\uCC28\uB840\uB85C 2/2 \uD53C\uD574 \r\n"
+  descriptionTop: "\uBB34\uC791\uC704 \uC544\uAD70 \uAE30\uC0AC\uB4E4\uC774 4\uB9CC\uD07C
+    \uB450 \uBC88 \uD68C\uBCF5\uD569\uB2C8\uB2E4\n\uBB34\uC791\uC704 \uC801 \uAE30\uC0AC\uB4E4\uC5D0\uAC8C
+    2\uB9CC\uD07C \uB450 \uBC88 \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4. "
+  descriptionMiddle: 
+  descriptionBottom: 
+  descriptionFloor: 
   keywords:
   - "\uD568\uC131: \uAE30\uC0AC\uAC00 \uC804\uC7A5\uC5D0 \uB193\uC77C \uB54C \uBC1C\uB3D9\uD569\uB2C8\uB2E4."
   taunt: 0
