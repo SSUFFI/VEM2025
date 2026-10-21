@@ -50,6 +50,9 @@ TagManager:
   - name: card
     uniqueID: 2712552057
     locked: 0
+  - name: NormalEffect
+    uniqueID: 916799301
+    locked: 0
   - name: TargetArrowTop
     uniqueID: 1219519877
     locked: 0
