@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -20,8 +21,18 @@ public class CardDataSO : ScriptableObject
     [Header("Á¾Á·")]
     public Sprite raceSprite;
 
+    [Header("Descriptions")]
     [TextArea]
-    public string description;
+    public string descriptionTop;
+
+    [TextArea]
+    public string descriptionMiddle;
+
+    [TextArea]
+    public string descriptionBottom;
+
+    [TextArea]
+    public string descriptionFloor;
 
     public List<string> keywords =
         new List<string>();

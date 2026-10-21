@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,18 @@ public class Card : MonoBehaviour
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text manaTMP;
-    [SerializeField] TMP_Text descriptionTMP;
+
+    [Header("Descriptions")]
+    [SerializeField] TMP_Text descriptionTopTMP;
+    [SerializeField] TMP_Text descriptionMiddleTMP;
+    [SerializeField] TMP_Text descriptionBottomTMP;
+    [SerializeField] TMP_Text descriptionFloorTMP;
+
+    [Header("Description Gems")]
+    [SerializeField] GameObject topGem;
+    [SerializeField] GameObject middleGem;
+    [SerializeField] GameObject bottomGem;
+
     [SerializeField] Sprite cardFront;
     [SerializeField] Sprite cardBack;
 
@@ -48,7 +60,8 @@ public class Card : MonoBehaviour
             attackTMP.text = data.attack.ToString();
             healthTMP.text = data.health.ToString();
             manaTMP.text = data.manaCost.ToString();
-            descriptionTMP.text = data.description;
+
+            SetupDescriptions(data);
 
             if (raceRenderer != null)
             {
@@ -64,7 +77,8 @@ public class Card : MonoBehaviour
             attackTMP.text = "";
             healthTMP.text = "";
             manaTMP.text = "";
-            descriptionTMP.text = "";
+
+            HideDescriptions();
 
             if (raceRenderer != null)
             {
@@ -72,6 +86,55 @@ public class Card : MonoBehaviour
                 raceRenderer.gameObject.SetActive(false);
             }
         }
+    }
+
+    void SetupDescriptions(CardDataSO data)
+    {
+        SetDescription(
+            descriptionTopTMP,
+            topGem,
+            data.descriptionTop
+        );
+
+        SetDescription(
+            descriptionMiddleTMP,
+            middleGem,
+            data.descriptionMiddle
+        );
+
+        SetDescription(
+            descriptionBottomTMP,
+            bottomGem,
+            data.descriptionBottom
+        );
+
+        SetDescription(
+            descriptionFloorTMP,
+            null,
+            data.descriptionFloor
+        );
+    }
+
+    void SetDescription(TMP_Text text, GameObject gem, string description)
+    {
+        bool hasText = !string.IsNullOrWhiteSpace(description);
+
+        if (text != null)
+        {
+            text.text = hasText ? description : "";
+            text.gameObject.SetActive(hasText);
+        }
+
+        if (gem != null)
+            gem.SetActive(hasText);
+    }
+
+    void HideDescriptions()
+    {
+        SetDescription(descriptionTopTMP, topGem, "");
+        SetDescription(descriptionMiddleTMP, middleGem, "");
+        SetDescription(descriptionBottomTMP, bottomGem, "");
+        SetDescription(descriptionFloorTMP, null, "");
     }
 
     void OnMouseExit() { }

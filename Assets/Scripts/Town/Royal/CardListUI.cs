@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
@@ -18,7 +19,17 @@ public class CardListUI : MonoBehaviour,
     public TMP_Text attackTMP;
     public TMP_Text healthTMP;
     public TMP_Text manaTMP;
-    public TMP_Text descriptionTMP;
+
+    [Header("Descriptions")]
+    public TMP_Text descriptionTopTMP;
+    public TMP_Text descriptionMiddleTMP;
+    public TMP_Text descriptionBottomTMP;
+    public TMP_Text descriptionFloorTMP;
+
+    [Header("Description Gems")]
+    public Image topGem;
+    public Image middleGem;
+    public Image bottomGem;
 
     bool isHolding;
     bool isMaxCount;
@@ -27,8 +38,16 @@ public class CardListUI : MonoBehaviour,
     Color attackOriginColor;
     Color healthOriginColor;
     Color manaOriginColor;
-    Color descriptionOriginColor;
     Color raceOriginColor;
+
+    Color topOriginColor;
+    Color middleOriginColor;
+    Color bottomOriginColor;
+    Color floorOriginColor;
+
+    Color topGemOriginColor;
+    Color middleGemOriginColor;
+    Color bottomGemOriginColor;
 
     void Awake()
     {
@@ -36,10 +55,30 @@ public class CardListUI : MonoBehaviour,
         attackOriginColor = attackTMP.color;
         healthOriginColor = healthTMP.color;
         manaOriginColor = manaTMP.color;
-        descriptionOriginColor = descriptionTMP.color;
 
         if (raceImage != null)
             raceOriginColor = raceImage.color;
+
+        if (descriptionTopTMP != null)
+            topOriginColor = descriptionTopTMP.color;
+
+        if (descriptionMiddleTMP != null)
+            middleOriginColor = descriptionMiddleTMP.color;
+
+        if (descriptionBottomTMP != null)
+            bottomOriginColor = descriptionBottomTMP.color;
+
+        if (descriptionFloorTMP != null)
+            floorOriginColor = descriptionFloorTMP.color;
+
+        if (topGem != null)
+            topGemOriginColor = topGem.color;
+
+        if (middleGem != null)
+            middleGemOriginColor = middleGem.color;
+
+        if (bottomGem != null)
+            bottomGemOriginColor = bottomGem.color;
     }
 
     void Update()
@@ -67,7 +106,31 @@ public class CardListUI : MonoBehaviour,
         attackTMP.color = isMaxCount ? gray : attackOriginColor;
         healthTMP.color = isMaxCount ? gray : healthOriginColor;
         manaTMP.color = isMaxCount ? gray : manaOriginColor;
-        descriptionTMP.color = isMaxCount ? gray : descriptionOriginColor;
+
+        if (descriptionTopTMP != null)
+            descriptionTopTMP.color =
+                isMaxCount ? gray : topOriginColor;
+
+        if (descriptionMiddleTMP != null)
+            descriptionMiddleTMP.color =
+                isMaxCount ? gray : middleOriginColor;
+
+        if (descriptionBottomTMP != null)
+            descriptionBottomTMP.color =
+                isMaxCount ? gray : bottomOriginColor;
+
+        if (descriptionFloorTMP != null)
+            descriptionFloorTMP.color =
+                isMaxCount ? gray : floorOriginColor;
+
+        if (topGem != null)
+            topGem.color = isMaxCount ? gray : topGemOriginColor;
+
+        if (middleGem != null)
+            middleGem.color = isMaxCount ? gray : middleGemOriginColor;
+
+        if (bottomGem != null)
+            bottomGem.color = isMaxCount ? gray : bottomGemOriginColor;
     }
 
     public void Init(CardDataSO data)
@@ -80,7 +143,8 @@ public class CardListUI : MonoBehaviour,
         attackTMP.text = data.attack.ToString();
         healthTMP.text = data.health.ToString();
         manaTMP.text = data.manaCost.ToString();
-        descriptionTMP.text = data.description;
+
+        SetupDescriptions(data);
 
         if (raceImage != null)
         {
@@ -89,6 +153,50 @@ public class CardListUI : MonoBehaviour,
         }
 
         RefreshState();
+    }
+
+    void SetupDescriptions(CardDataSO data)
+    {
+        SetDescription(
+            descriptionTopTMP,
+            topGem,
+            data.descriptionTop
+        );
+
+        SetDescription(
+            descriptionMiddleTMP,
+            middleGem,
+            data.descriptionMiddle
+        );
+
+        SetDescription(
+            descriptionBottomTMP,
+            bottomGem,
+            data.descriptionBottom
+        );
+
+        SetDescription(
+            descriptionFloorTMP,
+            null,
+            data.descriptionFloor
+        );
+    }
+
+    void SetDescription(
+        TMP_Text text,
+        Image gem,
+        string description)
+    {
+        bool hasText = !string.IsNullOrWhiteSpace(description);
+
+        if (text != null)
+        {
+            text.text = hasText ? description : "";
+            text.gameObject.SetActive(hasText);
+        }
+
+        if (gem != null)
+            gem.gameObject.SetActive(hasText);
     }
 
     public void OnPointerClick(PointerEventData eventData)

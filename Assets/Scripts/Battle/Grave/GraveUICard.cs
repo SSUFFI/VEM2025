@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -12,7 +13,17 @@ public class GraveUICard : MonoBehaviour, IPointerClickHandler
     [SerializeField] TMP_Text attackTMP;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text manaTMP;
-    [SerializeField] TMP_Text descriptionTMP;
+
+    [Header("Descriptions")]
+    [SerializeField] TMP_Text descriptionTopTMP;
+    [SerializeField] TMP_Text descriptionMiddleTMP;
+    [SerializeField] TMP_Text descriptionBottomTMP;
+    [SerializeField] TMP_Text descriptionFloorTMP;
+
+    [Header("Description Gems")]
+    [SerializeField] GameObject topGem;
+    [SerializeField] GameObject middleGem;
+    [SerializeField] GameObject bottomGem;
 
     CardDataSO data;
     bool isMine;
@@ -37,8 +48,48 @@ public class GraveUICard : MonoBehaviour, IPointerClickHandler
         if (manaTMP != null)
             manaTMP.text = data.manaCost.ToString();
 
-        if (descriptionTMP != null)
-            descriptionTMP.text = data.description;
+        SetupDescriptions(data);
+    }
+
+    void SetupDescriptions(CardDataSO data)
+    {
+        SetDescription(
+            descriptionTopTMP,
+            topGem,
+            data.descriptionTop
+        );
+
+        SetDescription(
+            descriptionMiddleTMP,
+            middleGem,
+            data.descriptionMiddle
+        );
+
+        SetDescription(
+            descriptionBottomTMP,
+            bottomGem,
+            data.descriptionBottom
+        );
+
+        SetDescription(
+            descriptionFloorTMP,
+            null,
+            data.descriptionFloor
+        );
+    }
+
+    void SetDescription(TMP_Text text, GameObject gem, string description)
+    {
+        bool hasText = !string.IsNullOrWhiteSpace(description);
+
+        if (text != null)
+        {
+            text.text = hasText ? description : "";
+            text.gameObject.SetActive(hasText);
+        }
+
+        if (gem != null)
+            gem.SetActive(hasText);
     }
 
     public void OnPointerClick(PointerEventData eventData)
