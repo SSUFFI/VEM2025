@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class RoyalUIManager : MonoBehaviour
@@ -6,35 +7,45 @@ public class RoyalUIManager : MonoBehaviour
 
     public GameObject royalPanel;
 
-
     void Awake()
     {
         Inst = this;
     }
 
-
     public void OpenRoyal()
     {
-        if (TutorialManager.Inst != null)
-            TutorialManager.Inst.SuspendTownIndicator();
+        if (FadeManager.Instance.IsTransitioning)
+            return;
 
-        royalPanel.SetActive(true);
+        FadeManager.Instance.FadeTransition(() =>
+        {
+            if (TutorialManager.Inst != null)
+                TutorialManager.Inst.SuspendTownIndicator();
 
-        if (TutorialManager.Inst != null)
-            TutorialManager.Inst.OnRoyalEntered();
+            royalPanel.SetActive(true);
 
-        DeckEditManager.Inst.LoadDeck();
-        DeckListUI.Inst.Refresh();
+            if (TutorialManager.Inst != null)
+                TutorialManager.Inst.OnRoyalEntered();
+
+            DeckEditManager.Inst.LoadDeck();
+            DeckListUI.Inst.Refresh();
+        });
     }
 
     public void CloseRoyal()
     {
-        royalPanel.SetActive(false);
+        if (FadeManager.Instance.IsTransitioning)
+            return;
 
-        if (TutorialManager.Inst != null)
+        FadeManager.Instance.FadeTransition(() =>
         {
-            TutorialManager.Inst.CloseRoyalTutorialPanel();
-            TutorialManager.Inst.ResumeTownIndicator();
-        }
+            royalPanel.SetActive(false);
+
+            if (TutorialManager.Inst != null)
+            {
+                TutorialManager.Inst.CloseRoyalTutorialPanel();
+                TutorialManager.Inst.ResumeTownIndicator();
+            }
+        });
     }
 }
