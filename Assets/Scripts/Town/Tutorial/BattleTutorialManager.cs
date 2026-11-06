@@ -776,7 +776,14 @@ public class BattleTutorialManager : MonoBehaviour
 
         BattleData.ResetBattleMode();
 
-        SceneManager.LoadScene("Town");
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.ChangeScene("Town");
+        }
+        else
+        {
+            SceneManager.LoadScene("Town");
+        }
     }
 
     void StartTutorial2()
@@ -941,7 +948,14 @@ public class BattleTutorialManager : MonoBehaviour
 
         BattleData.ResetBattleMode();
 
-        SceneManager.LoadScene("Town");
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.ChangeScene("Town");
+        }
+        else
+        {
+            SceneManager.LoadScene("Town");
+        }
     }
 
     IEnumerator CompleteTutorial3Co()
@@ -975,7 +989,14 @@ public class BattleTutorialManager : MonoBehaviour
 
         BattleData.ResetBattleMode();
 
-        SceneManager.LoadScene("Town");
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.ChangeScene("Town");
+        }
+        else
+        {
+            SceneManager.LoadScene("Town");
+        }
     }
 
     void StartTutorial3()

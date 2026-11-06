@@ -32,6 +32,8 @@ public class ShopManager : MonoBehaviour
     List<ItemSO> currentShopItems = new List<ItemSO>();
     List<bool> soldOutStates = new List<bool>();
 
+    public GameObject ShopPanel => shopPanel;
+
     string GetLastRefreshKey()
     {
         return AccountManager.GetAccountKey("Shop_LastRefresh");
@@ -59,6 +61,20 @@ public class ShopManager : MonoBehaviour
 
     public void OpenShop()
     {
+        if (FadeManager.Instance == null)
+        {
+            OpenShopImmediate();
+            return;
+        }
+
+        FadeManager.Instance.FadeTransition(() =>
+        {
+            OpenShopImmediate();
+        });
+    }
+
+    void OpenShopImmediate()
+    {
         if (shopPanel != null)
             shopPanel.SetActive(true);
 
@@ -81,6 +97,20 @@ public class ShopManager : MonoBehaviour
     }
 
     public void CloseShop()
+    {
+        if (FadeManager.Instance == null)
+        {
+            CloseShopImmediate();
+            return;
+        }
+
+        FadeManager.Instance.FadeTransition(() =>
+        {
+            CloseShopImmediate();
+        });
+    }
+
+    void CloseShopImmediate()
     {
         selectedSlot = null;
 

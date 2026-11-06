@@ -62,6 +62,10 @@ public class UIManager : MonoBehaviour
 
     void HandleEscape()
     {
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
         string scene = SceneManager.GetActiveScene().name;
 
         bool isTownTutorial =
@@ -101,11 +105,42 @@ public class UIManager : MonoBehaviour
         {
             GameObject panel = escapePanels[i];
 
-            if (panel != null && panel.activeInHierarchy)
+            if (panel == null || !panel.activeInHierarchy)
+                continue;
+
+            if (ShopManager.Inst != null &&
+                panel == ShopManager.Inst.ShopPanel)
             {
-                panel.SetActive(false);
+                ShopManager.Inst.CloseShop();
                 return;
             }
+
+            if (TrainingSelectManager.Inst != null &&
+                panel == TrainingSelectManager.Inst.TrainingPanel)
+            {
+                TrainingSelectManager.Inst.CloseTrainingPanel();
+                return;
+            }
+
+            if (TempleUIManager.Inst != null &&
+                (panel == TempleUIManager.Inst.mainPanel ||
+                 panel == TempleUIManager.Inst.relicPanel ||
+                 panel == TempleUIManager.Inst.notePanel ||
+                 panel == TempleUIManager.Inst.relicEnhancePanel))
+            {
+                TempleUIManager.Inst.OnClickExit();
+                return;
+            }
+
+            if (RoyalUIManager.Inst != null &&
+                panel == RoyalUIManager.Inst.royalPanel)
+            {
+                RoyalUIManager.Inst.CloseRoyal();
+                return;
+            }
+
+            panel.SetActive(false);
+            return;
         }
 
         ToggleSceneMenu();
@@ -181,18 +216,63 @@ public class UIManager : MonoBehaviour
 
     public void OnClickSurrender()
     {
-        SceneManager.LoadScene("Town");
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.ChangeScene("Town");
+        }
+        else
+        {
+            SceneManager.LoadScene("Town");
+        }
     }
 
     public void GoTitle()
     {
-        StartCoroutine(GoTitleCo());
+        Time.timeScale = 1f;
+
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.ChangeScene(
+                "Title",
+                CleanupBeforeTitle);
+        }
+        else
+        {
+            StartCoroutine(GoTitleCo());
+        }
     }
 
     IEnumerator GoTitleCo()
     {
         Time.timeScale = 1f;
 
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.FadeTransition(() =>
+            {
+                CleanupBeforeTitle();
+            });
+
+            yield return new WaitUntil(() =>
+                FadeManager.Instance == null ||
+                !FadeManager.Instance.IsTransitioning);
+
+            if (FadeManager.Instance != null)
+            {
+                FadeManager.Instance.ChangeScene("Title");
+                yield break;
+            }
+        }
+        else
+        {
+            CleanupBeforeTitle();
+            yield return null;
+            SceneManager.LoadScene("Title");
+        }
+    }
+
+    void CleanupBeforeTitle()
+    {
         PlayerPrefs.Save();
 
         if (InventoryManager.Inst != null)
@@ -222,9 +302,5 @@ public class UIManager : MonoBehaviour
         BattleData.isTutorialBattle = false;
         BattleData.tutorialEnemyDeck = null;
         BattleData.selectedEnemyDeck = null;
-
-        yield return null;
-
-        SceneManager.LoadScene("Title");
     }
 }

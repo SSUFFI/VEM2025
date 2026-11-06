@@ -84,9 +84,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555010212822524394}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &795800236257969002
 GameObject:
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeGroup: {fileID: 2740027964021667329}
-  fadeOutDuration: 0.5
+  fadeOutDuration: 0.3
   blackHoldDuration: 0.3
-  fadeInDuration: 1
+  fadeInDuration: 0.8
   fadeInOnSceneStart: 1

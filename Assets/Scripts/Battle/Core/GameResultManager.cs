@@ -255,30 +255,40 @@ public class GameResultManager : MonoBehaviour
 
     void OnClickMockBattleReturn()
     {
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
         Time.timeScale = 1f;
 
-        TrainingSelectManager
-            .OpenPanelAfterReturn();
+        TrainingSelectManager.OpenPanelAfterReturn();
 
         BattleData.isTutorialBattle = false;
         BattleData.tutorialEnemyDeck = null;
         BattleData.selectedEnemyDeck = null;
 
-        SceneManager.LoadScene(
-            townSceneName);
+        LoadSceneWithFade(townSceneName);
     }
 
     void OnClickContinue()
     {
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
         Time.timeScale = 1f;
 
         if (BattleData.selectedNodeType == NodeType.Boss)
         {
-            StageProgress.highestClearedStage = Mathf.Max(StageProgress.highestClearedStage, StageProgress.selectedStage);
+            StageProgress.highestClearedStage =
+                Mathf.Max(
+                    StageProgress.highestClearedStage,
+                    StageProgress.selectedStage);
 
             if (StageProgress.selectedStage == 1)
             {
-                string key = AccountManager.GetAccountKey("Stage1BossCleared");
+                string key =
+                    AccountManager.GetAccountKey("Stage1BossCleared");
 
                 PlayerPrefs.SetInt(key, 1);
                 PlayerPrefs.Save();
@@ -286,22 +296,25 @@ public class GameResultManager : MonoBehaviour
 
             NodeMapRuntimeData.ResetRun();
 
-            SceneManager.LoadScene(townSceneName);
-
+            LoadSceneWithFade(townSceneName);
             return;
         }
 
-        int nodeID = PlayerPrefs.GetInt("SelectedNodeID", -1);
+        int nodeID =
+            PlayerPrefs.GetInt("SelectedNodeID", -1);
 
         PlayerPrefs.SetInt("ClearedNodeID", nodeID);
-
         PlayerPrefs.Save();
 
-        SceneManager.LoadScene(mapSceneName);
+        LoadSceneWithFade(mapSceneName);
     }
 
     void OnClickExit()
     {
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
         Time.timeScale = 1f;
 
         BattleData.isTutorialBattle = false;
@@ -309,17 +322,32 @@ public class GameResultManager : MonoBehaviour
 
         NodeMapRuntimeData.ResetRun();
 
-        SceneManager.LoadScene(
-            townSceneName);
+        LoadSceneWithFade(townSceneName);
     }
 
     void OnClickExtraLifeReturn()
     {
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
         if (!NodeMapRuntimeData.ConsumeExtraLife())
             return;
 
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene(mapSceneName);
+        LoadSceneWithFade(mapSceneName);
+    }
+
+    void LoadSceneWithFade(string sceneName)
+    {
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.ChangeScene(sceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }

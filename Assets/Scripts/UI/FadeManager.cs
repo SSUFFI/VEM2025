@@ -154,6 +154,35 @@ public class FadeManager : MonoBehaviour
         IsTransitioning = false;
     }
 
+    public void ChangeScene(string sceneName, System.Action beforeLoad)
+    {
+        if (IsTransitioning || string.IsNullOrEmpty(sceneName))
+            return;
+
+        StartCoroutine(SceneTransitionWithAction(sceneName, beforeLoad));
+    }
+
+    IEnumerator SceneTransitionWithAction(
+        string sceneName,
+        System.Action beforeLoad)
+    {
+        IsTransitioning = true;
+        fadeGroup.blocksRaycasts = true;
+
+        yield return fadeGroup
+            .DOFade(1f, fadeOutDuration)
+            .SetEase(Ease.Linear)
+            .SetUpdate(true)
+            .WaitForCompletion();
+
+        beforeLoad?.Invoke();
+
+        yield return new WaitForSecondsRealtime(blackHoldDuration);
+
+        pendingSceneFadeIn = true;
+        SceneManager.LoadScene(sceneName);
+    }
+
     void OnDestroy()
     {
         if (Instance == this)

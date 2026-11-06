@@ -25,6 +25,8 @@ public class TrainingSelectManager : MonoBehaviour
     const string TRAINING_2_KEY = "Training2Completed";
     const string TRAINING_3_KEY = "Training3Completed";
 
+    public GameObject TrainingPanel => trainingPanel;
+
     void Awake()
     {
         Inst = this;
@@ -38,7 +40,8 @@ public class TrainingSelectManager : MonoBehaviour
         if (openPanelOnReturn)
         {
             openPanelOnReturn = false;
-            OpenTrainingPanel();
+
+            OpenTrainingPanelImmediate();
         }
 
         if (showPopupOnReturn)
@@ -65,6 +68,23 @@ public class TrainingSelectManager : MonoBehaviour
         if (trainingPanel == null)
             return;
 
+        if (FadeManager.Instance == null)
+        {
+            OpenTrainingPanelImmediate();
+            return;
+        }
+
+        FadeManager.Instance.FadeTransition(() =>
+        {
+            OpenTrainingPanelImmediate();
+        });
+    }
+
+    void OpenTrainingPanelImmediate()
+    {
+        if (trainingPanel == null)
+            return;
+
         if (TutorialIndicatorManager.Inst != null)
             TutorialIndicatorManager.Inst.Hide();
 
@@ -77,57 +97,51 @@ public class TrainingSelectManager : MonoBehaviour
         if (trainingPanel == null)
             return;
 
-        trainingPanel.SetActive(false);
+        if (FadeManager.Instance == null)
+        {
+            CloseTrainingPanelImmediate();
+            return;
+        }
+
+        FadeManager.Instance.FadeTransition(() =>
+        {
+            CloseTrainingPanelImmediate();
+        });
+    }
+
+    void CloseTrainingPanelImmediate()
+    {
+        if (trainingPanel != null)
+            trainingPanel.SetActive(false);
     }
 
     public void RefreshButtons()
     {
-        bool training1Completed =
-            IsTraining1Completed;
+        bool training1Completed = IsTraining1Completed;
 
-        bool training2Completed =
-            IsTraining2Completed;
+        bool training2Completed = IsTraining2Completed;
 
-        bool training3Completed =
-            IsTraining3Completed;
+        bool training3Completed = IsTraining3Completed;
 
-        SetButtonState(
-            training1Button,
-            true);
+        SetButtonState(training1Button, true);
 
-        SetButtonState(
-            training2Button,
-            training1Completed);
+        SetButtonState(training2Button, training1Completed);
 
-        SetButtonState(
-            training3Button,
-            training2Completed);
+        SetButtonState(training3Button, training2Completed);
 
-        SetButtonState(
-            mockBattleButton,
-            training3Completed);
+        SetButtonState(mockBattleButton, training3Completed);
     }
 
-    void SetButtonState(
-        Button button,
-        bool unlocked)
+    void SetButtonState(Button button, bool unlocked)
     {
         if (button == null)
             return;
 
         button.interactable = unlocked;
 
-        Color color = unlocked
-            ? Color.white
-            : new Color(
-                0.45f,
-                0.45f,
-                0.45f,
-                1f);
+        Color color = unlocked ? Color.white : new Color(0.45f, 0.45f, 0.45f, 1f);
 
-        Graphic[] graphics =
-            button.GetComponentsInChildren<Graphic>(
-                true);
+        Graphic[] graphics = button.GetComponentsInChildren<Graphic>(true);
 
         foreach (Graphic graphic in graphics)
         {
@@ -137,13 +151,16 @@ public class TrainingSelectManager : MonoBehaviour
 
     public void StartTraining1()
     {
-        BattleData.SetBattleMode(
-            BattleMode.Tutorial1);
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
+        BattleData.SetBattleMode(BattleMode.Tutorial1);
 
         BattleData.selectedEnemyDeck = null;
         BattleData.tutorialEnemyDeck = null;
 
-        SceneManager.LoadScene("Battle");
+        LoadBattleWithFade();
     }
 
     public void StartTraining2()
@@ -151,13 +168,16 @@ public class TrainingSelectManager : MonoBehaviour
         if (!IsTraining1Completed)
             return;
 
-        BattleData.SetBattleMode(
-            BattleMode.Tutorial2);
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
+        BattleData.SetBattleMode(BattleMode.Tutorial2);
 
         BattleData.selectedEnemyDeck = null;
         BattleData.tutorialEnemyDeck = null;
 
-        SceneManager.LoadScene("Battle");
+        LoadBattleWithFade();
     }
 
     public void StartTraining3()
@@ -165,13 +185,24 @@ public class TrainingSelectManager : MonoBehaviour
         if (!IsTraining2Completed)
             return;
 
-        BattleData.SetBattleMode(
-            BattleMode.Tutorial3);
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
+        BattleData.SetBattleMode(BattleMode.Tutorial3);
 
         BattleData.selectedEnemyDeck = null;
         BattleData.tutorialEnemyDeck = null;
 
-        SceneManager.LoadScene("Battle");
+        LoadBattleWithFade();
+    }
+
+    void LoadBattleWithFade()
+    {
+        if (FadeManager.Instance != null)
+            FadeManager.Instance.ChangeScene("Battle");
+        else
+            SceneManager.LoadScene("Battle");
     }
 
     public void OnClickMockBattle()
@@ -196,12 +227,16 @@ public class TrainingSelectManager : MonoBehaviour
             return;
         }
 
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
         BattleData.ResetBattleMode();
 
         BattleData.isTutorialBattle = true;
         BattleData.tutorialEnemyDeck = mockBattleDeck;
 
-        SceneManager.LoadScene("Battle");
+        LoadBattleWithFade();
     }
 
     public static void CompleteTraining1()

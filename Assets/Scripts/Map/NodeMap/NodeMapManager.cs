@@ -66,31 +66,75 @@ public class NodeMapManager : MonoBehaviour
 
     public void OpenEventPanel(EventType type)
     {
-        CloseAllEventPanels();
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.FadeTransition(() =>
+            {
+                OpenEventPanelImmediate(type);
+            });
+        }
+        else
+        {
+            OpenEventPanelImmediate(type);
+        }
+    }
+
+    void OpenEventPanelImmediate(EventType type)
+    {
+        CloseAllEventPanelsImmediate();
 
         switch (type)
         {
             case EventType.NPC:
-                if (pnl_Event_NPC != null) pnl_Event_NPC.SetActive(true);
+                if (pnl_Event_NPC != null)
+                    pnl_Event_NPC.SetActive(true);
                 break;
+
             case EventType.Heal:
-                if (pnl_Event_Heal != null) pnl_Event_Heal.SetActive(true);
+                if (pnl_Event_Heal != null)
+                    pnl_Event_Heal.SetActive(true);
                 break;
+
             case EventType.Explore:
-                if (pnl_Event_Explore != null) pnl_Event_Explore.SetActive(true);
+                if (pnl_Event_Explore != null)
+                    pnl_Event_Explore.SetActive(true);
                 break;
+
             case EventType.Tablet:
-                if (pnl_Event_Tablet != null) pnl_Event_Tablet.SetActive(true);
+                if (pnl_Event_Tablet != null)
+                    pnl_Event_Tablet.SetActive(true);
                 break;
         }
     }
 
     public void CloseAllEventPanels()
     {
-        if (pnl_Event_NPC != null) pnl_Event_NPC.SetActive(false);
-        if (pnl_Event_Heal != null) pnl_Event_Heal.SetActive(false);
-        if (pnl_Event_Explore != null) pnl_Event_Explore.SetActive(false);
-        if (pnl_Event_Tablet != null) pnl_Event_Tablet.SetActive(false);
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.FadeTransition(() =>
+            {
+                CloseAllEventPanelsImmediate();
+            });
+        }
+        else
+        {
+            CloseAllEventPanelsImmediate();
+        }
+    }
+
+    void CloseAllEventPanelsImmediate()
+    {
+        if (pnl_Event_NPC != null)
+            pnl_Event_NPC.SetActive(false);
+
+        if (pnl_Event_Heal != null)
+            pnl_Event_Heal.SetActive(false);
+
+        if (pnl_Event_Explore != null)
+            pnl_Event_Explore.SetActive(false);
+
+        if (pnl_Event_Tablet != null)
+            pnl_Event_Tablet.SetActive(false);
     }
 
     private void Awake()
@@ -224,7 +268,12 @@ public class NodeMapManager : MonoBehaviour
         if (selectedNodeID == -1)
             return;
 
-        NodeUI node = nodeDict[selectedNodeID];
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
+        if (!nodeDict.TryGetValue(selectedNodeID, out NodeUI node))
+            return;
 
         if (node.nodeData == null)
         {
@@ -247,16 +296,16 @@ public class NodeMapManager : MonoBehaviour
             return;
         }
 
-        if (node.nodeData != null)
-        {
-            BattleData.selectedEnemyDeck = node.nodeData.enemyDeck;
-            BattleData.selectedNodeType = node.nodeData.nodeType;
-        }
+        BattleData.selectedEnemyDeck = node.nodeData.enemyDeck;
+        BattleData.selectedNodeType = node.nodeData.nodeType;
 
         PlayerPrefs.SetInt("SelectedNodeID", selectedNodeID);
         PlayerPrefs.Save();
 
-        SceneManager.LoadScene(battleSceneName);
+        if (FadeManager.Instance != null)
+            FadeManager.Instance.ChangeScene(battleSceneName);
+        else
+            SceneManager.LoadScene(battleSceneName);
     }
 
     public void OnClickClearStageTemp()
@@ -264,7 +313,17 @@ public class NodeMapManager : MonoBehaviour
         if (selectedNodeID == -1)
             return;
 
-        ClearSelectedNode();
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.FadeTransition(() =>
+            {
+                ClearSelectedNode();
+            });
+        }
+        else
+        {
+            ClearSelectedNode();
+        }
     }
 
     public void ClearSelectedNode()
@@ -476,9 +535,24 @@ public class NodeMapManager : MonoBehaviour
 
     public void OnClickExtraLifeEvent()
     {
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.FadeTransition(() =>
+            {
+                CompleteExtraLifeEvent();
+            });
+        }
+        else
+        {
+            CompleteExtraLifeEvent();
+        }
+    }
+
+    void CompleteExtraLifeEvent()
+    {
         NodeMapRuntimeData.ObtainExtraLife();
 
-        CloseAllEventPanels();
+        CloseAllEventPanelsImmediate();
 
         ClearSelectedNode();
 

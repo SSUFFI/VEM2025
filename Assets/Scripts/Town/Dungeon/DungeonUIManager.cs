@@ -28,14 +28,12 @@ public class DungeonUIManager : MonoBehaviour
 
         bool tutorialClear =
             PlayerPrefs.GetInt(
-                AccountManager.GetAccountKey(
-                    "TutorialDone"),
+                AccountManager.GetAccountKey("TutorialDone"),
                 0) == 1;
 
         if (stage1Button != null)
         {
-            stage1Button.interactable =
-                tutorialClear;
+            stage1Button.interactable = tutorialClear;
         }
 
         if (stage2Button != null)
@@ -61,32 +59,38 @@ public class DungeonUIManager : MonoBehaviour
 
     public void OnClickStage1()
     {
-        if (!IsTutorialCompleted())
-            return;
-
-        StageProgress.selectedStage = 1;
-
-        SceneManager.LoadScene("Map");
+        EnterStage(1);
     }
 
     public void OnClickStage2()
     {
-        if (!IsTutorialCompleted())
-            return;
-
-        StageProgress.selectedStage = 2;
-
-        SceneManager.LoadScene("Map");
+        EnterStage(2);
     }
 
     public void OnClickStage3()
     {
+        EnterStage(3);
+    }
+
+    void EnterStage(int stage)
+    {
         if (!IsTutorialCompleted())
             return;
 
-        StageProgress.selectedStage = 3;
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
 
-        SceneManager.LoadScene("Map");
+        StageProgress.selectedStage = stage;
+
+        if (FadeManager.Instance != null)
+        {
+            FadeManager.Instance.ChangeScene("Map");
+        }
+        else
+        {
+            SceneManager.LoadScene("Map");
+        }
     }
 
     bool IsTutorialCompleted()

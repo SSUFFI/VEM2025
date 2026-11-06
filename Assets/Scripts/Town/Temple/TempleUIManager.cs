@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +7,17 @@ public class TempleUIManager : MonoBehaviour
 {
     public static TempleUIManager Inst;
 
-    void Awake()
-    {
-        Inst = this;
-        CloseAllPanels();
-    }
-
     [Header("Panels")]
     public GameObject mainPanel;
     public GameObject relicPanel;
     public GameObject notePanel;
     public GameObject relicEnhancePanel;
 
+    void Awake()
+    {
+        Inst = this;
+        CloseAllPanels();
+    }
 
     public void OpenPanel(GameObject panel)
     {
@@ -40,10 +40,34 @@ public class TempleUIManager : MonoBehaviour
 
     public void OpenMainPanel()
     {
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
+        if (FadeManager.Instance == null)
+        {
+            OpenMainPanelImmediate();
+            return;
+        }
+
+        FadeManager.Instance.FadeTransition(() =>
+        {
+            OpenMainPanelImmediate();
+        });
+    }
+
+    void OpenMainPanelImmediate()
+    {
         if (TutorialManager.Inst != null)
             TutorialManager.Inst.SuspendTownIndicator();
 
         OpenPanel(mainPanel);
+
+        if (TutorialManager.Inst != null &&
+            TutorialManager.Inst.step != TutorialStep.Done)
+        {
+            TutorialManager.Inst.OnTempleEntered();
+        }
 
         if (TutorialManager.Inst != null &&
             TutorialManager.Inst.EnableTutorial &&
@@ -75,6 +99,20 @@ public class TempleUIManager : MonoBehaviour
     }
 
     public void OnClickExit()
+    {
+        if (FadeManager.Instance == null)
+        {
+            ExitTempleImmediate();
+            return;
+        }
+
+        FadeManager.Instance.FadeTransition(() =>
+        {
+            ExitTempleImmediate();
+        });
+    }
+
+    void ExitTempleImmediate()
     {
         CloseTemple();
 
