@@ -311,6 +311,8 @@ public class CardManager : MonoBehaviour
 
         (isMine ? myCards : otherCards).Add(card);
 
+        AudioManager.Inst?.PlayCardDrawSFX();
+
         SetOriginOrder(isMine);
 
         if (isMine)
@@ -364,6 +366,8 @@ public class CardManager : MonoBehaviour
         card.Setup(data, isMine);
 
         hand.Add(card);
+
+        AudioManager.Inst?.PlayCardDrawSFX();
 
         SetOriginOrder(isMine);
 
@@ -875,7 +879,11 @@ public class CardManager : MonoBehaviour
         hoverCard = newHover;
 
         if (hoverCard != null)
+        {
             hoverCard.GetComponent<HandZoomCardHover>()?.HoverOn();
+
+            AudioManager.Inst?.PlayCardHoverSFX();
+        }
     }
 
     Card GetMouseOverMyCard()

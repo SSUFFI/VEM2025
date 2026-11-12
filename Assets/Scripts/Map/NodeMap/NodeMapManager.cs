@@ -64,6 +64,8 @@ public class NodeMapManager : MonoBehaviour
     private int selectedNodeID = -1;
     private int blockedLaneMax = -1;
 
+    private bool isEventBGMActive = false;
+
     public void OpenEventPanel(EventType type)
     {
         if (FadeManager.Instance != null)
@@ -81,28 +83,50 @@ public class NodeMapManager : MonoBehaviour
 
     void OpenEventPanelImmediate(EventType type)
     {
-        CloseAllEventPanelsImmediate();
+        if (isEventBGMActive)
+        {
+            AudioManager.Inst?.ClosePanelBGM();
+            isEventBGMActive = false;
+        }
+
+        CloseEventPanelObjects();
 
         switch (type)
         {
             case EventType.NPC:
                 if (pnl_Event_NPC != null)
+                {
                     pnl_Event_NPC.SetActive(true);
+                    AudioManager.Inst?.OpenNPCBGM();
+                    isEventBGMActive = AudioManager.Inst != null;
+                }
                 break;
 
             case EventType.Heal:
                 if (pnl_Event_Heal != null)
+                {
                     pnl_Event_Heal.SetActive(true);
+                    AudioManager.Inst?.OpenHealBGM();
+                    isEventBGMActive = AudioManager.Inst != null;
+                }
                 break;
 
             case EventType.Explore:
                 if (pnl_Event_Explore != null)
+                {
                     pnl_Event_Explore.SetActive(true);
+                    AudioManager.Inst?.OpenExploreBGM();
+                    isEventBGMActive = AudioManager.Inst != null;
+                }
                 break;
 
             case EventType.Tablet:
                 if (pnl_Event_Tablet != null)
+                {
                     pnl_Event_Tablet.SetActive(true);
+                    AudioManager.Inst?.OpenSlateBGM();
+                    isEventBGMActive = AudioManager.Inst != null;
+                }
                 break;
         }
     }
@@ -123,6 +147,17 @@ public class NodeMapManager : MonoBehaviour
     }
 
     void CloseAllEventPanelsImmediate()
+    {
+        CloseEventPanelObjects();
+
+        if (isEventBGMActive)
+        {
+            AudioManager.Inst?.ClosePanelBGM();
+            isEventBGMActive = false;
+        }
+    }
+
+    void CloseEventPanelObjects()
     {
         if (pnl_Event_NPC != null)
             pnl_Event_NPC.SetActive(false);

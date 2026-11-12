@@ -7,6 +7,8 @@ public class TempleUIManager : MonoBehaviour
 {
     public static TempleUIManager Inst;
 
+    private bool isTempleBGMActive = false;
+
     [Header("Panels")]
     public GameObject mainPanel;
     public GameObject relicPanel;
@@ -36,6 +38,12 @@ public class TempleUIManager : MonoBehaviour
     public void CloseTemple()
     {
         CloseAllPanels();
+
+        if (isTempleBGMActive)
+        {
+            AudioManager.Inst?.ClosePanelBGM();
+            isTempleBGMActive = false;
+        }
     }
 
     public void OpenMainPanel()
@@ -58,6 +66,12 @@ public class TempleUIManager : MonoBehaviour
 
     void OpenMainPanelImmediate()
     {
+        if (!isTempleBGMActive && AudioManager.Inst != null)
+        {
+            AudioManager.Inst.OpenTempleBGM();
+            isTempleBGMActive = true;
+        }
+
         if (TutorialManager.Inst != null)
             TutorialManager.Inst.SuspendTownIndicator();
 
