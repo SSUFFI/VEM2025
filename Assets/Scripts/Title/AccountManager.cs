@@ -304,9 +304,7 @@ public class AccountManager : MonoBehaviour
 
         if (gameStartButton != null)
         {
-            gameStartButton.interactable =
-                !string.IsNullOrEmpty(
-                    currentAccount);
+            gameStartButton.interactable = true;
         }
     }
 
