@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dcfe943c89b829429587b95890488a5, type: 3}
+  m_Name: Explore_BrokenArms_04
+  m_EditorClassIdentifier: 
+  tokenId: Explore_BrokenArms_04
+  tokenName: "\uC815\uC758\uC758 \uB4B7\uBA74"
+  tokenIcon: {fileID: 21300000, guid: b5e2c1f0c29d304438e4ce57e98a4751, type: 3}
+  description: "\uC815\uC758\uC758 \uC5EC\uC778\uC744 \uADF8\uB9B0 \uBC29\uD328\uB3C4
+    \uC81C \uC8FC\uC778\uC744 \uC9D1\uC73C\uB85C \uB3CC\uB824\uBCF4\uB0B4\uC9C0 \uBABB\uD588\uB2E4\uACE0
+    \uD55C\uB2E4. \uC804\uC7A5\uC5D0\uC11C \uC8FC\uC6B4 \uBC29\uD328\uC758 \uBB38\uC591\uC740
+    \uBBFF\uB418, \uC57D\uC18D\uAE4C\uC9C0 \uBBFF\uC9C0\uB294 \uB9D0\uB77C."
+  source: 0

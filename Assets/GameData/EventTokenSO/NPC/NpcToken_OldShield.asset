@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dcfe943c89b829429587b95890488a5, type: 3}
+  m_Name: NpcToken_OldShield
+  m_EditorClassIdentifier: 
+  tokenId: NpcToken_OldShield
+  tokenName: "\uB0A1\uC740\uBC29\uD328"
+  tokenIcon: {fileID: 21300000, guid: b5e2c1f0c29d304438e4ce57e98a4751, type: 3}
+  description: "\uD760\uC9D1\uD22C\uC131\uC774\uC778 \uB0A1\uC740 \uBAA9\uC81C \uBC29\uD328.
+    \uC758\uBB38\uC758 \uC778\uBB3C\uACFC\uC758 \uB300\uD654\uC5D0\uC11C \uC5BB\uC740
+    \uC99D\uD45C."
+  source: 1

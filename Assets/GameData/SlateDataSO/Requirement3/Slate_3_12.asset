@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
+  m_Name: Slate_3_12
+  m_EditorClassIdentifier: 
+  rewardName: "맹세를 거두는 잔"
+  description: "잘못 향한 방패의 피를 잔에 담자 아직 끝내지 못한 맹세가 가라앉는다.\n보스의 마나 증가를 3턴 지연한다."
+  rewardIcon: {fileID: 0}
+  requiredTokens:
+  # 연결할 Token Id: Explore_BrokenArms_02
+  - {fileID: 0}
+  # 연결할 Token Id: Explore_BrokenArms_05
+  - {fileID: 0}
+  # 연결할 Token Id: NpcToken_BloodRedWineExtract
+  - {fileID: 0}
+  # 목표 효과: Delay Enemy Mana. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  effectType: 0
+  effectValue: 3

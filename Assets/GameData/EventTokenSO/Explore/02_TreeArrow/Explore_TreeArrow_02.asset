@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dcfe943c89b829429587b95890488a5, type: 3}
+  m_Name: Explore_TreeArrow_02
+  m_EditorClassIdentifier: 
+  tokenId: Explore_TreeArrow_02
+  tokenName: "\uB9F9\uC138 \uBC16\uC758 \uAC00\uC9C0"
+  tokenIcon: {fileID: 21300000, guid: 5dd9f401d9ad58240b87e5e2d38f020a, type: 3}
+  description: "\uC138\uC0C1 \uBAA8\uB4E0 \uAC83\uC774 \uD574\uCE58\uC9C0 \uC54A\uACA0\uB2E4\uACE0
+    \uB9F9\uC138\uD55C \uC790\uB3C4, \uB9F9\uC138\uD558\uC9C0 \uC54A\uC740 \uC791\uC740
+    \uAC00\uC9C0\uC5D0 \uC4F0\uB7EC\uC84C\uB2E4\uACE0 \uD55C\uB2E4. \uB098\uBB34\uC5D0
+    \uBC15\uD78C \uAC00\uB290\uB2E4\uB780 \uD654\uC0B4\uC744 \uC595\uBCF4\uC9C0 \uB9D0\uB77C."
+  source: 0

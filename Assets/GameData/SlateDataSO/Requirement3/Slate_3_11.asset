@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
+  m_Name: Slate_3_11
+  m_EditorClassIdentifier: 
+  rewardName: "영웅이 남긴 값"
+  description: "돌아오지 않은 영웅과 정의의 문양 사이에 주인 없는 금화가 놓인다.\n금화 100개를 얻는다."
+  rewardIcon: {fileID: 0}
+  requiredTokens:
+  # 연결할 Token Id: Explore_Charcoal_04
+  - {fileID: 0}
+  # 연결할 Token Id: Explore_BrokenArms_04
+  - {fileID: 0}
+  # 연결할 Token Id: NpcToken_Gold
+  - {fileID: 0}
+  # 목표 효과: 금화 지급. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  effectType: 0
+  effectValue: 100
