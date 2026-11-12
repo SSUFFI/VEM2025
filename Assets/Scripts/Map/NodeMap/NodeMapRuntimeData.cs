@@ -38,5 +38,10 @@ public static class NodeMapRuntimeData
         savedNodeData.Clear();
 
         hasExtraLife = false;
+
+        if (EventTokenManager.Instance != null)
+        {
+            EventTokenManager.Instance.ClearTokens();
+        }
     }
 }

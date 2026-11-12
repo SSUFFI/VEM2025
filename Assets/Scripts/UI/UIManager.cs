@@ -216,6 +216,14 @@ public class UIManager : MonoBehaviour
 
     public void OnClickSurrender()
     {
+        if (FadeManager.Instance != null &&
+            FadeManager.Instance.IsTransitioning)
+            return;
+
+        Time.timeScale = 1f;
+
+        NodeMapRuntimeData.ResetRun();
+
         if (FadeManager.Instance != null)
         {
             FadeManager.Instance.ChangeScene("Town");
