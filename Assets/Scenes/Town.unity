@@ -4313,7 +4313,7 @@ MonoBehaviour:
   nameText: {fileID: 1553573570}
   dialogueText: {fileID: 1793807241}
   nextText: {fileID: 964372106}
-  wordDelay: 0.1
+  wordDelay: 0.07
   lines: []
   choicePanel: {fileID: 1856303221}
   choiceButtons:

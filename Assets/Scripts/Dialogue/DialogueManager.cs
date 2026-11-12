@@ -216,20 +216,22 @@ public class DialogueManager : MonoBehaviour
             typingCo = null;
         }
 
-        currentFullText = fullText;
-        dialogueText.text = "";
-        isTyping = true;
+        currentFullText = fullText ?? "";
+        dialogueText.text = currentFullText;
+        dialogueText.maxVisibleCharacters = 0;
+        dialogueText.ForceMeshUpdate();
 
-        typingCo = StartCoroutine(TypingWordsCoroutine(fullText));
+        isTyping = true;
+        typingCo = StartCoroutine(TypingCoroutine());
     }
 
-    IEnumerator TypingWordsCoroutine(string fullText)
+    IEnumerator TypingCoroutine()
     {
-        var tokens = TokenizeByWhitespace(fullText);
+        int totalCharacters = dialogueText.textInfo.characterCount;
 
-        for (int i = 0; i < tokens.Count; i++)
+        for (int i = 1; i <= totalCharacters; i++)
         {
-            dialogueText.text += tokens[i];
+            dialogueText.maxVisibleCharacters = i;
             yield return new WaitForSeconds(wordDelay);
         }
 
@@ -245,7 +247,7 @@ public class DialogueManager : MonoBehaviour
             typingCo = null;
         }
 
-        dialogueText.text = currentFullText;
+        dialogueText.maxVisibleCharacters = int.MaxValue;
         isTyping = false;
     }
 
