@@ -28,6 +28,7 @@ public class ShopManager : MonoBehaviour
     int openedSlotCount = 4;
 
     ShopSlotUI selectedSlot;
+    private bool isShopBGMActive = false;
 
     List<ItemSO> currentShopItems = new List<ItemSO>();
     List<bool> soldOutStates = new List<bool>();
@@ -78,6 +79,12 @@ public class ShopManager : MonoBehaviour
         if (shopPanel != null)
             shopPanel.SetActive(true);
 
+        if (!isShopBGMActive && AudioManager.Inst != null)
+        {
+            AudioManager.Inst.OpenShopBGM();
+            isShopBGMActive = true;
+        }
+
         selectedSlot = null;
 
         if (popupUI != null)
@@ -119,6 +126,12 @@ public class ShopManager : MonoBehaviour
 
         if (shopPanel != null)
             shopPanel.SetActive(false);
+
+        if (isShopBGMActive)
+        {
+            AudioManager.Inst?.ClosePanelBGM();
+            isShopBGMActive = false;
+        }
     }
 
     void LoadOrCreateShop()

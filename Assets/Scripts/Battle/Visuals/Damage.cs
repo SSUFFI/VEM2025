@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -67,7 +68,11 @@ public class Damage : MonoBehaviour
 
             if (stack > 0)
             {
-                offset = new Vector3(Random.Range(-0.8f, 0.8f), Random.Range(0.3f, 1.0f), 0);
+                offset = new Vector3(
+                    Random.Range(-0.8f, 0.8f),
+                    Random.Range(0.3f, 1.0f),
+                    0
+                );
 
                 scaleMultiplier = 0.8f;
             }
@@ -76,8 +81,11 @@ public class Damage : MonoBehaviour
 
             transform.position = basePosition + offset;
 
-            transform.localScale = baseScale * scaleMultiplier * externalScaleMultiplier;
+            transform.localScale =
+                baseScale * scaleMultiplier * externalScaleMultiplier;
         }
+
+        AudioManager.Inst?.PlayDamageSFX();
     }
 
     public void DestroySelf()
