@@ -15,6 +15,12 @@ public class DeckSO : ScriptableObject
 
     [Header("Enemy Hero")]
     public Sprite heroPortrait;
+
+    //JS임시
+    [Header("Hit Portrait")]
+    public Sprite heroHitPortrait;
+    //===
+
     public Sprite battleBackground;
 
     //JS 임시

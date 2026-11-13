@@ -49,6 +49,9 @@ public class CardManager : MonoBehaviour
     [SerializeField] RectTransform zoomContent;
     [SerializeField] Transform zoomRoot;
 
+    [Header("Enemy Hit Feedback")]
+    [SerializeField] EnemyHitFeedback enemyHitFeedback;
+
     [Header("Deck HP")]
     [SerializeField] Image myDeckHpImage;
     [SerializeField] Image enemyDeckHpImage;
@@ -424,6 +427,20 @@ public class CardManager : MonoBehaviour
         else
         {
             amount = Mathf.Min(amount, enemyDeck.Count);
+
+            // 실제 피해가 있을 때만 피격 연출을 재생합니다.
+            if (amount > 0 && enemyHitFeedback != null)
+            {
+                DeckSO deck = BattleData.IsBattleTutorial
+                    ? BattleData.tutorialEnemyDeck
+                    : BattleData.selectedEnemyDeck;
+
+                Sprite hitPortrait = deck != null
+                    ? deck.heroHitPortrait
+                    : null;
+
+                enemyHitFeedback.PlayHit(hitPortrait);
+            }
 
             for (int i = 0; i < amount; i++)
             {

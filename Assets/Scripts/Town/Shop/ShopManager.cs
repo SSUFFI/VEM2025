@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
@@ -18,6 +19,12 @@ public class ShopManager : MonoBehaviour
 
     [Header("Currency")]
     [SerializeField] ItemSO goldItem;
+
+    //JS임시
+    [SerializeField] TMP_Text goldText;
+
+    int lastDisplayedGold = -1;
+    //===
 
     [Header("Popup")]
     [SerializeField] ShopPopupUI popupUI;
@@ -59,9 +66,36 @@ public class ShopManager : MonoBehaviour
 
         LoadOrCreateShop();
     }
+    //JS임시
+    void LateUpdate()
+    {
+        if (shopPanel == null || !shopPanel.activeInHierarchy)
+            return;
 
+        if (goldText == null)
+            return;
+
+        if (InventoryManager.Inst == null || goldItem == null)
+        {
+            goldText.text = "-";
+            lastDisplayedGold = -1;
+            return;
+        }
+
+        int currentGold =
+            InventoryManager.Inst.GetItemCount(goldItem);
+
+        if (currentGold == lastDisplayedGold)
+            return;
+
+        lastDisplayedGold = currentGold;
+        goldText.text = currentGold.ToString("N0");
+    }
+    //===
     public void OpenShop()
     {
+        lastDisplayedGold = -1;
+
         if (FadeManager.Instance == null)
         {
             OpenShopImmediate();

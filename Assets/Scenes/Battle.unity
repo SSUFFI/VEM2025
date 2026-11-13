@@ -357,6 +357,38 @@ Transform:
   - {fileID: 95636375}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &95535158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 95535159}
+  m_Layer: 0
+  m_Name: CameraShakeRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &95535159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95535158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1367194503}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &95636374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,8 +1087,8 @@ Transform:
   m_GameObject: {fileID: 173688472}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.08, y: -1.03, z: 0}
-  m_LocalScale: {x: 0.48, y: 0.48, z: 1}
+  m_LocalPosition: {x: -3.27, y: -1.18, z: 0}
+  m_LocalScale: {x: 0.625, y: 0.625, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 994485503}
@@ -5799,12 +5831,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367194500}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 95535159}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1367194504
 MonoBehaviour:
@@ -6714,6 +6746,7 @@ GameObject:
   - component: {fileID: 1568446018}
   - component: {fileID: 1568446019}
   - component: {fileID: 1568446020}
+  - component: {fileID: 1568446021}
   m_Layer: 0
   m_Name: OtherBoss
   m_TagString: Untagged
@@ -6854,6 +6887,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0045508146, y: 5.2010484}
   m_Size: {x: 6.2483964, y: 6.3555245}
   m_Direction: 0
+--- !u!114 &1568446021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568446016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3aa98d2f7d1b804dbab9f4e0a05d64d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portraitRenderer: {fileID: 1568446018}
+  hitPortraitSeconds: 0.25
+  shakeRoot: {fileID: 95535159}
+  shakeSeconds: 0.15
+  shakeStrength: 0.12
 --- !u!1 &1575880243
 GameObject:
   m_ObjectHideFlags: 0
@@ -9564,6 +9614,7 @@ MonoBehaviour:
   handZoomPanel: {fileID: 1928976980}
   zoomContent: {fileID: 1928976981}
   zoomRoot: {fileID: 1485902618}
+  enemyHitFeedback: {fileID: 1568446021}
   myDeckHpImage: {fileID: 409745390}
   enemyDeckHpImage: {fileID: 1877577022}
   eCardState: 0
@@ -9722,7 +9773,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 279888258}
-  - {fileID: 1367194503}
+  - {fileID: 95535159}
   - {fileID: 1437940328}
   - {fileID: 1557008905}
   - {fileID: 1324663223}

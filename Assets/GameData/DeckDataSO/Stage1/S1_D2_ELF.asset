@@ -36,6 +36,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ae205eb8dacc2d24fa78ea1657122700, type: 2}
   - {fileID: 11400000, guid: ae205eb8dacc2d24fa78ea1657122700, type: 2}
   heroPortrait: {fileID: 21300000, guid: 77021f815e290c14e8b3fac28860e8a6, type: 3}
+  heroHitPortrait: {fileID: 21300000, guid: 6001bc084d03f994f81304f344db1e64, type: 3}
   battleBackground: {fileID: 21300000, guid: 6446b9445f0e2974aa49a600edde7801, type: 3}
   enemyName: "\uC5D8\uD504 - \uB09C\uC774\uB3C4 \uC911"
   enemyDescription: "\uC55E\uAE38\uC744 \uC9C0\uD0A4\uB294 \uC5D8\uD504\uC640 \uB9C8\uC8FC\uCCE4\uC2B5\uB2C8\uB2E4.
