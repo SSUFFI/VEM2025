@@ -1,7 +1,7 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -76,9 +76,19 @@ public class AudioManager : MonoBehaviour
     [Space(15)]
     [Header("========== Damage SFX ==========")]
     [SerializeField] private AudioClip damageSFX;
-
     [Range(0f, 1f)]
     [SerializeField] private float damageVolume = 1f;
+
+    private const string BGM_VOLUME_KEY = "VEM_BGMVolume";
+    private const string SFX_VOLUME_KEY = "VEM_SFXVolume";
+
+    private float masterBGMVolume = 1f;
+    private float masterSFXVolume = 1f;
+
+    private float bgmFadeMultiplier = 1f;
+
+    public float BGMVolume => masterBGMVolume;
+    public float SFXVolume => masterSFXVolume;
 
     private struct BGMState
     {
@@ -100,11 +110,38 @@ public class AudioManager : MonoBehaviour
 
         Inst = this;
         DontDestroyOnLoad(gameObject);
+
+        masterBGMVolume =
+            Mathf.Clamp01(PlayerPrefs.GetFloat(BGM_VOLUME_KEY, 1f));
+
+        masterSFXVolume =
+            Mathf.Clamp01(PlayerPrefs.GetFloat(SFX_VOLUME_KEY, 1f));
+
+        ApplyBGMVolume();
+        ApplySFXVolume();
+
+        if (SceneManager.GetActiveScene().name == "Title")
+        {
+            PlayBGM(titleBGM);
+        }
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        PlayBGM(titleBGM);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Title")
+        {
+            PlayBGM(titleBGM);
+        }
     }
 
     private void Update()
@@ -114,6 +151,45 @@ public class AudioManager : MonoBehaviour
         {
             PlayMouseClickSFX();
         }
+    }
+
+    public void SetBGMVolume(float volume)
+    {
+        masterBGMVolume = Mathf.Clamp01(volume);
+
+        PlayerPrefs.SetFloat(BGM_VOLUME_KEY, masterBGMVolume);
+        PlayerPrefs.Save();
+
+        ApplyBGMVolume();
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        masterSFXVolume = Mathf.Clamp01(volume);
+
+        PlayerPrefs.SetFloat(SFX_VOLUME_KEY, masterSFXVolume);
+        PlayerPrefs.Save();
+
+        ApplySFXVolume();
+    }
+
+    private void ApplyBGMVolume()
+    {
+        if (bgmSource == null)
+            return;
+
+        bgmSource.volume =
+            GetBGMVolume(bgmSource.clip) *
+            masterBGMVolume *
+            bgmFadeMultiplier;
+    }
+
+    private void ApplySFXVolume()
+    {
+        if (sfxSource == null)
+            return;
+
+        sfxSource.volume = masterSFXVolume;
     }
 
     public void PlayMouseClickSFX()
@@ -195,7 +271,7 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator FadeBGM(AudioClip clip, float startTime)
     {
-        float startVolume = bgmSource.volume;
+        float startFade = bgmFadeMultiplier;
         float elapsed = 0f;
 
         while (elapsed < fadeOutDuration)
@@ -206,11 +282,14 @@ public class AudioManager : MonoBehaviour
                 ? Mathf.Clamp01(elapsed / fadeOutDuration)
                 : 1f;
 
-            bgmSource.volume = Mathf.Lerp(startVolume, 0f, t);
+            bgmFadeMultiplier = Mathf.Lerp(startFade, 0f, t);
+            ApplyBGMVolume();
+
             yield return null;
         }
 
-        bgmSource.volume = 0f;
+        bgmFadeMultiplier = 0f;
+        ApplyBGMVolume();
 
         SetBGM(clip, startTime);
 
@@ -220,7 +299,6 @@ public class AudioManager : MonoBehaviour
             yield break;
         }
 
-        float targetVolume = GetBGMVolume(clip);
         elapsed = 0f;
 
         while (elapsed < fadeInDuration)
@@ -231,11 +309,15 @@ public class AudioManager : MonoBehaviour
                 ? Mathf.Clamp01(elapsed / fadeInDuration)
                 : 1f;
 
-            bgmSource.volume = Mathf.Lerp(0f, targetVolume, t);
+            bgmFadeMultiplier = Mathf.Lerp(0f, 1f, t);
+            ApplyBGMVolume();
+
             yield return null;
         }
 
-        bgmSource.volume = targetVolume;
+        bgmFadeMultiplier = 1f;
+        ApplyBGMVolume();
+
         fadeCoroutine = null;
     }
 
@@ -251,7 +333,8 @@ public class AudioManager : MonoBehaviour
 
     private void OpenPanelBGM(AudioClip clip)
     {
-        if (clip == null) return;
+        if (clip == null)
+            return;
 
         bgmStack.Push(new BGMState
         {
@@ -264,7 +347,8 @@ public class AudioManager : MonoBehaviour
 
     public void ClosePanelBGM()
     {
-        if (bgmStack.Count == 0) return;
+        if (bgmStack.Count == 0)
+            return;
 
         BGMState previous = bgmStack.Pop();
 

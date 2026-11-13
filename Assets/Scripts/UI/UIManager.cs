@@ -28,6 +28,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject inventoryButton;
     [SerializeField] GameObject questButton;
 
+    [Header("설정 패널")]
+    [SerializeField] GameObject settingsPanel;
+
     void Awake()
     {
         if (Inst == null)
@@ -65,6 +68,12 @@ public class UIManager : MonoBehaviour
         if (FadeManager.Instance != null &&
             FadeManager.Instance.IsTransitioning)
             return;
+
+        if (settingsPanel != null && settingsPanel.activeInHierarchy)
+        {
+            CloseSettings();
+            return;
+        }
 
         string scene = SceneManager.GetActiveScene().name;
 
@@ -310,5 +319,22 @@ public class UIManager : MonoBehaviour
         BattleData.isTutorialBattle = false;
         BattleData.tutorialEnemyDeck = null;
         BattleData.selectedEnemyDeck = null;
+    }
+
+    public void OpenSettings()
+    {
+        if (settingsPanel == null)
+            return;
+
+        settingsPanel.SetActive(true);
+        settingsPanel.transform.SetAsLastSibling();
+    }
+
+    public void CloseSettings()
+    {
+        if (settingsPanel == null)
+            return;
+
+        settingsPanel.SetActive(false);
     }
 }
