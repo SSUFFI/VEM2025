@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_1_08
   m_EditorClassIdentifier: 
-  rewardName: "어둠의 귀"
-  description: "빛이 없는 곳에서도 날개는 돌아갈 길을 듣는다.\n보스전 시작 시 카드를 1장 추가로 뽑는다."
+  rewardName: "\uC5B4\uB460\uC758 \uADC0"
+  description: "\uBE5B\uC774 \uC5C6\uB294 \uACF3\uC5D0\uC11C\uB3C4 \uB0A0\uAC1C\uB294
+    \uB3CC\uC544\uAC08 \uAE38\uC744 \uB4E3\uB294\uB2E4.\n\uBCF4\uC2A4\uC804 \uC2DC\uC791
+    \uC2DC \uCE74\uB4DC\uB97C 1\uC7A5 \uCD94\uAC00\uB85C \uBF51\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: NpcToken_BatWing
-  - {fileID: 0}
-  # 목표 효과: 시작 추가 드로우. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: aadd5ca7458a3704e93446984d4d4236, type: 2}
   effectType: 0
   effectValue: 1

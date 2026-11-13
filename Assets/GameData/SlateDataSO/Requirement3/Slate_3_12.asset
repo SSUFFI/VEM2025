@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_3_12
   m_EditorClassIdentifier: 
-  rewardName: "맹세를 거두는 잔"
-  description: "잘못 향한 방패의 피를 잔에 담자 아직 끝내지 못한 맹세가 가라앉는다.\n보스의 마나 증가를 3턴 지연한다."
+  rewardName: "\uB9F9\uC138\uB97C \uAC70\uB450\uB294 \uC794"
+  description: "\uC798\uBABB \uD5A5\uD55C \uBC29\uD328\uC758 \uD53C\uB97C \uC794\uC5D0
+    \uB2F4\uC790 \uC544\uC9C1 \uB05D\uB0B4\uC9C0 \uBABB\uD55C \uB9F9\uC138\uAC00
+    \uAC00\uB77C\uC549\uB294\uB2E4.\n\uBCF4\uC2A4\uC758 \uB9C8\uB098 \uC99D\uAC00\uB97C
+    3\uD134 \uC9C0\uC5F0\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_BrokenArms_02
-  - {fileID: 0}
-  # 연결할 Token Id: Explore_BrokenArms_05
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_BloodRedWineExtract
-  - {fileID: 0}
-  # 목표 효과: Delay Enemy Mana. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: f057b4cc3c05a464496114d62e7e5564, type: 2}
+  - {fileID: 11400000, guid: 028abe153687e6440b8042ed537a4843, type: 2}
+  - {fileID: 11400000, guid: 1cc0ed3bfc5cbfe49a6c24741baaa40f, type: 2}
   effectType: 0
   effectValue: 3

@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_2_07
   m_EditorClassIdentifier: 
-  rewardName: "세 번째 의심"
-  description: "괴물을 향한 화살 곁에서 인간의 화살도 같은 그림자를 드리운다.\n보스전 시작 시 카드를 2장 추가로 뽑는다."
+  rewardName: "\uC138 \uBC88\uC9F8 \uC758\uC2EC"
+  description: "\uAD34\uBB3C\uC744 \uD5A5\uD55C \uD654\uC0B4 \uACC1\uC5D0\uC11C \uC778\uAC04\uC758
+    \uD654\uC0B4\uB3C4 \uAC19\uC740 \uADF8\uB9BC\uC790\uB97C \uB4DC\uB9AC\uC6B4\uB2E4.\n\uBCF4\uC2A4\uC804
+    \uC2DC\uC791 \uC2DC \uCE74\uB4DC\uB97C 2\uC7A5 \uCD94\uAC00\uB85C \uBF51\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_TreeArrow_05
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_Arrow
-  - {fileID: 0}
-  # 목표 효과: 시작 추가 드로우. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: ccb12cec99f56454996a13d0c5271d1c, type: 2}
+  - {fileID: 11400000, guid: dccb49a812de6464ba636f5b9bbd11af, type: 2}
   effectType: 0
   effectValue: 2

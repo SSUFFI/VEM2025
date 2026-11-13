@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_0_02
   m_EditorClassIdentifier: 
-  rewardName: "빈손의 기도"
-  description: "빈손을 모아도 기도는 무게를 갖는다.\n보스전에서 영웅이 처음 받는 피해를 1 줄인다."
+  rewardName: "\uBE48\uC190\uC758 \uAE30\uB3C4"
+  description: "\uBE48\uC190\uC744 \uBAA8\uC544\uB3C4 \uAE30\uB3C4\uB294 \uBB34\uAC8C\uB97C
+    \uAC16\uB294\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C \uC601\uC6C5\uC774 \uCC98\uC74C
+    \uBC1B\uB294 \uD53C\uD574\uB97C 1 \uC904\uC778\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens: []
-  # 목표 효과: 영웅 피해 감소. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
   effectType: 0
   effectValue: 1

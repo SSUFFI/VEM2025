@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_2_05
   m_EditorClassIdentifier: 
-  rewardName: "약속의 깃"
-  description: "일곱 나무를 지난 약속이 깃털의 바람을 타고 되돌아온다.\n보스전 첫 플레이어 턴에 사용 가능한 마나를 2 얻는다."
+  rewardName: "\uC57D\uC18D\uC758 \uAE43"
+  description: "\uC77C\uACF1 \uB098\uBB34\uB97C \uC9C0\uB09C \uC57D\uC18D\uC774 \uAE43\uD138\uC758
+    \uBC14\uB78C\uC744 \uD0C0\uACE0 \uB418\uB3CC\uC544\uC628\uB2E4.\n\uBCF4\uC2A4\uC804
+    \uCCAB \uD50C\uB808\uC774\uC5B4 \uD134\uC5D0 \uC0AC\uC6A9 \uAC00\uB2A5\uD55C
+    \uB9C8\uB098\uB97C 2 \uC5BB\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_TreeArrow_03
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_WindFeather
-  - {fileID: 0}
-  # 목표 효과: 첫 턴 추가 마나. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: ccb12cec99f56454996a13d0c5271d1c, type: 2}
+  - {fileID: 11400000, guid: 0b2f3cd853f7fbe46a0708658b809ee7, type: 2}
   effectType: 0
   effectValue: 2

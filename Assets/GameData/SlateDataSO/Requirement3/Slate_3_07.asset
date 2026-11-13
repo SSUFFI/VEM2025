@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_3_07
   m_EditorClassIdentifier: 
-  rewardName: "맹세에 없는 독"
-  description: "누구도 맹세하지 않은 가지에 죽은 괴물의 독과 송곳니가 닿는다.\n보스전에서 처음 소환한 아군의 공격력이 3 증가한다."
+  rewardName: "\uB9F9\uC138\uC5D0 \uC5C6\uB294 \uB3C5"
+  description: "\uB204\uAD6C\uB3C4 \uB9F9\uC138\uD558\uC9C0 \uC54A\uC740 \uAC00\uC9C0\uC5D0
+    \uC8FD\uC740 \uAD34\uBB3C\uC758 \uB3C5\uACFC \uC1A1\uACF3\uB2C8\uAC00 \uB2FF\uB294\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C
+    \uCC98\uC74C \uC18C\uD658\uD55C \uC544\uAD70\uC758 \uACF5\uACA9\uB825\uC774 3
+    \uC99D\uAC00\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_TreeArrow_02
-  - {fileID: 0}
-  # 연결할 Token Id: Explore_TreeArrow_04
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_WolfFang
-  - {fileID: 0}
-  # 목표 효과: 첫 소환 공격력 증가. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: ccb12cec99f56454996a13d0c5271d1c, type: 2}
+  - {fileID: 11400000, guid: 028abe153687e6440b8042ed537a4843, type: 2}
+  - {fileID: 11400000, guid: b8194b661800fbf429010824e4932488, type: 2}
   effectType: 0
   effectValue: 3

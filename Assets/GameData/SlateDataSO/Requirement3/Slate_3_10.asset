@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_3_10
   m_EditorClassIdentifier: 
-  rewardName: "꽃 없는 봄"
-  description: "같은 재에서 봄과 눈먼 바람이 태어난다. 포자는 어느 쪽에도 답하지 않는다.\n보스전에서 처음 소환한 아군의 현재·최대 체력이 3 증가한다."
+  rewardName: "\uAF43 \uC5C6\uB294 \uBD04"
+  description: "\uAC19\uC740 \uC7AC\uC5D0\uC11C \uBD04\uACFC \uB208\uBA3C \uBC14\uB78C\uC774
+    \uD0DC\uC5B4\uB09C\uB2E4. \uD3EC\uC790\uB294 \uC5B4\uB290 \uCABD\uC5D0\uB3C4
+    \uB2F5\uD558\uC9C0 \uC54A\uB294\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C \uCC98\uC74C
+    \uC18C\uD658\uD55C \uC544\uAD70\uC758 \uD604\uC7AC\xB7\uCD5C\uB300 \uCCB4\uB825\uC774
+    3 \uC99D\uAC00\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Charcoal_02
-  - {fileID: 0}
-  # 연결할 Token Id: Explore_Charcoal_05
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_FilledSporeSac
-  - {fileID: 0}
-  # 목표 효과: 첫 소환 체력 증가. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: e8da7a0eaf5d55d4a85e3d26f2421fcd, type: 2}
+  - {fileID: 11400000, guid: 66ab0f4d34e11194caf2b8e0a4dec320, type: 2}
+  - {fileID: 11400000, guid: 0b2f3cd853f7fbe46a0708658b809ee7, type: 2}
   effectType: 0
   effectValue: 3

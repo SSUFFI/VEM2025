@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_3_01
   m_EditorClassIdentifier: 
-  rewardName: "돌아온 봄의 노래"
-  description: "재에서 핀 꽃과 뼈에서 난 노래가 한 잎에 머문다.\n보스전 시작 시 카드를 2장 추가로 뽑는다."
+  rewardName: "\uB3CC\uC544\uC628 \uBD04\uC758 \uB178\uB798"
+  description: "\uC7AC\uC5D0\uC11C \uD540 \uAF43\uACFC \uBF08\uC5D0\uC11C \uB09C
+    \uB178\uB798\uAC00 \uD55C \uC78E\uC5D0 \uBA38\uBB38\uB2E4.\n\uBCF4\uC2A4\uC804
+    \uC2DC\uC791 \uC2DC \uCE74\uB4DC\uB97C 2\uC7A5 \uCD94\uAC00\uB85C \uBF51\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Charcoal_02
-  - {fileID: 0}
-  # 연결할 Token Id: Explore_Bone_03
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_ForestHerbLeaf
-  - {fileID: 0}
-  # 목표 효과: 시작 추가 드로우. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: e8da7a0eaf5d55d4a85e3d26f2421fcd, type: 2}
+  - {fileID: 11400000, guid: 38770875a8078ca408e18c5b600d42a8, type: 2}
+  - {fileID: 11400000, guid: 022bc19273559ef48aa607846ed166e1, type: 2}
   effectType: 0
-  effectValue: 2
+  effectValue: 3

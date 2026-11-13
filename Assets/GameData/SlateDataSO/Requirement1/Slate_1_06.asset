@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_1_06
   m_EditorClassIdentifier: 
-  rewardName: "거울의 경계"
-  description: "눈을 돌린 자만이 방패 속 위험을 똑바로 본다.\n보스전에서 영웅이 받는 피해를 처음 1회까지 0으로 만든다."
+  rewardName: "\uAC70\uC6B8\uC758 \uACBD\uACC4"
+  description: "\uB208\uC744 \uB3CC\uB9B0 \uC790\uB9CC\uC774 \uBC29\uD328 \uC18D
+    \uC704\uD5D8\uC744 \uB611\uBC14\uB85C \uBCF8\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C
+    \uC601\uC6C5\uC774 \uBC1B\uB294 \uD53C\uD574\uB97C \uCC98\uC74C 1\uD68C\uAE4C\uC9C0
+    0\uC73C\uB85C \uB9CC\uB4E0\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_BrokenArms_01
-  - {fileID: 0}
-  # 목표 효과: 영웅 피해 무효. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: f057b4cc3c05a464496114d62e7e5564, type: 2}
   effectType: 0
   effectValue: 1

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_1_07
   m_EditorClassIdentifier: 
-  rewardName: "가벼운 미련"
-  description: "깃털은 내려앉지만 그 안의 바람은 아직 떠나지 않는다.\n보스전 첫 플레이어 턴에 사용 가능한 마나를 1 얻는다."
+  rewardName: "\uAC00\uBCBC\uC6B4 \uBBF8\uB828"
+  description: "\uAE43\uD138\uC740 \uB0B4\uB824\uC549\uC9C0\uB9CC \uADF8 \uC548\uC758
+    \uBC14\uB78C\uC740 \uC544\uC9C1 \uB5A0\uB098\uC9C0 \uC54A\uB294\uB2E4.\n\uBCF4\uC2A4\uC804
+    \uCCAB \uD50C\uB808\uC774\uC5B4 \uD134\uC5D0 \uC0AC\uC6A9 \uAC00\uB2A5\uD55C
+    \uB9C8\uB098\uB97C 1 \uC5BB\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: NpcToken_WindFeather
-  - {fileID: 0}
-  # 목표 효과: 첫 턴 추가 마나. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: 0b2f3cd853f7fbe46a0708658b809ee7, type: 2}
   effectType: 0
   effectValue: 1

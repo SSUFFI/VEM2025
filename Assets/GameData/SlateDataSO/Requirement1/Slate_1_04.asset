@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_1_04
   m_EditorClassIdentifier: 
-  rewardName: "끝을 정한 화살"
-  description: "잠들 곳을 가리키던 화살이 이제 싸움의 첫 방향을 정한다.\n보스전 첫 플레이어 턴에 사용 가능한 마나를 1 얻는다."
+  rewardName: "\uB05D\uC744 \uC815\uD55C \uD654\uC0B4"
+  description: "\uC7A0\uB4E4 \uACF3\uC744 \uAC00\uB9AC\uD0A4\uB358 \uD654\uC0B4\uC774
+    \uC774\uC81C \uC2F8\uC6C0\uC758 \uCCAB \uBC29\uD5A5\uC744 \uC815\uD55C\uB2E4.\n\uBCF4\uC2A4\uC804
+    \uCCAB \uD50C\uB808\uC774\uC5B4 \uD134\uC5D0 \uC0AC\uC6A9 \uAC00\uB2A5\uD55C
+    \uB9C8\uB098\uB97C 1 \uC5BB\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_TreeArrow_01
-  - {fileID: 0}
-  # 목표 효과: 첫 턴 추가 마나. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: ccb12cec99f56454996a13d0c5271d1c, type: 2}
   effectType: 0
   effectValue: 1

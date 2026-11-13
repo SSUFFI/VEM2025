@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_2_01
   m_EditorClassIdentifier: 
-  rewardName: "다시 뛰는 맥박"
-  description: "다시 걷는 뼈에 붉은 생명의 흔적이 스민다.\n보스전에서 영웅이 처음 받는 피해 1회를 0으로 만든다."
+  rewardName: "\uB2E4\uC2DC \uB6F0\uB294 \uB9E5\uBC15"
+  description: "\uB2E4\uC2DC \uAC77\uB294 \uBF08\uC5D0 \uBD89\uC740 \uC0DD\uBA85\uC758
+    \uD754\uC801\uC774 \uC2A4\uBBFC\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C \uC601\uC6C5\uC774
+    \uCC98\uC74C \uBC1B\uB294 \uD53C\uD574 1\uD68C\uB97C 0\uC73C\uB85C \uB9CC\uB4E0\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Bone_01
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_BloodRedWineExtract
-  - {fileID: 0}
-  # 목표 효과: 영웅 피해 무효. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: 38770875a8078ca408e18c5b600d42a8, type: 2}
+  - {fileID: 11400000, guid: 028abe153687e6440b8042ed537a4843, type: 2}
   effectType: 0
-  effectValue: 1
+  effectValue: 2

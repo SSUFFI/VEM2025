@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_2_03
   m_EditorClassIdentifier: 
-  rewardName: "귀환의 표식"
-  description: "주인을 알아본 뼈가 검은 천 아래 숨은 이름을 부른다.\n보스전 시작 시 카드를 2장 추가로 뽑는다."
+  rewardName: "\uADC0\uD658\uC758 \uD45C\uC2DD"
+  description: "\uC8FC\uC778\uC744 \uC54C\uC544\uBCF8 \uBF08\uAC00 \uAC80\uC740 \uCC9C
+    \uC544\uB798 \uC228\uC740 \uC774\uB984\uC744 \uBD80\uB978\uB2E4.\n\uBCF4\uC2A4\uC804
+    \uC2DC\uC791 \uC2DC \uCE74\uB4DC\uB97C 2\uC7A5 \uCD94\uAC00\uB85C \uBF51\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Bone_04
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_BlackCloakFragment
-  - {fileID: 0}
-  # 목표 효과: 시작 추가 드로우. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: 38770875a8078ca408e18c5b600d42a8, type: 2}
+  - {fileID: 11400000, guid: 6edef52451089124e83c304509192e6e, type: 2}
   effectType: 0
   effectValue: 2

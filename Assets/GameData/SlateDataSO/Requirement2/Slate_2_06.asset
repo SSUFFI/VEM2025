@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_2_06
   m_EditorClassIdentifier: 
-  rewardName: "독을 품은 녹"
-  description: "죽은 괴물의 독이 녹슨 날에 다시 이빨을 세운다.\n보스전에서 처음 소환한 아군의 공격력이 2 증가한다."
+  rewardName: "\uB3C5\uC744 \uD488\uC740 \uB179"
+  description: "\uC8FD\uC740 \uAD34\uBB3C\uC758 \uB3C5\uC774 \uB179\uC2A8 \uB0A0\uC5D0
+    \uB2E4\uC2DC \uC774\uBE68\uC744 \uC138\uC6B4\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C
+    \uCC98\uC74C \uC18C\uD658\uD55C \uC544\uAD70\uC758 \uACF5\uACA9\uB825\uC774 2
+    \uC99D\uAC00\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_TreeArrow_04
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_RustedDagger
-  - {fileID: 0}
-  # 목표 효과: 첫 소환 공격력 증가. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: ccb12cec99f56454996a13d0c5271d1c, type: 2}
+  - {fileID: 11400000, guid: 2721d04d6d74207479bc783c61633abc, type: 2}
   effectType: 0
   effectValue: 2

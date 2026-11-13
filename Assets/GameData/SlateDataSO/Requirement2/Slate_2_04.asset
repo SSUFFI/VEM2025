@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_2_04
   m_EditorClassIdentifier: 
-  rewardName: "뿌리 내린 산"
-  description: "작은 뼈와 나무 한 조각이 무너지지 않을 자리를 기억한다.\n보스전에서 처음 소환한 아군의 현재·최대 체력이 2 증가한다."
+  rewardName: "\uBFCC\uB9AC \uB0B4\uB9B0 \uC0B0"
+  description: "\uC791\uC740 \uBF08\uC640 \uB098\uBB34 \uD55C \uC870\uAC01\uC774
+    \uBB34\uB108\uC9C0\uC9C0 \uC54A\uC744 \uC790\uB9AC\uB97C \uAE30\uC5B5\uD55C\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C
+    \uCC98\uC74C \uC18C\uD658\uD55C \uC544\uAD70\uC758 \uD604\uC7AC\xB7\uCD5C\uB300
+    \uCCB4\uB825\uC774 2 \uC99D\uAC00\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Bone_05
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_SturdyWoodFragment
-  - {fileID: 0}
-  # 목표 효과: 첫 소환 체력 증가. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: 38770875a8078ca408e18c5b600d42a8, type: 2}
+  - {fileID: 11400000, guid: 74982e6165e93854fa378115856bb010, type: 2}
   effectType: 0
   effectValue: 2

@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_2_02
   m_EditorClassIdentifier: 
-  rewardName: "끝나지 않은 수호"
-  description: "부서져도 되풀이되는 싸움 앞에 낡은 방패를 세운다.\n보스의 마나 증가를 2턴 지연한다."
+  rewardName: "\uB05D\uB098\uC9C0 \uC54A\uC740 \uC218\uD638"
+  description: "\uBD80\uC11C\uC838\uB3C4 \uB418\uD480\uC774\uB418\uB294 \uC2F8\uC6C0
+    \uC55E\uC5D0 \uB0A1\uC740 \uBC29\uD328\uB97C \uC138\uC6B4\uB2E4.\n\uBCF4\uC2A4\uC758
+    \uB9C8\uB098 \uC99D\uAC00\uB97C 2\uD134 \uC9C0\uC5F0\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_BrokenArms_03
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_OldShield
-  - {fileID: 0}
-  # 목표 효과: Delay Enemy Mana. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: f057b4cc3c05a464496114d62e7e5564, type: 2}
+  - {fileID: 11400000, guid: 1cc0ed3bfc5cbfe49a6c24741baaa40f, type: 2}
   effectType: 0
   effectValue: 2

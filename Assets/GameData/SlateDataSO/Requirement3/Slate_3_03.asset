@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_3_03
   m_EditorClassIdentifier: 
-  rewardName: "두 번째 새벽"
-  description: "되살아난 뼈가 끝없는 전쟁 속에서 가죽 한 겹의 온기를 얻는다.\n보스전에서 처음 소환한 아군의 현재·최대 체력이 3 증가한다."
+  rewardName: "\uB450 \uBC88\uC9F8 \uC0C8\uBCBD"
+  description: "\uB418\uC0B4\uC544\uB09C \uBF08\uAC00 \uB05D\uC5C6\uB294 \uC804\uC7C1
+    \uC18D\uC5D0\uC11C \uAC00\uC8FD \uD55C \uACB9\uC758 \uC628\uAE30\uB97C \uC5BB\uB294\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C
+    \uCC98\uC74C \uC18C\uD658\uD55C \uC544\uAD70\uC758 \uD604\uC7AC\xB7\uCD5C\uB300
+    \uCCB4\uB825\uC774 3 \uC99D\uAC00\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Bone_01
-  - {fileID: 0}
-  # 연결할 Token Id: Explore_BrokenArms_03
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_AlphaGlowingHide
-  - {fileID: 0}
-  # 목표 효과: 첫 소환 체력 증가. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: 38770875a8078ca408e18c5b600d42a8, type: 2}
+  - {fileID: 11400000, guid: f057b4cc3c05a464496114d62e7e5564, type: 2}
+  - {fileID: 11400000, guid: b5e1230c01bf7284081496c20c43061c, type: 2}
   effectType: 0
   effectValue: 3

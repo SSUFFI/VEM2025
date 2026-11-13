@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_3_11
   m_EditorClassIdentifier: 
-  rewardName: "영웅이 남긴 값"
-  description: "돌아오지 않은 영웅과 정의의 문양 사이에 주인 없는 금화가 놓인다.\n금화 100개를 얻는다."
+  rewardName: "\uC601\uC6C5\uC774 \uB0A8\uAE34 \uAC12"
+  description: "\uB3CC\uC544\uC624\uC9C0 \uC54A\uC740 \uC601\uC6C5\uACFC \uC815\uC758\uC758
+    \uBB38\uC591 \uC0AC\uC774\uC5D0 \uC8FC\uC778 \uC5C6\uB294 \uAE08\uD654\uAC00
+    \uB193\uC778\uB2E4.\n\uAE08\uD654 100\uAC1C\uB97C \uC5BB\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Charcoal_04
-  - {fileID: 0}
-  # 연결할 Token Id: Explore_BrokenArms_04
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_Gold
-  - {fileID: 0}
-  # 목표 효과: 금화 지급. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: e8da7a0eaf5d55d4a85e3d26f2421fcd, type: 2}
+  - {fileID: 11400000, guid: f057b4cc3c05a464496114d62e7e5564, type: 2}
+  - {fileID: 11400000, guid: 66ddd5d2f9190e548bbd36f8e054946d, type: 2}
   effectType: 0
-  effectValue: 100
+  effectValue: 3

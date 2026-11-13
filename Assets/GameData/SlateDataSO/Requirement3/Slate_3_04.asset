@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_3_04
   m_EditorClassIdentifier: 
-  rewardName: "묻힌 이름의 빛"
-  description: "뼈의 이름과 가지의 울음을 푸른빛으로 비추자 한 이야기가 된다.\n보스전 시작 시 카드를 2장 추가로 뽑는다."
+  rewardName: "\uBB3B\uD78C \uC774\uB984\uC758 \uBE5B"
+  description: "\uBF08\uC758 \uC774\uB984\uACFC \uAC00\uC9C0\uC758 \uC6B8\uC74C\uC744
+    \uD478\uB978\uBE5B\uC73C\uB85C \uBE44\uCD94\uC790 \uD55C \uC774\uC57C\uAE30\uAC00
+    \uB41C\uB2E4.\n\uBCF4\uC2A4\uC804 \uC2DC\uC791 \uC2DC \uCE74\uB4DC\uB97C 2\uC7A5
+    \uCD94\uAC00\uB85C \uBF51\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Bone_02
-  - {fileID: 0}
-  # 연결할 Token Id: Explore_Bone_03
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_GlowingMushroomCore
-  - {fileID: 0}
-  # 목표 효과: 시작 추가 드로우. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: 38770875a8078ca408e18c5b600d42a8, type: 2}
+  - {fileID: 11400000, guid: 2491c485c9c20db4f8ad303f1776378e, type: 2}
+  - {fileID: 11400000, guid: 022bc19273559ef48aa607846ed166e1, type: 2}
   effectType: 0
-  effectValue: 2
+  effectValue: 3

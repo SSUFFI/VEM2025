@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_1_10
   m_EditorClassIdentifier: 
-  rewardName: "삼킨 밤"
-  description: "검은 천을 접자 밤의 한 귀퉁이가 적의 손을 가린다.\n보스의 마나 증가를 1턴 지연한다."
+  rewardName: "\uC0BC\uD0A8 \uBC24"
+  description: "\uAC80\uC740 \uCC9C\uC744 \uC811\uC790 \uBC24\uC758 \uD55C \uADC0\uD241\uC774\uAC00
+    \uC801\uC758 \uC190\uC744 \uAC00\uB9B0\uB2E4.\n\uBCF4\uC2A4\uC758 \uB9C8\uB098
+    \uC99D\uAC00\uB97C 1\uD134 \uC9C0\uC5F0\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: NpcToken_BlackCloakFragment
-  - {fileID: 0}
-  # 목표 효과: Delay Enemy Mana. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: 6edef52451089124e83c304509192e6e, type: 2}
   effectType: 0
   effectValue: 1

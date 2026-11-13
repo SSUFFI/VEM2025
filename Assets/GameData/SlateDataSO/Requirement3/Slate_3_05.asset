@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_3_05
   m_EditorClassIdentifier: 
-  rewardName: "주인을 기다린 산"
-  description: "산이 될 뼈도 옛 주인의 발소리 앞에서는 작은 짐승으로 남는다.\n보스전에서 영웅이 받는 피해를 처음 2회까지 0으로 만든다."
+  rewardName: "\uC8FC\uC778\uC744 \uAE30\uB2E4\uB9B0 \uC0B0"
+  description: "\uC0B0\uC774 \uB420 \uBF08\uB3C4 \uC61B \uC8FC\uC778\uC758 \uBC1C\uC18C\uB9AC
+    \uC55E\uC5D0\uC11C\uB294 \uC791\uC740 \uC9D0\uC2B9\uC73C\uB85C \uB0A8\uB294\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C
+    \uC601\uC6C5\uC774 \uBC1B\uB294 \uD53C\uD574\uB97C \uCC98\uC74C 2\uD68C\uAE4C\uC9C0
+    0\uC73C\uB85C \uB9CC\uB4E0\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Bone_04
-  - {fileID: 0}
-  # 연결할 Token Id: Explore_Bone_05
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_OldShield
-  - {fileID: 0}
-  # 목표 효과: 영웅 피해 무효. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: 38770875a8078ca408e18c5b600d42a8, type: 2}
+  - {fileID: 11400000, guid: 66ab0f4d34e11194caf2b8e0a4dec320, type: 2}
+  - {fileID: 11400000, guid: 1cc0ed3bfc5cbfe49a6c24741baaa40f, type: 2}
   effectType: 0
-  effectValue: 2
+  effectValue: 3

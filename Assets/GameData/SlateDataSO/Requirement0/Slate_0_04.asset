@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_0_04
   m_EditorClassIdentifier: 
-  rewardName: "침묵의 가르침"
-  description: "아무것도 말하지 않은 돌에서 아직 읽지 않은 한 줄을 찾는다.\n보스전 시작 시 카드를 1장 추가로 뽑는다."
+  rewardName: "\uCE68\uBB35\uC758 \uAC00\uB974\uCE68"
+  description: "\uC544\uBB34\uAC83\uB3C4 \uB9D0\uD558\uC9C0 \uC54A\uC740 \uB3CC\uC5D0\uC11C
+    \uC544\uC9C1 \uC77D\uC9C0 \uC54A\uC740 \uD55C \uC904\uC744 \uCC3E\uB294\uB2E4.\n\uBCF4\uC2A4\uC804
+    \uC2DC\uC791 \uC2DC \uCE74\uB4DC\uB97C 1\uC7A5 \uCD94\uAC00\uB85C \uBF51\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens: []
-  # 목표 효과: 시작 추가 드로우. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
   effectType: 0
   effectValue: 1

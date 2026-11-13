@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_1_09
   m_EditorClassIdentifier: 
-  rewardName: "남은 이빨"
-  description: "주인은 사라져도 물어뜯던 의지는 남는다.\n보스전에서 처음 소환한 아군의 공격력이 1 증가한다."
+  rewardName: "\uB0A8\uC740 \uC774\uBE68"
+  description: "\uC8FC\uC778\uC740 \uC0AC\uB77C\uC838\uB3C4 \uBB3C\uC5B4\uB72F\uB358
+    \uC758\uC9C0\uB294 \uB0A8\uB294\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C \uCC98\uC74C
+    \uC18C\uD658\uD55C \uC544\uAD70\uC758 \uACF5\uACA9\uB825\uC774 1 \uC99D\uAC00\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: NpcToken_WolfFang
-  - {fileID: 0}
-  # 목표 효과: 첫 소환 공격력 증가. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: b8194b661800fbf429010824e4932488, type: 2}
   effectType: 0
   effectValue: 1

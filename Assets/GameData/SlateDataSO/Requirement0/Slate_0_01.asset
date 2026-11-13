@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_0_01
   m_EditorClassIdentifier: 
-  rewardName: "길손의 몫"
-  description: "아무 흔적도 가져오지 못한 자에게도, 길을 이어 갈 몫은 남아 있다.\n금화 30개를 얻는다."
+  rewardName: "\uAE38\uC190\uC758 \uBAAB"
+  description: "\uC544\uBB34 \uD754\uC801\uB3C4 \uAC00\uC838\uC624\uC9C0 \uBABB\uD55C
+    \uC790\uC5D0\uAC8C\uB3C4, \uAE38\uC744 \uC774\uC5B4 \uAC08 \uBAAB\uC740 \uB0A8\uC544
+    \uC788\uB2E4.\n\uAE08\uD654 30\uAC1C\uB97C \uC5BB\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens: []
-  # 목표 효과: 금화 지급. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
   effectType: 0
-  effectValue: 30
+  effectValue: 1

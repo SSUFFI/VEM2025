@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_3_02
   m_EditorClassIdentifier: 
-  rewardName: "맹세 너머의 눈"
-  description: "맹세의 빈틈과 잘못 든 방패를 푸른빛에 비춘다.\n보스전 첫 플레이어 턴에 사용 가능한 마나를 2 얻는다."
+  rewardName: "\uB9F9\uC138 \uB108\uBA38\uC758 \uB208"
+  description: "\uB9F9\uC138\uC758 \uBE48\uD2C8\uACFC \uC798\uBABB \uB4E0 \uBC29\uD328\uB97C
+    \uD478\uB978\uBE5B\uC5D0 \uBE44\uCD98\uB2E4.\n\uBCF4\uC2A4\uC804 \uCCAB \uD50C\uB808\uC774\uC5B4
+    \uD134\uC5D0 \uC0AC\uC6A9 \uAC00\uB2A5\uD55C \uB9C8\uB098\uB97C 2 \uC5BB\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_TreeArrow_02
-  - {fileID: 0}
-  # 연결할 Token Id: Explore_BrokenArms_02
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_GlowingMushroomCore
-  - {fileID: 0}
-  # 목표 효과: 첫 턴 추가 마나. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: ccb12cec99f56454996a13d0c5271d1c, type: 2}
+  - {fileID: 11400000, guid: f057b4cc3c05a464496114d62e7e5564, type: 2}
+  - {fileID: 11400000, guid: 2491c485c9c20db4f8ad303f1776378e, type: 2}
   effectType: 0
-  effectValue: 2
+  effectValue: 3

@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_2_09
   m_EditorClassIdentifier: 
-  rewardName: "바람을 등진 자"
-  description: "검은 가루 앞에 가죽을 펼쳐 눈먼 바람의 길을 바꾼다.\n보스전에서 영웅이 처음 받는 피해를 3 줄인다."
+  rewardName: "\uBC14\uB78C\uC744 \uB4F1\uC9C4 \uC790"
+  description: "\uAC80\uC740 \uAC00\uB8E8 \uC55E\uC5D0 \uAC00\uC8FD\uC744 \uD3BC\uCCD0
+    \uB208\uBA3C \uBC14\uB78C\uC758 \uAE38\uC744 \uBC14\uAFBC\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C
+    \uC601\uC6C5\uC774 \uCC98\uC74C \uBC1B\uB294 \uD53C\uD574\uB97C 3 \uC904\uC778\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Charcoal_05
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_ToughLeather
-  - {fileID: 0}
-  # 목표 효과: 영웅 피해 감소. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: e8da7a0eaf5d55d4a85e3d26f2421fcd, type: 2}
+  - {fileID: 11400000, guid: 87ac1b5cad2df9f458b3a4af2660bd2e, type: 2}
   effectType: 0
-  effectValue: 3
+  effectValue: 2

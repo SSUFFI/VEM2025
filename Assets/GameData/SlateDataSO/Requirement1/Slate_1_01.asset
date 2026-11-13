@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_1_01
   m_EditorClassIdentifier: 
-  rewardName: "남겨진 불씨"
-  description: "타다 남은 불씨가 적의 첫 기운을 붙든다.\n보스의 마나 증가를 1턴 지연한다."
+  rewardName: "\uB0A8\uACA8\uC9C4 \uBD88\uC528"
+  description: "\uD0C0\uB2E4 \uB0A8\uC740 \uBD88\uC528\uAC00 \uC801\uC758 \uCCAB
+    \uAE30\uC6B4\uC744 \uBD99\uB4E0\uB2E4.\n\uBCF4\uC2A4\uC758 \uB9C8\uB098 \uC99D\uAC00\uB97C
+    1\uD134 \uC9C0\uC5F0\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Charcoal_01
-  - {fileID: 0}
-  # 목표 효과: Delay Enemy Mana. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: e8da7a0eaf5d55d4a85e3d26f2421fcd, type: 2}
   effectType: 0
   effectValue: 1

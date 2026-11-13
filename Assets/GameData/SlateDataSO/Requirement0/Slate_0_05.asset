@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_0_05
   m_EditorClassIdentifier: 
-  rewardName: "먼지의 대가"
-  description: "돌의 먼지를 털자 이름 없는 이가 남긴 동전이 드러난다.\n금화 25개를 얻는다."
+  rewardName: "\uBA3C\uC9C0\uC758 \uB300\uAC00"
+  description: "\uB3CC\uC758 \uBA3C\uC9C0\uB97C \uD138\uC790 \uC774\uB984 \uC5C6\uB294
+    \uC774\uAC00 \uB0A8\uAE34 \uB3D9\uC804\uC774 \uB4DC\uB7EC\uB09C\uB2E4.\n\uAE08\uD654
+    25\uAC1C\uB97C \uC5BB\uB294\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens: []
-  # 목표 효과: 금화 지급. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
   effectType: 0
-  effectValue: 25
+  effectValue: 1

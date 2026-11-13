@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_3_06
   m_EditorClassIdentifier: 
-  rewardName: "마지막 약속"
-  description: "마지막 화살이 일곱 겹의 맹세를 지나 부러진 촉 곁에 멈춘다.\n보스전에서 처음 사용하는 소환 카드의 비용이 2 감소한다."
+  rewardName: "\uB9C8\uC9C0\uB9C9 \uC57D\uC18D"
+  description: "\uB9C8\uC9C0\uB9C9 \uD654\uC0B4\uC774 \uC77C\uACF1 \uACB9\uC758 \uB9F9\uC138\uB97C
+    \uC9C0\uB098 \uBD80\uB7EC\uC9C4 \uCD09 \uACC1\uC5D0 \uBA48\uCD98\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C
+    \uCC98\uC74C \uC0AC\uC6A9\uD558\uB294 \uC18C\uD658 \uCE74\uB4DC\uC758 \uBE44\uC6A9\uC774
+    2 \uAC10\uC18C\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_TreeArrow_01
-  - {fileID: 0}
-  # 연결할 Token Id: Explore_TreeArrow_03
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_BrokenArrow
-  - {fileID: 0}
-  # 목표 효과: 첫 소환 비용 감소. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: ccb12cec99f56454996a13d0c5271d1c, type: 2}
+  - {fileID: 11400000, guid: dccb49a812de6464ba636f5b9bbd11af, type: 2}
+  - {fileID: 11400000, guid: d614d8b7c6778164fa441ea8074cc445, type: 2}
   effectType: 0
-  effectValue: 2
+  effectValue: 3

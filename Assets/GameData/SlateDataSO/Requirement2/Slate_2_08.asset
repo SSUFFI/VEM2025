@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08debc4d0ee916c44bbacadba2c739e1, type: 3}
   m_Name: Slate_2_08
   m_EditorClassIdentifier: 
-  rewardName: "재 속의 군주"
-  description: "시신 없는 재 위에 성배를 놓자 이름 모를 숨이 찬다.\n보스전에서 처음 소환한 아군의 현재·최대 체력이 2 증가한다."
+  rewardName: "\uC7AC \uC18D\uC758 \uAD70\uC8FC"
+  description: "\uC2DC\uC2E0 \uC5C6\uB294 \uC7AC \uC704\uC5D0 \uC131\uBC30\uB97C
+    \uB193\uC790 \uC774\uB984 \uBAA8\uB97C \uC228\uC774 \uCC2C\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C
+    \uCC98\uC74C \uC18C\uD658\uD55C \uC544\uAD70\uC758 \uD604\uC7AC\xB7\uCD5C\uB300
+    \uCCB4\uB825\uC774 2 \uC99D\uAC00\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
   requiredTokens:
-  # 연결할 Token Id: Explore_Charcoal_04
-  - {fileID: 0}
-  # 연결할 Token Id: NpcToken_VladTepesHolyGrail
-  - {fileID: 0}
-  # 목표 효과: 첫 소환 체력 증가. 예시의 effectType 0 유지; Inspector에서 확인 및 설정 필요.
+  - {fileID: 11400000, guid: e8da7a0eaf5d55d4a85e3d26f2421fcd, type: 2}
+  - {fileID: 11400000, guid: 028abe153687e6440b8042ed537a4843, type: 2}
   effectType: 0
   effectValue: 2
