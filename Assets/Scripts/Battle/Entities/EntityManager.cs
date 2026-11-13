@@ -25,6 +25,22 @@ public class EntityManager : MonoBehaviour
     [SerializeField] Sprite myHeroPortrait;
     [SerializeField] float deckDamageEffectScale = 1.5f;
 
+    //JS임시
+    [Header("HP 피격 이동 이펙트")]
+    [SerializeField] ParticleGather hpHitEffectPrefab;
+
+    [Header("내 이펙트 위치")]
+    [SerializeField] Transform myHpEffectStartPos;
+    [SerializeField] Transform myHpEffectTargetPos;
+
+    [Header("적 이펙트 위치")]
+    [SerializeField] Transform enemyHpEffectStartPos;
+    [SerializeField] Transform enemyHpEffectTargetPos;
+
+    [SerializeField] float hpEffectLifetime = 0.6f;
+
+    //===
+
     [Header("Tutorial")]
     [SerializeField] Sprite tutorialEnemyPortrait;
 
@@ -715,6 +731,10 @@ public class EntityManager : MonoBehaviour
             damageComponent.SetPosition(col.bounds.center);
 
         damageComponent.Damaged(damage);
+
+        //JS 임시
+        SpawnHpHitEffect(tr);
+        //===
     }
 
     public void AttackableReset(bool isMine)
@@ -1041,4 +1061,66 @@ public class EntityManager : MonoBehaviour
         healComponent.SetupTransform(tr);
         healComponent.Healed(heal);
     }
+
+
+    //JS임시
+    #region
+    void SpawnHpHitEffect(Transform hitTransform)
+    {
+        if (hpHitEffectPrefab == null || hitTransform == null)
+            return;
+
+        Transform startPos;
+        Transform targetPos;
+
+        if (myBossEntity != null &&
+            hitTransform == myBossEntity.transform)
+        {
+            startPos = myHpEffectStartPos;
+            targetPos = myHpEffectTargetPos;
+        }
+        else if (otherBossEntity != null &&
+                 hitTransform == otherBossEntity.transform)
+        {
+            startPos = enemyHpEffectStartPos;
+            targetPos = enemyHpEffectTargetPos;
+        }
+        else
+        {
+            return;
+        }
+
+        if (targetPos == null)
+            return;
+
+        Vector3 spawnPosition;
+
+        if (startPos != null)
+        {
+            spawnPosition = startPos.position;
+        }
+        else
+        {
+            Collider2D hitCollider =
+                hitTransform.GetComponent<Collider2D>();
+
+            spawnPosition = hitCollider != null
+                ? hitCollider.bounds.center
+                : hitTransform.position;
+        }
+
+        ParticleGather effect = Instantiate(
+            hpHitEffectPrefab,
+            spawnPosition,
+            hpHitEffectPrefab.transform.rotation
+        );
+
+        effect.targetPoint = targetPos;
+        effect.RestartEffect();
+
+        Destroy(effect.gameObject, hpEffectLifetime);
+    }
+    #endregion
+    //===
+
 }
