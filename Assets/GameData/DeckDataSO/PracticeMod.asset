@@ -58,3 +58,5 @@ MonoBehaviour:
   goldItem: {fileID: 11400000, guid: 4d5d7282570c1c544bc051471bb4ba76, type: 2}
   goldAmount: 15
   rewardItems: []
+  enemyName: "모의 전투"
+  enemyDescription: "덱의 구성과 카드 사용 순서를 점검하는 모의 전투입니다. 다양한 선택을 시도하며 자신의 전투 방식을 익혀보세요."

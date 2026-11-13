@@ -41,6 +41,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 73053b23decd8114a9f57eca6c209c67, type: 2}
   heroPortrait: {fileID: 21300000, guid: b24157edf1d995c478c22efebcbf2afd, type: 3}
   battleBackground: {fileID: 21300000, guid: 6446b9445f0e2974aa49a600edde7801, type: 3}
+  enemyName: "\uBA67\uB3FC\uC9C0 - \uB09C\uC774\uB3C4 \uC0C1"
+  enemyDescription: "\uAE38\uBAA9\uC744 \uBD80\uC220 \uB4EF \uAD11\uD3ED \uBA67\uB3FC\uC9C0\uAC00
+    \uB3CC\uC9C4\uC744 \uC900\uBE44\uD569\uB2C8\uB2E4. \uBB35\uC9C1\uD55C \uC77C\uACA9\uC774
+    \uC608\uC0C1\uB429\uB2C8\uB2E4. \uB188\uC758 \uC6C0\uC9C1\uC784\uC744 \uB05D\uAE4C\uC9C0
+    \uC8FC\uC2DC\uD558\uBA70 \uCCA0\uC800\uD788 \uB300\uBE44\uD558\uC138\uC694."
   goldItem: {fileID: 11400000, guid: 4d5d7282570c1c544bc051471bb4ba76, type: 2}
   goldAmount: 100
   rewardItems:

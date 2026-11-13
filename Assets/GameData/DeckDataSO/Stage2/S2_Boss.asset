@@ -47,6 +47,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2b3daf3ea8dd09f4d8413c94ed5c00ae, type: 2}
   heroPortrait: {fileID: 21300000, guid: ca1ed6c91da814746895dd8f13fb6be4, type: 3}
   battleBackground: {fileID: 21300000, guid: c4b1333a1ffe0d84cb16473e7c6dae82, type: 3}
+  enemyName: Boss
+  enemyDescription: "\uC774 \uAD6C\uC5ED\uC758 \uB9C8\uC9C0\uB9C9 \uC804\uD22C\uAC00
+    \uAE30\uB2E4\uB9BD\uB2C8\uB2E4. \uC9C0\uAE08\uAE4C\uC9C0 \uC900\uBE44\uD55C \uB371\uC744
+    \uD655\uC778\uD558\uACE0 \uBCF4\uC2A4\uC5D0\uAC8C \uB3C4\uC804\uD558\uC138\uC694."
   goldItem: {fileID: 11400000, guid: 4d5d7282570c1c544bc051471bb4ba76, type: 2}
   goldAmount: 300
   rewardItems:

@@ -18,3 +18,6 @@ MonoBehaviour:
   eventType: 3
   iconNormal: {fileID: 21300000, guid: 094a436ce5cb3804393c6c6770281af4, type: 3}
   iconGray: {fileID: 21300000, guid: b7efb08bdf8d69d449bb28610eb21044, type: 3}
+  eventTitle: "탐색"
+  eventPreviewImage: {fileID: 21300000, guid: 094a436ce5cb3804393c6c6770281af4, type: 3}
+  eventDescription: "주변을 살펴보고 조사할 대상을 선택하는 이벤트입니다. 숨겨진 흔적을 찾아 여정에 필요한 단서를 모아보세요."

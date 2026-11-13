@@ -17,6 +17,14 @@ public class DeckSO : ScriptableObject
     public Sprite heroPortrait;
     public Sprite battleBackground;
 
+    //JS 임시
+    [Header("Node Preview")]
+    public string enemyName;
+
+    [TextArea(3, 8)]
+    public string enemyDescription;
+    //===
+
     [Header("Battle Reward")]
     public ItemSO goldItem;
     public int goldAmount = 0;
