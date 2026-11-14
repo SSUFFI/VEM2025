@@ -26,7 +26,7 @@ MonoBehaviour:
   descriptionBottom: 
   descriptionFloor: 
   keywords:
-  - "\uD568\uC131 : \uC774 \uCE74\uB4DC\uB97C \uD544\uB4DC\uC5D0 \uB0B4\uB9B4 \uC2DC
+  - "<color=yellow><b>\uD568\uC131</b></color> : \uC774 \uCE74\uB4DC\uB97C \uD544\uB4DC\uC5D0 \uB0B4\uB9B4 \uC2DC
     1\uD68C \uBC1C\uB3D9"
   taunt: 0
   triggers:
