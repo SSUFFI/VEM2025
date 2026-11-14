@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-//using Unity.VisualScripting;
+
 
 public class EntityManager : MonoBehaviour
 {
@@ -25,7 +25,7 @@ public class EntityManager : MonoBehaviour
     [SerializeField] Sprite myHeroPortrait;
     [SerializeField] float deckDamageEffectScale = 1.5f;
 
-    //JS임시
+
     [Header("HP 피격 이동 이펙트")]
     [SerializeField] ParticleGather hpHitEffectPrefab;
 
@@ -39,7 +39,7 @@ public class EntityManager : MonoBehaviour
 
     [SerializeField] float hpEffectLifetime = 0.6f;
 
-    //===
+
 
     [Header("Tutorial")]
     [SerializeField] Sprite tutorialEnemyPortrait;
@@ -54,7 +54,7 @@ public class EntityManager : MonoBehaviour
     bool ExistTargetPickEntity => targetPickEntity != null;
     bool ExistMyEmptyEntity => myEntities.Exists(x => x == myEmptyEntity);
     int MyEmptyEntityIndex => myEntities.FindIndex(x => x == myEmptyEntity);
-    bool CanMouseInput => TurnManager.Inst.myTurn && !TurnManager.Inst.isLoading && !isAttacking;
+    bool CanMouseInput => !GameResultManager.IsBattleFinished && TurnManager.Inst.myTurn && !TurnManager.Inst.isLoading && !isAttacking;
     public Vector3 MyDeckSpawnPos => myBossEntity.transform.position;
     public Vector3 OtherDeckSpawnPos => otherBossEntity.transform.position;
 
@@ -173,6 +173,14 @@ public class EntityManager : MonoBehaviour
 
     void Update()
     {
+        if (GameResultManager.IsBattleFinished)
+        {
+            ShowTargetPicker(false);
+            if (TargetArrow != null)
+                TargetArrow.gameObject.SetActive(false);
+            return;
+        }
+
         ShowTargetPicker(ExistTargetPickEntity);
 
         if (TargetArrow != null)
@@ -208,7 +216,7 @@ public class EntityManager : MonoBehaviour
 
         yield return StartCoroutine(AIPlayCardsCo());
 
-        if (HasAIAttacker())
+        if (!GameResultManager.IsBattleFinished && HasAIAttacker())
             yield return delay1;
 
         yield return StartCoroutine(AIAttackCo());
@@ -224,7 +232,7 @@ public class EntityManager : MonoBehaviour
     {
         int safety = 20;
 
-        while (safety-- > 0)
+        while (!GameResultManager.IsBattleFinished && safety-- > 0)
         {
             bool success = CardManager.Inst.TryPutCard(false);
 
@@ -331,6 +339,9 @@ public class EntityManager : MonoBehaviour
 
     public bool SpawnEntity(bool isMine, CardDataSO dataSO, Vector3 spawnPos)
     {
+        if (GameResultManager.IsBattleFinished)
+            return false;
+
         if (!isSummoning)
         {
             if (isMine)
@@ -508,7 +519,7 @@ public class EntityManager : MonoBehaviour
 
     public bool TutorialAttack(Entity attacker, Entity defender)
     {
-        if (!BattleData.IsBattleTutorial)
+        if (GameResultManager.IsBattleFinished || !BattleData.IsBattleTutorial)
             return false;
 
         if (attacker == null ||
@@ -532,7 +543,7 @@ public class EntityManager : MonoBehaviour
 
     void Attack(Entity attacker, Entity defender)
     {
-        if (isAttacking) return;
+        if (GameResultManager.IsBattleFinished || isAttacking) return;
 
         if (attacker == null || defender == null) return;
         if (attacker.isDie || defender.isDie) return;
@@ -590,7 +601,8 @@ public class EntityManager : MonoBehaviour
         {
             attacker.GetComponent<CardOrder>()?.SetMostFrontOrder(false);
 
-            AttackCallback(attacker, defender);
+            if (!GameResultManager.IsBattleFinished)
+                AttackCallback(attacker, defender);
 
             isAttacking = false;
         });
@@ -732,9 +744,9 @@ public class EntityManager : MonoBehaviour
 
         damageComponent.Damaged(damage);
 
-        //JS 임시
+
         SpawnHpHitEffect(tr);
-        //===
+
     }
 
     public void AttackableReset(bool isMine)
@@ -755,7 +767,7 @@ public class EntityManager : MonoBehaviour
 
         int safety = 20;
 
-        while (safety-- > 0)
+        while (!GameResultManager.IsBattleFinished && safety-- > 0)
         {
             List<Entity> attackers = new List<Entity>();
 
@@ -835,12 +847,16 @@ public class EntityManager : MonoBehaviour
             .Append(attacker.transform.DOMove(bossPos, 0.35f).SetEase(Ease.InSine))
             .AppendCallback(() =>
             {
-                SpawnDeckDamage(attacker.attack, myBossEntity.transform);
+                if (!GameResultManager.IsBattleFinished)
+                    SpawnDeckDamage(attacker.attack, myBossEntity.transform);
             })
             .Append(attacker.transform.DOMove(attacker.originPos, 0.35f).SetEase(Ease.OutSine))
             .OnComplete(() =>
             {
                 attacker.GetComponent<CardOrder>()?.SetMostFrontOrder(false);
+
+                if (GameResultManager.IsBattleFinished)
+                    return;
 
                 attacker.SetAttackable(false);
 
@@ -1022,7 +1038,7 @@ public class EntityManager : MonoBehaviour
         if (moveEffect != null)
             Destroy(moveEffect);
 
-        if (target == null || target.isDie)
+        if (GameResultManager.IsBattleFinished || target == null || target.isDie)
             yield break;
 
         int prevHealth = target.health;
@@ -1063,7 +1079,7 @@ public class EntityManager : MonoBehaviour
     }
 
 
-    //JS임시
+
     #region
     void SpawnHpHitEffect(Transform hitTransform)
     {
@@ -1121,6 +1137,6 @@ public class EntityManager : MonoBehaviour
         Destroy(effect.gameObject, hpEffectLifetime);
     }
     #endregion
-    //===
+
 
 }

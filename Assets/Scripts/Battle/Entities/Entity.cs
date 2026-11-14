@@ -215,6 +215,9 @@ public class Entity : MonoBehaviour
 
     void OnMouseOver()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (CardPreviewManager.Inst != null && CardPreviewManager.Inst.IsOpen)
             return;
 
@@ -229,6 +232,9 @@ public class Entity : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (BattleRelicUI.Inst != null && BattleRelicUI.Inst.IsTargeting)
             return;
 
@@ -252,6 +258,9 @@ public class Entity : MonoBehaviour
 
     void OnMouseUp()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (isMine)
             EntityManager.Inst.EntityMouseUp();
 
@@ -277,6 +286,9 @@ public class Entity : MonoBehaviour
 
     void OnMouseDrag()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (BattleRelicUI.Inst != null && BattleRelicUI.Inst.IsTargeting)
             return;
 
@@ -293,6 +305,9 @@ public class Entity : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (BattleRelicUI.Inst == null)
             return;
 

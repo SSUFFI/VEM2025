@@ -54,7 +54,7 @@ public class BattleTutorialHighlight : MonoBehaviour
             if (graphic == null)
                 continue;
 
-            // TMP는 아래에서 따로 처리
+
             if (graphic is TMP_Text)
                 continue;
 

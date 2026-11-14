@@ -25,7 +25,7 @@ public class EnemyHitFeedback : MonoBehaviour
         if (!isActiveAndEnabled)
             return;
 
-        // 연속 피격 시 이전 연출을 정리하고 다시 시작합니다.
+
         StopFeedback();
 
         if (portraitRenderer != null && hitPortrait != null)

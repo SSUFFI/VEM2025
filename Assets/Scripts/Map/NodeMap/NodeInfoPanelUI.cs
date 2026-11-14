@@ -18,7 +18,7 @@ public class NodeInfoPanelUI : MonoBehaviour
     [SerializeField] GameObject[] rewardIconRoots;
     [SerializeField] Image[] rewardIcons;
 
-    //JS 임시
+
     [Header("Battle Node Information")]
     [SerializeField] Image battleInfoImage;
 
@@ -31,7 +31,7 @@ public class NodeInfoPanelUI : MonoBehaviour
 
     [Header("Reward / Event Label")]
     [SerializeField] TMP_Text rewardLabelText;
-    //===
+
 
     [Header("Slide")]
     [SerializeField] float hiddenX = 900f;
@@ -91,7 +91,7 @@ public class NodeInfoPanelUI : MonoBehaviour
         panelRect.DOAnchorPosX(shownX, duration).SetEase(Ease.OutCubic);
     }
 
-    //JS임시
+
     void RefreshNodeInfo(NodeDataSO nodeData)
     {
         HideRewardIcons();
@@ -103,7 +103,7 @@ public class NodeInfoPanelUI : MonoBehaviour
         if (nodeData == null)
             return;
 
-        // 이벤트 노드
+
         if (nodeData.nodeType == NodeType.Event)
         {
             string title =
@@ -135,7 +135,7 @@ public class NodeInfoPanelUI : MonoBehaviour
             return;
         }
 
-        // 전투 / 보스 노드
+
         DeckSO deck = nodeData.enemyDeck;
 
         string defaultTitle = nodeData.nodeType == NodeType.Boss
@@ -172,7 +172,7 @@ public class NodeInfoPanelUI : MonoBehaviour
      string description,
      bool isEvent = false)
     {
-        // 이전에 표시한 이미지를 모두 숨깁니다.
+
         if (battleInfoImage != null)
         {
             battleInfoImage.sprite = null;
@@ -224,7 +224,7 @@ public class NodeInfoPanelUI : MonoBehaviour
                 return "이벤트";
         }
     }
-    //===
+
     void RefreshRewardIcons(NodeDataSO nodeData)
     {
         HideRewardIcons();
@@ -250,17 +250,17 @@ public class NodeInfoPanelUI : MonoBehaviour
             if (rewardIconRoots != null && i < rewardIconRoots.Length && rewardIconRoots[i] != null)
                 rewardIconRoots[i].SetActive(true);
 
-            //JS수정
+
             if (rewardIcons != null &&  i < rewardIcons.Length && rewardIcons[i] != null)
             {
                 rewardIcons[i].sprite = reward.item.icon;
                 rewardIcons[i].enabled = reward.item.icon != null;
             }
-            //===
+
         }
     }
 
-    //JS수정
+
     void HideRewardIcons()
     {
         if (rewardIcons != null)
@@ -284,7 +284,7 @@ public class NodeInfoPanelUI : MonoBehaviour
             }
         }
     }
-    //===
+
     public void Hide()
     {
         if (nodeInfoCloseArea != null)

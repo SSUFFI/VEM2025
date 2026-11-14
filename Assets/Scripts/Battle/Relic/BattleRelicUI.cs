@@ -50,6 +50,9 @@ public class BattleRelicUI : MonoBehaviour
 
     void Update()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             CheckClick();
@@ -146,6 +149,9 @@ public class BattleRelicUI : MonoBehaviour
 
     void OnRelicClicked()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         RelicDataSO relic = GetCurrentRelic();
 
         if (relic == null)
@@ -291,6 +297,9 @@ public class BattleRelicUI : MonoBehaviour
 
     public void OnEntitySelected(Entity entity)
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (!targeting)
             return;
 

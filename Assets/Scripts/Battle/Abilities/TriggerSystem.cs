@@ -78,6 +78,9 @@ public class TriggerSystem : MonoBehaviour
         Entity self,
         Entity extra)
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         switch (trigger.effectType)
         {
             case EffectType.None:

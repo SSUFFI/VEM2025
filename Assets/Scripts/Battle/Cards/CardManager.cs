@@ -78,7 +78,7 @@ public class CardManager : MonoBehaviour
     Vector2 mobileTouchStartPos;
     const float MOBILE_DRAG_THRESHOLD = 25f;
 
-    // ---------------------------- 덱 셔플 세팅 ----------------------------
+
 
     void Start()
     {
@@ -183,7 +183,7 @@ public class CardManager : MonoBehaviour
             (float)enemyDeck.Count / enemyMaxDeckCount;
     }
 
-    // ---------------------------- 덱에서 카드 1장 뽑기 ----------------------------
+
 
     public CardDataSO PopItem(bool isMine)
     {
@@ -203,10 +203,13 @@ public class CardManager : MonoBehaviour
         return data;
     }
 
-    // ---------------------------- 턴 관리 ----------------------------
+
 
     void Update()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (Input.GetMouseButtonDown(0))
         {
             bool overUI = false;
@@ -277,10 +280,13 @@ public class CardManager : MonoBehaviour
         return false;
     }
 
-    // ---------------------------- 카드 드로우 ----------------------------
+
 
     public void AddCard(bool isMine)
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         var hand = isMine ? myCards : otherCards;
         if (hand.Count >= MAX_HAND)
         {
@@ -407,6 +413,9 @@ public class CardManager : MonoBehaviour
 
     public void DamageDeck(int amount, bool isMine, Entity deckAttacker = null)
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (isMine)
         {
             amount = Mathf.Min(amount, myDeck.Count);
@@ -428,7 +437,7 @@ public class CardManager : MonoBehaviour
         {
             amount = Mathf.Min(amount, enemyDeck.Count);
 
-            // 실제 피해가 있을 때만 피격 연출을 재생합니다.
+
             if (amount > 0 && enemyHitFeedback != null)
             {
                 DeckSO deck = BattleData.IsBattleTutorial
@@ -479,7 +488,7 @@ public class CardManager : MonoBehaviour
         UpdateEnemyDeckHp();
     }
 
-    // ---------------------------- 손패 정렬 ----------------------------
+
     List<PRS> LeftPackedAlignment(Transform leftTr, Transform rightTr, int count, int maxCount, Vector3 scale)
     {
         List<PRS> result = new List<PRS>(count);
@@ -581,6 +590,9 @@ public class CardManager : MonoBehaviour
 
     public void OnCardClicked(Card card)
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (BattleRelicUI.Inst != null &&
             BattleRelicUI.Inst.IsTargeting)
             return;
@@ -597,10 +609,13 @@ public class CardManager : MonoBehaviour
 
         StartDragFromZoom(card);
     }
-    // ---------------------------- 손패 확대 ---------------------------------
+
 
     public void StartDragFromZoom(Card card)
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (eCardState != ECardState.CanMouseDrag)
             return;
 
@@ -622,6 +637,9 @@ public class CardManager : MonoBehaviour
 
     public void EnterZoomMode()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (isZoomMode || myCards.Count == 0) return;
         if (isHandTransition) return;
 
@@ -750,6 +768,9 @@ public class CardManager : MonoBehaviour
 
     public bool TryPutCard(bool isMine)
     {
+        if (GameResultManager.IsBattleFinished)
+            return false;
+
         if (!isMine && otherCards.Count <= 0)
             return false;
 
@@ -942,7 +963,7 @@ public class CardManager : MonoBehaviour
         });
     }
 
-    // ---------------------------- 마우스 & 드래그 ----------------------------
+
 
     public void CardMouseOver(Card card)
     {
@@ -956,6 +977,9 @@ public class CardManager : MonoBehaviour
 
     public void CardMouseDown()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (!isZoomMode) return;
 
         if (eCardState != ECardState.CanMouseDrag)
@@ -966,6 +990,9 @@ public class CardManager : MonoBehaviour
 
     public void CardMouseUp()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         isMyCardDrag = false;
 
         if (eCardState != ECardState.CanMouseDrag)

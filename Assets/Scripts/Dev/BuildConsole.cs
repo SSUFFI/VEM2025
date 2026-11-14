@@ -14,13 +14,13 @@ public class BuildConsole : MonoBehaviour
     void Awake()
     {
 #if !UNITY_EDITOR && UNITY_STANDALONE_WIN
-        // 콘솔 생성
+
         AllocConsole();
 
-        // Unity Debug.Log → Console.WriteLine 에 출력되게 바인딩
+
         Application.logMessageReceived += LogToConsole;
 
-        // 콘솔 출력 인코딩 고정 (안 나오면 이게 원인일 때가 많음)
+
         try
         {
             var standardOutput = Console.OpenStandardOutput();

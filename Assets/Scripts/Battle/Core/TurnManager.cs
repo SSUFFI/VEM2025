@@ -75,6 +75,9 @@ public class TurnManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.7f);
 
+        if (GameResultManager.IsBattleFinished)
+            yield break;
+
         isLoading = false;
 
         OnTurnStarted?.Invoke(true);
@@ -88,8 +91,14 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < startCardCount; i++)
         {
             yield return delay05;
+            if (GameResultManager.IsBattleFinished)
+                yield break;
+
             OnAddCard?.Invoke(false);
             yield return delay05;
+            if (GameResultManager.IsBattleFinished)
+                yield break;
+
             OnAddCard?.Invoke(true);
         }
         StartCoroutine(StartTurnCo());
@@ -97,6 +106,9 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator StartTurnCo()
     {
+        if (GameResultManager.IsBattleFinished)
+            yield break;
+
         isLoading = true;
 
         if (myTurn)
@@ -106,11 +118,17 @@ public class TurnManager : MonoBehaviour
 
         yield return delay07;
 
+        if (GameResultManager.IsBattleFinished)
+            yield break;
+
         if (!BattleData.IsBattleTutorial)
         {
             OnAddCard?.Invoke(myTurn);
             yield return delay07;
         }
+
+        if (GameResultManager.IsBattleFinished)
+            yield break;
 
         isLoading = false;
 
@@ -151,6 +169,9 @@ public class TurnManager : MonoBehaviour
 
     public void EndTurn()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (myTurn && EntityManager.Inst != null)
             EntityManager.Inst.DisableMyAttackables();
 

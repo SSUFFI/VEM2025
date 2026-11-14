@@ -165,6 +165,9 @@ public class Card : MonoBehaviour
 
     void OnMouseOver()
     {
+        if (GameResultManager.IsBattleFinished)
+            return;
+
         if (CardManager.Inst != null &&
             !CardManager.Inst.IsZoomMode)
             return;

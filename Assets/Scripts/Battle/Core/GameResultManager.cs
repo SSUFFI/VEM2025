@@ -37,6 +37,7 @@ public class GameResultManager : MonoBehaviour
     [SerializeField] TMP_Text[] itemTexts;
 
     public bool isGameOver = false;
+    public static bool IsBattleFinished => Inst != null && Inst.isGameOver;
 
     void Awake()
     {
@@ -64,6 +65,8 @@ public class GameResultManager : MonoBehaviour
         }
 
         isGameOver = true;
+        if (TurnManager.Inst != null)
+            TurnManager.Inst.isLoading = true;
 
         panel.SetActive(true);
 
@@ -111,6 +114,8 @@ public class GameResultManager : MonoBehaviour
             return;
 
         isGameOver = true;
+        if (TurnManager.Inst != null)
+            TurnManager.Inst.isLoading = true;
 
         panel.SetActive(true);
         HideRewards();

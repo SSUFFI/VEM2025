@@ -20,11 +20,11 @@ public class ShopManager : MonoBehaviour
     [Header("Currency")]
     [SerializeField] ItemSO goldItem;
 
-    //JS임시
+
     [SerializeField] TMP_Text goldText;
 
     int lastDisplayedGold = -1;
-    //===
+
 
     [Header("Popup")]
     [SerializeField] ShopPopupUI popupUI;
@@ -66,7 +66,7 @@ public class ShopManager : MonoBehaviour
 
         LoadOrCreateShop();
     }
-    //JS임시
+
     void LateUpdate()
     {
         if (shopPanel == null || !shopPanel.activeInHierarchy)
@@ -91,7 +91,7 @@ public class ShopManager : MonoBehaviour
         lastDisplayedGold = currentGold;
         goldText.text = currentGold.ToString("N0");
     }
-    //===
+
     public void OpenShop()
     {
         lastDisplayedGold = -1;

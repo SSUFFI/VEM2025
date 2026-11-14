@@ -26,7 +26,7 @@ public class RoyalUIManager : MonoBehaviour
 
             royalPanel.SetActive(true);
 
-            // Royal BGM Ω√¿€
+
             if (!isRoyalBGMActive && AudioManager.Inst != null)
             {
                 AudioManager.Inst.OpenRoyalBGM();

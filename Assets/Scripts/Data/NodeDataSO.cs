@@ -12,7 +12,7 @@ public class NodeDataSO : ScriptableObject
     [Header("Event")]
     public EventType eventType;
 
-    //JS юс╫ц
+
     [Header("Event Preview")]
     public string eventTitle;
 
@@ -20,7 +20,7 @@ public class NodeDataSO : ScriptableObject
 
     [TextArea(3, 8)]
     public string eventDescription;
-    //===
+
 
     [Header("Icon")]
     public Sprite iconNormal;
