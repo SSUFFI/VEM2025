@@ -415,6 +415,23 @@ public class EntityManager : MonoBehaviour
         entity.isMine = isMine;
         entity.Setup(dataSO);
 
+        SlateBattleEffectState effects =
+    BattleGameManager.Inst != null
+        ? BattleGameManager.Inst.SlateEffects
+        : null;
+
+        if (isMine && effects != null)
+        {
+            // 함성에 의한 추가 소환이 발생하기 전에 첫 소환 횟수를 소모합니다.
+            effects.ConsumeFirstAllyBonus(
+                out int attackBonus,
+                out int healthBonus);
+
+            entity.ApplySlateBonus(
+                attackBonus,
+                healthBonus);
+        }
+
         entity.SetFieldScale(
             isMine ? myEntityScale : enemyEntityScale);
 
@@ -619,8 +636,12 @@ public class EntityManager : MonoBehaviour
         {
             int damage = attacker.attack;
 
-            SpawnDeckDamage(damage, defender.transform);
-            CardManager.Inst.DamageDeck(damage, defender.isMine, attacker);
+            int actualDamage = CardManager.Inst.DamageDeck(
+    damage,
+    defender.isMine,
+    attacker);
+
+            SpawnDeckDamage(actualDamage, defender.transform);
             RemoveEntityIfDead(attacker);
 
             return;
@@ -839,28 +860,38 @@ public class EntityManager : MonoBehaviour
 
     IEnumerator AttackBossCo(Entity attacker)
     {
-        attacker.GetComponent<CardOrder>()?.SetMostFrontOrder(true);
+        attacker.GetComponent<CardOrder>()
+            ?.SetMostFrontOrder(true);
 
         Vector3 bossPos = myBossEntity.originPos;
 
         Sequence seq = DOTween.Sequence()
-            .Append(attacker.transform.DOMove(bossPos, 0.35f).SetEase(Ease.InSine))
-            .AppendCallback(() =>
-            {
-                if (!GameResultManager.IsBattleFinished)
-                    SpawnDeckDamage(attacker.attack, myBossEntity.transform);
-            })
-            .Append(attacker.transform.DOMove(attacker.originPos, 0.35f).SetEase(Ease.OutSine))
+            .Append(
+                attacker.transform
+                    .DOMove(bossPos, 0.35f)
+                    .SetEase(Ease.InSine))
+            .Append(
+                attacker.transform
+                    .DOMove(attacker.originPos, 0.35f)
+                    .SetEase(Ease.OutSine))
             .OnComplete(() =>
             {
-                attacker.GetComponent<CardOrder>()?.SetMostFrontOrder(false);
+                attacker.GetComponent<CardOrder>()
+                    ?.SetMostFrontOrder(false);
 
                 if (GameResultManager.IsBattleFinished)
                     return;
 
                 attacker.SetAttackable(false);
 
-                CardManager.Inst.DamageDeck(attacker.attack, true, attacker);
+                int actualDamage = CardManager.Inst.DamageDeck(
+                    attacker.attack,
+                    true,
+                    attacker);
+
+                SpawnDeckDamage(
+                    actualDamage,
+                    myBossEntity.transform);
 
                 if (EntityManager.Inst != null)
                     EntityManager.Inst.RemoveEntityIfDead(attacker);

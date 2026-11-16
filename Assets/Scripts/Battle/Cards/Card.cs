@@ -59,7 +59,7 @@ public class Card : MonoBehaviour
             nameTMP.text = data.cardName;
             attackTMP.text = data.attack.ToString();
             healthTMP.text = data.health.ToString();
-            manaTMP.text = data.manaCost.ToString();
+            RefreshManaCost();
 
             SetupDescriptions(data);
 
@@ -186,5 +186,16 @@ public class Card : MonoBehaviour
 
             CardPreviewManager.Inst.Show(dataSO);
         }
+    }
+    public void RefreshManaCost()
+    {
+        if (!isFront || manaTMP == null || dataSO == null)
+            return;
+
+        int cost = CardManager.Inst != null && !isField
+            ? CardManager.Inst.GetSummonManaCost(dataSO, isMine)
+            : dataSO.manaCost;
+
+        manaTMP.text = cost.ToString();
     }
 }

@@ -411,10 +411,25 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public void DamageDeck(int amount, bool isMine, Entity deckAttacker = null)
+    public int DamageDeck(
+     int amount,
+     bool isMine,
+     Entity deckAttacker = null)
     {
-        if (GameResultManager.IsBattleFinished)
-            return;
+        if (GameResultManager.IsBattleFinished || amount <= 0)
+            return 0;
+
+        if (isMine &&
+            BattleGameManager.Inst != null &&
+            BattleGameManager.Inst.SlateEffects != null)
+        {
+            amount =
+                BattleGameManager.Inst.SlateEffects
+                    .ResolveHeroDamage(amount);
+        }
+
+        if (amount <= 0)
+            return 0;
 
         if (isMine)
         {
@@ -422,21 +437,21 @@ public class CardManager : MonoBehaviour
 
             for (int i = 0; i < amount; i++)
             {
-                var cardSO = myDeck[0];
+                CardDataSO cardSO = myDeck[0];
                 myDeck.RemoveAt(0);
 
-                GraveManager.Inst.AddToGraveFromDeck(cardSO, true, deckAttacker);
+                GraveManager.Inst.AddToGraveFromDeck(
+                    cardSO,
+                    true,
+                    deckAttacker);
             }
 
             if (myDeck.Count <= 0)
-            {
                 GameResultManager.Inst.ShowLose();
-            }
         }
         else
         {
             amount = Mathf.Min(amount, enemyDeck.Count);
-
 
             if (amount > 0 && enemyHitFeedback != null)
             {
@@ -444,25 +459,25 @@ public class CardManager : MonoBehaviour
                     ? BattleData.tutorialEnemyDeck
                     : BattleData.selectedEnemyDeck;
 
-                Sprite hitPortrait = deck != null
-                    ? deck.heroHitPortrait
-                    : null;
+                Sprite hitPortrait =
+                    deck != null ? deck.heroHitPortrait : null;
 
                 enemyHitFeedback.PlayHit(hitPortrait);
             }
 
             for (int i = 0; i < amount; i++)
             {
-                var cardSO = enemyDeck[0];
+                CardDataSO cardSO = enemyDeck[0];
                 enemyDeck.RemoveAt(0);
 
-                GraveManager.Inst.AddToGraveFromDeck(cardSO, false, deckAttacker);
+                GraveManager.Inst.AddToGraveFromDeck(
+                    cardSO,
+                    false,
+                    deckAttacker);
             }
 
             if (enemyDeck.Count <= 0)
-            {
                 GameResultManager.Inst.ShowWin();
-            }
         }
 
         UpdateDeckCountUI();
@@ -471,6 +486,8 @@ public class CardManager : MonoBehaviour
             UpdateMyDeckHp();
         else
             UpdateEnemyDeckHp();
+
+        return amount;
     }
 
     public void SetTutorialEnemyDeck(
@@ -809,7 +826,7 @@ public class CardManager : MonoBehaviour
 
         var targetCards = isMine ? myCards : otherCards;
 
-        int cost = card.dataSO.manaCost;
+        int cost = GetSummonManaCost(card.dataSO, isMine);
 
         if (!TurnManager.Inst.CanPayMana(isMine, cost))
         {
@@ -827,6 +844,14 @@ public class CardManager : MonoBehaviour
             TurnManager.Inst.PayMana(isMine, cost);
 
             targetCards.Remove(card);
+
+            if (isMine && BattleGameManager.Inst != null)
+            {
+                BattleGameManager.Inst.SlateEffects
+                    ?.OnSummonCardPlayed();
+
+                RefreshHandManaCosts();
+            }
 
             if (BattleTutorialManager.Inst != null)
             {
@@ -1087,5 +1112,30 @@ public class CardManager : MonoBehaviour
 
         else if (TurnManager.Inst.myTurn)
             eCardState = ECardState.CanMouseDrag;
+    }
+
+    public int GetSummonManaCost(
+    CardDataSO data,
+    bool isMine)
+    {
+        if (data == null)
+            return 0;
+
+        SlateBattleEffectState effects =
+            isMine && BattleGameManager.Inst != null
+                ? BattleGameManager.Inst.SlateEffects
+                : null;
+
+        return effects?.GetSummonCost(data.manaCost)
+            ?? data.manaCost;
+    }
+
+    public void RefreshHandManaCosts()
+    {
+        foreach (Card card in myCards)
+        {
+            if (card != null)
+                card.RefreshManaCost();
+        }
     }
 }

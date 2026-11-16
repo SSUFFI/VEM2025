@@ -600,5 +600,36 @@ public class NodeMapManager : MonoBehaviour
             extraLifeIcon.SetActive(NodeMapRuntimeData.hasExtraLife);
     }
 
+    [Header("선택한 석판 룬")]
+    [SerializeField] private Image slateRuneImage;
 
+    private void OnEnable()
+    {
+        SlateRunState.Changed += RefreshSlateRune;
+        RefreshSlateRune();
+    }
+
+    private void OnDisable()
+    {
+        SlateRunState.Changed -= RefreshSlateRune;
+    }
+
+    private void RefreshSlateRune()
+    {
+        if (slateRuneImage == null)
+            return;
+
+        SlateDataSO reward = SlateRunState.Current;
+
+        slateRuneImage.sprite =
+            reward != null && reward.showRune
+                ? reward.RuneIcon
+                : null;
+
+        slateRuneImage.enabled =
+            slateRuneImage.sprite != null;
+
+        slateRuneImage.preserveAspect = true;
+        slateRuneImage.raycastTarget = false;
+    }
 }

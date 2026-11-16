@@ -31,17 +31,19 @@ public static class NodeMapRuntimeData
 
     public static void ResetRun()
     {
+        SlateRunState.Clear();
+
         initialized = false;
         clearedNodeIDs.Clear();
+
         currentNodeID = -1;
         blockedLaneMax = -1;
+
         savedNodeData.Clear();
 
         hasExtraLife = false;
 
         if (EventTokenManager.Instance != null)
-        {
             EventTokenManager.Instance.ClearTokens();
-        }
     }
 }

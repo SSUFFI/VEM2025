@@ -81,6 +81,7 @@ public class DungeonUIManager : MonoBehaviour
             FadeManager.Instance.IsTransitioning)
             return;
 
+        NodeMapRuntimeData.ResetRun();
         StageProgress.selectedStage = stage;
 
         if (FadeManager.Instance != null)

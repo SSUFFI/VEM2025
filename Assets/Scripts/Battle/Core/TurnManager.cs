@@ -39,7 +39,7 @@ public class TurnManager : MonoBehaviour
         if (fastMode)
             delay05 = new WaitForSeconds(0.3f);
 
-        switch(eTurnMode)
+        switch (eTurnMode)
         {
             case ETurnMode.Random:
                 myTurn = Random.Range(0, 2) == 0;
@@ -91,17 +91,41 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < startCardCount; i++)
         {
             yield return delay05;
+
             if (GameResultManager.IsBattleFinished)
                 yield break;
 
             OnAddCard?.Invoke(false);
+
             yield return delay05;
+
             if (GameResultManager.IsBattleFinished)
                 yield break;
 
             OnAddCard?.Invoke(true);
         }
-        StartCoroutine(StartTurnCo());
+
+        int extraDraws = 0;
+
+        if (BattleGameManager.Inst != null &&
+            BattleGameManager.Inst.SlateEffects != null)
+        {
+            extraDraws =
+                BattleGameManager.Inst.SlateEffects
+                    .ConsumeStartingDraws();
+        }
+
+        for (int i = 0; i < extraDraws; i++)
+        {
+            if (GameResultManager.IsBattleFinished)
+                yield break;
+
+            OnAddCard?.Invoke(true);
+            yield return delay05;
+        }
+
+        if (!GameResultManager.IsBattleFinished)
+            StartCoroutine(StartTurnCo());
     }
 
     IEnumerator StartTurnCo()
@@ -137,19 +161,41 @@ public class TurnManager : MonoBehaviour
 
     void ApplyTurnStartMana(bool isMyTurnNow)
     {
+        SlateBattleEffectState effects =
+            BattleGameManager.Inst != null
+                ? BattleGameManager.Inst.SlateEffects
+                : null;
+
+        int increase =
+            effects?.ConsumeManaIncrease(isMyTurnNow) ?? 1;
+
+        int bonus =
+            effects?.ConsumeFirstTurnMana(isMyTurnNow) ?? 0;
+
         if (isMyTurnNow)
         {
-            myMaxMana = Mathf.Min(maxManaCap, myMaxMana + 1);
-            myCurMana = myMaxMana;
+            myMaxMana = Mathf.Min(
+                maxManaCap,
+                myMaxMana + increase);
+
+            // 첫 턴에만 사용할 수 있는 추가 마나.
+            // 최대 마나의 성장 속도는 바꾸지 않습니다.
+            myCurMana = Mathf.Min(
+                maxManaCap,
+                myMaxMana + bonus);
         }
         else
         {
-            otherMaxMana = Mathf.Min(maxManaCap, otherMaxMana + 1);
+            otherMaxMana = Mathf.Min(
+                maxManaCap,
+                otherMaxMana + increase);
+
             otherCurMana = otherMaxMana;
         }
 
         OnManaChanged?.Invoke();
-    }
+    } 
+
 
     public bool CanPayMana(bool isMine, int cost)
     {
@@ -169,13 +215,14 @@ public class TurnManager : MonoBehaviour
 
     public void EndTurn()
     {
-        if (GameResultManager.IsBattleFinished)
+        if (isLoading || GameResultManager.IsBattleFinished)
             return;
 
         if (myTurn && EntityManager.Inst != null)
             EntityManager.Inst.DisableMyAttackables();
 
         myTurn = !myTurn;
+
         StartCoroutine(StartTurnCo());
     }
 }

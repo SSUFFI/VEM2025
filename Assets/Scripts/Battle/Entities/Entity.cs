@@ -357,4 +357,40 @@ public class Entity : MonoBehaviour
         else
             transform.position = pos;
     }
+
+    private int slateAttackBonus;
+    private int slateHealthBonus;
+
+    public void ApplySlateBonus(
+        int attackBonus,
+        int healthBonus)
+    {
+        slateAttackBonus += attackBonus;
+        slateHealthBonus += healthBonus;
+
+        attack += attackBonus;
+        health += healthBonus;
+        maxHealth += healthBonus;
+
+        if (attackTMP != null)
+            attackTMP.text = attack.ToString();
+
+        UpdateHealthUI();
+    }
+
+    public void RemoveSlateBonus()
+    {
+        attack -= slateAttackBonus;
+        maxHealth -= slateHealthBonus;
+
+        health = Mathf.Min(health, maxHealth);
+
+        slateAttackBonus = 0;
+        slateHealthBonus = 0;
+
+        if (attackTMP != null)
+            attackTMP.text = attack.ToString();
+
+        UpdateHealthUI();
+    }
 }

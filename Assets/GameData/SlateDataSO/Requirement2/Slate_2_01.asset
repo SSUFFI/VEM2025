@@ -17,8 +17,11 @@ MonoBehaviour:
     \uD754\uC801\uC774 \uC2A4\uBBFC\uB2E4.\n\uBCF4\uC2A4\uC804\uC5D0\uC11C \uC601\uC6C5\uC774
     \uCC98\uC74C \uBC1B\uB294 \uD53C\uD574 1\uD68C\uB97C 0\uC73C\uB85C \uB9CC\uB4E0\uB2E4."
   rewardIcon: {fileID: 0}
+  showRune: 1
+  runeIcon: {fileID: 21300000, guid: acd7cb6a780115a468ce928e0c21d61d, type: 3}
   requiredTokens:
   - {fileID: 11400000, guid: 38770875a8078ca408e18c5b600d42a8, type: 2}
   - {fileID: 11400000, guid: 028abe153687e6440b8042ed537a4843, type: 2}
-  effectType: 0
-  effectValue: 2
+  effectType: 7
+  effectValue: 1
+  goldItem: {fileID: 0}

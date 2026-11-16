@@ -65,6 +65,7 @@ public class GameResultManager : MonoBehaviour
         }
 
         isGameOver = true;
+        BattleGameManager.Inst?.EndSlateEffects();
         if (TurnManager.Inst != null)
             TurnManager.Inst.isLoading = true;
 
@@ -114,6 +115,7 @@ public class GameResultManager : MonoBehaviour
             return;
 
         isGameOver = true;
+        BattleGameManager.Inst?.EndSlateEffects();
         if (TurnManager.Inst != null)
             TurnManager.Inst.isLoading = true;
 

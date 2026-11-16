@@ -18,6 +18,9 @@ MonoBehaviour:
     \uCCAB \uD50C\uB808\uC774\uC5B4 \uD134\uC5D0 \uC0AC\uC6A9 \uAC00\uB2A5\uD55C
     \uB9C8\uB098\uB97C 1 \uC5BB\uB294\uB2E4."
   rewardIcon: {fileID: 0}
+  showRune: 1
+  runeIcon: {fileID: 0}
   requiredTokens: []
-  effectType: 0
+  effectType: 1
   effectValue: 1
+  goldItem: {fileID: 0}

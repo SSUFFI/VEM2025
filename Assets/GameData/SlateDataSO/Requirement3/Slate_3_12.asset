@@ -18,9 +18,12 @@ MonoBehaviour:
     \uAC00\uB77C\uC549\uB294\uB2E4.\n\uBCF4\uC2A4\uC758 \uB9C8\uB098 \uC99D\uAC00\uB97C
     3\uD134 \uC9C0\uC5F0\uD55C\uB2E4."
   rewardIcon: {fileID: 0}
+  showRune: 1
+  runeIcon: {fileID: 21300000, guid: ba5db6891a9e138418a7a56fa8b654ab, type: 3}
   requiredTokens:
   - {fileID: 11400000, guid: f057b4cc3c05a464496114d62e7e5564, type: 2}
   - {fileID: 11400000, guid: 028abe153687e6440b8042ed537a4843, type: 2}
   - {fileID: 11400000, guid: 1cc0ed3bfc5cbfe49a6c24741baaa40f, type: 2}
   effectType: 0
   effectValue: 3
+  goldItem: {fileID: 0}

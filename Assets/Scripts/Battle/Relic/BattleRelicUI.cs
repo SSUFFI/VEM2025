@@ -107,9 +107,10 @@ public class BattleRelicUI : MonoBehaviour
             return;
 
         bool canUse =
-            TurnManager.Inst.myTurn &&
-            !usedThisTurn &&
-            TurnManager.Inst.CanPayMana(true, relic.manaCost);
+     TurnManager.Inst.myTurn &&
+     !TurnManager.Inst.isLoading &&
+     !usedThisTurn &&
+     TurnManager.Inst.CanPayMana(true, relic.manaCost);
 
         if (canUse &&
             relic.effectType == RelicEffectType.HealAlly2)
@@ -159,6 +160,7 @@ public class BattleRelicUI : MonoBehaviour
 
         bool canUse =
             TurnManager.Inst.myTurn &&
+            !TurnManager.Inst.isLoading &&
             !usedThisTurn &&
             TurnManager.Inst.CanPayMana(true, relic.manaCost);
 

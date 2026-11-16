@@ -17,6 +17,9 @@ MonoBehaviour:
     \uC790\uC5D0\uAC8C\uB3C4, \uAE38\uC744 \uC774\uC5B4 \uAC08 \uBAAB\uC740 \uB0A8\uC544
     \uC788\uB2E4.\n\uAE08\uD654 30\uAC1C\uB97C \uC5BB\uB294\uB2E4."
   rewardIcon: {fileID: 0}
+  showRune: 0
+  runeIcon: {fileID: 0}
   requiredTokens: []
-  effectType: 0
-  effectValue: 1
+  effectType: 11
+  effectValue: 30
+  goldItem: {fileID: 11400000, guid: 4d5d7282570c1c544bc051471bb4ba76, type: 2}
