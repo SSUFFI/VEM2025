@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: 50004_Skeleton Knight
   m_EditorClassIdentifier: 
   cardId: 50004_Skeleton Knight
+  isSummonOnly: 0
+  isBossOnly: 1
   cardName: "\uC2A4\uCF08\uB808\uD1A4 \uAE30\uC0AC"
   attack: 3
   health: 4
@@ -25,7 +27,7 @@ MonoBehaviour:
   descriptionBottom: 
   descriptionFloor: 
   keywords:
-  - "<color=green><b>\uC120\uBD09</b></color>: \uC804\uC7A5\uC5D0 \uC788\uB294 \uB3D9\uC548 \uC801\uC758 \uACF5\uACA9
-    \uB300\uC0C1\uC73C\uB85C \uC6B0\uC120 \uC9C0\uC815\uB429\uB2C8\uB2E4."
+  - "<color=green><b>\uC120\uBD09</b></color>: \uC804\uC7A5\uC5D0 \uC788\uB294 \uB3D9\uC548
+    \uC801\uC758 \uACF5\uACA9 \uB300\uC0C1\uC73C\uB85C \uC6B0\uC120 \uC9C0\uC815\uB429\uB2C8\uB2E4."
   taunt: 1
   triggers: []

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: 50006_Vampire
   m_EditorClassIdentifier: 
   cardId: 50006_Vampire
+  isSummonOnly: 0
+  isBossOnly: 1
   cardName: "\uBC40\uD30C\uC774\uC5B4"
   attack: 4
   health: 5
@@ -25,7 +27,8 @@ MonoBehaviour:
   descriptionBottom: 
   descriptionFloor: 
   keywords:
-  - "<color=yellow><b>\uD568\uC131</b></color>: \uAE30\uC0AC\uAC00 \uC804\uC7A5\uC5D0 \uB193\uC77C \uB54C \uBC1C\uB3D9\uD569\uB2C8\uB2E4. "
+  - "<color=yellow><b>\uD568\uC131</b></color>: \uAE30\uC0AC\uAC00 \uC804\uC7A5\uC5D0
+    \uB193\uC77C \uB54C \uBC1C\uB3D9\uD569\uB2C8\uB2E4. "
   taunt: 0
   triggers:
   - triggerType: 0

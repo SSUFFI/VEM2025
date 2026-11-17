@@ -95,6 +95,10 @@ public class GameResultManager : MonoBehaviour
             return;
         }
 
+        BattleCardRewards.GrantVictory(
+    BattleData.selectedEnemyDeck,
+    BattleData.selectedNodeType == NodeType.Boss);
+
         GiveAndShowRewards();
 
         if (continueButton != null)

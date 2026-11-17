@@ -136,6 +136,12 @@ public class CardManager : MonoBehaviour
             enemyDeck = new List<CardDataSO>();
         }
 
+        if (BattleData.battleMode == BattleMode.Normal &&
+     !BattleData.isTutorialBattle)
+        {
+            BattleCardRewards.AppendRunCards(myDeck);
+        }
+
         Shuffle(myDeck);
         Shuffle(enemyDeck);
 

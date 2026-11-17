@@ -10,6 +10,14 @@ public class CardDataSO : ScriptableObject
     [Header("ID")]
     public string cardId;
 
+    [Header("전투 승리 보상 분류")]
+    [Tooltip("체크하면 전투 승리 보상에서 제외합니다.")]
+    public bool isSummonOnly;
+
+    [Tooltip("체크하면 일반전 카드 보상에서 제외합니다.")]
+    public bool isBossOnly;
+
+
     public string cardName;
     public int attack;
     public int health;

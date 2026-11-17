@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: 50003_Lich
   m_EditorClassIdentifier: 
   cardId: 50003_Lich
+  isSummonOnly: 0
+  isBossOnly: 1
   cardName: "\uB9AC\uCE58"
   attack: 5
   health: 4
@@ -26,8 +28,8 @@ MonoBehaviour:
     \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
   descriptionFloor: 
   keywords:
-  - "<color=red><b>\uC804\uC0AC</b></color>: \uAE30\uC0AC\uAC00 \uC804\uD22C\uB85C \uC0AC\uB9DD\uD560 \uB54C
-    \uBC1C\uB3D9\uD569\uB2C8\uB2E4. "
+  - "<color=red><b>\uC804\uC0AC</b></color>: \uAE30\uC0AC\uAC00 \uC804\uD22C\uB85C
+    \uC0AC\uB9DD\uD560 \uB54C \uBC1C\uB3D9\uD569\uB2C8\uB2E4. "
   taunt: 0
   triggers:
   - triggerType: 2

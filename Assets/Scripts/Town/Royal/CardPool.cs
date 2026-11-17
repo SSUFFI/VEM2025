@@ -174,4 +174,20 @@ public class CardPool : MonoBehaviour
 
         SaveCardPool();
     }
+
+    public bool HasUnlockedCard(CardDataSO card)
+    {
+        return card != null &&
+               ownedCards.Exists(x =>
+                   x != null &&
+                   x.cardId == card.cardId);
+    }
+
+    public bool CanSaveRewardCard(CardDataSO card)
+    {
+        return card != null &&
+               !string.IsNullOrEmpty(card.cardId) &&
+               cardDatabase != null &&
+               cardDatabase.FindById(card.cardId) == card;
+    }
 }

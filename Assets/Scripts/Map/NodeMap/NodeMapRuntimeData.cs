@@ -32,6 +32,8 @@ public static class NodeMapRuntimeData
     public static void ResetRun()
     {
         SlateRunState.Clear();
+        BattleCardRewards.ClearRunCards();
+
 
         initialized = false;
         clearedNodeIDs.Clear();
