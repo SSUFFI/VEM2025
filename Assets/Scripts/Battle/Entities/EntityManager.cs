@@ -44,6 +44,9 @@ public class EntityManager : MonoBehaviour
     [Header("Tutorial")]
     [SerializeField] Sprite tutorialEnemyPortrait;
 
+    [Header("Tutorial Hit Portrait")]
+    public Sprite heroHitPortrait;
+
     [Header("Entity Scale")]
     [SerializeField] float myEntityScale = 1f;
     [SerializeField] float enemyEntityScale = 0.8f;

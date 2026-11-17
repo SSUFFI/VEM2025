@@ -54,9 +54,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 231ba267253157544947e12b88e951a4, type: 2}
   - {fileID: 11400000, guid: 231ba267253157544947e12b88e951a4, type: 2}
   heroPortrait: {fileID: 21300000, guid: 3a74601db1b1d104fba38a9c7ceb2262, type: 3}
+  heroHitPortrait: {fileID: 21300000, guid: 94f874633b9ac5044b5ce526ca3a3deb, type: 3}
   battleBackground: {fileID: 21300000, guid: 54fbc9be0e3bab54aa0aa4d21bf7ea8b, type: 3}
+  enemyName: "\uBAA8\uC758 \uC804\uD22C"
+  enemyDescription: "\uB371\uC758 \uAD6C\uC131\uACFC \uCE74\uB4DC \uC0AC\uC6A9 \uC21C\uC11C\uB97C
+    \uC810\uAC80\uD558\uB294 \uBAA8\uC758 \uC804\uD22C\uC785\uB2C8\uB2E4. \uB2E4\uC591\uD55C
+    \uC120\uD0DD\uC744 \uC2DC\uB3C4\uD558\uBA70 \uC790\uC2E0\uC758 \uC804\uD22C \uBC29\uC2DD\uC744
+    \uC775\uD600\uBCF4\uC138\uC694."
   goldItem: {fileID: 11400000, guid: 4d5d7282570c1c544bc051471bb4ba76, type: 2}
   goldAmount: 15
   rewardItems: []
-  enemyName: "모의 전투"
-  enemyDescription: "덱의 구성과 카드 사용 순서를 점검하는 모의 전투입니다. 다양한 선택을 시도하며 자신의 전투 방식을 익혀보세요."

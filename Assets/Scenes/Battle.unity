@@ -880,6 +880,7 @@ MonoBehaviour:
   enemyHpEffectTargetPos: {fileID: 783800167}
   hpEffectLifetime: 1.2
   tutorialEnemyPortrait: {fileID: 21300000, guid: a91e8faa982aa554084e34abba030e03, type: 3}
+  heroHitPortrait: {fileID: 21300000, guid: 3df7759557a89134fabe8cc3cc1bea25, type: 3}
   myEntityScale: 1
   enemyEntityScale: 0.75
 --- !u!1 &164403464
@@ -7463,7 +7464,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 38.399998, y: 21.599998}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
